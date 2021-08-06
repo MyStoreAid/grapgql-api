@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+    graphqlapi:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: base
+        volumes:
+            - ./src:/home/node/app/src
+            - ./nodemon.json:/home/node/app/nodemon.json
+        container_name: mystoreaid_graphqlapi
+        expose:
+            - '4000'
+        ports:
+            - '4000:4000'
+        command: npm run dev
+    maindb:
+        image: postgres
+        ports:
+            - "8001:5432"
+        container_name: mystoreaid_maindb
+        environment:
+            - POSTGRES_PASSWORD=developer
+      
