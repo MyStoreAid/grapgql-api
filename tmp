@@ -1,0 +1,1 @@
+DATABASE_URL="postgresql://postgres:developer@mystoreaid_maindb:5432/mystoreaid?schema=public"
