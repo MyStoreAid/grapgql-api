@@ -1,44 +1,1425 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
+model app_notifications {
+  id                                   String                                 @id @db.Uuid
+  title                                String                                 @db.VarChar(255)
+  message                              String                                 @db.VarChar(255)
+  actionMessage                        String?                                @db.VarChar(255)
+  actionPath                           String?                                @db.VarChar(255)
+  active                               Boolean                                @default(false)
+  operation                            String?                                @db.VarChar(255)
+  cron                                 String?                                @db.VarChar(255)
+  deleted                              Boolean                                @default(false)
+  created_at                           BigInt
+  updated_at                           BigInt
+  app_notifications_branch_user_groups app_notifications_branch_user_groups[] @ignore
 }
 
-model Brand {
-  id String @id @db.Uuid
-  name String
-  created_at Float
-  updated_at Float
-  last_modified Float
-  server_created_at Float
-  deleted Boolean @default(false)
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model app_notifications_branch_user_groups {
+  branchUserGroupId  String             @db.Uuid
+  appNotificationId  String             @db.Uuid
+  created_at         BigInt
+  updated_at         BigInt
+  app_notifications  app_notifications  @relation(fields: [appNotificationId], references: [id])
+  branch_user_groups branch_user_groups @relation(fields: [branchUserGroupId], references: [id])
+
+  @@ignore
 }
 
-
-model Manufacturers {
-  id String @id @db.Uuid
-  name String
-  created_at Float
-  updated_at Float
-  last_modified Float
-  isTemporary Boolean @default(false)
-  server_created_at Float
-  deleted Boolean @default(false)
+model appointments {
+  id                                       String     @id @db.Uuid
+  type                                     String     @db.VarChar(255)
+  status                                   String
+  createdBy                                String     @db.Uuid
+  deleted                                  Boolean    @default(false)
+  created_at                               BigInt
+  updated_at                               BigInt
+  server_created_at                        BigInt?
+  last_modified                            BigInt?
+  lastModifiedBy                           String?    @db.Uuid
+  request                                  Json       @db.Json
+  assignedTo                               String?    @db.Uuid
+  users_appointments_assignedToTousers     users?     @relation("appointments_assignedToTousers", fields: [assignedTo], references: [userId])
+  users_appointments_createdByTousers      users      @relation("appointments_createdByTousers", fields: [createdBy], references: [userId])
+  users_appointments_lastModifiedByTousers users?     @relation("appointments_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  branches                                 branches[]
 }
 
-
-model Internal_Business_Categories {
-  id String @id @db.Uuid
-  name String
-  description String
-  created_at Float
-  updated_at Float
-  deleted Boolean @default(false)
+model audit_entries {
+  id                                        String            @id @db.Uuid
+  branchId                                  String            @db.Uuid
+  productId                                 String            @db.Uuid
+  auditId                                   String            @db.Uuid
+  branchProductId                           String            @db.Uuid
+  quantityCounted                           Float?            @db.Real
+  storeQuantity                             Float?            @db.Real
+  sellingPrice                              Float?            @db.Real
+  costPrice                                 Float?            @db.Real
+  deleted                                   Boolean           @default(false)
+  created_at                                BigInt
+  updated_at                                BigInt
+  last_modified                             BigInt?
+  lastModifiedBy                            String?           @db.Uuid
+  server_created_at                         BigInt?
+  createdBy                                 String?           @db.Uuid
+  isBalanced                                Boolean?
+  auditDate                                 BigInt?
+  audits                                    audits            @relation(fields: [auditId], references: [id])
+  branches                                  branches          @relation(fields: [branchId], references: [id])
+  branches_products                         branches_products @relation(fields: [branchProductId], references: [id])
+  users_audit_entries_createdByTousers      users?            @relation("audit_entries_createdByTousers", fields: [createdBy], references: [userId])
+  users_audit_entries_lastModifiedByTousers users?            @relation("audit_entries_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  products                                  products          @relation(fields: [productId], references: [id])
 }
 
+model audits {
+  id                                 String                     @id @db.Uuid
+  branchId                           String                     @db.Uuid
+  deleted                            Boolean                    @default(false)
+  created_at                         BigInt
+  updated_at                         BigInt
+  createdBy                          String?                    @db.Uuid
+  isActive                           Boolean?                   @default(false)
+  auditDate                          BigInt?
+  status                             String?
+  last_modified                      BigInt?
+  lastModifiedBy                     String?                    @db.Uuid
+  server_created_at                  BigInt?
+  branches                           branches                   @relation(fields: [branchId], references: [id])
+  users_audits_createdByTousers      users?                     @relation("audits_createdByTousers", fields: [createdBy], references: [userId])
+  users_audits_lastModifiedByTousers users?                     @relation("audits_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  audit_entries                      audit_entries[]
+  branches_products_stocks           branches_products_stocks[]
+  sales                              sales[]
+}
+
+model branch_goals {
+  id                    String                  @id @db.Uuid
+  name                  String                  @db.VarChar(255)
+  active                Boolean                 @default(true)
+  position              Int
+  deleted               Boolean                 @default(false)
+  created_at            BigInt
+  updated_at            BigInt
+  server_created_at     BigInt?
+  last_modified         BigInt?
+  branches_branch_goals branches_branch_goals[] @ignore
+}
+
+model branch_product_selling_prices {
+  id                   String                @id @db.Uuid
+  branchProductId      String?               @db.Uuid
+  branchId             String                @db.Uuid
+  pack                 Float                 @db.Real
+  sellingPrice         Float                 @db.Real
+  deleted              Boolean               @default(false)
+  created_at           BigInt
+  updated_at           BigInt
+  server_created_at    BigInt?
+  last_modified        BigInt?
+  lastModifiedBy       String?               @db.Uuid
+  stockDescriptionId   String?               @db.Uuid
+  branches             branches              @relation(fields: [branchId], references: [id])
+  branches_products    branches_products?    @relation(fields: [branchProductId], references: [id])
+  users                users?                @relation(fields: [lastModifiedBy], references: [userId])
+  product_descriptions product_descriptions? @relation(fields: [stockDescriptionId], references: [id])
+}
+
+model branch_purchases {
+  id                                           String                   @id @db.Uuid
+  branchId                                     String                   @db.Uuid
+  branchProductStockId                         String                   @db.Uuid
+  amount                                       Float?                   @db.Real
+  paymentSource                                String?                  @db.VarChar(255)
+  deleted                                      Boolean                  @default(false)
+  created_at                                   BigInt
+  updated_at                                   BigInt
+  createdBy                                    String?                  @db.Uuid
+  last_modified                                BigInt?
+  lastModifiedBy                               String?                  @db.Uuid
+  server_created_at                            BigInt?
+  branches                                     branches                 @relation(fields: [branchId], references: [id])
+  branches_products_stocks                     branches_products_stocks @relation(fields: [branchProductStockId], references: [id])
+  users_branch_purchases_createdByTousers      users?                   @relation("branch_purchases_createdByTousers", fields: [createdBy], references: [userId])
+  users_branch_purchases_lastModifiedByTousers users?                   @relation("branch_purchases_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+}
+
+model branch_supplier_order_payment_installments {
+  id                                                                     String                        @id @db.Uuid
+  amount                                                                 Float?                        @db.Real
+  branchSupplierOrderId                                                  String                        @db.Uuid
+  branchSupplierId                                                       String                        @db.Uuid
+  branchSupplierSalespersonId                                            String?                       @db.Uuid
+  branchId                                                               String                        @db.Uuid
+  createdBy                                                              String                        @db.Uuid
+  deleted                                                                Boolean                       @default(false)
+  created_at                                                             BigInt
+  updated_at                                                             BigInt
+  server_created_at                                                      BigInt?
+  last_modified                                                          BigInt?
+  lastModifiedBy                                                         String?                       @db.Uuid
+  branches                                                               branches                      @relation(fields: [branchId], references: [id])
+  branch_suppliers                                                       branch_suppliers              @relation(fields: [branchSupplierId], references: [id])
+  branch_supplier_orders                                                 branch_supplier_orders        @relation(fields: [branchSupplierOrderId], references: [id])
+  branch_supplier_salespersons                                           branch_supplier_salespersons? @relation(fields: [branchSupplierSalespersonId], references: [id])
+  users_branch_supplier_order_payment_installments_createdByTousers      users                         @relation("branch_supplier_order_payment_installments_createdByTousers", fields: [createdBy], references: [userId])
+  users_branch_supplier_order_payment_installments_lastModifiedByTousers users?                        @relation("branch_supplier_order_payment_installments_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+}
+
+model branch_supplier_orders {
+  id                                                 String                                       @id @db.Uuid
+  branchId                                           String                                       @db.Uuid
+  branchSupplierId                                   String                                       @db.Uuid
+  salespersonId                                      String                                       @db.Uuid
+  createdBy                                          String                                       @db.Uuid
+  orderDate                                          BigInt
+  deleted                                            Boolean                                      @default(false)
+  created_at                                         BigInt
+  updated_at                                         BigInt
+  server_created_at                                  BigInt?
+  last_modified                                      BigInt?
+  lastModifiedBy                                     String?                                      @db.Uuid
+  branches                                           branches                                     @relation(fields: [branchId], references: [id])
+  branch_suppliers                                   branch_suppliers                             @relation(fields: [branchSupplierId], references: [id])
+  users_branch_supplier_orders_createdByTousers      users                                        @relation("branch_supplier_orders_createdByTousers", fields: [createdBy], references: [userId])
+  users_branch_supplier_orders_lastModifiedByTousers users?                                       @relation("branch_supplier_orders_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  branch_supplier_salespersons                       branch_supplier_salespersons                 @relation(fields: [salespersonId], references: [id])
+  branch_supplier_order_payment_installments         branch_supplier_order_payment_installments[]
+}
+
+model branch_supplier_products {
+  id                                                   String            @id @db.Uuid
+  branchProductId                                      String            @db.Uuid
+  productId                                            String            @db.Uuid
+  branchSupplierId                                     String            @db.Uuid
+  branchId                                             String            @db.Uuid
+  createdBy                                            String            @db.Uuid
+  deleted                                              Boolean           @default(false)
+  created_at                                           BigInt
+  updated_at                                           BigInt
+  server_created_at                                    BigInt?
+  last_modified                                        BigInt?
+  hidden                                               Boolean?          @default(false)
+  lastModifiedBy                                       String?           @db.Uuid
+  branches                                             branches          @relation(fields: [branchId], references: [id])
+  branches_products                                    branches_products @relation(fields: [branchProductId], references: [id])
+  branch_suppliers                                     branch_suppliers  @relation(fields: [branchSupplierId], references: [id])
+  users_branch_supplier_products_createdByTousers      users             @relation("branch_supplier_products_createdByTousers", fields: [createdBy], references: [userId])
+  users_branch_supplier_products_lastModifiedByTousers users?            @relation("branch_supplier_products_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  products                                             products          @relation(fields: [productId], references: [id])
+}
+
+model branch_supplier_salespersons {
+  id                                                       String                                       @id @db.Uuid
+  branchId                                                 String                                       @db.Uuid
+  branchSupplierId                                         String                                       @db.Uuid
+  createdBy                                                String                                       @db.Uuid
+  deleted                                                  Boolean                                      @default(false)
+  created_at                                               BigInt
+  updated_at                                               BigInt
+  server_created_at                                        BigInt?
+  last_modified                                            BigInt?
+  hidden                                                   Boolean?                                     @default(false)
+  employeeId                                               String?                                      @db.Uuid
+  employeeName                                             String                                       @db.VarChar(255)
+  employeeContact                                          String                                       @db.VarChar(255)
+  lastModifiedBy                                           String?                                      @db.Uuid
+  branches                                                 branches                                     @relation(fields: [branchId], references: [id])
+  branch_suppliers                                         branch_suppliers                             @relation(fields: [branchSupplierId], references: [id])
+  users_branch_supplier_salespersons_createdByTousers      users                                        @relation("branch_supplier_salespersons_createdByTousers", fields: [createdBy], references: [userId])
+  users_branch_supplier_salespersons_lastModifiedByTousers users?                                       @relation("branch_supplier_salespersons_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  branch_supplier_order_payment_installments               branch_supplier_order_payment_installments[]
+  branch_supplier_orders                                   branch_supplier_orders[]
+}
+
+model branch_supplier_stocks {
+  id                                                 String                   @id @db.Uuid
+  branchProductStockId                               String                   @db.Uuid
+  branchId                                           String                   @db.Uuid
+  createdBy                                          String                   @db.Uuid
+  deleted                                            Boolean                  @default(false)
+  created_at                                         BigInt
+  updated_at                                         BigInt
+  server_created_at                                  BigInt?
+  last_modified                                      BigInt?
+  lastModifiedBy                                     String?                  @db.Uuid
+  branches                                           branches                 @relation(fields: [branchId], references: [id])
+  branches_products_stocks                           branches_products_stocks @relation(fields: [branchProductStockId], references: [id])
+  users_branch_supplier_stocks_createdByTousers      users                    @relation("branch_supplier_stocks_createdByTousers", fields: [createdBy], references: [userId])
+  users_branch_supplier_stocks_lastModifiedByTousers users?                   @relation("branch_supplier_stocks_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+}
+
+model branch_suppliers {
+  id                                           String                                       @id @db.Uuid
+  branchId                                     String                                       @db.Uuid
+  createdBy                                    String                                       @db.Uuid
+  deliveryDays                                 String                                       @db.VarChar(255)
+  deleted                                      Boolean                                      @default(false)
+  created_at                                   BigInt
+  updated_at                                   BigInt
+  server_created_at                            BigInt?
+  last_modified                                BigInt?
+  dateAdded                                    BigInt?
+  hidden                                       Boolean?                                     @default(false)
+  isTemporary                                  Boolean?                                     @default(false)
+  branchName                                   String                                       @db.VarChar(255)
+  lastModifiedBy                               String?                                      @db.Uuid
+  branchContact                                String?                                      @db.VarChar(255)
+  supplierId                                   String?                                      @db.Uuid
+  branches                                     branches                                     @relation(fields: [branchId], references: [id])
+  users_branch_suppliers_createdByTousers      users                                        @relation("branch_suppliers_createdByTousers", fields: [createdBy], references: [userId])
+  users_branch_suppliers_lastModifiedByTousers users?                                       @relation("branch_suppliers_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  branch_supplier_order_payment_installments   branch_supplier_order_payment_installments[]
+  branch_supplier_orders                       branch_supplier_orders[]
+  branch_supplier_products                     branch_supplier_products[]
+  branch_supplier_salespersons                 branch_supplier_salespersons[]
+}
+
+model branch_user_groups {
+  id                                   String                                 @id @db.Uuid
+  name                                 String                                 @db.VarChar(255)
+  description                          String                                 @db.VarChar(255)
+  deleted                              Boolean                                @default(false)
+  created_at                           BigInt
+  updated_at                           BigInt
+  app_notifications_branch_user_groups app_notifications_branch_user_groups[] @ignore
+  branches                             branches[]
+}
+
+model branches {
+  id                                                                                       String                                       @id @db.Uuid
+  name                                                                                     String                                       @db.VarChar(255)
+  startDate                                                                                DateTime?                                    @db.Date
+  address                                                                                  String?                                      @db.VarChar(255)
+  location                                                                                 String                                       @db.VarChar(255)
+  logo                                                                                     String?                                      @db.VarChar(255)
+  phone                                                                                    String?                                      @db.VarChar(255)
+  whatsAppPhone                                                                            String?                                      @db.VarChar(255)
+  companyId                                                                                String?                                      @db.Uuid
+  type                                                                                     String?
+  deleted                                                                                  Boolean                                      @default(false)
+  created_at                                                                               BigInt
+  updated_at                                                                               BigInt
+  checkoutSales                                                                            Boolean                                      @default(false)
+  aggregateSales                                                                           Boolean                                      @default(true)
+  action                                                                                   String?                                      @db.VarChar(255)
+  businessCategoryId                                                                       String?                                      @db.Uuid
+  syncInterval                                                                             Int?
+  alwaysSync                                                                               Boolean                                      @default(false)
+  forTesting                                                                               Boolean                                      @default(false)
+  gps                                                                                      Json?                                        @db.Json
+  latitude                                                                                 Float?
+  longitude                                                                                Float?
+  adminLastModifiedBy                                                                      String?                                      @db.VarChar(255)
+  lastModifiedBy                                                                           String?                                      @db.Uuid
+  country                                                                                  String?                                      @db.VarChar(255)
+  region                                                                                   String?                                      @db.VarChar(255)
+  city                                                                                     String?                                      @db.VarChar(255)
+  supplierStock                                                                            Boolean                                      @default(false)
+  workingDays                                                                              String?                                      @db.VarChar(255)
+  sourcesOfPurchases                                                                       String?                                      @db.VarChar(255)
+  phoneType                                                                                String?                                      @db.VarChar(255)
+  otherServices                                                                            String?                                      @db.VarChar(255)
+  locationType                                                                             String?                                      @db.VarChar(255)
+  storeImage                                                                               String?                                      @db.VarChar(255)
+  serviceType                                                                              String?                                      @db.VarChar(255)
+  buildingStructure                                                                        String?                                      @db.VarChar(255)
+  coolerBrands                                                                             String?                                      @db.VarChar(255)
+  coolerTypes                                                                              String?                                      @db.VarChar(255)
+  electricity                                                                              String?                                      @db.VarChar(255)
+  yearOfEstablishment                                                                      BigInt?
+  appointmentId                                                                            String?                                      @db.Uuid
+  branchUserGroupId                                                                        String?                                      @db.Uuid
+  appointments                                                                             appointments?                                @relation(fields: [appointmentId], references: [id])
+  branch_user_groups                                                                       branch_user_groups?                          @relation(fields: [branchUserGroupId], references: [id])
+  business_categories                                                                      business_categories?                         @relation(fields: [businessCategoryId], references: [id])
+  companies                                                                                companies?                                   @relation(fields: [companyId], references: [id])
+  users                                                                                    users?                                       @relation(fields: [lastModifiedBy], references: [userId])
+  audit_entries                                                                            audit_entries[]
+  audits                                                                                   audits[]
+  branch_product_selling_prices                                                            branch_product_selling_prices[]
+  branch_purchases                                                                         branch_purchases[]
+  branch_supplier_order_payment_installments                                               branch_supplier_order_payment_installments[]
+  branch_supplier_orders                                                                   branch_supplier_orders[]
+  branch_supplier_products                                                                 branch_supplier_products[]
+  branch_supplier_salespersons                                                             branch_supplier_salespersons[]
+  branch_supplier_stocks                                                                   branch_supplier_stocks[]
+  branch_suppliers                                                                         branch_suppliers[]
+  branches_branch_goals                                                                    branches_branch_goals[]                      @ignore
+  branches_customers                                                                       branches_customers[]
+  branches_product_categories                                                              branches_product_categories[]                @ignore
+  branches_products                                                                        branches_products[]
+  branches_products_stock_movements_branchesTobranches_products_stock_movements_branchFrom branches_products_stock_movements[]          @relation("branchesTobranches_products_stock_movements_branchFrom")
+  branches_products_stock_movements_branchesTobranches_products_stock_movements_branchTo   branches_products_stock_movements[]          @relation("branchesTobranches_products_stock_movements_branchTo")
+  branches_products_stocks                                                                 branches_products_stocks[]
+  branches_products_stocks_histories                                                       branches_products_stocks_histories[]
+  cashflows                                                                                cashflows[]
+  customer_care_schedules                                                                  customer_care_schedules[]
+  payment_histories                                                                        payment_histories[]
+  reconciliation_histories                                                                 reconciliation_histories[]
+  reconciliations                                                                          reconciliations[]
+  sale_entries                                                                             sale_entries[]
+  sale_installments                                                                        sale_installments[]
+  sale_return_histories                                                                    sale_return_histories[]
+  sales                                                                                    sales[]
+  stock_return_histories                                                                   stock_return_histories[]
+  users_branches                                                                           users_branches[]                             @ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model branches_branch_goals {
+  branchId     String       @db.Uuid
+  branchGoalId String       @db.Uuid
+  created_at   BigInt
+  updated_at   BigInt
+  branch_goals branch_goals @relation(fields: [branchGoalId], references: [id])
+  branches     branches     @relation(fields: [branchId], references: [id])
+
+  @@ignore
+}
+
+model branches_customers {
+  branchId                                       String    @db.Uuid
+  customerId                                     String    @db.Uuid
+  deleted                                        Boolean   @default(false)
+  created_at                                     BigInt
+  updated_at                                     BigInt
+  id                                             String    @id @db.Uuid
+  createdBy                                      String?   @db.Uuid
+  last_modified                                  BigInt?
+  lastModifiedBy                                 String?   @db.Uuid
+  server_created_at                              BigInt?
+  branches                                       branches  @relation(fields: [branchId], references: [id])
+  users_branches_customers_createdByTousers      users?    @relation("branches_customers_createdByTousers", fields: [createdBy], references: [userId])
+  customers                                      customers @relation(fields: [customerId], references: [id])
+  users_branches_customers_lastModifiedByTousers users?    @relation("branches_customers_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model branches_product_categories {
+  productCategoryId  String?             @db.Uuid
+  branchId           String?             @db.Uuid
+  deleted            Boolean             @default(false)
+  created_at         BigInt
+  updated_at         BigInt
+  last_modified      BigInt?
+  lastModifiedBy     String?             @db.Uuid
+  server_created_at  BigInt?
+  id                 String?             @db.Uuid
+  branches           branches?           @relation(fields: [branchId], references: [id])
+  users              users?              @relation(fields: [lastModifiedBy], references: [userId])
+  product_categories product_categories? @relation(fields: [productCategoryId], references: [id])
+
+  @@ignore
+}
+
+model branches_products {
+  productId                                     String?                              @db.Uuid
+  branchId                                      String?                              @db.Uuid
+  quantity                                      Float?                               @db.Real
+  lowestStock                                   Float?                               @db.Real
+  sellingPrice                                  Float?                               @db.Real
+  deleted                                       Boolean                              @default(false)
+  created_at                                    BigInt
+  updated_at                                    BigInt
+  id                                            String                               @id @db.Uuid
+  last_modified                                 BigInt?
+  lastModifiedBy                                String?                              @db.Uuid
+  server_created_at                             BigInt?
+  createdBy                                     String?                              @db.Uuid
+  hidden                                        Boolean?                             @default(false)
+  packs                                         Float[]
+  packList                                      Json?                                @db.Json
+  defaultPack                                   Json?                                @db.Json
+  branches                                      branches?                            @relation(fields: [branchId], references: [id])
+  users_branches_products_createdByTousers      users?                               @relation("branches_products_createdByTousers", fields: [createdBy], references: [userId])
+  users_branches_products_lastModifiedByTousers users?                               @relation("branches_products_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  products                                      products?                            @relation(fields: [productId], references: [id])
+  audit_entries                                 audit_entries[]
+  branch_product_selling_prices                 branch_product_selling_prices[]
+  branch_supplier_products                      branch_supplier_products[]
+  branches_products_stocks                      branches_products_stocks[]
+  branches_products_stocks_histories            branches_products_stocks_histories[]
+  sale_entries                                  sale_entries[]
+  sale_return_histories                         sale_return_histories[]
+  stock_return_histories                        stock_return_histories[]
+}
+
+model branches_products_stock_movements {
+  id                                                              String   @id @db.Uuid
+  productId                                                       String   @db.Uuid
+  branchFrom                                                      String   @db.Uuid
+  branchTo                                                        String   @db.Uuid
+  quantity                                                        Float    @db.Real
+  createdBy                                                       String   @db.Uuid
+  deleted                                                         Boolean  @default(false)
+  created_at                                                      BigInt
+  updated_at                                                      BigInt
+  entryDate                                                       BigInt   @default(1628505987)
+  last_modified                                                   BigInt?
+  lastModifiedBy                                                  String?  @db.Uuid
+  server_created_at                                               BigInt?
+  costPrice                                                       Float?   @db.Real
+  sellingPrice                                                    Float?   @db.Real
+  expiryDate                                                      BigInt?
+  batchNumber                                                     String?  @db.VarChar(255)
+  branches_branchesTobranches_products_stock_movements_branchFrom branches @relation("branchesTobranches_products_stock_movements_branchFrom", fields: [branchFrom], references: [id])
+  branches_branchesTobranches_products_stock_movements_branchTo   branches @relation("branchesTobranches_products_stock_movements_branchTo", fields: [branchTo], references: [id])
+  users_branches_products_stock_movements_createdByTousers        users    @relation("branches_products_stock_movements_createdByTousers", fields: [createdBy], references: [userId])
+  users_branches_products_stock_movements_lastModifiedByTousers   users?   @relation("branches_products_stock_movements_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  products                                                        products @relation(fields: [productId], references: [id])
+}
+
+model branches_products_stocks {
+  id                                                   String                               @id @db.Uuid
+  productId                                            String?                              @db.Uuid
+  branchId                                             String?                              @db.Uuid
+  quantity                                             Float?                               @db.Real
+  costPrice                                            Float?                               @db.Real
+  deleted                                              Boolean                              @default(false)
+  created_at                                           BigInt
+  updated_at                                           BigInt
+  stockDate                                            BigInt                               @default(1628505987)
+  branchProductId                                      String?                              @db.Uuid
+  branchSupplierOrderId                                String?                              @db.Uuid
+  createdBy                                            String?                              @db.Uuid
+  type                                                 String?
+  paymentSource                                        String?
+  auditId                                              String?                              @db.Uuid
+  last_modified                                        BigInt?
+  lastModifiedBy                                       String?                              @db.Uuid
+  server_created_at                                    BigInt?
+  expiryDate                                           BigInt?
+  batchNumber                                          String?                              @db.VarChar(255)
+  audits                                               audits?                              @relation(fields: [auditId], references: [id])
+  branches                                             branches?                            @relation(fields: [branchId], references: [id])
+  branches_products                                    branches_products?                   @relation(fields: [branchProductId], references: [id])
+  users_branches_products_stocks_createdByTousers      users?                               @relation("branches_products_stocks_createdByTousers", fields: [createdBy], references: [userId])
+  users_branches_products_stocks_lastModifiedByTousers users?                               @relation("branches_products_stocks_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  products                                             products?                            @relation(fields: [productId], references: [id])
+  branch_purchases                                     branch_purchases[]
+  branch_supplier_stocks                               branch_supplier_stocks[]
+  branches_products_stocks_histories                   branches_products_stocks_histories[]
+  stock_return_histories                               stock_return_histories[]
+}
+
+model branches_products_stocks_histories {
+  id                                                             String                   @id @db.Uuid
+  branchProductStockId                                           String                   @db.Uuid
+  quantity                                                       Float?                   @db.Real
+  productId                                                      String?                  @db.Uuid
+  branchId                                                       String?                  @db.Uuid
+  deleted                                                        Boolean                  @default(false)
+  created_at                                                     BigInt
+  updated_at                                                     BigInt
+  stockDate                                                      BigInt                   @default(1628505987)
+  branchProductId                                                String?                  @db.Uuid
+  createdBy                                                      String?                  @db.Uuid
+  last_modified                                                  BigInt?
+  lastModifiedBy                                                 String?                  @db.Uuid
+  server_created_at                                              BigInt?
+  branches                                                       branches?                @relation(fields: [branchId], references: [id])
+  branches_products                                              branches_products?       @relation(fields: [branchProductId], references: [id])
+  branches_products_stocks                                       branches_products_stocks @relation(fields: [branchProductStockId], references: [id])
+  users_branches_products_stocks_histories_createdByTousers      users?                   @relation("branches_products_stocks_histories_createdByTousers", fields: [createdBy], references: [userId])
+  users_branches_products_stocks_histories_lastModifiedByTousers users?                   @relation("branches_products_stocks_histories_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  products                                                       products?                @relation(fields: [productId], references: [id])
+}
+
+model brands {
+  id                String     @id @db.Uuid
+  name              String     @db.VarChar(255)
+  deleted           Boolean    @default(false)
+  created_at        BigInt
+  updated_at        BigInt
+  server_created_at BigInt?
+  last_modified     BigInt?
+  products          products[]
+}
+
+model business_categories {
+  id          String      @id @db.Uuid
+  name        String      @db.VarChar(255)
+  description String?     @db.VarChar(255)
+  deleted     Boolean     @default(false)
+  created_at  BigInt
+  updated_at  BigInt
+  branches    branches[]
+  companies   companies[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model business_categories_product_categories {
+  businessCategoryId String  @db.Uuid
+  productCategoryId  String  @db.Uuid
+  deleted            Boolean @default(false)
+  created_at         BigInt
+  updated_at         BigInt
+
+  @@ignore
+}
+
+model cashflow_categories {
+  id                String      @id @db.Uuid
+  name              String      @db.VarChar(255)
+  type              String?
+  status            String?
+  createdBy         String      @db.Uuid
+  deleted           Boolean     @default(false)
+  created_at        BigInt
+  updated_at        BigInt
+  server_created_at BigInt?
+  last_modified     BigInt?
+  users             users       @relation(fields: [createdBy], references: [userId])
+  cashflows         cashflows[]
+}
+
+model cashflows {
+  id                                     String              @id @db.Uuid
+  amount                                 Float               @db.Real
+  type                                   String?
+  categoryId                             String              @db.Uuid
+  branchId                               String              @db.Uuid
+  status                                 String?
+  createdBy                              String              @db.Uuid
+  statusChangedBy                        String?             @db.Uuid
+  dateAdded                              BigInt
+  username                               String              @db.VarChar(255)
+  deleted                                Boolean             @default(false)
+  created_at                             BigInt
+  updated_at                             BigInt
+  last_modified                          BigInt?
+  lastModifiedBy                         String?             @db.Uuid
+  server_created_at                      BigInt?
+  branches                               branches            @relation(fields: [branchId], references: [id])
+  cashflow_categories                    cashflow_categories @relation(fields: [categoryId], references: [id])
+  users_cashflows_createdByTousers       users               @relation("cashflows_createdByTousers", fields: [createdBy], references: [userId])
+  users_cashflows_lastModifiedByTousers  users?              @relation("cashflows_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  users_cashflows_statusChangedByTousers users?              @relation("cashflows_statusChangedByTousers", fields: [statusChangedBy], references: [userId])
+}
+
+model client_user_requests {
+  id             String  @id @db.Uuid
+  type           String  @db.VarChar(255)
+  request        Json    @db.Json
+  deleted        Boolean @default(false)
+  created_at     BigInt
+  updated_at     BigInt
+  lastModifiedBy String? @db.Uuid
+  status         String  @default("to_do")
+  users          users?  @relation(fields: [lastModifiedBy], references: [userId])
+}
+
+model clients {
+  name        String  @id @unique @db.VarChar(255)
+  displayName String  @unique @db.VarChar(255)
+  deleted     Boolean @default(false)
+  created_at  BigInt
+  updated_at  BigInt
+  lastSyncAt  BigInt?
+  tokens      tokens?
+}
+
+model companies {
+  id                                    String                        @id @db.Uuid
+  name                                  String                        @db.VarChar(255)
+  businessCategoryId                    String                        @db.Uuid
+  deleted                               Boolean                       @default(false)
+  created_at                            BigInt
+  updated_at                            BigInt
+  subscriptionId                        String?                       @db.Uuid
+  email                                 String?                       @db.VarChar(255)
+  phone                                 String?                       @db.VarChar(255)
+  internalBusinessCategoryId            String?                       @db.Uuid
+  adminLastModifiedBy                   String?                       @db.VarChar(255)
+  lastModifiedBy                        String?                       @db.Uuid
+  lastSyncBy                            String?                       @db.Uuid
+  lastSyncAt                            BigInt?
+  business_categories                   business_categories           @relation(fields: [businessCategoryId], references: [id])
+  internal_business_categories          internal_business_categories? @relation(fields: [internalBusinessCategoryId], references: [id])
+  users_companies_lastModifiedByTousers users?                        @relation("companies_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  users_companies_lastSyncByTousers     users?                        @relation("companies_lastSyncByTousers", fields: [lastSyncBy], references: [userId])
+  subscriptions                         subscriptions?                @relation(fields: [subscriptionId], references: [id])
+  branches                              branches[]
+  companies_subscriptions               companies_subscriptions[]     @ignore
+  companies_sync_histories              companies_sync_histories[]
+  customer_care_schedules               customer_care_schedules[]
+  users_branches                        users_branches[]              @ignore
+  users_companies                       users_companies[]             @ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model companies_subscriptions {
+  companyId      String?        @db.Uuid
+  subscriptionId String?        @db.Uuid
+  started        DateTime?      @db.Date
+  ended          DateTime?      @db.Date
+  comments       String?        @db.VarChar(255)
+  active         Boolean?       @default(true)
+  deleted        Boolean        @default(false)
+  created_at     BigInt
+  updated_at     BigInt
+  companies      companies?     @relation(fields: [companyId], references: [id])
+  subscriptions  subscriptions? @relation(fields: [subscriptionId], references: [id])
+
+  @@ignore
+}
+
+model companies_sync_histories {
+  id         String     @id @db.Uuid
+  companyId  String?    @db.Uuid
+  lastSyncBy String?    @db.Uuid
+  lastSyncAt BigInt
+  deleted    Boolean    @default(false)
+  created_at BigInt
+  updated_at BigInt
+  type       String?
+  companies  companies? @relation(fields: [companyId], references: [id])
+  users      users?     @relation(fields: [lastSyncBy], references: [userId])
+}
+
+model customer_care_schedules {
+  userId                                              String    @db.Uuid
+  branchId                                            String    @db.Uuid
+  companyId                                           String    @db.Uuid
+  reason                                              String?   @db.VarChar(255)
+  appointmentTime                                     BigInt?
+  deleted                                             Boolean   @default(false)
+  created_at                                          BigInt
+  updated_at                                          BigInt
+  server_created_at                                   BigInt?
+  last_modified                                       BigInt?
+  lastModifiedBy                                      String?   @db.Uuid
+  branchName                                          String    @db.VarChar(255)
+  id                                                  String    @id @db.Uuid
+  interviewerFullName                                 String    @db.VarChar(255)
+  createdBy                                           String?   @db.Uuid
+  status                                              String?   @db.VarChar(255)
+  comments                                            String?   @db.VarChar(255)
+  branches                                            branches  @relation(fields: [branchId], references: [id])
+  companies                                           companies @relation(fields: [companyId], references: [id])
+  users_customer_care_schedules_createdByTousers      users?    @relation("customer_care_schedules_createdByTousers", fields: [createdBy], references: [userId])
+  users_customer_care_schedules_lastModifiedByTousers users?    @relation("customer_care_schedules_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  users_customer_care_schedules_userIdTousers         users     @relation("customer_care_schedules_userIdTousers", fields: [userId], references: [userId])
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model customercare_supervisors {
+  supervisorId                                         String  @db.Uuid
+  customerCareId                                       String  @db.Uuid
+  deleted                                              Boolean @default(false)
+  created_at                                           BigInt
+  updated_at                                           BigInt
+  users_customercare_supervisors_customerCareIdTousers users   @relation("customercare_supervisors_customerCareIdTousers", fields: [customerCareId], references: [userId])
+  users_customercare_supervisors_supervisorIdTousers   users   @relation("customercare_supervisors_supervisorIdTousers", fields: [supervisorId], references: [userId])
+
+  @@ignore
+}
+
+model customers {
+  id                                    String               @id @db.Uuid
+  firstName                             String               @db.VarChar(255)
+  otherNames                            String?              @db.VarChar(255)
+  phone                                 String               @db.VarChar(255)
+  email                                 String?              @db.VarChar(255)
+  location                              String?              @db.VarChar(255)
+  deleted                               Boolean              @default(false)
+  created_at                            BigInt
+  updated_at                            BigInt
+  isTemporary                           Boolean?             @default(false)
+  createdBy                             String?              @db.Uuid
+  server_created_at                     BigInt?
+  last_modified                         BigInt?
+  lastModifiedBy                        String?              @db.Uuid
+  type                                  String?              @db.VarChar(255)
+  entityId                              String?              @db.Uuid
+  users_customers_createdByTousers      users?               @relation("customers_createdByTousers", fields: [createdBy], references: [userId])
+  users_customers_lastModifiedByTousers users?               @relation("customers_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  branches_customers                    branches_customers[]
+  sale_entries                          sale_entries[]
+  sale_installments                     sale_installments[]
+  sales                                 sales[]
+}
+
+model employee_types {
+  id          String  @id @db.Uuid
+  name        String  @db.VarChar(255)
+  description String? @db.VarChar(255)
+  deleted     Boolean @default(false)
+  created_at  BigInt
+  updated_at  BigInt
+}
+
+model features {
+  id                     String                   @id @db.Uuid
+  name                   String                   @db.VarChar(255)
+  description            String?                  @db.VarChar(255)
+  deleted                Boolean                  @default(false)
+  created_at             BigInt
+  updated_at             BigInt
+  subscriptions_features subscriptions_features[] @ignore
+}
+
+model general_settings {
+  id         String  @id @db.Uuid
+  table      String? @db.VarChar(255)
+  lastSyncAt BigInt?
+  deleted    Boolean @default(false)
+  created_at BigInt
+  updated_at BigInt
+}
+
+model health_checks {
+  id         String  @id @db.Uuid
+  userId     String  @db.Uuid
+  status     String? @db.VarChar(255)
+  action     String? @db.VarChar(255)
+  deleted    Boolean @default(false)
+  created_at BigInt
+  updated_at BigInt
+  localInfo  Json?
+  users      users   @relation(fields: [userId], references: [userId])
+}
+
+model internal_business_categories {
+  id          String      @id @db.Uuid
+  name        String      @db.VarChar(255)
+  description String?     @db.VarChar(255)
+  deleted     Boolean     @default(false)
+  created_at  BigInt
+  updated_at  BigInt
+  companies   companies[]
+}
+
+model knex_migrations {
+  id             Int       @id @default(autoincrement())
+  name           String?   @db.VarChar(255)
+  batch          Int?
+  migration_time DateTime? @db.Timestamptz(6)
+}
+
+model knex_migrations_lock {
+  index     Int  @id @default(autoincrement())
+  is_locked Int?
+}
+
+model manufacturers {
+  id                String     @id @db.Uuid
+  name              String     @db.VarChar(255)
+  deleted           Boolean    @default(false)
+  created_at        BigInt
+  updated_at        BigInt
+  isTemporary       Boolean?   @default(false)
+  server_created_at BigInt?
+  last_modified     BigInt?
+  products          products[]
+}
+
+model measurement_units {
+  id                 String               @id @db.Uuid
+  name               String               @db.VarChar(255)
+  symbol             String               @db.VarChar(255)
+  deleted            Boolean              @default(false)
+  created_at         BigInt
+  updated_at         BigInt
+  server_created_at  BigInt?
+  last_modified      BigInt?
+  product_categories product_categories[]
+  products           products[]
+}
+
+model notifications {
+  id                String  @id @db.Uuid
+  type              String? @db.VarChar(255)
+  deleted           Boolean @default(false)
+  server_created_at BigInt?
+  last_modified     BigInt?
+  created_at        BigInt
+  updated_at        BigInt
+  message           String? @db.VarChar(255)
+}
+
+model payment_histories {
+  id                  String   @id @db.Uuid
+  months              String[]
+  datePaid            DateTime @db.Timestamptz(6)
+  branchId            String   @db.Uuid
+  amountPaid          Float    @db.Real
+  receipt             String?  @db.VarChar(255)
+  adminLastModifiedBy String?  @db.VarChar(255)
+  deleted             Boolean  @default(false)
+  created_at          BigInt
+  updated_at          BigInt
+  paymentType         String?
+  description         String?  @default("subscription")
+  branches            branches @relation(fields: [branchId], references: [id])
+}
+
+model permissions {
+  id                String              @id @db.Uuid
+  name              String              @db.VarChar(255)
+  description       String?             @db.VarChar(255)
+  deleted           Boolean             @default(false)
+  created_at        BigInt
+  updated_at        BigInt
+  roles_permissions roles_permissions[] @ignore
+}
+
+model product_categories {
+  id                                  String                                @id @db.Uuid
+  name                                String                                @db.VarChar(255)
+  parentId                            String?                               @db.Uuid
+  deleted                             Boolean                               @default(false)
+  created_at                          BigInt
+  updated_at                          BigInt
+  measurementUnitId                   String?                               @db.Uuid
+  server_created_at                   BigInt?
+  last_modified                       BigInt?
+  summary                             String?                               @db.VarChar(255)
+  measurement_units                   measurement_units?                    @relation(fields: [measurementUnitId], references: [id])
+  product_categories                  product_categories?                   @relation("product_categoriesToproduct_categories_parentId", fields: [parentId], references: [id])
+  branches_product_categories         branches_product_categories[]         @ignore
+  other_product_categories            product_categories[]                  @relation("product_categoriesToproduct_categories_parentId")
+  product_categories_product_segments product_categories_product_segments[] @ignore
+  products                            products[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model product_categories_product_segments {
+  productCategoryId  String?             @db.Uuid
+  productSegmentId   String?             @db.Uuid
+  deleted            Boolean             @default(false)
+  created_at         BigInt
+  updated_at         BigInt
+  product_categories product_categories? @relation(fields: [productCategoryId], references: [id])
+  product_segments   product_segments?   @relation(fields: [productSegmentId], references: [id])
+
+  @@ignore
+}
+
+model product_descriptions {
+  id                            String                          @id @db.Uuid
+  name                          String                          @unique @db.VarChar(255)
+  summary                       String?                         @db.VarChar(255)
+  deleted                       Boolean                         @default(false)
+  created_at                    BigInt
+  updated_at                    BigInt
+  server_created_at             BigInt?
+  last_modified                 BigInt?
+  branch_product_selling_prices branch_product_selling_prices[]
+  products                      products[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model product_product_segment_entries {
+  productId               String?                  @db.Uuid
+  productSegmentEntryId   String?                  @db.Uuid
+  deleted                 Boolean                  @default(false)
+  created_at              BigInt
+  updated_at              BigInt
+  server_created_at       BigInt?
+  last_modified           BigInt?
+  products                products?                @relation(fields: [productId], references: [id])
+  product_segment_entries product_segment_entries? @relation(fields: [productSegmentEntryId], references: [id])
+
+  @@ignore
+}
+
+model product_segment_entries {
+  id                              String                            @id @db.Uuid
+  name                            String                            @unique @db.VarChar(255)
+  deleted                         Boolean                           @default(false)
+  created_at                      BigInt
+  updated_at                      BigInt
+  productSegmentId                String                            @db.Uuid
+  server_created_at               BigInt?
+  last_modified                   BigInt?
+  product_segments                product_segments                  @relation(fields: [productSegmentId], references: [id])
+  product_product_segment_entries product_product_segment_entries[] @ignore
+}
+
+model product_segments {
+  id                                  String                                @id @db.Uuid
+  name                                String                                @unique @db.VarChar(255)
+  description                         String?                               @db.VarChar(255)
+  deleted                             Boolean                               @default(false)
+  created_at                          BigInt
+  updated_at                          BigInt
+  server_created_at                   BigInt?
+  last_modified                       BigInt?
+  product_categories_product_segments product_categories_product_segments[] @ignore
+  product_segment_entries             product_segment_entries[]
+  products                            products[]
+}
+
+model products {
+  id                                 String                               @id @db.Uuid
+  name                               String                               @unique @db.VarChar(255)
+  summary                            String?                              @db.VarChar(255)
+  barCode                            String?                              @db.VarChar(255)
+  manufacturerId                     String?                              @db.Uuid
+  brandId                            String?                              @db.Uuid
+  productCategoryId                  String?                              @db.Uuid
+  deleted                            Boolean                              @default(false)
+  created_at                         BigInt
+  updated_at                         BigInt
+  productSegmentId                   String?                              @db.Uuid
+  measurementUnitId                  String?                              @db.Uuid
+  weight                             Float?                               @db.Real
+  image                              String?                              @db.VarChar(255)
+  isTemporary                        Boolean?                             @default(false)
+  server_created_at                  BigInt?
+  last_modified                      BigInt?
+  description                        String?                              @db.VarChar(255)
+  adminLastModifiedBy                String?                              @db.VarChar(255)
+  lastModifiedBy                     String?                              @db.Uuid
+  brands                             brands?                              @relation(fields: [brandId], references: [id])
+  product_descriptions               product_descriptions?                @relation(fields: [description], references: [name])
+  users                              users?                               @relation(fields: [lastModifiedBy], references: [userId])
+  manufacturers                      manufacturers?                       @relation(fields: [manufacturerId], references: [id])
+  measurement_units                  measurement_units?                   @relation(fields: [measurementUnitId], references: [id])
+  product_categories                 product_categories?                  @relation(fields: [productCategoryId], references: [id])
+  product_segments                   product_segments?                    @relation(fields: [productSegmentId], references: [id])
+  audit_entries                      audit_entries[]
+  branch_supplier_products           branch_supplier_products[]
+  branches_products                  branches_products[]
+  branches_products_stock_movements  branches_products_stock_movements[]
+  branches_products_stocks           branches_products_stocks[]
+  branches_products_stocks_histories branches_products_stocks_histories[]
+  product_product_segment_entries    product_product_segment_entries[]    @ignore
+  sale_entries                       sale_entries[]
+  sale_return_histories              sale_return_histories[]
+  stock_return_histories             stock_return_histories[]
+}
+
+model reconciliation_histories {
+  id                                                   String          @id @db.Uuid
+  sales                                                Float           @default(0) @db.Real
+  expenses                                             Float           @default(0) @db.Real
+  credit                                               Float           @default(0) @db.Real
+  purchases                                            Float           @default(0) @db.Real
+  collections                                          Float           @default(0) @db.Real
+  reconciliationId                                     String          @db.Uuid
+  key                                                  String          @db.VarChar(255)
+  branchId                                             String          @db.Uuid
+  createdBy                                            String          @db.Uuid
+  deleted                                              Boolean         @default(false)
+  created_at                                           BigInt
+  updated_at                                           BigInt
+  last_modified                                        BigInt?
+  lastModifiedBy                                       String?         @db.Uuid
+  server_created_at                                    BigInt?
+  branches                                             branches        @relation(fields: [branchId], references: [id])
+  users_reconciliation_histories_createdByTousers      users           @relation("reconciliation_histories_createdByTousers", fields: [createdBy], references: [userId])
+  users_reconciliation_histories_lastModifiedByTousers users?          @relation("reconciliation_histories_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  reconciliations                                      reconciliations @relation(fields: [reconciliationId], references: [id])
+}
+
+model reconciliations {
+  id                                          String                     @id @db.Uuid
+  startDate                                   BigInt
+  endDate                                     BigInt
+  transactionDate                             BigInt
+  salesTotal                                  Float                      @default(0) @db.Real
+  expensesTotal                               Float                      @default(0) @db.Real
+  creditTotal                                 Float                      @default(0) @db.Real
+  purchasesTotal                              Float                      @default(0) @db.Real
+  collectionsTotal                            Float                      @default(0) @db.Real
+  branchId                                    String                     @db.Uuid
+  createdBy                                   String                     @db.Uuid
+  deleted                                     Boolean                    @default(false)
+  created_at                                  BigInt
+  updated_at                                  BigInt
+  durationType                                String
+  last_modified                               BigInt?
+  lastModifiedBy                              String?                    @db.Uuid
+  server_created_at                           BigInt?
+  branches                                    branches                   @relation(fields: [branchId], references: [id])
+  users_reconciliations_createdByTousers      users                      @relation("reconciliations_createdByTousers", fields: [createdBy], references: [userId])
+  users_reconciliations_lastModifiedByTousers users?                     @relation("reconciliations_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  reconciliation_histories                    reconciliation_histories[]
+}
+
+model roles {
+  id                String              @id @db.Uuid
+  name              String              @db.VarChar(255)
+  description       String?             @db.VarChar(255)
+  deleted           Boolean             @default(false)
+  created_at        BigInt
+  updated_at        BigInt
+  roles_permissions roles_permissions[] @ignore
+  users_branches    users_branches[]    @ignore
+  users_companies   users_companies[]   @ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model roles_permissions {
+  roleId       String?      @db.Uuid
+  permissionId String?      @db.Uuid
+  created_at   BigInt
+  updated_at   BigInt
+  permissions  permissions? @relation(fields: [permissionId], references: [id])
+  roles        roles?       @relation(fields: [roleId], references: [id])
+
+  @@ignore
+}
+
+model sale_entries {
+  id                                       String            @id @db.Uuid
+  productId                                String            @db.Uuid
+  branchId                                 String            @db.Uuid
+  customerId                               String?           @db.Uuid
+  discount                                 Float?            @default(0) @db.Real
+  costPrice                                Float             @db.Real
+  sellingPrice                             Float             @db.Real
+  quantity                                 Float?            @db.Real
+  saleId                                   String            @db.Uuid
+  entryDate                                BigInt
+  branchProductId                          String            @db.Uuid
+  deleted                                  Boolean           @default(false)
+  created_at                               BigInt
+  updated_at                               BigInt
+  createdBy                                String?           @db.Uuid
+  last_modified                            BigInt?
+  lastModifiedBy                           String?           @db.Uuid
+  server_created_at                        BigInt?
+  actualTotalSales                         Float?            @db.Real
+  branches                                 branches          @relation(fields: [branchId], references: [id])
+  branches_products                        branches_products @relation(fields: [branchProductId], references: [id])
+  users_sale_entries_createdByTousers      users?            @relation("sale_entries_createdByTousers", fields: [createdBy], references: [userId])
+  customers                                customers?        @relation(fields: [customerId], references: [id])
+  users_sale_entries_lastModifiedByTousers users?            @relation("sale_entries_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  products                                 products          @relation(fields: [productId], references: [id])
+  sales                                    sales             @relation(fields: [saleId], references: [id])
+}
+
+model sale_installments {
+  id                                            String     @id @db.Uuid
+  customerId                                    String?    @db.Uuid
+  saleId                                        String     @db.Uuid
+  branchId                                      String     @db.Uuid
+  amount                                        Float      @db.Real
+  createdBy                                     String     @db.Uuid
+  deleted                                       Boolean    @default(false)
+  created_at                                    BigInt
+  updated_at                                    BigInt
+  type                                          String?
+  last_modified                                 BigInt?
+  lastModifiedBy                                String?    @db.Uuid
+  server_created_at                             BigInt?
+  branches                                      branches   @relation(fields: [branchId], references: [id])
+  users_sale_installments_createdByTousers      users      @relation("sale_installments_createdByTousers", fields: [createdBy], references: [userId])
+  customers                                     customers? @relation(fields: [customerId], references: [id])
+  users_sale_installments_lastModifiedByTousers users?     @relation("sale_installments_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  sales                                         sales      @relation(fields: [saleId], references: [id])
+}
+
+model sale_return_histories {
+  id                                                String             @id @db.Uuid
+  saleId                                            String             @db.Uuid
+  branchProductId                                   String?            @db.Uuid
+  productId                                         String             @db.Uuid
+  branchId                                          String             @db.Uuid
+  createdBy                                         String             @db.Uuid
+  returnDate                                        BigInt
+  quantity                                          Float              @db.Real
+  deleted                                           Boolean            @default(false)
+  created_at                                        BigInt
+  updated_at                                        BigInt
+  last_modified                                     BigInt?
+  lastModifiedBy                                    String?            @db.Uuid
+  server_created_at                                 BigInt?
+  branches                                          branches           @relation(fields: [branchId], references: [id])
+  branches_products                                 branches_products? @relation(fields: [branchProductId], references: [id])
+  users_sale_return_histories_createdByTousers      users              @relation("sale_return_histories_createdByTousers", fields: [createdBy], references: [userId])
+  users_sale_return_histories_lastModifiedByTousers users?             @relation("sale_return_histories_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  products                                          products           @relation(fields: [productId], references: [id])
+  sales                                             sales              @relation(fields: [saleId], references: [id])
+}
+
+model sales {
+  id                                String                  @id @db.Uuid
+  note                              String?                 @db.VarChar(255)
+  paymentStatus                     String?                 @db.VarChar(255)
+  branchId                          String                  @db.Uuid
+  customerId                        String                  @db.Uuid
+  discount                          Float?                  @db.Real
+  salesDate                         BigInt
+  receiptNumber                     String?                 @db.VarChar(255)
+  createdBy                         String                  @db.Uuid
+  deleted                           Boolean                 @default(false)
+  created_at                        BigInt
+  updated_at                        BigInt
+  type                              String?                 @default("sales")
+  paymentType                       String?                 @default("cash")
+  auditId                           String?                 @db.Uuid
+  last_modified                     BigInt?
+  lastModifiedBy                    String?                 @db.Uuid
+  server_created_at                 BigInt?
+  audits                            audits?                 @relation(fields: [auditId], references: [id])
+  branches                          branches                @relation(fields: [branchId], references: [id])
+  users_sales_createdByTousers      users                   @relation("sales_createdByTousers", fields: [createdBy], references: [userId])
+  customers                         customers               @relation(fields: [customerId], references: [id])
+  users_sales_lastModifiedByTousers users?                  @relation("sales_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  sale_entries                      sale_entries[]
+  sale_installments                 sale_installments[]
+  sale_return_histories             sale_return_histories[]
+}
+
+model stock_return_histories {
+  id                                                 String                    @id @db.Uuid
+  branchProductId                                    String?                   @db.Uuid
+  branchProductStockId                               String?                   @db.Uuid
+  productId                                          String?                   @db.Uuid
+  branchId                                           String?                   @db.Uuid
+  createdBy                                          String                    @db.Uuid
+  returnDate                                         BigInt
+  quantity                                           Float                     @db.Real
+  deleted                                            Boolean                   @default(false)
+  created_at                                         BigInt
+  updated_at                                         BigInt
+  last_modified                                      BigInt?
+  lastModifiedBy                                     String?                   @db.Uuid
+  server_created_at                                  BigInt?
+  branches                                           branches?                 @relation(fields: [branchId], references: [id])
+  branches_products                                  branches_products?        @relation(fields: [branchProductId], references: [id])
+  branches_products_stocks                           branches_products_stocks? @relation(fields: [branchProductStockId], references: [id])
+  users_stock_return_histories_createdByTousers      users                     @relation("stock_return_histories_createdByTousers", fields: [createdBy], references: [userId])
+  users_stock_return_histories_lastModifiedByTousers users?                    @relation("stock_return_histories_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+  products                                           products?                 @relation(fields: [productId], references: [id])
+}
+
+model subscriptions {
+  id                      String                    @id @db.Uuid
+  name                    String                    @db.VarChar(255)
+  numberOfBranches        Int
+  description             String?                   @db.VarChar(255)
+  deleted                 Boolean                   @default(false)
+  created_at              BigInt
+  updated_at              BigInt
+  companies               companies[]
+  companies_subscriptions companies_subscriptions[] @ignore
+  subscriptions_features  subscriptions_features[]  @ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model subscriptions_features {
+  featureId      String?        @db.Uuid
+  subscriptionId String?        @db.Uuid
+  created_at     BigInt
+  updated_at     BigInt
+  features       features?      @relation(fields: [featureId], references: [id])
+  subscriptions  subscriptions? @relation(fields: [subscriptionId], references: [id])
+
+  @@ignore
+}
+
+model suppliers {
+  id                                    String  @id @db.Uuid
+  name                                  String  @db.VarChar(255)
+  phone                                 String? @db.VarChar(255)
+  email                                 String? @db.VarChar(255)
+  isTemporary                           Boolean @default(false)
+  createdBy                             String? @db.Uuid
+  deleted                               Boolean @default(false)
+  created_at                            BigInt
+  updated_at                            BigInt
+  dateAdded                             BigInt?
+  server_created_at                     BigInt?
+  last_modified                         BigInt?
+  lastModifiedBy                        String? @db.Uuid
+  users_suppliers_createdByTousers      users?  @relation("suppliers_createdByTousers", fields: [createdBy], references: [userId])
+  users_suppliers_lastModifiedByTousers users?  @relation("suppliers_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
+}
+
+model suppliers_companies {
+  id          String   @id @db.Uuid
+  name        String   @db.VarChar(255)
+  contact     String   @db.VarChar(255)
+  email       String?  @db.VarChar(255)
+  isTemporary Boolean? @default(true)
+  createdBy   String   @db.Uuid
+  deleted     Boolean  @default(false)
+  created_at  BigInt
+  updated_at  BigInt
+  users       users    @relation(fields: [createdBy], references: [userId])
+}
+
+model sync_changes {
+  id         String  @id @db.Uuid
+  userId     String  @db.Uuid
+  changes    Json    @db.Json
+  type       String
+  deleted    Boolean @default(false)
+  created_at BigInt
+  updated_at BigInt
+  users      users   @relation(fields: [userId], references: [userId])
+}
+
+model tokens {
+  clientName String  @id @unique @db.VarChar(255)
+  token      String  @unique @db.VarChar(255)
+  deleted    Boolean @default(false)
+  created_at BigInt
+  updated_at BigInt
+  clients    clients @relation(fields: [clientName], references: [name])
+}
+
+model user_access {
+  userId     String  @id @unique @db.Uuid
+  access     Json?
+  deleted    Boolean @default(false)
+  created_at BigInt
+  updated_at BigInt
+}
+
+model users {
+  userId                                                                                                      String                                       @id @db.Uuid
+  email                                                                                                       String?                                      @unique @db.VarChar(255)
+  password                                                                                                    String?                                      @db.VarChar(255)
+  firstName                                                                                                   String?                                      @db.VarChar(255)
+  otherNames                                                                                                  String?                                      @db.VarChar(255)
+  phone                                                                                                       String                                       @unique @db.VarChar(255)
+  username                                                                                                    String?                                      @unique @db.VarChar(255)
+  gender                                                                                                      String?
+  whatsAppPhone                                                                                               String?                                      @unique @db.VarChar(255)
+  status                                                                                                      String?                                      @db.VarChar(255)
+  otp                                                                                                         String?                                      @db.VarChar(255)
+  deleted                                                                                                     Boolean                                      @default(false)
+  created_at                                                                                                  BigInt
+  updated_at                                                                                                  BigInt
+  isCustomerCarePersonnel                                                                                     Boolean                                      @default(false)
+  server_created_at                                                                                           BigInt?
+  last_modified                                                                                               BigInt?
+  isSupervisor                                                                                                Boolean                                      @default(false)
+  adminLastModifiedBy                                                                                         String?                                      @db.VarChar(255)
+  lastModifiedBy                                                                                              String?                                      @db.Uuid
+  country                                                                                                     String?                                      @db.VarChar(255)
+  languagesSpoken                                                                                             String?                                      @db.VarChar(255)
+  logins                                                                                                      Int                                          @default(0)
+  lastLogin                                                                                                   DateTime?                                    @db.Timestamptz(6)
+  isRecruiter                                                                                                 Boolean                                      @default(false)
+  users                                                                                                       users?                                       @relation("usersTousers_lastModifiedBy", fields: [lastModifiedBy], references: [userId])
+  appointments_appointments_assignedToTousers                                                                 appointments[]                               @relation("appointments_assignedToTousers")
+  appointments_appointments_createdByTousers                                                                  appointments[]                               @relation("appointments_createdByTousers")
+  appointments_appointments_lastModifiedByTousers                                                             appointments[]                               @relation("appointments_lastModifiedByTousers")
+  audit_entries_audit_entries_createdByTousers                                                                audit_entries[]                              @relation("audit_entries_createdByTousers")
+  audit_entries_audit_entries_lastModifiedByTousers                                                           audit_entries[]                              @relation("audit_entries_lastModifiedByTousers")
+  audits_audits_createdByTousers                                                                              audits[]                                     @relation("audits_createdByTousers")
+  audits_audits_lastModifiedByTousers                                                                         audits[]                                     @relation("audits_lastModifiedByTousers")
+  branch_product_selling_prices                                                                               branch_product_selling_prices[]
+  branch_purchases_branch_purchases_createdByTousers                                                          branch_purchases[]                           @relation("branch_purchases_createdByTousers")
+  branch_purchases_branch_purchases_lastModifiedByTousers                                                     branch_purchases[]                           @relation("branch_purchases_lastModifiedByTousers")
+  branch_supplier_order_payment_installments_branch_supplier_order_payment_installments_createdByTousers      branch_supplier_order_payment_installments[] @relation("branch_supplier_order_payment_installments_createdByTousers")
+  branch_supplier_order_payment_installments_branch_supplier_order_payment_installments_lastModifiedByTousers branch_supplier_order_payment_installments[] @relation("branch_supplier_order_payment_installments_lastModifiedByTousers")
+  branch_supplier_orders_branch_supplier_orders_createdByTousers                                              branch_supplier_orders[]                     @relation("branch_supplier_orders_createdByTousers")
+  branch_supplier_orders_branch_supplier_orders_lastModifiedByTousers                                         branch_supplier_orders[]                     @relation("branch_supplier_orders_lastModifiedByTousers")
+  branch_supplier_products_branch_supplier_products_createdByTousers                                          branch_supplier_products[]                   @relation("branch_supplier_products_createdByTousers")
+  branch_supplier_products_branch_supplier_products_lastModifiedByTousers                                     branch_supplier_products[]                   @relation("branch_supplier_products_lastModifiedByTousers")
+  branch_supplier_salespersons_branch_supplier_salespersons_createdByTousers                                  branch_supplier_salespersons[]               @relation("branch_supplier_salespersons_createdByTousers")
+  branch_supplier_salespersons_branch_supplier_salespersons_lastModifiedByTousers                             branch_supplier_salespersons[]               @relation("branch_supplier_salespersons_lastModifiedByTousers")
+  branch_supplier_stocks_branch_supplier_stocks_createdByTousers                                              branch_supplier_stocks[]                     @relation("branch_supplier_stocks_createdByTousers")
+  branch_supplier_stocks_branch_supplier_stocks_lastModifiedByTousers                                         branch_supplier_stocks[]                     @relation("branch_supplier_stocks_lastModifiedByTousers")
+  branch_suppliers_branch_suppliers_createdByTousers                                                          branch_suppliers[]                           @relation("branch_suppliers_createdByTousers")
+  branch_suppliers_branch_suppliers_lastModifiedByTousers                                                     branch_suppliers[]                           @relation("branch_suppliers_lastModifiedByTousers")
+  branches                                                                                                    branches[]
+  branches_customers_branches_customers_createdByTousers                                                      branches_customers[]                         @relation("branches_customers_createdByTousers")
+  branches_customers_branches_customers_lastModifiedByTousers                                                 branches_customers[]                         @relation("branches_customers_lastModifiedByTousers")
+  branches_product_categories                                                                                 branches_product_categories[]                @ignore
+  branches_products_branches_products_createdByTousers                                                        branches_products[]                          @relation("branches_products_createdByTousers")
+  branches_products_branches_products_lastModifiedByTousers                                                   branches_products[]                          @relation("branches_products_lastModifiedByTousers")
+  branches_products_stock_movements_branches_products_stock_movements_createdByTousers                        branches_products_stock_movements[]          @relation("branches_products_stock_movements_createdByTousers")
+  branches_products_stock_movements_branches_products_stock_movements_lastModifiedByTousers                   branches_products_stock_movements[]          @relation("branches_products_stock_movements_lastModifiedByTousers")
+  branches_products_stocks_branches_products_stocks_createdByTousers                                          branches_products_stocks[]                   @relation("branches_products_stocks_createdByTousers")
+  branches_products_stocks_branches_products_stocks_lastModifiedByTousers                                     branches_products_stocks[]                   @relation("branches_products_stocks_lastModifiedByTousers")
+  branches_products_stocks_histories_branches_products_stocks_histories_createdByTousers                      branches_products_stocks_histories[]         @relation("branches_products_stocks_histories_createdByTousers")
+  branches_products_stocks_histories_branches_products_stocks_histories_lastModifiedByTousers                 branches_products_stocks_histories[]         @relation("branches_products_stocks_histories_lastModifiedByTousers")
+  cashflow_categories                                                                                         cashflow_categories[]
+  cashflows_cashflows_createdByTousers                                                                        cashflows[]                                  @relation("cashflows_createdByTousers")
+  cashflows_cashflows_lastModifiedByTousers                                                                   cashflows[]                                  @relation("cashflows_lastModifiedByTousers")
+  cashflows_cashflows_statusChangedByTousers                                                                  cashflows[]                                  @relation("cashflows_statusChangedByTousers")
+  client_user_requests                                                                                        client_user_requests[]
+  companies_companies_lastModifiedByTousers                                                                   companies[]                                  @relation("companies_lastModifiedByTousers")
+  companies_companies_lastSyncByTousers                                                                       companies[]                                  @relation("companies_lastSyncByTousers")
+  companies_sync_histories                                                                                    companies_sync_histories[]
+  customer_care_schedules_customer_care_schedules_createdByTousers                                            customer_care_schedules[]                    @relation("customer_care_schedules_createdByTousers")
+  customer_care_schedules_customer_care_schedules_lastModifiedByTousers                                       customer_care_schedules[]                    @relation("customer_care_schedules_lastModifiedByTousers")
+  customer_care_schedules_customer_care_schedules_userIdTousers                                               customer_care_schedules[]                    @relation("customer_care_schedules_userIdTousers")
+  customercare_supervisors_customercare_supervisors_customerCareIdTousers                                     customercare_supervisors[]                   @relation("customercare_supervisors_customerCareIdTousers") @ignore
+  customercare_supervisors_customercare_supervisors_supervisorIdTousers                                       customercare_supervisors[]                   @relation("customercare_supervisors_supervisorIdTousers") @ignore
+  customers_customers_createdByTousers                                                                        customers[]                                  @relation("customers_createdByTousers")
+  customers_customers_lastModifiedByTousers                                                                   customers[]                                  @relation("customers_lastModifiedByTousers")
+  health_checks                                                                                               health_checks[]
+  products                                                                                                    products[]
+  reconciliation_histories_reconciliation_histories_createdByTousers                                          reconciliation_histories[]                   @relation("reconciliation_histories_createdByTousers")
+  reconciliation_histories_reconciliation_histories_lastModifiedByTousers                                     reconciliation_histories[]                   @relation("reconciliation_histories_lastModifiedByTousers")
+  reconciliations_reconciliations_createdByTousers                                                            reconciliations[]                            @relation("reconciliations_createdByTousers")
+  reconciliations_reconciliations_lastModifiedByTousers                                                       reconciliations[]                            @relation("reconciliations_lastModifiedByTousers")
+  sale_entries_sale_entries_createdByTousers                                                                  sale_entries[]                               @relation("sale_entries_createdByTousers")
+  sale_entries_sale_entries_lastModifiedByTousers                                                             sale_entries[]                               @relation("sale_entries_lastModifiedByTousers")
+  sale_installments_sale_installments_createdByTousers                                                        sale_installments[]                          @relation("sale_installments_createdByTousers")
+  sale_installments_sale_installments_lastModifiedByTousers                                                   sale_installments[]                          @relation("sale_installments_lastModifiedByTousers")
+  sale_return_histories_sale_return_histories_createdByTousers                                                sale_return_histories[]                      @relation("sale_return_histories_createdByTousers")
+  sale_return_histories_sale_return_histories_lastModifiedByTousers                                           sale_return_histories[]                      @relation("sale_return_histories_lastModifiedByTousers")
+  sales_sales_createdByTousers                                                                                sales[]                                      @relation("sales_createdByTousers")
+  sales_sales_lastModifiedByTousers                                                                           sales[]                                      @relation("sales_lastModifiedByTousers")
+  stock_return_histories_stock_return_histories_createdByTousers                                              stock_return_histories[]                     @relation("stock_return_histories_createdByTousers")
+  stock_return_histories_stock_return_histories_lastModifiedByTousers                                         stock_return_histories[]                     @relation("stock_return_histories_lastModifiedByTousers")
+  suppliers_suppliers_createdByTousers                                                                        suppliers[]                                  @relation("suppliers_createdByTousers")
+  suppliers_suppliers_lastModifiedByTousers                                                                   suppliers[]                                  @relation("suppliers_lastModifiedByTousers")
+  suppliers_companies                                                                                         suppliers_companies[]
+  sync_changes                                                                                                sync_changes[]
+  other_users                                                                                                 users[]                                      @relation("usersTousers_lastModifiedBy")
+  users_branches                                                                                              users_branches[]                             @ignore
+  users_companies                                                                                             users_companies[]                            @ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model users_branches {
+  userId                String?   @db.Uuid
+  branchId              String    @db.Uuid
+  roleId                String    @db.Uuid
+  addedPermissionIds    Json?     @default("[]")
+  excludedPermissionIds Json?     @default("[]")
+  created_at            BigInt
+  updated_at            BigInt
+  companyId             String    @db.Uuid
+  employeeTypeId        String?   @db.Uuid
+  customerCareId        String?   @db.VarChar(255)
+  main                  Boolean   @default(false)
+  status                String?   @default("active")
+  deleted               Boolean   @default(false)
+  server_created_at     BigInt?
+  last_modified         BigInt?
+  id                    String?   @db.Uuid
+  branches              branches  @relation(fields: [branchId], references: [id])
+  companies             companies @relation(fields: [companyId], references: [id])
+  roles                 roles     @relation(fields: [roleId], references: [id])
+  users                 users?    @relation(fields: [userId], references: [userId])
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model users_companies {
+  userId                String    @db.Uuid
+  companyId             String    @db.Uuid
+  roleId                String    @db.Uuid
+  addedPermissionIds    Json?     @default("[]")
+  excludedPermissionIds Json?     @default("[]")
+  created_at            BigInt
+  updated_at            BigInt
+  companies             companies @relation(fields: [companyId], references: [id])
+  roles                 roles     @relation(fields: [roleId], references: [id])
+  users                 users     @relation(fields: [userId], references: [userId])
+
+  @@ignore
+}
