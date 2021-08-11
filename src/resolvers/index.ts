@@ -5,6 +5,13 @@ import createBrand from './brands/mutations/createBrand';
 import deleteBrand from './brands/mutations/deleteBrand';
 import updateBrand from './brands/mutations/updateBrand';
 
+// Business Category
+import businessCategory from './businessCategories/queries/businessCategory';
+import businessCategories from './businessCategories/queries/businessCategories';
+import createBusinessCategory from './businessCategories/mutations/createBusinessCategory';
+import deleteBusinessCategory from './businessCategories/mutations/deleteBusinessCategory';
+import updateBusinessCategory from './businessCategories/mutations/updateBusinessCategory';
+
 
 //Internal Business Category
 import internalBusinessCategory from './internalBusinessCategories/queries/internalBusinessCategory';
@@ -29,13 +36,19 @@ const resolvers = {
         brands,
         brand,
 
+        //Business Category
+        businessCategory,
+        businessCategories,
+
+        //Internal Business Category
+        internalBusinessCategory,
+        internalBusinessCategories,
+
         //Manufactures
         manufacturer,
         manufacturers,
 
-        //Internal Business Category
-        internalBusinessCategory,
-        internalBusinessCategories
+       
     },
 
     Mutation: {
@@ -44,15 +57,22 @@ const resolvers = {
         updateBrand,
         deleteBrand,
 
+        //Business Category
+        createBusinessCategory,
+        updateBusinessCategory,
+        deleteBusinessCategory,
+
+        //Internal Business Category
+        createInternalBusinessCategory,
+        updateInternalBusinessCategory,
+        deleteInternalBusinessCategory,
+
         //Manufacturers
         createManufacturer,
         updateManufacturer,
         deleteManufacturer,
 
-        //Internal Business Category
-        createInternalBusinessCategory,
-        updateInternalBusinessCategory,
-        deleteInternalBusinessCategory
+        
     }
 };
 

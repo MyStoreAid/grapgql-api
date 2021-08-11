@@ -1,7 +1,12 @@
 import moment from 'moment';
 
-export default function deleteBrand (parent:any, args:any, context:any, info:any) {
-    return context.prisma.brands.update({
+export default async function deleteBrand (parent:any, args:any, context:any, info:any) {
+
+    const { id } = context.prisma.brands.findUnique({ where: {id: args.id} });
+
+    if(!id) throw new Error("Invalid ID");
+
+    return await context.prisma.brands.update({
         where: {
             id: args.id
         },
