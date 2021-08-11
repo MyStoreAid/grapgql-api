@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export default function deleteBrand (parent:any, args:any, context:any, info:any) {
-    return context.prisma.brand.update({
+    return context.prisma.brands.update({
         where: {
             id: args.id
         },

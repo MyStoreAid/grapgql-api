@@ -17,8 +17,8 @@ model app_notifications {
   operation                            String?                                @db.VarChar(255)
   cron                                 String?                                @db.VarChar(255)
   deleted                              Boolean                                @default(false)
-  created_at                           BigInt
-  updated_at                           BigInt
+  created_at                           Float
+  updated_at                           Float
   app_notifications_branch_user_groups app_notifications_branch_user_groups[] @ignore
 }
 
@@ -26,8 +26,8 @@ model app_notifications {
 model app_notifications_branch_user_groups {
   branchUserGroupId  String             @db.Uuid
   appNotificationId  String             @db.Uuid
-  created_at         BigInt
-  updated_at         BigInt
+  created_at         Float
+  updated_at         Float
   app_notifications  app_notifications  @relation(fields: [appNotificationId], references: [id])
   branch_user_groups branch_user_groups @relation(fields: [branchUserGroupId], references: [id])
 
@@ -40,10 +40,10 @@ model appointments {
   status                                   String
   createdBy                                String     @db.Uuid
   deleted                                  Boolean    @default(false)
-  created_at                               BigInt
-  updated_at                               BigInt
-  server_created_at                        BigInt?
-  last_modified                            BigInt?
+  created_at                               Float
+  updated_at                               Float
+  server_created_at                        Float?
+  last_modified                            Float?
   lastModifiedBy                           String?    @db.Uuid
   request                                  Json       @db.Json
   assignedTo                               String?    @db.Uuid
@@ -64,14 +64,14 @@ model audit_entries {
   sellingPrice                              Float?            @db.Real
   costPrice                                 Float?            @db.Real
   deleted                                   Boolean           @default(false)
-  created_at                                BigInt
-  updated_at                                BigInt
-  last_modified                             BigInt?
+  created_at                                Float
+  updated_at                                Float
+  last_modified                             Float?
   lastModifiedBy                            String?           @db.Uuid
-  server_created_at                         BigInt?
+  server_created_at                         Float?
   createdBy                                 String?           @db.Uuid
   isBalanced                                Boolean?
-  auditDate                                 BigInt?
+  auditDate                                 Float?
   audits                                    audits            @relation(fields: [auditId], references: [id])
   branches                                  branches          @relation(fields: [branchId], references: [id])
   branches_products                         branches_products @relation(fields: [branchProductId], references: [id])
@@ -84,15 +84,15 @@ model audits {
   id                                 String                     @id @db.Uuid
   branchId                           String                     @db.Uuid
   deleted                            Boolean                    @default(false)
-  created_at                         BigInt
-  updated_at                         BigInt
+  created_at                         Float
+  updated_at                         Float
   createdBy                          String?                    @db.Uuid
   isActive                           Boolean?                   @default(false)
-  auditDate                          BigInt?
+  auditDate                          Float?
   status                             String?
-  last_modified                      BigInt?
+  last_modified                      Float?
   lastModifiedBy                     String?                    @db.Uuid
-  server_created_at                  BigInt?
+  server_created_at                  Float?
   branches                           branches                   @relation(fields: [branchId], references: [id])
   users_audits_createdByTousers      users?                     @relation("audits_createdByTousers", fields: [createdBy], references: [userId])
   users_audits_lastModifiedByTousers users?                     @relation("audits_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
@@ -107,10 +107,10 @@ model branch_goals {
   active                Boolean                 @default(true)
   position              Int
   deleted               Boolean                 @default(false)
-  created_at            BigInt
-  updated_at            BigInt
-  server_created_at     BigInt?
-  last_modified         BigInt?
+  created_at            Float
+  updated_at            Float
+  server_created_at     Float?
+  last_modified         Float?
   branches_branch_goals branches_branch_goals[] @ignore
 }
 
@@ -121,10 +121,10 @@ model branch_product_selling_prices {
   pack                 Float                 @db.Real
   sellingPrice         Float                 @db.Real
   deleted              Boolean               @default(false)
-  created_at           BigInt
-  updated_at           BigInt
-  server_created_at    BigInt?
-  last_modified        BigInt?
+  created_at           Float
+  updated_at           Float
+  server_created_at    Float?
+  last_modified        Float?
   lastModifiedBy       String?               @db.Uuid
   stockDescriptionId   String?               @db.Uuid
   branches             branches              @relation(fields: [branchId], references: [id])
@@ -140,12 +140,12 @@ model branch_purchases {
   amount                                       Float?                   @db.Real
   paymentSource                                String?                  @db.VarChar(255)
   deleted                                      Boolean                  @default(false)
-  created_at                                   BigInt
-  updated_at                                   BigInt
+  created_at                                   Float
+  updated_at                                   Float
   createdBy                                    String?                  @db.Uuid
-  last_modified                                BigInt?
+  last_modified                                Float?
   lastModifiedBy                               String?                  @db.Uuid
-  server_created_at                            BigInt?
+  server_created_at                            Float?
   branches                                     branches                 @relation(fields: [branchId], references: [id])
   branches_products_stocks                     branches_products_stocks @relation(fields: [branchProductStockId], references: [id])
   users_branch_purchases_createdByTousers      users?                   @relation("branch_purchases_createdByTousers", fields: [createdBy], references: [userId])
@@ -161,10 +161,10 @@ model branch_supplier_order_payment_installments {
   branchId                                                               String                        @db.Uuid
   createdBy                                                              String                        @db.Uuid
   deleted                                                                Boolean                       @default(false)
-  created_at                                                             BigInt
-  updated_at                                                             BigInt
-  server_created_at                                                      BigInt?
-  last_modified                                                          BigInt?
+  created_at                                                             Float
+  updated_at                                                             Float
+  server_created_at                                                      Float?
+  last_modified                                                          Float?
   lastModifiedBy                                                         String?                       @db.Uuid
   branches                                                               branches                      @relation(fields: [branchId], references: [id])
   branch_suppliers                                                       branch_suppliers              @relation(fields: [branchSupplierId], references: [id])
@@ -180,12 +180,12 @@ model branch_supplier_orders {
   branchSupplierId                                   String                                       @db.Uuid
   salespersonId                                      String                                       @db.Uuid
   createdBy                                          String                                       @db.Uuid
-  orderDate                                          BigInt
+  orderDate                                          Float
   deleted                                            Boolean                                      @default(false)
-  created_at                                         BigInt
-  updated_at                                         BigInt
-  server_created_at                                  BigInt?
-  last_modified                                      BigInt?
+  created_at                                         Float
+  updated_at                                         Float
+  server_created_at                                  Float?
+  last_modified                                      Float?
   lastModifiedBy                                     String?                                      @db.Uuid
   branches                                           branches                                     @relation(fields: [branchId], references: [id])
   branch_suppliers                                   branch_suppliers                             @relation(fields: [branchSupplierId], references: [id])
@@ -203,10 +203,10 @@ model branch_supplier_products {
   branchId                                             String            @db.Uuid
   createdBy                                            String            @db.Uuid
   deleted                                              Boolean           @default(false)
-  created_at                                           BigInt
-  updated_at                                           BigInt
-  server_created_at                                    BigInt?
-  last_modified                                        BigInt?
+  created_at                                           Float
+  updated_at                                           Float
+  server_created_at                                    Float?
+  last_modified                                        Float?
   hidden                                               Boolean?          @default(false)
   lastModifiedBy                                       String?           @db.Uuid
   branches                                             branches          @relation(fields: [branchId], references: [id])
@@ -223,10 +223,10 @@ model branch_supplier_salespersons {
   branchSupplierId                                         String                                       @db.Uuid
   createdBy                                                String                                       @db.Uuid
   deleted                                                  Boolean                                      @default(false)
-  created_at                                               BigInt
-  updated_at                                               BigInt
-  server_created_at                                        BigInt?
-  last_modified                                            BigInt?
+  created_at                                               Float
+  updated_at                                               Float
+  server_created_at                                        Float?
+  last_modified                                            Float?
   hidden                                                   Boolean?                                     @default(false)
   employeeId                                               String?                                      @db.Uuid
   employeeName                                             String                                       @db.VarChar(255)
@@ -246,10 +246,10 @@ model branch_supplier_stocks {
   branchId                                           String                   @db.Uuid
   createdBy                                          String                   @db.Uuid
   deleted                                            Boolean                  @default(false)
-  created_at                                         BigInt
-  updated_at                                         BigInt
-  server_created_at                                  BigInt?
-  last_modified                                      BigInt?
+  created_at                                         Float
+  updated_at                                         Float
+  server_created_at                                  Float?
+  last_modified                                      Float?
   lastModifiedBy                                     String?                  @db.Uuid
   branches                                           branches                 @relation(fields: [branchId], references: [id])
   branches_products_stocks                           branches_products_stocks @relation(fields: [branchProductStockId], references: [id])
@@ -263,11 +263,11 @@ model branch_suppliers {
   createdBy                                    String                                       @db.Uuid
   deliveryDays                                 String                                       @db.VarChar(255)
   deleted                                      Boolean                                      @default(false)
-  created_at                                   BigInt
-  updated_at                                   BigInt
-  server_created_at                            BigInt?
-  last_modified                                BigInt?
-  dateAdded                                    BigInt?
+  created_at                                   Float
+  updated_at                                   Float
+  server_created_at                            Float?
+  last_modified                                Float?
+  dateAdded                                    Float?
   hidden                                       Boolean?                                     @default(false)
   isTemporary                                  Boolean?                                     @default(false)
   branchName                                   String                                       @db.VarChar(255)
@@ -288,8 +288,8 @@ model branch_user_groups {
   name                                 String                                 @db.VarChar(255)
   description                          String                                 @db.VarChar(255)
   deleted                              Boolean                                @default(false)
-  created_at                           BigInt
-  updated_at                           BigInt
+  created_at                           Float
+  updated_at                           Float
   app_notifications_branch_user_groups app_notifications_branch_user_groups[] @ignore
   branches                             branches[]
 }
@@ -306,8 +306,8 @@ model branches {
   companyId                                                                                String?                                      @db.Uuid
   type                                                                                     String?
   deleted                                                                                  Boolean                                      @default(false)
-  created_at                                                                               BigInt
-  updated_at                                                                               BigInt
+  created_at                                                                               Float
+  updated_at                                                                               Float
   checkoutSales                                                                            Boolean                                      @default(false)
   aggregateSales                                                                           Boolean                                      @default(true)
   action                                                                                   String?                                      @db.VarChar(255)
@@ -335,7 +335,7 @@ model branches {
   coolerBrands                                                                             String?                                      @db.VarChar(255)
   coolerTypes                                                                              String?                                      @db.VarChar(255)
   electricity                                                                              String?                                      @db.VarChar(255)
-  yearOfEstablishment                                                                      BigInt?
+  yearOfEstablishment                                                                      Float?
   appointmentId                                                                            String?                                      @db.Uuid
   branchUserGroupId                                                                        String?                                      @db.Uuid
   appointments                                                                             appointments?                                @relation(fields: [appointmentId], references: [id])
@@ -378,8 +378,8 @@ model branches {
 model branches_branch_goals {
   branchId     String       @db.Uuid
   branchGoalId String       @db.Uuid
-  created_at   BigInt
-  updated_at   BigInt
+  created_at   Float
+  updated_at   Float
   branch_goals branch_goals @relation(fields: [branchGoalId], references: [id])
   branches     branches     @relation(fields: [branchId], references: [id])
 
@@ -390,13 +390,13 @@ model branches_customers {
   branchId                                       String    @db.Uuid
   customerId                                     String    @db.Uuid
   deleted                                        Boolean   @default(false)
-  created_at                                     BigInt
-  updated_at                                     BigInt
+  created_at                                     Float
+  updated_at                                     Float
   id                                             String    @id @db.Uuid
   createdBy                                      String?   @db.Uuid
-  last_modified                                  BigInt?
+  last_modified                                  Float?
   lastModifiedBy                                 String?   @db.Uuid
-  server_created_at                              BigInt?
+  server_created_at                              Float?
   branches                                       branches  @relation(fields: [branchId], references: [id])
   users_branches_customers_createdByTousers      users?    @relation("branches_customers_createdByTousers", fields: [createdBy], references: [userId])
   customers                                      customers @relation(fields: [customerId], references: [id])
@@ -408,11 +408,11 @@ model branches_product_categories {
   productCategoryId  String?             @db.Uuid
   branchId           String?             @db.Uuid
   deleted            Boolean             @default(false)
-  created_at         BigInt
-  updated_at         BigInt
-  last_modified      BigInt?
+  created_at         Float
+  updated_at         Float
+  last_modified      Float?
   lastModifiedBy     String?             @db.Uuid
-  server_created_at  BigInt?
+  server_created_at  Float?
   id                 String?             @db.Uuid
   branches           branches?           @relation(fields: [branchId], references: [id])
   users              users?              @relation(fields: [lastModifiedBy], references: [userId])
@@ -428,12 +428,12 @@ model branches_products {
   lowestStock                                   Float?                               @db.Real
   sellingPrice                                  Float?                               @db.Real
   deleted                                       Boolean                              @default(false)
-  created_at                                    BigInt
-  updated_at                                    BigInt
+  created_at                                    Float
+  updated_at                                    Float
   id                                            String                               @id @db.Uuid
-  last_modified                                 BigInt?
+  last_modified                                 Float?
   lastModifiedBy                                String?                              @db.Uuid
-  server_created_at                             BigInt?
+  server_created_at                             Float?
   createdBy                                     String?                              @db.Uuid
   hidden                                        Boolean?                             @default(false)
   packs                                         Float[]
@@ -461,15 +461,15 @@ model branches_products_stock_movements {
   quantity                                                        Float    @db.Real
   createdBy                                                       String   @db.Uuid
   deleted                                                         Boolean  @default(false)
-  created_at                                                      BigInt
-  updated_at                                                      BigInt
-  entryDate                                                       BigInt   @default(1628505987)
-  last_modified                                                   BigInt?
+  created_at                                                      Float
+  updated_at                                                      Float
+  entryDate                                                       Float   @default(1628505987)
+  last_modified                                                   Float?
   lastModifiedBy                                                  String?  @db.Uuid
-  server_created_at                                               BigInt?
+  server_created_at                                               Float?
   costPrice                                                       Float?   @db.Real
   sellingPrice                                                    Float?   @db.Real
-  expiryDate                                                      BigInt?
+  expiryDate                                                      Float?
   batchNumber                                                     String?  @db.VarChar(255)
   branches_branchesTobranches_products_stock_movements_branchFrom branches @relation("branchesTobranches_products_stock_movements_branchFrom", fields: [branchFrom], references: [id])
   branches_branchesTobranches_products_stock_movements_branchTo   branches @relation("branchesTobranches_products_stock_movements_branchTo", fields: [branchTo], references: [id])
@@ -485,19 +485,19 @@ model branches_products_stocks {
   quantity                                             Float?                               @db.Real
   costPrice                                            Float?                               @db.Real
   deleted                                              Boolean                              @default(false)
-  created_at                                           BigInt
-  updated_at                                           BigInt
-  stockDate                                            BigInt                               @default(1628505987)
+  created_at                                           Float
+  updated_at                                           Float
+  stockDate                                            Float                               @default(1628505987)
   branchProductId                                      String?                              @db.Uuid
   branchSupplierOrderId                                String?                              @db.Uuid
   createdBy                                            String?                              @db.Uuid
   type                                                 String?
   paymentSource                                        String?
   auditId                                              String?                              @db.Uuid
-  last_modified                                        BigInt?
+  last_modified                                        Float?
   lastModifiedBy                                       String?                              @db.Uuid
-  server_created_at                                    BigInt?
-  expiryDate                                           BigInt?
+  server_created_at                                    Float?
+  expiryDate                                           Float?
   batchNumber                                          String?                              @db.VarChar(255)
   audits                                               audits?                              @relation(fields: [auditId], references: [id])
   branches                                             branches?                            @relation(fields: [branchId], references: [id])
@@ -518,14 +518,14 @@ model branches_products_stocks_histories {
   productId                                                      String?                  @db.Uuid
   branchId                                                       String?                  @db.Uuid
   deleted                                                        Boolean                  @default(false)
-  created_at                                                     BigInt
-  updated_at                                                     BigInt
-  stockDate                                                      BigInt                   @default(1628505987)
+  created_at                                                     Float
+  updated_at                                                     Float
+  stockDate                                                      Float                   @default(1628505987)
   branchProductId                                                String?                  @db.Uuid
   createdBy                                                      String?                  @db.Uuid
-  last_modified                                                  BigInt?
+  last_modified                                                  Float?
   lastModifiedBy                                                 String?                  @db.Uuid
-  server_created_at                                              BigInt?
+  server_created_at                                              Float?
   branches                                                       branches?                @relation(fields: [branchId], references: [id])
   branches_products                                              branches_products?       @relation(fields: [branchProductId], references: [id])
   branches_products_stocks                                       branches_products_stocks @relation(fields: [branchProductStockId], references: [id])
@@ -538,10 +538,10 @@ model brands {
   id                String     @id @db.Uuid
   name              String     @db.VarChar(255)
   deleted           Boolean    @default(false)
-  created_at        BigInt
-  updated_at        BigInt
-  server_created_at BigInt?
-  last_modified     BigInt?
+  created_at        Float
+  updated_at        Float
+  server_created_at Float?
+  last_modified     Float?
   products          products[]
 }
 
@@ -550,8 +550,8 @@ model business_categories {
   name        String      @db.VarChar(255)
   description String?     @db.VarChar(255)
   deleted     Boolean     @default(false)
-  created_at  BigInt
-  updated_at  BigInt
+  created_at  Float
+  updated_at  Float
   branches    branches[]
   companies   companies[]
 }
@@ -561,8 +561,8 @@ model business_categories_product_categories {
   businessCategoryId String  @db.Uuid
   productCategoryId  String  @db.Uuid
   deleted            Boolean @default(false)
-  created_at         BigInt
-  updated_at         BigInt
+  created_at         Float
+  updated_at         Float
 
   @@ignore
 }
@@ -574,10 +574,10 @@ model cashflow_categories {
   status            String?
   createdBy         String      @db.Uuid
   deleted           Boolean     @default(false)
-  created_at        BigInt
-  updated_at        BigInt
-  server_created_at BigInt?
-  last_modified     BigInt?
+  created_at        Float
+  updated_at        Float
+  server_created_at Float?
+  last_modified     Float?
   users             users       @relation(fields: [createdBy], references: [userId])
   cashflows         cashflows[]
 }
@@ -591,14 +591,14 @@ model cashflows {
   status                                 String?
   createdBy                              String              @db.Uuid
   statusChangedBy                        String?             @db.Uuid
-  dateAdded                              BigInt
+  dateAdded                              Float
   username                               String              @db.VarChar(255)
   deleted                                Boolean             @default(false)
-  created_at                             BigInt
-  updated_at                             BigInt
-  last_modified                          BigInt?
+  created_at                             Float
+  updated_at                             Float
+  last_modified                          Float?
   lastModifiedBy                         String?             @db.Uuid
-  server_created_at                      BigInt?
+  server_created_at                      Float?
   branches                               branches            @relation(fields: [branchId], references: [id])
   cashflow_categories                    cashflow_categories @relation(fields: [categoryId], references: [id])
   users_cashflows_createdByTousers       users               @relation("cashflows_createdByTousers", fields: [createdBy], references: [userId])
@@ -611,8 +611,8 @@ model client_user_requests {
   type           String  @db.VarChar(255)
   request        Json    @db.Json
   deleted        Boolean @default(false)
-  created_at     BigInt
-  updated_at     BigInt
+  created_at     Float
+  updated_at     Float
   lastModifiedBy String? @db.Uuid
   status         String  @default("to_do")
   users          users?  @relation(fields: [lastModifiedBy], references: [userId])
@@ -622,9 +622,9 @@ model clients {
   name        String  @id @unique @db.VarChar(255)
   displayName String  @unique @db.VarChar(255)
   deleted     Boolean @default(false)
-  created_at  BigInt
-  updated_at  BigInt
-  lastSyncAt  BigInt?
+  created_at  Float
+  updated_at  Float
+  lastSyncAt  Float?
   tokens      tokens?
 }
 
@@ -633,8 +633,8 @@ model companies {
   name                                  String                        @db.VarChar(255)
   businessCategoryId                    String                        @db.Uuid
   deleted                               Boolean                       @default(false)
-  created_at                            BigInt
-  updated_at                            BigInt
+  created_at                            Float
+  updated_at                            Float
   subscriptionId                        String?                       @db.Uuid
   email                                 String?                       @db.VarChar(255)
   phone                                 String?                       @db.VarChar(255)
@@ -642,7 +642,7 @@ model companies {
   adminLastModifiedBy                   String?                       @db.VarChar(255)
   lastModifiedBy                        String?                       @db.Uuid
   lastSyncBy                            String?                       @db.Uuid
-  lastSyncAt                            BigInt?
+  lastSyncAt                            Float?
   business_categories                   business_categories           @relation(fields: [businessCategoryId], references: [id])
   internal_business_categories          internal_business_categories? @relation(fields: [internalBusinessCategoryId], references: [id])
   users_companies_lastModifiedByTousers users?                        @relation("companies_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
@@ -665,8 +665,8 @@ model companies_subscriptions {
   comments       String?        @db.VarChar(255)
   active         Boolean?       @default(true)
   deleted        Boolean        @default(false)
-  created_at     BigInt
-  updated_at     BigInt
+  created_at     Float
+  updated_at     Float
   companies      companies?     @relation(fields: [companyId], references: [id])
   subscriptions  subscriptions? @relation(fields: [subscriptionId], references: [id])
 
@@ -677,10 +677,10 @@ model companies_sync_histories {
   id         String     @id @db.Uuid
   companyId  String?    @db.Uuid
   lastSyncBy String?    @db.Uuid
-  lastSyncAt BigInt
+  lastSyncAt Float
   deleted    Boolean    @default(false)
-  created_at BigInt
-  updated_at BigInt
+  created_at Float
+  updated_at Float
   type       String?
   companies  companies? @relation(fields: [companyId], references: [id])
   users      users?     @relation(fields: [lastSyncBy], references: [userId])
@@ -691,12 +691,12 @@ model customer_care_schedules {
   branchId                                            String    @db.Uuid
   companyId                                           String    @db.Uuid
   reason                                              String?   @db.VarChar(255)
-  appointmentTime                                     BigInt?
+  appointmentTime                                     Float?
   deleted                                             Boolean   @default(false)
-  created_at                                          BigInt
-  updated_at                                          BigInt
-  server_created_at                                   BigInt?
-  last_modified                                       BigInt?
+  created_at                                          Float
+  updated_at                                          Float
+  server_created_at                                   Float?
+  last_modified                                       Float?
   lastModifiedBy                                      String?   @db.Uuid
   branchName                                          String    @db.VarChar(255)
   id                                                  String    @id @db.Uuid
@@ -716,8 +716,8 @@ model customercare_supervisors {
   supervisorId                                         String  @db.Uuid
   customerCareId                                       String  @db.Uuid
   deleted                                              Boolean @default(false)
-  created_at                                           BigInt
-  updated_at                                           BigInt
+  created_at                                           Float
+  updated_at                                           Float
   users_customercare_supervisors_customerCareIdTousers users   @relation("customercare_supervisors_customerCareIdTousers", fields: [customerCareId], references: [userId])
   users_customercare_supervisors_supervisorIdTousers   users   @relation("customercare_supervisors_supervisorIdTousers", fields: [supervisorId], references: [userId])
 
@@ -732,12 +732,12 @@ model customers {
   email                                 String?              @db.VarChar(255)
   location                              String?              @db.VarChar(255)
   deleted                               Boolean              @default(false)
-  created_at                            BigInt
-  updated_at                            BigInt
+  created_at                            Float
+  updated_at                            Float
   isTemporary                           Boolean?             @default(false)
   createdBy                             String?              @db.Uuid
-  server_created_at                     BigInt?
-  last_modified                         BigInt?
+  server_created_at                     Float?
+  last_modified                         Float?
   lastModifiedBy                        String?              @db.Uuid
   type                                  String?              @db.VarChar(255)
   entityId                              String?              @db.Uuid
@@ -754,8 +754,8 @@ model employee_types {
   name        String  @db.VarChar(255)
   description String? @db.VarChar(255)
   deleted     Boolean @default(false)
-  created_at  BigInt
-  updated_at  BigInt
+  created_at  Float
+  updated_at  Float
 }
 
 model features {
@@ -763,18 +763,18 @@ model features {
   name                   String                   @db.VarChar(255)
   description            String?                  @db.VarChar(255)
   deleted                Boolean                  @default(false)
-  created_at             BigInt
-  updated_at             BigInt
+  created_at             Float
+  updated_at             Float
   subscriptions_features subscriptions_features[] @ignore
 }
 
 model general_settings {
   id         String  @id @db.Uuid
   table      String? @db.VarChar(255)
-  lastSyncAt BigInt?
+  lastSyncAt Float?
   deleted    Boolean @default(false)
-  created_at BigInt
-  updated_at BigInt
+  created_at Float
+  updated_at Float
 }
 
 model health_checks {
@@ -783,8 +783,8 @@ model health_checks {
   status     String? @db.VarChar(255)
   action     String? @db.VarChar(255)
   deleted    Boolean @default(false)
-  created_at BigInt
-  updated_at BigInt
+  created_at Float
+  updated_at Float
   localInfo  Json?
   users      users   @relation(fields: [userId], references: [userId])
 }
@@ -794,8 +794,8 @@ model internal_business_categories {
   name        String      @db.VarChar(255)
   description String?     @db.VarChar(255)
   deleted     Boolean     @default(false)
-  created_at  BigInt
-  updated_at  BigInt
+  created_at  Float
+  updated_at  Float
   companies   companies[]
 }
 
@@ -815,11 +815,11 @@ model manufacturers {
   id                String     @id @db.Uuid
   name              String     @db.VarChar(255)
   deleted           Boolean    @default(false)
-  created_at        BigInt
-  updated_at        BigInt
+  created_at        Float
+  updated_at        Float
   isTemporary       Boolean?   @default(false)
-  server_created_at BigInt?
-  last_modified     BigInt?
+  server_created_at Float?
+  last_modified     Float?
   products          products[]
 }
 
@@ -828,10 +828,10 @@ model measurement_units {
   name               String               @db.VarChar(255)
   symbol             String               @db.VarChar(255)
   deleted            Boolean              @default(false)
-  created_at         BigInt
-  updated_at         BigInt
-  server_created_at  BigInt?
-  last_modified      BigInt?
+  created_at         Float
+  updated_at         Float
+  server_created_at  Float?
+  last_modified      Float?
   product_categories product_categories[]
   products           products[]
 }
@@ -840,10 +840,10 @@ model notifications {
   id                String  @id @db.Uuid
   type              String? @db.VarChar(255)
   deleted           Boolean @default(false)
-  server_created_at BigInt?
-  last_modified     BigInt?
-  created_at        BigInt
-  updated_at        BigInt
+  server_created_at Float?
+  last_modified     Float?
+  created_at        Float
+  updated_at        Float
   message           String? @db.VarChar(255)
 }
 
@@ -856,8 +856,8 @@ model payment_histories {
   receipt             String?  @db.VarChar(255)
   adminLastModifiedBy String?  @db.VarChar(255)
   deleted             Boolean  @default(false)
-  created_at          BigInt
-  updated_at          BigInt
+  created_at          Float
+  updated_at          Float
   paymentType         String?
   description         String?  @default("subscription")
   branches            branches @relation(fields: [branchId], references: [id])
@@ -868,8 +868,8 @@ model permissions {
   name              String              @db.VarChar(255)
   description       String?             @db.VarChar(255)
   deleted           Boolean             @default(false)
-  created_at        BigInt
-  updated_at        BigInt
+  created_at        Float
+  updated_at        Float
   roles_permissions roles_permissions[] @ignore
 }
 
@@ -878,11 +878,11 @@ model product_categories {
   name                                String                                @db.VarChar(255)
   parentId                            String?                               @db.Uuid
   deleted                             Boolean                               @default(false)
-  created_at                          BigInt
-  updated_at                          BigInt
+  created_at                          Float
+  updated_at                          Float
   measurementUnitId                   String?                               @db.Uuid
-  server_created_at                   BigInt?
-  last_modified                       BigInt?
+  server_created_at                   Float?
+  last_modified                       Float?
   summary                             String?                               @db.VarChar(255)
   measurement_units                   measurement_units?                    @relation(fields: [measurementUnitId], references: [id])
   product_categories                  product_categories?                   @relation("product_categoriesToproduct_categories_parentId", fields: [parentId], references: [id])
@@ -897,8 +897,8 @@ model product_categories_product_segments {
   productCategoryId  String?             @db.Uuid
   productSegmentId   String?             @db.Uuid
   deleted            Boolean             @default(false)
-  created_at         BigInt
-  updated_at         BigInt
+  created_at         Float
+  updated_at         Float
   product_categories product_categories? @relation(fields: [productCategoryId], references: [id])
   product_segments   product_segments?   @relation(fields: [productSegmentId], references: [id])
 
@@ -910,10 +910,10 @@ model product_descriptions {
   name                          String                          @unique @db.VarChar(255)
   summary                       String?                         @db.VarChar(255)
   deleted                       Boolean                         @default(false)
-  created_at                    BigInt
-  updated_at                    BigInt
-  server_created_at             BigInt?
-  last_modified                 BigInt?
+  created_at                    Float
+  updated_at                    Float
+  server_created_at             Float?
+  last_modified                 Float?
   branch_product_selling_prices branch_product_selling_prices[]
   products                      products[]
 }
@@ -923,10 +923,10 @@ model product_product_segment_entries {
   productId               String?                  @db.Uuid
   productSegmentEntryId   String?                  @db.Uuid
   deleted                 Boolean                  @default(false)
-  created_at              BigInt
-  updated_at              BigInt
-  server_created_at       BigInt?
-  last_modified           BigInt?
+  created_at              Float
+  updated_at              Float
+  server_created_at       Float?
+  last_modified           Float?
   products                products?                @relation(fields: [productId], references: [id])
   product_segment_entries product_segment_entries? @relation(fields: [productSegmentEntryId], references: [id])
 
@@ -937,11 +937,11 @@ model product_segment_entries {
   id                              String                            @id @db.Uuid
   name                            String                            @unique @db.VarChar(255)
   deleted                         Boolean                           @default(false)
-  created_at                      BigInt
-  updated_at                      BigInt
+  created_at                      Float
+  updated_at                      Float
   productSegmentId                String                            @db.Uuid
-  server_created_at               BigInt?
-  last_modified                   BigInt?
+  server_created_at               Float?
+  last_modified                   Float?
   product_segments                product_segments                  @relation(fields: [productSegmentId], references: [id])
   product_product_segment_entries product_product_segment_entries[] @ignore
 }
@@ -951,10 +951,10 @@ model product_segments {
   name                                String                                @unique @db.VarChar(255)
   description                         String?                               @db.VarChar(255)
   deleted                             Boolean                               @default(false)
-  created_at                          BigInt
-  updated_at                          BigInt
-  server_created_at                   BigInt?
-  last_modified                       BigInt?
+  created_at                          Float
+  updated_at                          Float
+  server_created_at                   Float?
+  last_modified                       Float?
   product_categories_product_segments product_categories_product_segments[] @ignore
   product_segment_entries             product_segment_entries[]
   products                            products[]
@@ -969,15 +969,15 @@ model products {
   brandId                            String?                              @db.Uuid
   productCategoryId                  String?                              @db.Uuid
   deleted                            Boolean                              @default(false)
-  created_at                         BigInt
-  updated_at                         BigInt
+  created_at                         Float
+  updated_at                         Float
   productSegmentId                   String?                              @db.Uuid
   measurementUnitId                  String?                              @db.Uuid
   weight                             Float?                               @db.Real
   image                              String?                              @db.VarChar(255)
   isTemporary                        Boolean?                             @default(false)
-  server_created_at                  BigInt?
-  last_modified                      BigInt?
+  server_created_at                  Float?
+  last_modified                      Float?
   description                        String?                              @db.VarChar(255)
   adminLastModifiedBy                String?                              @db.VarChar(255)
   lastModifiedBy                     String?                              @db.Uuid
@@ -1012,11 +1012,11 @@ model reconciliation_histories {
   branchId                                             String          @db.Uuid
   createdBy                                            String          @db.Uuid
   deleted                                              Boolean         @default(false)
-  created_at                                           BigInt
-  updated_at                                           BigInt
-  last_modified                                        BigInt?
+  created_at                                           Float
+  updated_at                                           Float
+  last_modified                                        Float?
   lastModifiedBy                                       String?         @db.Uuid
-  server_created_at                                    BigInt?
+  server_created_at                                    Float?
   branches                                             branches        @relation(fields: [branchId], references: [id])
   users_reconciliation_histories_createdByTousers      users           @relation("reconciliation_histories_createdByTousers", fields: [createdBy], references: [userId])
   users_reconciliation_histories_lastModifiedByTousers users?          @relation("reconciliation_histories_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
@@ -1025,9 +1025,9 @@ model reconciliation_histories {
 
 model reconciliations {
   id                                          String                     @id @db.Uuid
-  startDate                                   BigInt
-  endDate                                     BigInt
-  transactionDate                             BigInt
+  startDate                                   Float
+  endDate                                     Float
+  transactionDate                             Float
   salesTotal                                  Float                      @default(0) @db.Real
   expensesTotal                               Float                      @default(0) @db.Real
   creditTotal                                 Float                      @default(0) @db.Real
@@ -1036,12 +1036,12 @@ model reconciliations {
   branchId                                    String                     @db.Uuid
   createdBy                                   String                     @db.Uuid
   deleted                                     Boolean                    @default(false)
-  created_at                                  BigInt
-  updated_at                                  BigInt
+  created_at                                  Float
+  updated_at                                  Float
   durationType                                String
-  last_modified                               BigInt?
+  last_modified                               Float?
   lastModifiedBy                              String?                    @db.Uuid
-  server_created_at                           BigInt?
+  server_created_at                           Float?
   branches                                    branches                   @relation(fields: [branchId], references: [id])
   users_reconciliations_createdByTousers      users                      @relation("reconciliations_createdByTousers", fields: [createdBy], references: [userId])
   users_reconciliations_lastModifiedByTousers users?                     @relation("reconciliations_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
@@ -1053,8 +1053,8 @@ model roles {
   name              String              @db.VarChar(255)
   description       String?             @db.VarChar(255)
   deleted           Boolean             @default(false)
-  created_at        BigInt
-  updated_at        BigInt
+  created_at        Float
+  updated_at        Float
   roles_permissions roles_permissions[] @ignore
   users_branches    users_branches[]    @ignore
   users_companies   users_companies[]   @ignore
@@ -1064,8 +1064,8 @@ model roles {
 model roles_permissions {
   roleId       String?      @db.Uuid
   permissionId String?      @db.Uuid
-  created_at   BigInt
-  updated_at   BigInt
+  created_at   Float
+  updated_at   Float
   permissions  permissions? @relation(fields: [permissionId], references: [id])
   roles        roles?       @relation(fields: [roleId], references: [id])
 
@@ -1082,15 +1082,15 @@ model sale_entries {
   sellingPrice                             Float             @db.Real
   quantity                                 Float?            @db.Real
   saleId                                   String            @db.Uuid
-  entryDate                                BigInt
+  entryDate                                Float
   branchProductId                          String            @db.Uuid
   deleted                                  Boolean           @default(false)
-  created_at                               BigInt
-  updated_at                               BigInt
+  created_at                               Float
+  updated_at                               Float
   createdBy                                String?           @db.Uuid
-  last_modified                            BigInt?
+  last_modified                            Float?
   lastModifiedBy                           String?           @db.Uuid
-  server_created_at                        BigInt?
+  server_created_at                        Float?
   actualTotalSales                         Float?            @db.Real
   branches                                 branches          @relation(fields: [branchId], references: [id])
   branches_products                        branches_products @relation(fields: [branchProductId], references: [id])
@@ -1109,12 +1109,12 @@ model sale_installments {
   amount                                        Float      @db.Real
   createdBy                                     String     @db.Uuid
   deleted                                       Boolean    @default(false)
-  created_at                                    BigInt
-  updated_at                                    BigInt
+  created_at                                    Float
+  updated_at                                    Float
   type                                          String?
-  last_modified                                 BigInt?
+  last_modified                                 Float?
   lastModifiedBy                                String?    @db.Uuid
-  server_created_at                             BigInt?
+  server_created_at                             Float?
   branches                                      branches   @relation(fields: [branchId], references: [id])
   users_sale_installments_createdByTousers      users      @relation("sale_installments_createdByTousers", fields: [createdBy], references: [userId])
   customers                                     customers? @relation(fields: [customerId], references: [id])
@@ -1129,14 +1129,14 @@ model sale_return_histories {
   productId                                         String             @db.Uuid
   branchId                                          String             @db.Uuid
   createdBy                                         String             @db.Uuid
-  returnDate                                        BigInt
+  returnDate                                        Float
   quantity                                          Float              @db.Real
   deleted                                           Boolean            @default(false)
-  created_at                                        BigInt
-  updated_at                                        BigInt
-  last_modified                                     BigInt?
+  created_at                                        Float
+  updated_at                                        Float
+  last_modified                                     Float?
   lastModifiedBy                                    String?            @db.Uuid
-  server_created_at                                 BigInt?
+  server_created_at                                 Float?
   branches                                          branches           @relation(fields: [branchId], references: [id])
   branches_products                                 branches_products? @relation(fields: [branchProductId], references: [id])
   users_sale_return_histories_createdByTousers      users              @relation("sale_return_histories_createdByTousers", fields: [createdBy], references: [userId])
@@ -1152,18 +1152,18 @@ model sales {
   branchId                          String                  @db.Uuid
   customerId                        String                  @db.Uuid
   discount                          Float?                  @db.Real
-  salesDate                         BigInt
+  salesDate                         Float
   receiptNumber                     String?                 @db.VarChar(255)
   createdBy                         String                  @db.Uuid
   deleted                           Boolean                 @default(false)
-  created_at                        BigInt
-  updated_at                        BigInt
+  created_at                        Float
+  updated_at                        Float
   type                              String?                 @default("sales")
   paymentType                       String?                 @default("cash")
   auditId                           String?                 @db.Uuid
-  last_modified                     BigInt?
+  last_modified                     Float?
   lastModifiedBy                    String?                 @db.Uuid
-  server_created_at                 BigInt?
+  server_created_at                 Float?
   audits                            audits?                 @relation(fields: [auditId], references: [id])
   branches                          branches                @relation(fields: [branchId], references: [id])
   users_sales_createdByTousers      users                   @relation("sales_createdByTousers", fields: [createdBy], references: [userId])
@@ -1181,14 +1181,14 @@ model stock_return_histories {
   productId                                          String?                   @db.Uuid
   branchId                                           String?                   @db.Uuid
   createdBy                                          String                    @db.Uuid
-  returnDate                                         BigInt
+  returnDate                                         Float
   quantity                                           Float                     @db.Real
   deleted                                            Boolean                   @default(false)
-  created_at                                         BigInt
-  updated_at                                         BigInt
-  last_modified                                      BigInt?
+  created_at                                         Float
+  updated_at                                         Float
+  last_modified                                      Float?
   lastModifiedBy                                     String?                   @db.Uuid
-  server_created_at                                  BigInt?
+  server_created_at                                  Float?
   branches                                           branches?                 @relation(fields: [branchId], references: [id])
   branches_products                                  branches_products?        @relation(fields: [branchProductId], references: [id])
   branches_products_stocks                           branches_products_stocks? @relation(fields: [branchProductStockId], references: [id])
@@ -1203,8 +1203,8 @@ model subscriptions {
   numberOfBranches        Int
   description             String?                   @db.VarChar(255)
   deleted                 Boolean                   @default(false)
-  created_at              BigInt
-  updated_at              BigInt
+  created_at              Float
+  updated_at              Float
   companies               companies[]
   companies_subscriptions companies_subscriptions[] @ignore
   subscriptions_features  subscriptions_features[]  @ignore
@@ -1214,8 +1214,8 @@ model subscriptions {
 model subscriptions_features {
   featureId      String?        @db.Uuid
   subscriptionId String?        @db.Uuid
-  created_at     BigInt
-  updated_at     BigInt
+  created_at     Float
+  updated_at     Float
   features       features?      @relation(fields: [featureId], references: [id])
   subscriptions  subscriptions? @relation(fields: [subscriptionId], references: [id])
 
@@ -1230,11 +1230,11 @@ model suppliers {
   isTemporary                           Boolean @default(false)
   createdBy                             String? @db.Uuid
   deleted                               Boolean @default(false)
-  created_at                            BigInt
-  updated_at                            BigInt
-  dateAdded                             BigInt?
-  server_created_at                     BigInt?
-  last_modified                         BigInt?
+  created_at                            Float
+  updated_at                            Float
+  dateAdded                             Float?
+  server_created_at                     Float?
+  last_modified                         Float?
   lastModifiedBy                        String? @db.Uuid
   users_suppliers_createdByTousers      users?  @relation("suppliers_createdByTousers", fields: [createdBy], references: [userId])
   users_suppliers_lastModifiedByTousers users?  @relation("suppliers_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
@@ -1248,8 +1248,8 @@ model suppliers_companies {
   isTemporary Boolean? @default(true)
   createdBy   String   @db.Uuid
   deleted     Boolean  @default(false)
-  created_at  BigInt
-  updated_at  BigInt
+  created_at  Float
+  updated_at  Float
   users       users    @relation(fields: [createdBy], references: [userId])
 }
 
@@ -1259,8 +1259,8 @@ model sync_changes {
   changes    Json    @db.Json
   type       String
   deleted    Boolean @default(false)
-  created_at BigInt
-  updated_at BigInt
+  created_at Float
+  updated_at Float
   users      users   @relation(fields: [userId], references: [userId])
 }
 
@@ -1268,8 +1268,8 @@ model tokens {
   clientName String  @id @unique @db.VarChar(255)
   token      String  @unique @db.VarChar(255)
   deleted    Boolean @default(false)
-  created_at BigInt
-  updated_at BigInt
+  created_at Float
+  updated_at Float
   clients    clients @relation(fields: [clientName], references: [name])
 }
 
@@ -1277,8 +1277,8 @@ model user_access {
   userId     String  @id @unique @db.Uuid
   access     Json?
   deleted    Boolean @default(false)
-  created_at BigInt
-  updated_at BigInt
+  created_at Float
+  updated_at Float
 }
 
 model users {
@@ -1294,11 +1294,11 @@ model users {
   status                                                                                                      String?                                      @db.VarChar(255)
   otp                                                                                                         String?                                      @db.VarChar(255)
   deleted                                                                                                     Boolean                                      @default(false)
-  created_at                                                                                                  BigInt
-  updated_at                                                                                                  BigInt
+  created_at                                                                                                  Float
+  updated_at                                                                                                  Float
   isCustomerCarePersonnel                                                                                     Boolean                                      @default(false)
-  server_created_at                                                                                           BigInt?
-  last_modified                                                                                               BigInt?
+  server_created_at                                                                                           Float?
+  last_modified                                                                                               Float?
   isSupervisor                                                                                                Boolean                                      @default(false)
   adminLastModifiedBy                                                                                         String?                                      @db.VarChar(255)
   lastModifiedBy                                                                                              String?                                      @db.Uuid
@@ -1389,16 +1389,16 @@ model users_branches {
   roleId                String    @db.Uuid
   addedPermissionIds    Json?     @default("[]")
   excludedPermissionIds Json?     @default("[]")
-  created_at            BigInt
-  updated_at            BigInt
+  created_at            Float
+  updated_at            Float
   companyId             String    @db.Uuid
   employeeTypeId        String?   @db.Uuid
   customerCareId        String?   @db.VarChar(255)
   main                  Boolean   @default(false)
   status                String?   @default("active")
   deleted               Boolean   @default(false)
-  server_created_at     BigInt?
-  last_modified         BigInt?
+  server_created_at     Float?
+  last_modified         Float?
   id                    String?   @db.Uuid
   branches              branches  @relation(fields: [branchId], references: [id])
   companies             companies @relation(fields: [companyId], references: [id])
@@ -1415,8 +1415,8 @@ model users_companies {
   roleId                String    @db.Uuid
   addedPermissionIds    Json?     @default("[]")
   excludedPermissionIds Json?     @default("[]")
-  created_at            BigInt
-  updated_at            BigInt
+  created_at            Float
+  updated_at            Float
   companies             companies @relation(fields: [companyId], references: [id])
   roles                 roles     @relation(fields: [roleId], references: [id])
   users                 users     @relation(fields: [userId], references: [userId])

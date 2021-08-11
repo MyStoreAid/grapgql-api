@@ -7,12 +7,11 @@ import updateBrand from './brands/mutations/updateBrand';
 
 
 //Internal Business Category
-import internal_business_category from './internal_business_categories/queries/internal_business_category';
-import internal_business_categories from './internal_business_categories/queries/internal_business_categories';
-import createInternalBusinessCategory from './internal_business_categories/mutations/createInternalBusinessCategory';
-import deleteInternalBusinessCategory from './internal_business_categories/mutations/deleteInternalBusinessCategory';
-import updateInternalBusinessCategory from './internal_business_categories/mutations/updateInternalBusinessCategory';
-
+import internalBusinessCategory from './internalBusinessCategories/queries/internalBusinessCategory';
+import internalBusinessCategories from './internalBusinessCategories/queries/internalBusinessCategories';
+import createInternalBusinessCategory from './internalBusinessCategories/mutations/createInternalBusinessCategory';
+import deleteInternalBusinessCategory from './internalBusinessCategories/mutations/deleteInternalBusinessCategory';
+import updateInternalBusinessCategory from './internalBusinessCategories/mutations/updateInternalBusinessCategory';
 
 
 //Manufacturers
@@ -35,8 +34,8 @@ const resolvers = {
         manufacturers,
 
         //Internal Business Category
-        internal_business_category,
-        internal_business_categories
+        internalBusinessCategory,
+        internalBusinessCategories
     },
 
     Mutation: {
