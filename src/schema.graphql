@@ -3,13 +3,19 @@ type Query {
     brands: [Brand!]!
     brand(id: ID!): Brand
 
+    #Internal_Business_Categories
+    internalBusinessCategory(id: ID!): InternalBusinessCategory
+    internalBusinessCategories: [InternalBusinessCategory!]!
+
     #Manufactures
     manufacturers: [Manufacturer!]!
     manufacturer(id: ID!): Manufacturer
 
-    #Internal_Business_Categories
-    internalBusinessCategory(id: ID!): InternalBusinessCategory
-    internalBusinessCategories: [InternalBusinessCategory!]!
+    #Product Description
+    productDescriptions: [ProductDescription!]!
+    productDescription(id: ID!): ProductDescription!
+
+   
 }
 
 type Mutation {
@@ -18,15 +24,23 @@ type Mutation {
     updateBrand(id: ID!, name: String!): Brand!
     deleteBrand(id: ID!): Brand!
 
+    #Internal_Business_Categories
+    createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
+    updateInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+    deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+
     #Manufacturer
     createManufacturer(name: String!): Manufacturer!
     updateManufacturer(id: ID!, name: String!): Manufacturer!
     deleteManufacturer(id: ID!): Manufacturer!
 
-    #Internal_Business_Categories
-    createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
-    updateInternalBusinessCategory(id: ID!): InternalBusinessCategory!
-    deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+    #Product Description
+    createProductDescription(name: String!, summary: String): ProductDescription!
+    updateProductDescription(id: ID!, name: String!, summary: String): ProductDescription!
+    deleteProductDescription(id: ID!): ProductDescription!
+
+
+    
 
 }
 
@@ -42,6 +56,15 @@ type Brand {
     deleted: Boolean!
 }
 
+#Internal_Business_Categories
+type InternalBusinessCategory {
+  id: ID! 
+  name: String!
+  description: String
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean
+}
 
 #Manufacturers Type
 type Manufacturer {
@@ -55,13 +78,18 @@ type Manufacturer {
     deleted: Boolean!
 }
 
-
-#Internal_Business_Categories
-type InternalBusinessCategory {
+#Product Descriptions
+type ProductDescription {
   id: ID! 
   name: String!
-  description: String
+  summary: String
   created_at: Float
   updated_at: Float
+  last_modified: Float
+  server_created_at: Float
   deleted: Boolean
 }
+
+
+
+
