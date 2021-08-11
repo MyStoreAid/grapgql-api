@@ -2,14 +2,14 @@
 import moment from 'moment';
 
 export default async function deleteClient (parent:any, args:any, context:any, info:any) {
-    const { id } = await context.prisma.clients.findUnique({ where: { id: args.id }});
+    const { name } = await context.prisma.clients.findUnique({ where: { name: args.name }});
 
-    if(!id) throw new Error("Invalid ID!");
+    if(!name) throw new Error("Invalid ID!");
 
 
     return await context.prisma.clients.update({
         where: {
-            id: args.id
+            name: args.name
         },
         data: {
             deleted : true,

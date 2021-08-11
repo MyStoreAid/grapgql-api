@@ -5,7 +5,7 @@ type Query {
 
     #Client
     clients: [Client!]!
-    client(id: ID!): Client
+    client(name: String!): Client
 
 
     #Internal_Business_Categories
@@ -26,9 +26,9 @@ type Mutation {
     deleteBrand(id: ID!): Brand!
 
     #Client
-    createClient(id: String!, name:String!): Client!
-    updateClient(id: ID!, name: String, displayName: String): Client!
-    deleteClient(id: ID): Client!
+    createClient(name:String!): Client!
+    updateClient(name: String!, displayName: String): Client!
+    deleteClient(name: String!): Client!
 
 
     #Internal_Business_Categories
