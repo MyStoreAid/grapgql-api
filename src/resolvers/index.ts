@@ -5,6 +5,15 @@ import createBrand from './brands/mutations/createBrand';
 import deleteBrand from './brands/mutations/deleteBrand';
 import updateBrand from './brands/mutations/updateBrand';
 
+//Branch Goals
+import branchGoal from './branchGoals/queries/branchGoal';
+import branchGoals from './branchGoals/queries/branchGoals';
+import createBranchGoal from './branchGoals/mutations/createBranchGoal';
+import deleteBranchGoal from './branchGoals/mutations/deleteBranchGoal';
+import updateBranchGoal from './branchGoals/mutations/updateBranchGoal';
+
+
+
 
 //Internal Business Category
 import internalBusinessCategory from './internalBusinessCategories/queries/internalBusinessCategory';
@@ -29,6 +38,10 @@ const resolvers = {
         brands,
         brand,
 
+        //Branch Goals
+        branchGoal,
+        branchGoals,
+
         //Manufactures
         manufacturer,
         manufacturers,
@@ -43,6 +56,11 @@ const resolvers = {
         createBrand,
         updateBrand,
         deleteBrand,
+
+        //Branch Goals
+        createBranchGoal,
+        updateBranchGoal,
+        deleteBranchGoal,
 
         //Manufacturers
         createManufacturer,

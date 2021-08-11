@@ -3,6 +3,10 @@ type Query {
     brands: [Brand!]!
     brand(id: ID!): Brand
 
+    #Branch Goals
+    branchGoals: [BranchGoal!]!
+    branchGoal(id: ID!): BranchGoal!
+
     #Manufactures
     manufacturers: [Manufacturer!]!
     manufacturer(id: ID!): Manufacturer
@@ -17,6 +21,11 @@ type Mutation {
     createBrand(name: String!): Brand!
     updateBrand(id: ID!, name: String!): Brand!
     deleteBrand(id: ID!): Brand!
+
+    #Branch Goals
+    createBranchGoal(name: String!, position: Float!): BranchGoal!
+    updateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
+    deleteBranchGoal(id: ID!): BranchGoal!
 
     #Manufacturer
     createManufacturer(name: String!): Manufacturer!
@@ -42,6 +51,18 @@ type Brand {
     deleted: Boolean!
 }
 
+#Branch Goals
+type BranchGoal {
+    id: ID!
+    name: String!
+    active: Boolean
+    position: Float
+    created_at: Float
+    updated_at: Float
+    last_modified: Float
+    server_created_at: Float
+    deleted: Boolean!
+}
 
 #Manufacturers Type
 type Manufacturer {
@@ -65,3 +86,4 @@ type InternalBusinessCategory {
   updated_at: Float
   deleted: Boolean
 }
+
