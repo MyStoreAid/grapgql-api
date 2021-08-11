@@ -3,13 +3,20 @@ type Query {
     brands: [Brand!]!
     brand(id: ID!): Brand
 
-    #Manufactures
-    manufacturers: [Manufacturer!]!
-    manufacturer(id: ID!): Manufacturer
+    #Client
+    clients: [Client!]!
+    client(id: ID!): Client
+
 
     #Internal_Business_Categories
     internalBusinessCategory(id: ID!): InternalBusinessCategory
     internalBusinessCategories: [InternalBusinessCategory!]!
+
+    #Manufactures
+    manufacturers: [Manufacturer!]!
+    manufacturer(id: ID!): Manufacturer
+
+    
 }
 
 type Mutation {
@@ -18,15 +25,23 @@ type Mutation {
     updateBrand(id: ID!, name: String!): Brand!
     deleteBrand(id: ID!): Brand!
 
-    #Manufacturer
-    createManufacturer(name: String!): Manufacturer!
-    updateManufacturer(id: ID!, name: String!): Manufacturer!
-    deleteManufacturer(id: ID!): Manufacturer!
+    #Client
+    createClient(id: String!, name:String!): Client!
+    updateClient(id: ID!, name: String, displayName: String): Client!
+    deleteClient(id: ID): Client!
+
 
     #Internal_Business_Categories
     createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
     updateInternalBusinessCategory(id: ID!): InternalBusinessCategory!
     deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+
+    #Manufacturer
+    createManufacturer(name: String!): Manufacturer!
+    updateManufacturer(id: ID!, name: String!): Manufacturer!
+    deleteManufacturer(id: ID!): Manufacturer!
+
+    
 
 }
 
@@ -42,6 +57,26 @@ type Brand {
     deleted: Boolean!
 }
 
+#Client
+type Client{
+  id: ID! 
+  name: String!
+  displayName: String
+  created_at: Float
+  updated_at: Float
+  lastSyncAt: Float
+  deleted: Boolean
+}
+
+#Internal_Business_Categories
+type InternalBusinessCategory {
+  id: ID! 
+  name: String!
+  description: String
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean
+}
 
 #Manufacturers Type
 type Manufacturer {
@@ -56,12 +91,4 @@ type Manufacturer {
 }
 
 
-#Internal_Business_Categories
-type InternalBusinessCategory {
-  id: ID! 
-  name: String!
-  description: String
-  created_at: Float
-  updated_at: Float
-  deleted: Boolean
-}
+
