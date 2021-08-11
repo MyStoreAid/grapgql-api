@@ -15,4 +15,69 @@ model Brand {
   name String
   created_at Float
   updated_at Float
+  server_created_at Float
+  last_modified Float
+  deleted Boolean @default(false)
 }
+
+model Business_Categories {
+  id String @id @db.Uuid
+  name String
+  description String
+  created_at Float
+  updated_at Float
+  deleted Boolean @default(false)
+}
+
+
+model Internal_Business_Categories {
+  id String @id @db.Uuid
+  name String
+  description String
+  created_at Float
+  updated_at Float
+  deleted Boolean @default(false)
+}
+
+
+
+model Manufacturers {
+  id String @id @db.Uuid
+  name String
+  created_at Float
+  updated_at Float
+  server_created_at Float
+  last_modified Float
+  isTemporary Boolean @default(false)
+  deleted Boolean @default(false)
+}
+
+
+model Measurement_Units {
+  id String @id @db.Uuid
+  name String
+  symbol String
+  created_at Float
+  updated_at Float
+  server_created_at Float
+  last_modified Float
+  deleted Boolean @default(false)
+  product_categories Product_Categories[]
+}
+
+
+model Product_Categories{
+  id String @id @db.Uuid
+  name String
+  summary String
+  parentId String @db.Uuid
+  created_at Float
+  updated_at Float
+  server_created_at Float
+  last_modified Float
+  deleted Boolean @default(false)
+  measurementUnit Measurement_Units? @relation(fields: [measurementUnitId], references: [id])
+  measurementUnitId String? @db.Uuid
+}
+
+

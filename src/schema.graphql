@@ -1,9 +1,12 @@
 type Query {
     brands: [Brand!]!
+    brand(id: ID!): Brand!
 }
 
 type Mutation {
     createBrand(name: String!): Brand!
+    updateBrand(id: ID!, name: String!): Brand!
+    deleteBrand(id: ID!): Brand!
 }
 
 type Brand {
@@ -11,4 +14,7 @@ type Brand {
     name: String!
     created_at: Float
     updated_at: Float
+    server_created_at: Float
+    last_modified: Float
+    deleted: Boolean
 }
