@@ -3,13 +3,19 @@ type Query {
     brands: [Brand!]!
     brand(id: ID!): Brand
 
-    #Manufactures
-    manufacturers: [Manufacturer!]!
-    manufacturer(id: ID!): Manufacturer
+    #Feature
+    features: [Feature!]!
+    feature(id: ID!): Feature
 
     #Internal_Business_Categories
     internalBusinessCategory(id: ID!): InternalBusinessCategory
     internalBusinessCategories: [InternalBusinessCategory!]!
+
+    #Manufactures
+    manufacturers: [Manufacturer!]!
+    manufacturer(id: ID!): Manufacturer
+
+    
 }
 
 type Mutation {
@@ -18,15 +24,25 @@ type Mutation {
     updateBrand(id: ID!, name: String!): Brand!
     deleteBrand(id: ID!): Brand!
 
-    #Manufacturer
-    createManufacturer(name: String!): Manufacturer!
-    updateManufacturer(id: ID!, name: String!): Manufacturer!
-    deleteManufacturer(id: ID!): Manufacturer!
+    #Features
+    createFeature(name:String!, description: String): Feature!
+    updateFeature(id: ID!, name:String!, description: String): Feature!
+    deleteFeature(id: ID!): Feature!
 
     #Internal_Business_Categories
     createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
     updateInternalBusinessCategory(id: ID!): InternalBusinessCategory!
     deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+
+    #Manufacturer
+    createManufacturer(name: String!): Manufacturer!
+    updateManufacturer(id: ID!, name: String!): Manufacturer!
+    deleteManufacturer(id: ID!): Manufacturer!
+
+   
+
+
+    
 
 }
 
@@ -58,6 +74,16 @@ type Manufacturer {
 
 #Internal_Business_Categories
 type InternalBusinessCategory {
+  id: ID! 
+  name: String!
+  description: String
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean
+}
+
+#Internal_Business_Categories
+type Feature {
   id: ID! 
   name: String!
   description: String
