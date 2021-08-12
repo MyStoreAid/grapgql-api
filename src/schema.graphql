@@ -10,6 +10,10 @@ type Query {
     #Internal_Business_Categories
     internalBusinessCategory(id: ID!): InternalBusinessCategory
     internalBusinessCategories: [InternalBusinessCategory!]!
+
+    #Product Category
+    productCategories: [ProductCategory!]!
+    productCategory(id: ID!): ProductCategory
 }
 
 type Mutation {
@@ -27,6 +31,11 @@ type Mutation {
     createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
     updateInternalBusinessCategory(id: ID!): InternalBusinessCategory!
     deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+
+    #Product Category
+    createProductCategory(name: String!, summary: String): ProductCategory!
+    updateProductCategory(id: ID!, name: String, summary: String): ProductCategory!
+    deleteProductCategory(id: ID!): ProductCategory!
 
 }
 
@@ -64,4 +73,18 @@ type InternalBusinessCategory {
   created_at: Float
   updated_at: Float
   deleted: Boolean
+}
+
+#Product Category
+type ProductCategory {
+    id: ID!
+    name: String!
+    summary: String
+    parentId: ID
+    measurementUnitId: ID
+    created_at: Float
+    updated_at: Float
+    last_modified: Float
+    server_created_at: Float
+    deleted: Boolean!
 }
