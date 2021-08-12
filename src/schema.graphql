@@ -13,6 +13,10 @@ type Query {
     #Manufactures
     manufacturers: [Manufacturer!]!
     manufacturer(id: ID!): Manufacturer
+    #Client
+    clients: [Client!]!
+    client(name: String!): Client
+
 
     #Internal_Business_Categories
     internalBusinessCategory(id: ID!): InternalBusinessCategory
@@ -25,6 +29,11 @@ type Query {
     #Permission
     permissions: [Permission!]!
     permission(id: ID!): Permission
+    #Manufactures
+    manufacturers: [Manufacturer!]!
+    manufacturer(id: ID!): Manufacturer
+
+    
 }
 
 type Mutation {
@@ -32,7 +41,6 @@ type Mutation {
     createBrand(name: String!): Brand!
     updateBrand(id: ID!, name: String!): Brand!
     deleteBrand(id: ID!): Brand!
-
     #Internal_Business_Categories
     createBusinessCategory(name: String, description: String): BusinessCategory!
     updateBusinessCategory(id: ID!, name: String!, description: String): BusinessCategory!
@@ -41,30 +49,32 @@ type Mutation {
     createBranchGoal(name: String!, position: Float!): BranchGoal!
     updateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
     deleteBranchGoal(id: ID!): BranchGoal!
-
     #Manufacturer
     createManufacturer(name: String!): Manufacturer!
     updateManufacturer(id: ID!, name: String!): Manufacturer!
     deleteManufacturer(id: ID!): Manufacturer!
-
+    #Client
+    createClient(name:String!): Client!
+    updateClient(name: String!, displayName: String): Client!
+    deleteClient(name: String!): Client!
     #Internal_Business_Categories
     createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
     updateInternalBusinessCategory(id: ID!, name: String!, description: String): InternalBusinessCategory!
     deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
-
     #Role
     createRole(name: String!, description: String): Role!
     updateRole(id: ID!, name: String, description: String): Role!
     deleteRole(id: ID!): Role!
-
     #Permissions
     createPermission(name: String, description: String): Permission!
     updatePermission(id: ID!, name: String, description: String): Permission!
     deletePermission(id: ID!): Permission!
+    #Manufacturer
+    createManufacturer(name: String!): Manufacturer!
+    updateManufacturer(id: ID!, name: String!): Manufacturer!
+    deleteManufacturer(id: ID!): Manufacturer!
 }
 
-
-#Brands Type
 type Brand {
     id: ID!
     name: String!
@@ -75,7 +85,6 @@ type Brand {
     deleted: Boolean!
 }
 
-#Business_Categories
 type BusinessCategory {
   id: ID! 
   name: String!
@@ -85,7 +94,25 @@ type BusinessCategory {
   deleted: Boolean
 }
 
-#Branch Goals
+type Client{
+  id: ID! 
+  name: String!
+  displayName: String
+  created_at: Float
+  updated_at: Float
+  lastSyncAt: Float
+  deleted: Boolean
+}
+
+type InternalBusinessCategory {
+  id: ID! 
+  name: String!
+  description: String
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean
+}
+
 type BranchGoal {
     id: ID!
     name: String!
@@ -98,7 +125,6 @@ type BranchGoal {
     deleted: Boolean!
 }
 
-#Manufacturer Type
 type Manufacturer {
     id: ID!
     name: String!
@@ -110,8 +136,6 @@ type Manufacturer {
     deleted: Boolean!
 }
 
-
-#Internal_Business_Categories
 type InternalBusinessCategory {
   id: ID! 
   name: String!
@@ -121,9 +145,6 @@ type InternalBusinessCategory {
   deleted: Boolean
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-#Roles
 type Role {
     id: ID! 
     name: String!
@@ -131,10 +152,8 @@ type Role {
     created_at: Float
     updated_at: Float
     deleted: Boolean
+}
 
-=======
-
-#Permissions
 type Permission {
   id: ID! 
   name: String!
@@ -142,7 +161,4 @@ type Permission {
   created_at: Float
   updated_at: Float
   deleted: Boolean
->>>>>>> origin/MSA-1489_permissions
 }
-=======
->>>>>>> origin/MSA-1487_branch-goals

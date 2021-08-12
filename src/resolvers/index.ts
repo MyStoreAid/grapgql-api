@@ -18,6 +18,14 @@ import branchGoals from './branchGoals/queries/branchGoals';
 import createBranchGoal from './branchGoals/mutations/createBranchGoal';
 import deleteBranchGoal from './branchGoals/mutations/deleteBranchGoal';
 import updateBranchGoal from './branchGoals/mutations/updateBranchGoal';
+//Client
+import client from './clients/queries/client';
+import clients from './clients/queries/clients';
+import createClient from './clients/mutations/createClient';
+import deleteClient from './clients/mutations/deleteClient';
+import updateClient from './clients/mutations/updateClient';
+
+
 
 //Internal Business Category
 import internalBusinessCategory from './internalBusinessCategories/queries/internalBusinessCategory';
@@ -56,6 +64,9 @@ const resolvers = {
         //Business Category
         businessCategory,
         businessCategories,
+        //Client
+        client,
+        clients,
 
         //Internal Business Category
         internalBusinessCategory,
@@ -76,6 +87,7 @@ const resolvers = {
         //Permissions
         permission,
         permissions,
+        
     },
 
     Mutation: {
@@ -83,6 +95,7 @@ const resolvers = {
         createBrand,
         updateBrand,
         deleteBrand,
+        
         //Business Category
         createBusinessCategory,
         updateBusinessCategory,
@@ -98,6 +111,11 @@ const resolvers = {
         updateBranchGoal,
         deleteBranchGoal,
 
+        //Clients
+        createClient,
+        updateClient,
+        deleteClient,
+
         //Manufacturers
         createManufacturer,
         updateManufacturer,
@@ -112,6 +130,7 @@ const resolvers = {
         createPermission,
         updatePermission,
         deletePermission,
+        
     }
 };
 
