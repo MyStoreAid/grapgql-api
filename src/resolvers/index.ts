@@ -28,6 +28,14 @@ import createManufacturer from './manufacturers/mutations/createManufacturer';
 import deleteManufacturer from './manufacturers/mutations/deleteManufacturer';
 import updateManufacturer from './manufacturers/mutations/updateManufacturer';
 
+//Permissions
+import permission from './permissions/queries/permission';
+import permissions from './permissions/queries/permissions';
+import createPermission from './permissions/mutations/createPermission';
+import deletePermission from './permissions/mutations/deletePermission';
+import updatePermission from './permissions/mutations/updatePermission';
+
+
 
 //Roles
 import role from './roles/queries/role';
@@ -59,6 +67,10 @@ const resolvers = {
         //Roles
         role,
         roles,
+
+        //Permissions
+        permission,
+        permissions,
     },
 
     Mutation: {
@@ -82,10 +94,23 @@ const resolvers = {
         updateManufacturer,
         deleteManufacturer,
 
+<<<<<<< HEAD
         //Roles
         createRole,
         updateRole,
         deleteRole,
+=======
+        //Internal Business Category
+        createInternalBusinessCategory,
+        updateInternalBusinessCategory,
+        deleteInternalBusinessCategory,
+
+
+        //Permissions
+        createPermission,
+        updatePermission,
+        deletePermission,
+>>>>>>> origin/MSA-1489_permissions
     }
 };
 

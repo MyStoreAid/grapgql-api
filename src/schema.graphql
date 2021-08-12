@@ -18,6 +18,10 @@ type Query {
     #Roles
     roles: [Role!]!
     role(id: ID!): Role
+
+    #Permission
+    permissions: [Permission!]!
+    permission(id: ID!): Permission
 }
 
 type Mutation {
@@ -46,6 +50,10 @@ type Mutation {
     updateRole(id: ID!, name: String, description: String): Role!
     deleteRole(id: ID!): Role!
 
+    #Permissions
+    createPermission(name: String, description: String): Permission!
+    updatePermission(id: ID!, name: String, description: String): Permission!
+    deletePermission(id: ID!): Permission!
 }
 
 
@@ -94,6 +102,7 @@ type InternalBusinessCategory {
   deleted: Boolean
 }
 
+<<<<<<< HEAD
 #Roles
 type Role {
     id: ID! 
@@ -103,4 +112,15 @@ type Role {
     updated_at: Float
     deleted: Boolean
 
+=======
+
+#Permissions
+type Permission {
+  id: ID! 
+  name: String!
+  description: String
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean
+>>>>>>> origin/MSA-1489_permissions
 }
