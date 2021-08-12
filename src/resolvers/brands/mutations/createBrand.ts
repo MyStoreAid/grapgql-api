@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
 
 export default async function createBrand (parent: any, args: any, context: any) {
-    const currentTime = parseFloat(moment().toDate().getTime().toString());
+    const currentTime = moment().toDate().getTime();
 
     return await context.prisma.brands.create({
         data: {
