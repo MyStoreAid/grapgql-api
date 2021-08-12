@@ -21,6 +21,10 @@ type Query {
     features: [Feature!]!
     feature(id: ID!): Feature
 
+    #Measurement Units
+    measurementUnits: [MeasurementUnit!]!
+    measurementUnit(id: ID!): MeasurementUnit
+
     #Internal_Business_Categories
     internalBusinessCategory(id: ID!): InternalBusinessCategory
     internalBusinessCategories: [InternalBusinessCategory!]!
@@ -63,6 +67,11 @@ type Mutation {
     createFeature(name:String!, description: String): Feature!
     updateFeature(id: ID!, name:String!, description: String): Feature!
     deleteFeature(id: ID!): Feature!
+
+    #Measurement Units
+    createMeasurementUnit(name: String!, symbol: String!): MeasurementUnit!
+    updateMeasurementUnit(id: ID!, name: String, symbol: String): MeasurementUnit!
+    deleteMeasurementUnit(id: ID!): MeasurementUnit!
 
     #Internal_Business_Categories
     createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
@@ -144,6 +153,23 @@ type Manufacturer {
     deleted: Boolean!
 }
 
+<<<<<<< HEAD
+=======
+#Measurement Units
+type MeasurementUnit {
+    id: ID!
+    name: String!
+    symbol: String!
+    created_at: Float
+    updated_at: Float
+    last_modified: Float
+    server_created_at: Float
+    deleted: Boolean!
+}
+
+
+#Internal_Business_Categories
+>>>>>>> origin/MSA-1484_measurement-units
 type InternalBusinessCategory {
   id: ID! 
   name: String!

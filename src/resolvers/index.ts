@@ -59,6 +59,13 @@ import roles from './roles/queries/roles';
 import createRole from './roles/mutations/createRole';
 import updateRole from './roles/mutations/updateRole';
 import deleteRole from './roles/mutations/deleteRole';
+//Measurement Units
+import measurementUnit from './measurementUnits/queries/measurementUnit';
+import measurementUnits from './measurementUnits/queries/measurementUnits';
+import createMeasurementUnit from './measurementUnits/mutations/createMeasurementUnit';
+import deleteMeasurementUnit from './measurementUnits/mutations/deleteMeasurementUnit';
+import updateMeasurementUnit from './measurementUnits/mutations/updateMeasurementUnit';
+
 
 const resolvers = {
     Query: {
@@ -96,6 +103,9 @@ const resolvers = {
         permission,
         permissions,
         
+        //Measurement Units
+        measurementUnit,
+        measurementUnits,
     },
 
     Mutation: {
@@ -143,6 +153,11 @@ const resolvers = {
         createPermission,
         updatePermission,
         deletePermission,
+
+        //Measurement Units
+        createMeasurementUnit,
+        updateMeasurementUnit,
+        deleteMeasurementUnit,
     }
 };
 
