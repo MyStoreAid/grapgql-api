@@ -22,6 +22,13 @@ import deleteManufacturer from './manufacturers/mutations/deleteManufacturer';
 import updateManufacturer from './manufacturers/mutations/updateManufacturer';
 
 
+//Measurement Units
+import measurementUnit from './measurementUnits/queries/measurementUnit';
+import measurementUnits from './measurementUnits/queries/measurementUnits';
+import createMeasurementUnit from './measurementUnits/mutations/createMeasurementUnit';
+import deleteMeasurementUnit from './measurementUnits/mutations/deleteMeasurementUnit';
+import updateMeasurementUnit from './measurementUnits/mutations/updateMeasurementUnit';
+
 
 const resolvers = {
     Query: {
@@ -32,6 +39,10 @@ const resolvers = {
         //Manufactures
         manufacturer,
         manufacturers,
+
+        //Measurement Units
+        measurementUnit,
+        measurementUnits,
 
         //Internal Business Category
         internalBusinessCategory,
@@ -48,6 +59,12 @@ const resolvers = {
         createManufacturer,
         updateManufacturer,
         deleteManufacturer,
+
+
+        //Measurement Units
+        createMeasurementUnit,
+        updateMeasurementUnit,
+        deleteMeasurementUnit,
 
         //Internal Business Category
         createInternalBusinessCategory,

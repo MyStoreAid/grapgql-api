@@ -7,6 +7,10 @@ type Query {
     manufacturers: [Manufacturer!]!
     manufacturer(id: ID!): Manufacturer
 
+    #Measurement Units
+    measurementUnits: [MeasurementUnit!]!
+    measurementUnit(id: ID!): MeasurementUnit
+
     #Internal_Business_Categories
     internalBusinessCategory(id: ID!): InternalBusinessCategory
     internalBusinessCategories: [InternalBusinessCategory!]!
@@ -22,6 +26,11 @@ type Mutation {
     createManufacturer(name: String!): Manufacturer!
     updateManufacturer(id: ID!, name: String!): Manufacturer!
     deleteManufacturer(id: ID!): Manufacturer!
+
+    #Measurement Units
+    createMeasurementUnit(name: String!, symbol: String!): MeasurementUnit!
+    updateMeasurementUnit(id: ID!, name: String, symbol: String): MeasurementUnit!
+    deleteMeasurementUnit(id: ID!): MeasurementUnit!
 
     #Internal_Business_Categories
     createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
@@ -50,6 +59,18 @@ type Manufacturer {
     created_at: Float
     updated_at: Float
     isTemporary: Boolean
+    last_modified: Float
+    server_created_at: Float
+    deleted: Boolean!
+}
+
+#Measurement Units
+type MeasurementUnit {
+    id: ID!
+    name: String!
+    symbol: String!
+    created_at: Float
+    updated_at: Float
     last_modified: Float
     server_created_at: Float
     deleted: Boolean!
