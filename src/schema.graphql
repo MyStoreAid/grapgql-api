@@ -6,6 +6,9 @@ type Query {
     #Business Category
     businessCategories: [BusinessCategory!]!
     businessCategory(id: ID!): BusinessCategory
+    #Branch Goals
+    branchGoals: [BranchGoal!]!
+    branchGoal(id: ID!): BranchGoal!
 
     #Manufactures
     manufacturers: [Manufacturer!]!
@@ -34,6 +37,10 @@ type Mutation {
     createBusinessCategory(name: String, description: String): BusinessCategory!
     updateBusinessCategory(id: ID!, name: String!, description: String): BusinessCategory!
     deleteBusinessCategory(id: ID!): BusinessCategory!
+    #Branch Goals
+    createBranchGoal(name: String!, position: Float!): BranchGoal!
+    updateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
+    deleteBranchGoal(id: ID!): BranchGoal!
 
     #Manufacturer
     createManufacturer(name: String!): Manufacturer!
@@ -78,6 +85,18 @@ type BusinessCategory {
   deleted: Boolean
 }
 
+#Branch Goals
+type BranchGoal {
+    id: ID!
+    name: String!
+    active: Boolean
+    position: Float
+    created_at: Float
+    updated_at: Float
+    last_modified: Float
+    server_created_at: Float
+    deleted: Boolean!
+}
 
 #Manufacturer Type
 type Manufacturer {
@@ -103,6 +122,7 @@ type InternalBusinessCategory {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #Roles
 type Role {
     id: ID! 
@@ -124,3 +144,5 @@ type Permission {
   deleted: Boolean
 >>>>>>> origin/MSA-1489_permissions
 }
+=======
+>>>>>>> origin/MSA-1487_branch-goals

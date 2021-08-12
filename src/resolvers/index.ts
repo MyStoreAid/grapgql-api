@@ -12,6 +12,12 @@ import createBusinessCategory from './businessCategories/mutations/createBusines
 import deleteBusinessCategory from './businessCategories/mutations/deleteBusinessCategory';
 import updateBusinessCategory from './businessCategories/mutations/updateBusinessCategory';
 
+//Branch Goals
+import branchGoal from './branchGoals/queries/branchGoal';
+import branchGoals from './branchGoals/queries/branchGoals';
+import createBranchGoal from './branchGoals/mutations/createBranchGoal';
+import deleteBranchGoal from './branchGoals/mutations/deleteBranchGoal';
+import updateBranchGoal from './branchGoals/mutations/updateBranchGoal';
 
 //Internal Business Category
 import internalBusinessCategory from './internalBusinessCategories/queries/internalBusinessCategory';
@@ -19,7 +25,6 @@ import internalBusinessCategories from './internalBusinessCategories/queries/int
 import createInternalBusinessCategory from './internalBusinessCategories/mutations/createInternalBusinessCategory';
 import deleteInternalBusinessCategory from './internalBusinessCategories/mutations/deleteInternalBusinessCategory';
 import updateInternalBusinessCategory from './internalBusinessCategories/mutations/updateInternalBusinessCategory';
-
 
 //Manufacturers
 import manufacturer from './manufacturers/queries/manufacturer';
@@ -35,16 +40,12 @@ import createPermission from './permissions/mutations/createPermission';
 import deletePermission from './permissions/mutations/deletePermission';
 import updatePermission from './permissions/mutations/updatePermission';
 
-
-
 //Roles
 import role from './roles/queries/role';
 import roles from './roles/queries/roles';
 import createRole from './roles/mutations/createRole';
 import updateRole from './roles/mutations/updateRole';
 import deleteRole from './roles/mutations/deleteRole';
-
-
 
 const resolvers = {
     Query: {
@@ -59,6 +60,10 @@ const resolvers = {
         //Internal Business Category
         internalBusinessCategory,
         internalBusinessCategories,
+        
+        //Branch Goals
+        branchGoal,
+        branchGoals,
 
         //Manufactures
         manufacturer,
@@ -78,7 +83,6 @@ const resolvers = {
         createBrand,
         updateBrand,
         deleteBrand,
-
         //Business Category
         createBusinessCategory,
         updateBusinessCategory,
@@ -88,6 +92,11 @@ const resolvers = {
         createInternalBusinessCategory,
         updateInternalBusinessCategory,
         deleteInternalBusinessCategory,
+
+        //Branch Goals
+        createBranchGoal,
+        updateBranchGoal,
+        deleteBranchGoal,
 
         //Manufacturers
         createManufacturer,
