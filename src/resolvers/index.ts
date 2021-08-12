@@ -29,6 +29,14 @@ import deleteManufacturer from './manufacturers/mutations/deleteManufacturer';
 import updateManufacturer from './manufacturers/mutations/updateManufacturer';
 
 
+//Roles
+import role from './roles/queries/role';
+import roles from './roles/queries/roles';
+import createRole from './roles/mutations/createRole';
+import updateRole from './roles/mutations/updateRole';
+import deleteRole from './roles/mutations/deleteRole';
+
+
 
 const resolvers = {
     Query: {
@@ -48,7 +56,9 @@ const resolvers = {
         manufacturer,
         manufacturers,
 
-       
+        //Roles
+        role,
+        roles,
     },
 
     Mutation: {
@@ -72,7 +82,10 @@ const resolvers = {
         updateManufacturer,
         deleteManufacturer,
 
-        
+        //Roles
+        createRole,
+        updateRole,
+        deleteRole,
     }
 };
 
