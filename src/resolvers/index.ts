@@ -94,23 +94,15 @@ const resolvers = {
         updateManufacturer,
         deleteManufacturer,
 
-<<<<<<< HEAD
         //Roles
         createRole,
         updateRole,
         deleteRole,
-=======
-        //Internal Business Category
-        createInternalBusinessCategory,
-        updateInternalBusinessCategory,
-        deleteInternalBusinessCategory,
-
 
         //Permissions
         createPermission,
         updatePermission,
         deletePermission,
->>>>>>> origin/MSA-1489_permissions
     }
 };
 
