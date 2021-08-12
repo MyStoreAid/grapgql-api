@@ -3,6 +3,10 @@ type Query {
     brands: [Brand!]!
     brand(id: ID!): Brand
 
+    #Internal Business Category
+    internalBusinessCategory(id: ID!): InternalBusinessCategory
+    internalBusinessCategories: [InternalBusinessCategory!]!
+    
     #Business Category
     businessCategories: [BusinessCategory!]!
     businessCategory(id: ID!): BusinessCategory
@@ -25,7 +29,7 @@ type Query {
     measurementUnits: [MeasurementUnit!]!
     measurementUnit(id: ID!): MeasurementUnit
 
-    #Internal_Business_Categories
+    #Internal Business Categories
     internalBusinessCategory(id: ID!): InternalBusinessCategory
     internalBusinessCategories: [InternalBusinessCategory!]!
 
@@ -39,14 +43,23 @@ type Query {
     #Manufactures
     manufacturers: [Manufacturer!]!
     manufacturer(id: ID!): Manufacturer
-}
+
+    #Product Description
+    productDescriptions: [ProductDescription!]!
+    productDescription(id: ID!): ProductDescription!
+},
 
 type Mutation {
     #Brand
     createBrand(name: String!): Brand!
     updateBrand(id: ID!, name: String!): Brand!
     deleteBrand(id: ID!): Brand!
-    #Internal_Business_Categories
+
+    #Internal Business Categories
+    createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
+    updateInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+    deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+
     createBusinessCategory(name: String, description: String): BusinessCategory!
     updateBusinessCategory(id: ID!, name: String!, description: String): BusinessCategory!
     deleteBusinessCategory(id: ID!): BusinessCategory!
@@ -73,6 +86,11 @@ type Mutation {
     updateMeasurementUnit(id: ID!, name: String, symbol: String): MeasurementUnit!
     deleteMeasurementUnit(id: ID!): MeasurementUnit!
 
+    #Product Description
+    createProductDescription(name: String!, summary: String): ProductDescription!
+    updateProductDescription(id: ID!, name: String!, summary: String): ProductDescription!
+    deleteProductDescription(id: ID!): ProductDescription!
+
     #Internal_Business_Categories
     createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
     updateInternalBusinessCategory(id: ID!, name: String!, description: String): InternalBusinessCategory!
@@ -92,6 +110,7 @@ type Mutation {
     deleteManufacturer(id: ID!): Manufacturer!
 }
 
+
 type Brand {
     id: ID!
     name: String!
@@ -102,6 +121,17 @@ type Brand {
     deleted: Boolean!
 }
 
+#Internal Business Categories
+type InternalBusinessCategory {
+  id: ID! 
+  name: String!
+  description: String
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean
+}
+
+#Business_Categories
 type BusinessCategory {
   id: ID! 
   name: String!
@@ -118,15 +148,6 @@ type Client{
   created_at: Float
   updated_at: Float
   lastSyncAt: Float
-  deleted: Boolean
-}
-
-type InternalBusinessCategory {
-  id: ID! 
-  name: String!
-  description: String
-  created_at: Float
-  updated_at: Float
   deleted: Boolean
 }
 
@@ -153,9 +174,6 @@ type Manufacturer {
     deleted: Boolean!
 }
 
-<<<<<<< HEAD
-=======
-#Measurement Units
 type MeasurementUnit {
     id: ID!
     name: String!
@@ -167,15 +185,15 @@ type MeasurementUnit {
     deleted: Boolean!
 }
 
-
-#Internal_Business_Categories
->>>>>>> origin/MSA-1484_measurement-units
-type InternalBusinessCategory {
+#Product Descriptions
+type ProductDescription {
   id: ID! 
   name: String!
-  description: String
+  summary: String
   created_at: Float
   updated_at: Float
+  last_modified: Float
+  server_created_at: Float
   deleted: Boolean
 }
 

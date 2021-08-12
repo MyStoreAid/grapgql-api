@@ -66,6 +66,15 @@ import createMeasurementUnit from './measurementUnits/mutations/createMeasuremen
 import deleteMeasurementUnit from './measurementUnits/mutations/deleteMeasurementUnit';
 import updateMeasurementUnit from './measurementUnits/mutations/updateMeasurementUnit';
 
+//Product Descriptions
+import productDescription from './productDescriptions/queries/productDescription';
+import productDescriptions from './productDescriptions/queries/productDescriptions';
+import createProductDescription from './productDescriptions/mutations/createProductDescription';
+import deleteProductDescription from './productDescriptions/mutations/deleteProductDescription';
+import updateProductDescription from './productDescriptions/mutations/updateProductDescription';
+
+
+
 
 const resolvers = {
     Query: {
@@ -76,9 +85,11 @@ const resolvers = {
         //Business Category
         businessCategory,
         businessCategories,
+
         //Client
         client,
         clients,
+
         //Feature
         feature,
         features,
@@ -106,8 +117,11 @@ const resolvers = {
         //Measurement Units
         measurementUnit,
         measurementUnits,
+        //Product Descriptions
+        productDescription,
+        productDescriptions
     },
-
+  
     Mutation: {
         //Brands
         createBrand,
@@ -118,7 +132,7 @@ const resolvers = {
         createBusinessCategory,
         updateBusinessCategory,
         deleteBusinessCategory,
-
+  
         //Internal Business Category
         createInternalBusinessCategory,
         updateInternalBusinessCategory,
@@ -158,6 +172,11 @@ const resolvers = {
         createMeasurementUnit,
         updateMeasurementUnit,
         deleteMeasurementUnit,
+
+        //Product Description
+        createProductDescription,
+        updateProductDescription,
+        deleteProductDescription
     }
 };
 
