@@ -10,6 +10,10 @@ type Query {
     #Internal_Business_Categories
     internalBusinessCategory(id: ID!): InternalBusinessCategory
     internalBusinessCategories: [InternalBusinessCategory!]!
+
+    #Roles
+    roles: [Role!]!
+    role(id: ID!): Role
 }
 
 type Mutation {
@@ -27,6 +31,11 @@ type Mutation {
     createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
     updateInternalBusinessCategory(id: ID!): InternalBusinessCategory!
     deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+
+    #Role
+    createRole(name: String!, description: String): Role!
+    updateRole(id: ID!, name: String, description: String): Role!
+    deleteRole(id: ID!): Role!
 
 }
 
@@ -64,4 +73,15 @@ type InternalBusinessCategory {
   created_at: Float
   updated_at: Float
   deleted: Boolean
+}
+
+#Roles
+type Role {
+    id: ID! 
+    name: String!
+    description: String
+    created_at: Float
+    updated_at: Float
+    deleted: Boolean
+
 }

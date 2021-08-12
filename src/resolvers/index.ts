@@ -22,6 +22,14 @@ import deleteManufacturer from './manufacturers/mutations/deleteManufacturer';
 import updateManufacturer from './manufacturers/mutations/updateManufacturer';
 
 
+//Roles
+import role from './roles/queries/role';
+import roles from './roles/queries/roles';
+import createRole from './roles/mutations/createRole';
+import updateRole from './roles/mutations/updateRole';
+import deleteRole from './roles/mutations/deleteRole';
+
+
 
 const resolvers = {
     Query: {
@@ -35,7 +43,11 @@ const resolvers = {
 
         //Internal Business Category
         internalBusinessCategory,
-        internalBusinessCategories
+        internalBusinessCategories,
+
+        //Roles
+        role,
+        roles,
     },
 
     Mutation: {
@@ -52,7 +64,12 @@ const resolvers = {
         //Internal Business Category
         createInternalBusinessCategory,
         updateInternalBusinessCategory,
-        deleteInternalBusinessCategory
+        deleteInternalBusinessCategory,
+
+        //Roles
+        createRole,
+        updateRole,
+        deleteRole,
     }
 };
 
