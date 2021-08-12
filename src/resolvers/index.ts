@@ -25,7 +25,12 @@ import createClient from './clients/mutations/createClient';
 import deleteClient from './clients/mutations/deleteClient';
 import updateClient from './clients/mutations/updateClient';
 
-
+//Feature
+import feature from './features/queries/feature';
+import features from './features/queries/features';
+import createFeature from './features/mutations/createFeature';
+import deleteFeature from './features/mutations/deleteFeature';
+import updateFeature from './features/mutations/updateFeature';
 
 //Internal Business Category
 import internalBusinessCategory from './internalBusinessCategories/queries/internalBusinessCategory';
@@ -67,6 +72,9 @@ const resolvers = {
         //Client
         client,
         clients,
+        //Feature
+        feature,
+        features,
 
         //Internal Business Category
         internalBusinessCategory,
@@ -116,6 +124,11 @@ const resolvers = {
         updateClient,
         deleteClient,
 
+        //Feature
+        createFeature,
+        updateFeature,
+        deleteFeature,
+
         //Manufacturers
         createManufacturer,
         updateManufacturer,
@@ -130,7 +143,6 @@ const resolvers = {
         createPermission,
         updatePermission,
         deletePermission,
-        
     }
 };
 

@@ -17,6 +17,9 @@ type Query {
     clients: [Client!]!
     client(name: String!): Client
 
+    #Feature
+    features: [Feature!]!
+    feature(id: ID!): Feature
 
     #Internal_Business_Categories
     internalBusinessCategory(id: ID!): InternalBusinessCategory
@@ -32,8 +35,6 @@ type Query {
     #Manufactures
     manufacturers: [Manufacturer!]!
     manufacturer(id: ID!): Manufacturer
-
-    
 }
 
 type Mutation {
@@ -57,6 +58,12 @@ type Mutation {
     createClient(name:String!): Client!
     updateClient(name: String!, displayName: String): Client!
     deleteClient(name: String!): Client!
+
+    #Features
+    createFeature(name:String!, description: String): Feature!
+    updateFeature(id: ID!, name:String!, description: String): Feature!
+    deleteFeature(id: ID!): Feature!
+
     #Internal_Business_Categories
     createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
     updateInternalBusinessCategory(id: ID!, name: String!, description: String): InternalBusinessCategory!
@@ -69,6 +76,7 @@ type Mutation {
     createPermission(name: String, description: String): Permission!
     updatePermission(id: ID!, name: String, description: String): Permission!
     deletePermission(id: ID!): Permission!
+
     #Manufacturer
     createManufacturer(name: String!): Manufacturer!
     updateManufacturer(id: ID!, name: String!): Manufacturer!
@@ -155,6 +163,15 @@ type Role {
 }
 
 type Permission {
+  id: ID! 
+  name: String!
+  description: String
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean
+}
+
+type Feature {
   id: ID! 
   name: String!
   description: String
