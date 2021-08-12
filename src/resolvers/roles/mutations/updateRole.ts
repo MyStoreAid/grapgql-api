@@ -15,7 +15,6 @@ export default async function updateRole (parent:any, args:any, context:any, inf
             name: args ? args.name : name,
             description: args ? args.description: description,
             updated_at: currentTime,
-
         }
     });
 }

@@ -75,6 +75,13 @@ import updateProductDescription from './productDescriptions/mutations/updateProd
 
 
 
+//Product Categories
+import productCategory from './productCategories/queries/productCategory';
+import productCategories from './productCategories/queries/productCategories';
+import createProductCategory from './productCategories/mutations/createProductCategory';
+import deleteProductCategory from './productCategories/mutations/deleteProductCategory';
+import updateProductCategory from './productCategories/mutations/updateProductCategory';
+
 
 const resolvers = {
     Query: {
@@ -110,6 +117,10 @@ const resolvers = {
         role,
         roles,
 
+        //Product Category,
+        productCategory,
+        productCategories,
+
         //Permissions
         permission,
         permissions,
@@ -117,6 +128,7 @@ const resolvers = {
         //Measurement Units
         measurementUnit,
         measurementUnits,
+
         //Product Descriptions
         productDescription,
         productDescriptions
@@ -176,7 +188,12 @@ const resolvers = {
         //Product Description
         createProductDescription,
         updateProductDescription,
-        deleteProductDescription
+        deleteProductDescription,
+
+        //Product Category
+        createProductCategory,
+        updateProductCategory,
+        deleteProductCategory,
     }
 };
 

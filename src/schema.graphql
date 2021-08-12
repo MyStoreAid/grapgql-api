@@ -47,7 +47,7 @@ type Query {
     #Product Description
     productDescriptions: [ProductDescription!]!
     productDescription(id: ID!): ProductDescription!
-},
+}
 
 type Mutation {
     #Brand
@@ -108,6 +108,12 @@ type Mutation {
     createManufacturer(name: String!): Manufacturer!
     updateManufacturer(id: ID!, name: String!): Manufacturer!
     deleteManufacturer(id: ID!): Manufacturer!
+    
+    #Product Category
+    createProductCategory(name: String!, summary: String): ProductCategory!
+    updateProductCategory(id: ID!, name: String, summary: String): ProductCategory!
+    deleteProductCategory(id: ID!): ProductCategory!
+
 }
 
 
@@ -222,4 +228,18 @@ type Feature {
   created_at: Float
   updated_at: Float
   deleted: Boolean
+}
+
+#Product Category
+type ProductCategory {
+    id: ID!
+    name: String!
+    summary: String
+    parentId: ID
+    measurementUnitId: ID
+    created_at: Float
+    updated_at: Float
+    last_modified: Float
+    server_created_at: Float
+    deleted: Boolean!
 }
