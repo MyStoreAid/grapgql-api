@@ -3,9 +3,13 @@ type Query {
     brands: [Brand!]!
     brand(id: ID!): Brand
 
-    #Internal_Business_Categories
+    #Internal Business Category
     internalBusinessCategory(id: ID!): InternalBusinessCategory
     internalBusinessCategories: [InternalBusinessCategory!]!
+    
+    #Business Category
+    businessCategories: [BusinessCategory!]!
+    businessCategory(id: ID!): BusinessCategory
 
     #Manufactures
     manufacturers: [Manufacturer!]!
@@ -14,9 +18,7 @@ type Query {
     #Product Description
     productDescriptions: [ProductDescription!]!
     productDescription(id: ID!): ProductDescription!
-
-   
-}
+},
 
 type Mutation {
     #Brand
@@ -24,10 +26,14 @@ type Mutation {
     updateBrand(id: ID!, name: String!): Brand!
     deleteBrand(id: ID!): Brand!
 
-    #Internal_Business_Categories
+    #Internal Business Categories
     createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
     updateInternalBusinessCategory(id: ID!): InternalBusinessCategory!
     deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+
+    createBusinessCategory(name: String, description: String): BusinessCategory!
+    updateBusinessCategory(id: ID!, name: String!, description: String): BusinessCategory!
+    deleteBusinessCategory(id: ID!): BusinessCategory!
 
     #Manufacturer
     createManufacturer(name: String!): Manufacturer!
@@ -39,10 +45,11 @@ type Mutation {
     updateProductDescription(id: ID!, name: String!, summary: String): ProductDescription!
     deleteProductDescription(id: ID!): ProductDescription!
 
-
-    
-
-}
+    #Internal_Business_Categories
+    createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
+    updateInternalBusinessCategory(id: ID!, name: String!, description: String): InternalBusinessCategory!
+    deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+},
 
 
 #Brands Type
@@ -56,7 +63,7 @@ type Brand {
     deleted: Boolean!
 }
 
-#Internal_Business_Categories
+#Internal Business Categories
 type InternalBusinessCategory {
   id: ID! 
   name: String!
@@ -66,7 +73,18 @@ type InternalBusinessCategory {
   deleted: Boolean
 }
 
-#Manufacturers Type
+#Business_Categories
+type BusinessCategory {
+  id: ID! 
+  name: String!
+  description: String
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean
+}
+
+
+#Manufacturer Type
 type Manufacturer {
     id: ID!
     name: String!
