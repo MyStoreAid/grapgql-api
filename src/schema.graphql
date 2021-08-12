@@ -10,6 +10,10 @@ type Query {
     #Internal_Business_Categories
     internalBusinessCategory(id: ID!): InternalBusinessCategory
     internalBusinessCategories: [InternalBusinessCategory!]!
+
+    #Permission
+    permissions: [Permission!]!
+    permission(id: ID!): Permission
 }
 
 type Mutation {
@@ -27,6 +31,12 @@ type Mutation {
     createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
     updateInternalBusinessCategory(id: ID!): InternalBusinessCategory!
     deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+
+    #Permissions
+    createPermission(name: String, description: String): Permission!
+    updatePermission(id: ID!, name: String, description: String): Permission!
+    deletePermission(id: ID!): Permission!
+
 
 }
 
@@ -58,6 +68,17 @@ type Manufacturer {
 
 #Internal_Business_Categories
 type InternalBusinessCategory {
+  id: ID! 
+  name: String!
+  description: String
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean
+}
+
+
+#Permissions
+type Permission {
   id: ID! 
   name: String!
   description: String
