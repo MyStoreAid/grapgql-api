@@ -73,8 +73,6 @@ import createProductDescription from './productDescriptions/mutations/createProd
 import deleteProductDescription from './productDescriptions/mutations/deleteProductDescription';
 import updateProductDescription from './productDescriptions/mutations/updateProductDescription';
 
-
-
 //Product Categories
 import productCategory from './productCategories/queries/productCategory';
 import productCategories from './productCategories/queries/productCategories';

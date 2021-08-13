@@ -1,17 +1,28 @@
-import moment from 'moment';
+import TimeHelper from '../../../helpers/TimeHelper';
+import { Brand } from "../types";
 
-export default async function updateBrand(parent:any, args:any, context:any, info:any){
-    const { id } = await context.prisma.brands.findUnique({ where: {id: args.id} });
+export default async function updateBrand(parent: any, args: Brand, context:any): Promise<Brand> | never {
+    let existingBrand!: Brand;
+    const brandId: String = args.id;
+    
+    try {
+        existingBrand = await context.prisma.brands.findUnique({ where: {id: brandId } });
+    } catch(error: unknown) {
+        console.error(error);
+        throw new Error(`There was an error fetching brands with ID ${args.id}`);
+    }
 
-    if(!id) throw new Error("Invalid ID");
+    if(!existingBrand) {
+        throw new Error(`There is no brand with ID ${args.id}`);
+    }
 
-    return await context.prisma.brands.update({
+    return context.prisma.brands.update({
         where: {
-            id: args.id
+            id: brandId
         },
         data: {
             name: args.name,
-            last_modified: moment().toDate().getTime(),
+            last_modified: TimeHelper.currentTime,
         }
     });
 }

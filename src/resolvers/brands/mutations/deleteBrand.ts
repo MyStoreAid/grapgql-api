@@ -1,19 +1,28 @@
-import moment from 'moment';
+import TimeHelper from '../../../helpers/TimeHelper';
+import {Brand, BrandIdArgs} from '../types';
 
-export default async function deleteBrand (parent:any, args:any, context:any, info:any) {
+export default async function deleteBrand (parent:any, args: BrandIdArgs, context:any): Promise<Brand> | never {
+    let existingBrand!: Brand;
+    const brandId: String = args.id;
 
-    const { id } = await context.prisma.brands.findUnique({ where: {id: args.id} });
+    try {
+        existingBrand = await context.prisma.brands.findUnique({ where: {id: brandId}});
+    } catch (error: unknown) {
+        console.error(error);
+        throw new Error(`There is an error fetching a brand with ID ${brandId}`);
+    }
 
-    if(!id) throw new Error("Invalid ID");
+    if(!existingBrand) {
+        throw new Error(`There is no brand with ID ${brandId}`);
+    }
 
-    return await context.prisma.brands.update({
+    return context.prisma.brands.update({
         where: {
-            id: args.id
+            id: brandId
         },
         data: {
             deleted : true,
-            last_modified: moment().toDate().getTime(),
-
+            last_modified: TimeHelper.currentTime,
         }
     })
 }

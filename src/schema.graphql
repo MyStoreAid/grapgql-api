@@ -10,6 +10,7 @@ type Query {
     #Business Category
     businessCategories: [BusinessCategory!]!
     businessCategory(id: ID!): BusinessCategory
+
     #Branch Goals
     branchGoals: [BranchGoal!]!
     branchGoal(id: ID!): BranchGoal!
@@ -29,10 +30,6 @@ type Query {
     measurementUnits: [MeasurementUnit!]!
     measurementUnit(id: ID!): MeasurementUnit
 
-    #Internal Business Categories
-    internalBusinessCategory(id: ID!): InternalBusinessCategory
-    internalBusinessCategories: [InternalBusinessCategory!]!
-
     #Roles
     roles: [Role!]!
     role(id: ID!): Role
@@ -40,13 +37,14 @@ type Query {
     #Permission
     permissions: [Permission!]!
     permission(id: ID!): Permission
-    #Manufactures
-    manufacturers: [Manufacturer!]!
-    manufacturer(id: ID!): Manufacturer
 
     #Product Description
     productDescriptions: [ProductDescription!]!
     productDescription(id: ID!): ProductDescription!
+
+    #Product Category
+    productCategories: [ProductCategory!]!
+    productCategory(id: ID!): ProductCategory!
 }
 
 type Mutation {
@@ -60,17 +58,21 @@ type Mutation {
     updateInternalBusinessCategory(id: ID!): InternalBusinessCategory!
     deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
 
+    #Business Category
     createBusinessCategory(name: String, description: String): BusinessCategory!
     updateBusinessCategory(id: ID!, name: String!, description: String): BusinessCategory!
     deleteBusinessCategory(id: ID!): BusinessCategory!
+
     #Branch Goals
     createBranchGoal(name: String!, position: Float!): BranchGoal!
     updateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
     deleteBranchGoal(id: ID!): BranchGoal!
+
     #Manufacturer
     createManufacturer(name: String!): Manufacturer!
     updateManufacturer(id: ID!, name: String!): Manufacturer!
     deleteManufacturer(id: ID!): Manufacturer!
+
     #Client
     createClient(name:String!): Client!
     updateClient(name: String!, displayName: String): Client!
@@ -91,10 +93,6 @@ type Mutation {
     updateProductDescription(id: ID!, name: String!, summary: String): ProductDescription!
     deleteProductDescription(id: ID!): ProductDescription!
 
-    #Internal_Business_Categories
-    createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
-    updateInternalBusinessCategory(id: ID!, name: String!, description: String): InternalBusinessCategory!
-    deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
     #Role
     createRole(name: String!, description: String): Role!
     updateRole(id: ID!, name: String, description: String): Role!
@@ -104,16 +102,10 @@ type Mutation {
     updatePermission(id: ID!, name: String, description: String): Permission!
     deletePermission(id: ID!): Permission!
 
-    #Manufacturer
-    createManufacturer(name: String!): Manufacturer!
-    updateManufacturer(id: ID!, name: String!): Manufacturer!
-    deleteManufacturer(id: ID!): Manufacturer!
-    
     #Product Category
     createProductCategory(name: String!, summary: String): ProductCategory!
     updateProductCategory(id: ID!, name: String, summary: String): ProductCategory!
     deleteProductCategory(id: ID!): ProductCategory!
-
 }
 
 
