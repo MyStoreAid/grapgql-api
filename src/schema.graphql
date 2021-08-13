@@ -1,4 +1,9 @@
 type Query {
+    #App Notification
+    appNotifications: [AppNotification!]!
+    appNotification(id: ID!): AppNotification!
+
+
     #Brand
     brands: [Brand!]!
     brand(id: ID!): Brand
@@ -48,6 +53,12 @@ type Query {
 }
 
 type Mutation {
+
+    #App Notfication
+    createAppNotification(title: String!, message: String, actionMessage: String, actionPath: String, operation: String, cron: String): AppNotification!
+    updateAppNotification(id: ID!, title: String, message: String, actionMessage: String, actionPath: String, active: Boolean, operation: String, cron: String): AppNotification!
+    deleteAppNotification(id: ID!): AppNotification!
+
     #Brand
     createBrand(name: String!): Brand!
     updateBrand(id: ID!, name: String!): Brand!
@@ -109,6 +120,19 @@ type Mutation {
     deleteProductCategory(id: ID!): ProductCategory!
 }
 
+type AppNotification {
+    id: ID!
+    title: String!
+    message: String!
+    actionMessage: String
+    actionPath: String
+    active: Boolean!,
+    operation: String,
+    cron: String,
+    created_at: Float
+    updated_at: Float
+    deleted: Boolean!
+}
 
 type Brand {
     id: ID!

@@ -1,3 +1,11 @@
+//App Notifications
+import appNotification from './appNotifications/queries/appNotification';
+import appNotifications from './appNotifications/queries/appNotifications';
+import createAppNotification from './appNotifications/mutations/createAppNotification';
+import deleteAppNotification from './appNotifications/mutations/deleteAppNotification';
+import updateAppNotification from './appNotifications/mutations/updateAppNotification';
+
+
 //Brands
 import brand from './brands/queries/brand';
 import brands from './brands/queries/brands';
@@ -83,6 +91,10 @@ import updateProductCategory from './productCategories/mutations/updateProductCa
 
 const resolvers = {
     Query: {
+        //App Notifications
+        appNotification,
+        appNotifications,
+
         //Brands
         brands,
         brand,
@@ -133,6 +145,11 @@ const resolvers = {
     },
   
     Mutation: {
+        //App Notfications
+        createAppNotification,
+        updateAppNotification,
+        deleteAppNotification,
+
         //Brands
         createBrand,
         updateBrand,
