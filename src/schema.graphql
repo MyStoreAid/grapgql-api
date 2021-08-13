@@ -97,6 +97,7 @@ type Mutation {
     createRole(name: String!, description: String): Role!
     updateRole(id: ID!, name: String, description: String): Role!
     deleteRole(id: ID!): Role!
+
     #Permissions
     createPermission(name: String, description: String): Permission!
     updatePermission(id: ID!, name: String, description: String): Permission!
@@ -119,7 +120,6 @@ type Brand {
     deleted: Boolean!
 }
 
-#Internal Business Categories
 type InternalBusinessCategory {
   id: ID! 
   name: String!
@@ -129,7 +129,6 @@ type InternalBusinessCategory {
   deleted: Boolean
 }
 
-#Business_Categories
 type BusinessCategory {
   id: ID! 
   name: String!
@@ -183,7 +182,6 @@ type MeasurementUnit {
     deleted: Boolean!
 }
 
-#Product Descriptions
 type ProductDescription {
   id: ID! 
   name: String!
@@ -222,7 +220,6 @@ type Feature {
   deleted: Boolean
 }
 
-#Product Category
 type ProductCategory {
     id: ID!
     name: String!
