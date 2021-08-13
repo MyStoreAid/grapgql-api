@@ -1,9 +1,18 @@
+
+
 //Branch Goals
 import branchGoal from './branchGoals/queries/branchGoal';
 import branchGoals from './branchGoals/queries/branchGoals';
 import createBranchGoal from './branchGoals/mutations/createBranchGoal';
 import deleteBranchGoal from './branchGoals/mutations/deleteBranchGoal';
 import updateBranchGoal from './branchGoals/mutations/updateBranchGoal';
+
+//Branch User Groups
+import branchUserGroup from './branchUserGroups/queries/branchUserGroup';
+import branchUserGroups from './branchUserGroups/queries/branchUserGroups';
+import createBranchUserGroup from './branchUserGroups/mutations/createBranchUserGroup';
+import deleteBranchUserGroup from './branchUserGroups/mutations/deleteBranchUserGroup';
+import updateBranchUserGroup from './branchUserGroups/mutations/updateBranchUserGroup';
 
 //Brands
 import brand from './brands/queries/brand';
@@ -94,6 +103,10 @@ const resolvers = {
         branchGoal,
         branchGoals,
 
+        //Branch user Goals
+        branchUserGroup,
+        branchUserGroups,
+
 
         //Brands
         brands,
@@ -148,6 +161,11 @@ const resolvers = {
         createBranchGoal,
         updateBranchGoal,
         deleteBranchGoal,
+
+        //Branch User Groups
+        createBranchUserGroup,
+        updateBranchUserGroup,
+        deleteBranchUserGroup,
 
         //Brands
         createBrand,

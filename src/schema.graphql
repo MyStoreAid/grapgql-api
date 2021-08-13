@@ -1,4 +1,8 @@
 type Query {
+    #Branch User Group
+    branchUserGroups: [BranchUserGroup!]!
+    branchUserGroup(id: ID): BranchUserGroup
+
     #Brand
     brands: [Brand!]!
     brand(id: ID!): Brand
@@ -48,10 +52,18 @@ type Query {
 }
 
 type Mutation {
+    #Branch User Group
+    createBranchUserGroup(name: String!, description: String!): BranchUserGroup!
+    updateBranchUserGroup(id: ID!, name: String, description: String): BranchUserGroup!
+    deleteBranchUserGroup(id: ID!): BranchUserGroup!
+
+
     #Brand
     createBrand(name: String!): Brand!
     updateBrand(id: ID!, name: String!): Brand!
     deleteBrand(id: ID!): Brand!
+
+    
 
     #Internal Business Categories
     createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
@@ -120,6 +132,15 @@ type BranchGoal {
     last_modified: Float
     server_created_at: Float
     deleted: Boolean!
+}
+
+type BranchUserGroup {
+  id: ID! 
+  name: String!
+  description: String
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean
 }
 
 type Brand {
