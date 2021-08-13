@@ -1,14 +1,26 @@
-import moment from 'moment';
+import { Manufacturer } from '../types';
+import TimeHelper from '../../../helpers/TimeHelper';
 
-export default async function updateManufacturer (parent:any, args:any, context:any, info:any){
-    const { id } = await context.prisma.manufacturers.findUnique({ where: { id: args.id} });
-    const currentTime = moment().toDate().getTime();
+export default async function updateManufacturer (parent: any, args: Manufacturer, context: any,): Promise<Manufacturer>{
 
-    if(!id) throw new Error("Invalid ID");
+    let existingManufacturer!: Manufacturer;
+    const manufacturerId: String = args.id;
+    const currentTime: number = TimeHelper.currentTime;
+
+    try {
+        existingManufacturer = await context.prisma.manufacturers.findUnique({ where: {id: manufacturerId } });
+    } catch(error: unknown) {
+        console.error(error);
+        throw new Error(`There was an error fetching Manufacturer with ID ${manufacturerId}`);
+    }
+
+    if(!existingManufacturer) {
+        throw new Error(`There is no Manufacturer with ID ${manufacturerId}`);
+    }
     
     return await context.prisma.manufacturers.update({
         where: {
-            id: args.id
+            id: manufacturerId
         },
         data: {
             name: args.name,

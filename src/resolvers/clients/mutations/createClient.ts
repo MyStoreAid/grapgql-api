@@ -1,8 +1,8 @@
+import { Client} from "../types";
+import TimeHelper from '../../../helpers/TimeHelper';
 
-import moment from 'moment';
-
-export default async function createClient (parent: any, args: any, context: any) {
-    const currentTime = moment().toDate().getTime();
+export default async function createClient (parent: any, args: Client, context: any): Promise<Client> {
+    const currentTime = TimeHelper.currentTime;
     
     return await context.prisma.clients.create({
         data: {

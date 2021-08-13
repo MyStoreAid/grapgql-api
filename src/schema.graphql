@@ -55,12 +55,12 @@ type Mutation {
 
     #Internal Business Categories
     createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
-    updateInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+    updateInternalBusinessCategory(id: ID!, name: String, description: String): InternalBusinessCategory!
     deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
 
     #Business Category
     createBusinessCategory(name: String, description: String): BusinessCategory!
-    updateBusinessCategory(id: ID!, name: String!, description: String): BusinessCategory!
+    updateBusinessCategory(id: ID!, name: String, description: String): BusinessCategory!
     deleteBusinessCategory(id: ID!): BusinessCategory!
 
     #Branch Goals
@@ -80,23 +80,13 @@ type Mutation {
 
     #Features
     createFeature(name:String!, description: String): Feature!
-    updateFeature(id: ID!, name:String!, description: String): Feature!
+    updateFeature(id: ID!, name:String, description: String): Feature!
     deleteFeature(id: ID!): Feature!
 
     #Measurement Units
     createMeasurementUnit(name: String!, symbol: String!): MeasurementUnit!
     updateMeasurementUnit(id: ID!, name: String, symbol: String): MeasurementUnit!
     deleteMeasurementUnit(id: ID!): MeasurementUnit!
-
-    #Product Description
-    createProductDescription(name: String!, summary: String): ProductDescription!
-    updateProductDescription(id: ID!, name: String!, summary: String): ProductDescription!
-    deleteProductDescription(id: ID!): ProductDescription!
-
-    #Role
-    createRole(name: String!, description: String): Role!
-    updateRole(id: ID!, name: String, description: String): Role!
-    deleteRole(id: ID!): Role!
 
     #Permissions
     createPermission(name: String, description: String): Permission!
@@ -107,8 +97,30 @@ type Mutation {
     createProductCategory(name: String!, summary: String): ProductCategory!
     updateProductCategory(id: ID!, name: String, summary: String): ProductCategory!
     deleteProductCategory(id: ID!): ProductCategory!
+
+    #Product Description
+    createProductDescription(name: String!, summary: String): ProductDescription!
+    updateProductDescription(id: ID!, name: String, summary: String): ProductDescription!
+    deleteProductDescription(id: ID!): ProductDescription!
+
+    #Role
+    createRole(name: String!, description: String): Role!
+    updateRole(id: ID!, name: String, description: String): Role!
+    deleteRole(id: ID!): Role!
 }
 
+
+type BranchGoal {
+    id: ID!
+    name: String!
+    active: Boolean
+    position: Float
+    created_at: Float
+    updated_at: Float
+    last_modified: Float
+    server_created_at: Float
+    deleted: Boolean!
+}
 
 type Brand {
     id: ID!
@@ -118,15 +130,6 @@ type Brand {
     last_modified: Float
     server_created_at: Float
     deleted: Boolean!
-}
-
-type InternalBusinessCategory {
-  id: ID! 
-  name: String!
-  description: String
-  created_at: Float
-  updated_at: Float
-  deleted: Boolean
 }
 
 type BusinessCategory {
@@ -139,7 +142,6 @@ type BusinessCategory {
 }
 
 type Client{
-  id: ID! 
   name: String!
   displayName: String
   created_at: Float
@@ -148,16 +150,23 @@ type Client{
   deleted: Boolean
 }
 
-type BranchGoal {
-    id: ID!
-    name: String!
-    active: Boolean
-    position: Float
-    created_at: Float
-    updated_at: Float
-    last_modified: Float
-    server_created_at: Float
-    deleted: Boolean!
+type Feature {
+  id: ID! 
+  name: String!
+  description: String
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean
+}
+
+
+type InternalBusinessCategory {
+  id: ID! 
+  name: String!
+  description: String
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean
 }
 
 type Manufacturer {
@@ -182,36 +191,7 @@ type MeasurementUnit {
     deleted: Boolean!
 }
 
-type ProductDescription {
-  id: ID! 
-  name: String!
-  summary: String
-  created_at: Float
-  updated_at: Float
-  last_modified: Float
-  server_created_at: Float
-  deleted: Boolean
-}
-
-type Role {
-    id: ID! 
-    name: String!
-    description: String
-    created_at: Float
-    updated_at: Float
-    deleted: Boolean
-}
-
 type Permission {
-  id: ID! 
-  name: String!
-  description: String
-  created_at: Float
-  updated_at: Float
-  deleted: Boolean
-}
-
-type Feature {
   id: ID! 
   name: String!
   description: String
@@ -232,3 +212,31 @@ type ProductCategory {
     server_created_at: Float
     deleted: Boolean!
 }
+
+
+type ProductDescription {
+  id: ID! 
+  name: String!
+  summary: String
+  created_at: Float
+  updated_at: Float
+  last_modified: Float
+  server_created_at: Float
+  deleted: Boolean
+}
+
+
+
+type Role {
+    id: ID! 
+    name: String!
+    description: String
+    created_at: Float
+    updated_at: Float
+    deleted: Boolean
+}
+
+
+
+
+

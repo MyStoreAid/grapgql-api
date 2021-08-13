@@ -1,13 +1,24 @@
-export default async function productCategory (parent:any, args:any, context:any, info:any ) {
+import { ProductCategoryIdArgs, ProductCategory } from "../types";
 
-    const res = await context.prisma.product_categories.findUnique({
-        where: {
-            id: args.id
-        }
-    });
+export default async function productCategory (parent: any, args: ProductCategoryIdArgs, context: any): Promise<ProductCategory> | never {
 
-    if(!res.id) throw new Error("Invalid ID");
+    let result!: ProductCategory;
+    const productCategoryId: String = args.id;
 
-    return res;
+    try {
+        result = await context.prisma.product_categories.findUnique({
+            where: {
+                id: productCategoryId
+            }
+        });
+    } catch (error: unknown) {
+        new Error(`There was an error getting ProductCategory with ID ${productCategoryId}.`);
+    }
+
+    if (!result) {
+        new Error(`There is no ProductCategory with ID ${productCategoryId}.`);
+    }
+
+    return result;
 
 }

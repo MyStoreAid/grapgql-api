@@ -1,3 +1,10 @@
+//Branch Goals
+import branchGoal from './branchGoals/queries/branchGoal';
+import branchGoals from './branchGoals/queries/branchGoals';
+import createBranchGoal from './branchGoals/mutations/createBranchGoal';
+import deleteBranchGoal from './branchGoals/mutations/deleteBranchGoal';
+import updateBranchGoal from './branchGoals/mutations/updateBranchGoal';
+
 //Brands
 import brand from './brands/queries/brand';
 import brands from './brands/queries/brands';
@@ -12,12 +19,7 @@ import createBusinessCategory from './businessCategories/mutations/createBusines
 import deleteBusinessCategory from './businessCategories/mutations/deleteBusinessCategory';
 import updateBusinessCategory from './businessCategories/mutations/updateBusinessCategory';
 
-//Branch Goals
-import branchGoal from './branchGoals/queries/branchGoal';
-import branchGoals from './branchGoals/queries/branchGoals';
-import createBranchGoal from './branchGoals/mutations/createBranchGoal';
-import deleteBranchGoal from './branchGoals/mutations/deleteBranchGoal';
-import updateBranchGoal from './branchGoals/mutations/updateBranchGoal';
+
 //Client
 import client from './clients/queries/client';
 import clients from './clients/queries/clients';
@@ -46,19 +48,6 @@ import createManufacturer from './manufacturers/mutations/createManufacturer';
 import deleteManufacturer from './manufacturers/mutations/deleteManufacturer';
 import updateManufacturer from './manufacturers/mutations/updateManufacturer';
 
-//Permissions
-import permission from './permissions/queries/permission';
-import permissions from './permissions/queries/permissions';
-import createPermission from './permissions/mutations/createPermission';
-import deletePermission from './permissions/mutations/deletePermission';
-import updatePermission from './permissions/mutations/updatePermission';
-
-//Roles
-import role from './roles/queries/role';
-import roles from './roles/queries/roles';
-import createRole from './roles/mutations/createRole';
-import updateRole from './roles/mutations/updateRole';
-import deleteRole from './roles/mutations/deleteRole';
 //Measurement Units
 import measurementUnit from './measurementUnits/queries/measurementUnit';
 import measurementUnits from './measurementUnits/queries/measurementUnits';
@@ -66,12 +55,13 @@ import createMeasurementUnit from './measurementUnits/mutations/createMeasuremen
 import deleteMeasurementUnit from './measurementUnits/mutations/deleteMeasurementUnit';
 import updateMeasurementUnit from './measurementUnits/mutations/updateMeasurementUnit';
 
-//Product Descriptions
-import productDescription from './productDescriptions/queries/productDescription';
-import productDescriptions from './productDescriptions/queries/productDescriptions';
-import createProductDescription from './productDescriptions/mutations/createProductDescription';
-import deleteProductDescription from './productDescriptions/mutations/deleteProductDescription';
-import updateProductDescription from './productDescriptions/mutations/updateProductDescription';
+//Permissions
+import permission from './permissions/queries/permission';
+import permissions from './permissions/queries/permissions';
+import createPermission from './permissions/mutations/createPermission';
+import deletePermission from './permissions/mutations/deletePermission';
+import updatePermission from './permissions/mutations/updatePermission';
+
 
 //Product Categories
 import productCategory from './productCategories/queries/productCategory';
@@ -81,8 +71,30 @@ import deleteProductCategory from './productCategories/mutations/deleteProductCa
 import updateProductCategory from './productCategories/mutations/updateProductCategory';
 
 
+//Product Descriptions
+import productDescription from './productDescriptions/queries/productDescription';
+import productDescriptions from './productDescriptions/queries/productDescriptions';
+import createProductDescription from './productDescriptions/mutations/createProductDescription';
+import deleteProductDescription from './productDescriptions/mutations/deleteProductDescription';
+import updateProductDescription from './productDescriptions/mutations/updateProductDescription';
+
+//Roles
+import role from './roles/queries/role';
+import roles from './roles/queries/roles';
+import createRole from './roles/mutations/createRole';
+import updateRole from './roles/mutations/updateRole';
+import deleteRole from './roles/mutations/deleteRole';
+
+
+
+
 const resolvers = {
     Query: {
+        //Branch Goals
+        branchGoal,
+        branchGoals,
+
+
         //Brands
         brands,
         brand,
@@ -103,36 +115,40 @@ const resolvers = {
         internalBusinessCategory,
         internalBusinessCategories,
         
-        //Branch Goals
-        branchGoal,
-        branchGoals,
-
+        
         //Manufactures
         manufacturer,
         manufacturers,
 
-        //Roles
-        role,
-        roles,
+        //Measurement Units
+        measurementUnit,
+        measurementUnits,
+
+        //Permissions
+        permission,
+        permissions,
 
         //Product Category,
         productCategory,
         productCategories,
 
-        //Permissions
-        permission,
-        permissions,
         
-        //Measurement Units
-        measurementUnit,
-        measurementUnits,
-
         //Product Descriptions
         productDescription,
-        productDescriptions
+        productDescriptions,
+
+
+        //Roles
+        role,
+        roles,
     },
   
     Mutation: {
+        //Branch Goals
+        createBranchGoal,
+        updateBranchGoal,
+        deleteBranchGoal,
+
         //Brands
         createBrand,
         updateBrand,
@@ -142,56 +158,55 @@ const resolvers = {
         createBusinessCategory,
         updateBusinessCategory,
         deleteBusinessCategory,
-  
-        //Internal Business Category
-        createInternalBusinessCategory,
-        updateInternalBusinessCategory,
-        deleteInternalBusinessCategory,
-
-        //Branch Goals
-        createBranchGoal,
-        updateBranchGoal,
-        deleteBranchGoal,
 
         //Clients
         createClient,
         updateClient,
         deleteClient,
-
+  
+        
         //Feature
         createFeature,
         updateFeature,
         deleteFeature,
+
+        //Internal Business Category
+        createInternalBusinessCategory,
+        updateInternalBusinessCategory,
+        deleteInternalBusinessCategory,
 
         //Manufacturers
         createManufacturer,
         updateManufacturer,
         deleteManufacturer,
 
-        //Roles
-        createRole,
-        updateRole,
-        deleteRole,
-
-        //Permissions
-        createPermission,
-        updatePermission,
-        deletePermission,
-
         //Measurement Units
         createMeasurementUnit,
         updateMeasurementUnit,
         deleteMeasurementUnit,
 
-        //Product Description
-        createProductDescription,
-        updateProductDescription,
-        deleteProductDescription,
+    
+        //Permissions
+        createPermission,
+        updatePermission,
+        deletePermission,
+
 
         //Product Category
         createProductCategory,
         updateProductCategory,
         deleteProductCategory,
+
+        //Product Description
+        createProductDescription,
+        updateProductDescription,
+        deleteProductDescription,
+ 
+
+        //Roles
+        createRole,
+        updateRole,
+        deleteRole,
     }
 };
 
