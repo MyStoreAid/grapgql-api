@@ -1,9 +1,20 @@
-import moment from 'moment';
+import { Feature, FeatureIdArgs } from "../types";
+import TimeHelper from '../../../helpers/TimeHelper';
 
-export default async function deleteFeature (parent:any, args:any, context:any, info:any) {
-    const { id } = await context.prisma.features.findUnique({ where: { id: args.id }});
+export default async function deleteFeature (parent: any, args: FeatureIdArgs, context: any): Promise<Feature> | never {
+    let existingFeature!: Feature;
+    const FeatureId: String = args.id;
 
-    if(!id) throw new Error("Invalid ID!");
+    try {
+        existingFeature = await context.prisma.features.findUnique({ where: {id: FeatureId}});
+    } catch (error: unknown) {
+        console.error(error);
+        throw new Error(`There is an error fetching a Feature with ID ${FeatureId}`);
+    }
+
+    if(!existingFeature) {
+        throw new Error(`There is no Feature with ID ${FeatureId}`);
+    }
 
 
     return await context.prisma.features.update({
@@ -12,7 +23,7 @@ export default async function deleteFeature (parent:any, args:any, context:any, 
         },
         data: {
             deleted : true,
-            updated_at: moment().toDate().getTime(),
+            updated_at: TimeHelper.currentTime,
 
         }
     })

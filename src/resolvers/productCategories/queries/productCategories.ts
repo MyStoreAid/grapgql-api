@@ -1,3 +1,5 @@
-export default async function productCategories (parent: any, args: any, context: any) {
+import { ProductCategory } from "../types";
+
+export default async function productCategories (parent: any, args: ProductCategory, context: any): Promise<ProductCategory[]> {
     return await context.prisma.product_categories.findMany();
 }

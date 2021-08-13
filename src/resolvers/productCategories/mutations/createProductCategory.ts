@@ -1,12 +1,14 @@
-import { v4 as uuidv4 } from 'uuid';
-import moment from 'moment';
+import { ProductCategory } from '../types';
+import TimeHelper from '../../../helpers/TimeHelper';
+import UuidHelper from "../../../helpers/UuidHelper";
 
-export default async function createProductCategory (parent: any, args: any, context: any) {
-    const currentTime = moment().toDate().getTime();
+
+export default async function createProductCategory (parent: any, args: ProductCategory, context: any): Promise<ProductCategory> {
+    const currentTime = TimeHelper.currentTime;
 
     return await context.prisma.product_categories.create({
         data: {
-            id: uuidv4(),
+            id: UuidHelper.newUuid,
             name: args.name,
             summary: args.summary,
             created_at: currentTime,

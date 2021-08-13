@@ -1,19 +1,30 @@
-import moment from 'moment';
+import { Role } from '../types';
+import TimeHelper from '../../../helpers/TimeHelper';
 
-export default async function updateRole (parent:any, args:any, context:any, info:any){
+export default async function updateRole (parent:any, args:any, context:any, info:any): Promise<Role> | never{
 
-    const { id, name, description } = await context.prisma.roles.findUnique({ where: { id: args.id }});
-    const currentTime = moment().toDate().getTime();
+    let existingRole!: Role;
+    const currentTime: number = TimeHelper.currentTime
+    const roleId: String = args.id;
 
-    if(!id) throw new Error("Invalid ID!");
+    try {
+        existingRole = await context.prisma.roles.findUnique({ where: {id: roleId } });
+    } catch(error: unknown) {
+        console.error(error);
+        throw new Error(`There was an error fetching Role with ID ${roleId}`);
+    }
+
+    if(!existingRole) {
+        throw new Error(`There is no Role with ID ${roleId}`);
+    }
 
     return await context.prisma.roles.update({
         where: {
-            id: args.id
+            id: roleId
         },
         data: {
-            name: args ? args.name : name,
-            description: args ? args.description: description,
+            name: args.name,
+            description: args.description,
             updated_at: currentTime,
         }
     });

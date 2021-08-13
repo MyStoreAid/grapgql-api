@@ -1,19 +1,30 @@
-import moment from 'moment';
+import { Permission } from '../types';
+import TimeHelper from '../../../helpers/TimeHelper';
 
-export default async function updatePermission (parent:any, args:any, context:any, info:any){
+export default async function updatePermission (parent: any, args: Permission, context: any): Promise<Permission> | never {
 
-    const { id, name, description } = await context.prisma.permissions.findUnique({ where: { id: args.id }});
-    const currentTime = moment().toDate().getTime();
+    let existingPermission!: Permission;
+    const permissionId: String = args.id;
+    const currentTime: number = TimeHelper.currentTime;
 
-    if(!id) throw new Error("Invalid ID!");
+    try {
+        existingPermission = await context.prisma.permissions.findUnique({ where: {id: permissionId } });
+    } catch(error: unknown) {
+        console.error(error);
+        throw new Error(`There was an error fetching Permission with ID ${permissionId}`);
+    }
+
+    if(!existingPermission) {
+        throw new Error(`There is no Permission with ID ${permissionId}`);
+    }
 
     return await context.prisma.permissions.update({
         where: {
-            id: args.id
+            id: permissionId
         },
         data: {
-            name: args ? args.name : name,
-            description: args ? args.description: description,
+            name: args.name,
+            description:args.description,
             updated_at: currentTime,
 
         }

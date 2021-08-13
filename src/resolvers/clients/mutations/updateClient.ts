@@ -1,20 +1,30 @@
+import { Client } from "../types";
+import TimeHelper from '../../../helpers/TimeHelper';
 
-import moment from 'moment';
 
-export default async function updateClient (parent:any, args:any, context:any, info:any){
 
-    const { name, displayName } = await context.prisma.clients.findUnique({ where: { name: args.name }});
-    const currentTime = moment().toDate().getTime();
+export default async function updateClient (parent: any, args: Client, context: any) : Promise<Client> | never{
+    let existingClient!: Client;
+    const ClientId: String = args.name;
+    const currentTime: number = TimeHelper.currentTime;
 
-    if(!name) throw new Error("Invalid ID!");
+    try {
+        existingClient = await context.prisma.clients.findUnique({ where: { name: ClientId } });
+    } catch(error: unknown) {
+        console.error(error);
+        throw new Error(`There was an error fetching client with ID ${ClientId}`);
+    }
+
+    if(!existingClient) {
+        throw new Error(`There is no client with ID ${ClientId}`);
+    }
 
     return await context.prisma.clients.update({
         where: {
-            name: args.name
+            name: ClientId
         },
         data: {
-            name: args ? args.name : name,
-            displayName: args ? args.displayName: displayName,
+            displayName: args.displayName,
             updated_at: currentTime,
 
         }

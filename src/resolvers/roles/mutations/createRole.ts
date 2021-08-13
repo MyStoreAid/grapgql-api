@@ -1,12 +1,13 @@
-import { v4 as uuidv4 } from 'uuid';
-import moment from 'moment';
+import { Role } from '../types';
+import TimeHelper from '../../../helpers/TimeHelper';
+import UuidHelper from "../../../helpers/UuidHelper";
 
-export default async function createRole (parent: any, args: any, context: any) {
-    const currentTime = moment().toDate().getTime();
+export default async function createRole (parent: any, args: Role, context: any): Promise<Role> {
+    const currentTime = TimeHelper.currentTime;
     
     return await context.prisma.roles.create({
         data: {
-            id: uuidv4(),
+            id: UuidHelper.newUuid,
             name: args.name,
             description: args ? args.description : "",
             created_at: currentTime,

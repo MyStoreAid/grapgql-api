@@ -1,9 +1,20 @@
-import moment from 'moment';
+import { InternalBusinessCategory,InternalBusinessCategoryIdArgs } from "../types";
+import TimeHelper from '../../../helpers/TimeHelper';
 
-export default async function deleteInternalBusinessCategory (parent:any, args:any, context:any, info:any) {
-    const { id } = await context.prisma.internal_business_categories.findUnique({ where: { id: args.id }});
+export default async function deleteInternalBusinessCategory (parent: any, args: InternalBusinessCategory, context: any): Promise<InternalBusinessCategory> | never {
+    let existingInternalBusinessCategory!: InternalBusinessCategory;
+    const internalBusinessCategoryId: String = args.id;
 
-    if(!id) throw new Error("Invalid ID!");
+    try {
+        existingInternalBusinessCategory = await context.prisma.internal_business_categories.findUnique({ where: {id: internalBusinessCategoryId}});
+    } catch (error: unknown) {
+        console.error(error);
+        throw new Error(`There is an error fetching a InternalBusinessCategory with ID ${internalBusinessCategoryId}`);
+    }
+
+    if(!existingInternalBusinessCategory) {
+        throw new Error(`There is no InternalBusinessCategory with ID ${internalBusinessCategoryId}`);
+    }
 
 
     return await context.prisma.internal_business_categories.update({
@@ -12,7 +23,7 @@ export default async function deleteInternalBusinessCategory (parent:any, args:a
         },
         data: {
             deleted : true,
-            updated_at: moment().toDate().getTime(),
+            updated_at: TimeHelper.currentTime,
 
         }
     })

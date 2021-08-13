@@ -1,12 +1,13 @@
-import { v4 as uuidv4 } from 'uuid';
-import moment from 'moment';
+import TimeHelper from '../../../helpers/TimeHelper';
+import UuidHelper from '../../../helpers/UuidHelper';
+import { BusinessCategory } from '../types';
 
-export default async function createBusinessCategory (parent: any, args: any, context: any) {
-    const currentTime = moment().toDate().getTime();
-    
+export default async function createBusinessCategory (parent: any, args: BusinessCategory, context: any): Promise<BusinessCategory> {
+    const currentTime: number = TimeHelper.currentTime;
+
     return await context.prisma.business_categories.create({
         data: {
-            id: uuidv4(),
+            id: UuidHelper.newUuid,
             name: args.name,
             description: args ? args.description : "",
             created_at: currentTime,
