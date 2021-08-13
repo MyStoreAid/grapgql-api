@@ -24,7 +24,6 @@ export default async function updateClient (parent: any, args: Client, context: 
             name: ClientId
         },
         data: {
-            
             displayName: args.displayName,
             updated_at: currentTime,
 
