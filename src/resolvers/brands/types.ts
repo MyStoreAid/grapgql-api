@@ -1,13 +1,13 @@
+export type BrandId = string;
 export interface Brand {
-    id: String,
+    id: BrandId,
     name: String,
     created_at: number,
     updated_at: number,
     server_created_at: number,
     last_modified: number, 
-    deleted: boolean,  
+    deleted?: boolean,  
 }
-
 export interface BrandIdArgs {
-    id: String 
+    id: BrandId
 }

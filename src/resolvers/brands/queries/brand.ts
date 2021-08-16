@@ -1,15 +1,12 @@
+import BrandModel from "../BrandModel";
 import { Brand, BrandIdArgs } from "../types";
 
 export default async function brand (parent:any, args: BrandIdArgs, context:any, info:any ): Promise<Brand> | never {
     let result!: Brand;
-    const brandId: String =  args.id;
+    const brandId: string =  args.id;
     
     try {
-        result = await context.prisma.brands.findUnique({
-            where: {
-                id: brandId
-            }
-        });
+        result = await BrandModel.findOne(context.prisma.brands, brandId);
     } catch (error: unknown) {
         new Error(`There was an error getting brand with ID ${brandId}.`);
     }
