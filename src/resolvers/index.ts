@@ -1,9 +1,6 @@
 //Brands
-import brand from './brands/queries/brand';
-import brands from './brands/queries/brands';
-import createBrand from './brands/mutations/createBrand';
-import deleteBrand from './brands/mutations/deleteBrand';
-import updateBrand from './brands/mutations/updateBrand';
+import { brand, brands } from './brands/queries';
+import { createBrand, updateBrand, deleteBrand } from './brands/mutations';
 
 // Business Category
 import businessCategory from './businessCategories/queries/businessCategory';
