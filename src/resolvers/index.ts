@@ -14,6 +14,14 @@ import createBranchUserGroup from './branchUserGroups/mutations/createBranchUser
 import deleteBranchUserGroup from './branchUserGroups/mutations/deleteBranchUserGroup';
 import updateBranchUserGroup from './branchUserGroups/mutations/updateBranchUserGroup';
 
+//App Notifications
+import appNotification from './appNotifications/queries/appNotification';
+import appNotifications from './appNotifications/queries/appNotifications';
+import createAppNotification from './appNotifications/mutations/createAppNotification';
+import deleteAppNotification from './appNotifications/mutations/deleteAppNotification';
+import updateAppNotification from './appNotifications/mutations/updateAppNotification';
+
+
 //Brands
 import { brand, brands } from './brands/queries';
 import { createBrand, updateBrand, deleteBrand } from './brands/mutations';
@@ -104,6 +112,9 @@ const resolvers = {
         branchUserGroup,
         branchUserGroups,
 
+        //App Notifications
+        appNotification,
+        appNotifications,
 
         //Brands
         brands,
@@ -163,6 +174,11 @@ const resolvers = {
         createBranchUserGroup,
         updateBranchUserGroup,
         deleteBranchUserGroup,
+        //App Notfications
+        
+        createAppNotification,
+        updateAppNotification,
+        deleteAppNotification,
 
         //Brands
         createBrand,

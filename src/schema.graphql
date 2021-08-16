@@ -2,6 +2,11 @@ type Query {
     #Branch User Group
     branchUserGroups: [BranchUserGroup!]!
     branchUserGroup(id: ID): BranchUserGroup
+    
+    #App Notification
+    appNotifications: [AppNotification!]!
+    appNotification(id: ID!): AppNotification!
+
 
     #Brand
     brands: [Brand!]!
@@ -57,6 +62,11 @@ type Mutation {
     updateBranchUserGroup(id: ID!, name: String, description: String): BranchUserGroup!
     deleteBranchUserGroup(id: ID!): BranchUserGroup!
 
+
+    #App Notfication
+    createAppNotification(title: String!, message: String, actionMessage: String, actionPath: String, operation: String, cron: String): AppNotification!
+    updateAppNotification(id: ID!, title: String, message: String, actionMessage: String, actionPath: String, active: Boolean, operation: String, cron: String): AppNotification!
+    deleteAppNotification(id: ID!): AppNotification!
 
     #Brand
     createBrand(name: String!): Brand!
@@ -121,6 +131,19 @@ type Mutation {
     deleteRole(id: ID!): Role!
 }
 
+type AppNotification {
+    id: ID!
+    title: String!
+    message: String!
+    actionMessage: String
+    actionPath: String
+    active: Boolean!,
+    operation: String,
+    cron: String,
+    created_at: Float
+    updated_at: Float
+    deleted: Boolean!
+}
 
 type BranchGoal {
     id: ID!
