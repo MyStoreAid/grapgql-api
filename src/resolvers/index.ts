@@ -1,103 +1,60 @@
-
+//App Notifications
+import { appNotification, appNotifications } from './appNotifications/queries';
+import { createAppNotification, updateAppNotification, deleteAppNotification } from './appNotifications/mutations';
 
 //Branch Goals
-import branchGoal from './branchGoals/queries/branchGoal';
-import branchGoals from './branchGoals/queries/branchGoals';
-import createBranchGoal from './branchGoals/mutations/createBranchGoal';
-import deleteBranchGoal from './branchGoals/mutations/deleteBranchGoal';
-import updateBranchGoal from './branchGoals/mutations/updateBranchGoal';
+import { branchGoal, branchGoals } from './branchGoals/queries';
+import { createBranchGoal, updateBranchGoal, deleteBranchGoal } from './branchGoals/mutations';
 
 //Branch User Groups
-import branchUserGroup from './branchUserGroups/queries/branchUserGroup';
-import branchUserGroups from './branchUserGroups/queries/branchUserGroups';
-import createBranchUserGroup from './branchUserGroups/mutations/createBranchUserGroup';
-import deleteBranchUserGroup from './branchUserGroups/mutations/deleteBranchUserGroup';
-import updateBranchUserGroup from './branchUserGroups/mutations/updateBranchUserGroup';
-
-//App Notifications
-import appNotification from './appNotifications/queries/appNotification';
-import appNotifications from './appNotifications/queries/appNotifications';
-import createAppNotification from './appNotifications/mutations/createAppNotification';
-import deleteAppNotification from './appNotifications/mutations/deleteAppNotification';
-import updateAppNotification from './appNotifications/mutations/updateAppNotification';
-
+import { branchUserGroup, branchUserGroups } from './branchUserGroups/queries';
+import { createBranchUserGroup, updateBranchUserGroup, deleteBranchUserGroup } from './branchUserGroups/mutations';
 
 //Brands
 import { brand, brands } from './brands/queries';
 import { createBrand, updateBrand, deleteBrand } from './brands/mutations';
 
 // Business Category
-import businessCategory from './businessCategories/queries/businessCategory';
-import businessCategories from './businessCategories/queries/businessCategories';
-import createBusinessCategory from './businessCategories/mutations/createBusinessCategory';
-import deleteBusinessCategory from './businessCategories/mutations/deleteBusinessCategory';
-import updateBusinessCategory from './businessCategories/mutations/updateBusinessCategory';
-
+import { businessCategory, businessCategories } from './businessCategories/queries';
+import { createBusinessCategory, updateBusinessCategory, deleteBusinessCategory } from './businessCategories/mutations';
 
 //Client
-import client from './clients/queries/client';
-import clients from './clients/queries/clients';
-import createClient from './clients/mutations/createClient';
-import deleteClient from './clients/mutations/deleteClient';
-import updateClient from './clients/mutations/updateClient';
+import { client, clients } from './clients/queries';
+import { createClient, updateClient, deleteClient } from './clients/mutations';
 
 //Feature
-import feature from './features/queries/feature';
-import features from './features/queries/features';
-import createFeature from './features/mutations/createFeature';
-import deleteFeature from './features/mutations/deleteFeature';
-import updateFeature from './features/mutations/updateFeature';
+import { feature, features } from './features/queries';
+import { createFeature, updateFeature, deleteFeature } from './features/mutations';
 
 //Internal Business Category
-import internalBusinessCategory from './internalBusinessCategories/queries/internalBusinessCategory';
-import internalBusinessCategories from './internalBusinessCategories/queries/internalBusinessCategories';
-import createInternalBusinessCategory from './internalBusinessCategories/mutations/createInternalBusinessCategory';
-import deleteInternalBusinessCategory from './internalBusinessCategories/mutations/deleteInternalBusinessCategory';
-import updateInternalBusinessCategory from './internalBusinessCategories/mutations/updateInternalBusinessCategory';
+import { internalBusinessCategory, internalBusinessCategories} from './internalBusinessCategories/queries';
+import { createInternalBusinessCategory, updateInternalBusinessCategory, deleteInternalBusinessCategory } from './internalBusinessCategories/mutations';
 
 //Manufacturers
-import manufacturer from './manufacturers/queries/manufacturer';
-import manufacturers from './manufacturers/queries/manufacturers';
-import createManufacturer from './manufacturers/mutations/createManufacturer';
-import deleteManufacturer from './manufacturers/mutations/deleteManufacturer';
-import updateManufacturer from './manufacturers/mutations/updateManufacturer';
+import { manufacturer, manufacturers } from './manufacturers/queries';
+import { createManufacturer, updateManufacturer, deleteManufacturer } from './manufacturers/mutations';
 
 //Measurement Units
-import measurementUnit from './measurementUnits/queries/measurementUnit';
-import measurementUnits from './measurementUnits/queries/measurementUnits';
-import createMeasurementUnit from './measurementUnits/mutations/createMeasurementUnit';
-import deleteMeasurementUnit from './measurementUnits/mutations/deleteMeasurementUnit';
-import updateMeasurementUnit from './measurementUnits/mutations/updateMeasurementUnit';
+import { measurementUnit, measurementUnits } from './measurementUnits/queries';
+import { createMeasurementUnit, updateMeasurementUnit, deleteMeasurementUnit } from './measurementUnits/mutations';
 
 //Permissions
-import permission from './permissions/queries/permission';
-import permissions from './permissions/queries/permissions';
-import createPermission from './permissions/mutations/createPermission';
-import deletePermission from './permissions/mutations/deletePermission';
-import updatePermission from './permissions/mutations/updatePermission';
+import { permission, permissions } from './permissions/queries';
+import { createPermission, updatePermission, deletePermission } from './permissions/mutations';
 
 
 //Product Categories
-import productCategory from './productCategories/queries/productCategory';
-import productCategories from './productCategories/queries/productCategories';
-import createProductCategory from './productCategories/mutations/createProductCategory';
-import deleteProductCategory from './productCategories/mutations/deleteProductCategory';
-import updateProductCategory from './productCategories/mutations/updateProductCategory';
+import { productCategory, productCategories } from './productCategories/queries';
+import { createProductCategory, updateProductCategory, deleteProductCategory } from './productCategories/mutations';
 
 
 //Product Descriptions
-import productDescription from './productDescriptions/queries/productDescription';
-import productDescriptions from './productDescriptions/queries/productDescriptions';
-import createProductDescription from './productDescriptions/mutations/createProductDescription';
-import deleteProductDescription from './productDescriptions/mutations/deleteProductDescription';
-import updateProductDescription from './productDescriptions/mutations/updateProductDescription';
+import { productDescription, productDescriptions } from './productDescriptions/queries';
+import { createProductDescription, updateProductDescription, deleteProductDescription } from './productDescriptions/mutations';
 
 //Roles
-import role from './roles/queries/role';
-import roles from './roles/queries/roles';
-import createRole from './roles/mutations/createRole';
-import updateRole from './roles/mutations/updateRole';
-import deleteRole from './roles/mutations/deleteRole';
+import { role, roles } from './roles/queries';
+import { createRole, updateRole, deleteRole } from './roles/mutations';
 
 
 
