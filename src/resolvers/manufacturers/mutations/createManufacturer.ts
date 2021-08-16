@@ -1,11 +1,13 @@
-import { v4 as uuidv4 } from 'uuid';
-import moment from 'moment';
+import { Manufacturer } from '../types';
+import TimeHelper from '../../../helpers/TimeHelper';
+import UuidHelper from "../../../helpers/UuidHelper";
 
-export default async function createManufacturer (parent: any, args: any, context: any) {
-    const currentTime = moment().toDate().getTime()
+export default async function createManufacturer (parent: any, args: Manufacturer, context: any): Promise<Manufacturer> {
+
+    const currentTime = TimeHelper.currentTime
     return await context.prisma.manufacturers.create({
         data: {
-            id: uuidv4(),
+            id: UuidHelper.newUuid,
             name: args.name,
             created_at: currentTime,
             updated_at: currentTime,
