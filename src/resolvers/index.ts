@@ -42,6 +42,10 @@ import { createMeasurementUnit, updateMeasurementUnit, deleteMeasurementUnit } f
 import { permission, permissions } from './permissions/queries';
 import { createPermission, updatePermission, deletePermission } from './permissions/mutations';
 
+//Product
+import { product, products } from './products/queries';
+import { createProduct, updateProduct, deleteProduct } from './products/mutations';
+
 
 //Product Categories
 import { productCategory, productCategories } from './productCategories/queries';
@@ -105,6 +109,10 @@ const resolvers = {
         //Permissions
         permission,
         permissions,
+
+        //Products
+        product,
+        products,
 
         //Product Category,
         productCategory,
@@ -178,6 +186,11 @@ const resolvers = {
         createPermission,
         updatePermission,
         deletePermission,
+
+        //Products
+        createProduct,
+        updateProduct,
+        deleteProduct,
 
 
         //Product Category
