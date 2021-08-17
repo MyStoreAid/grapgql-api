@@ -22,6 +22,10 @@ import { createBusinessCategory, updateBusinessCategory, deleteBusinessCategory 
 import { client, clients } from './clients/queries';
 import { createClient, updateClient, deleteClient } from './clients/mutations';
 
+//Company
+import { company, companies } from './companies/queries';
+import { createCompany, updateCompany, deleteCompany } from './companies/mutations';
+
 //Feature
 import { feature, features } from './features/queries';
 import { createFeature, updateFeature, deleteFeature } from './features/mutations';

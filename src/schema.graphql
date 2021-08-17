@@ -24,9 +24,10 @@ type Query {
     branchGoals: [BranchGoal!]!
     branchGoal(id: ID!): BranchGoal!
 
-    #Manufactures
-    manufacturers: [Manufacturer!]!
-    manufacturer(id: ID!): Manufacturer
+    #Company
+    companies: [Company!]!
+    company(id: ID!): Company!
+
     #Client
     clients: [Client!]!
     client(name: String!): Client
@@ -34,6 +35,10 @@ type Query {
     #Feature
     features: [Feature!]!
     feature(id: ID!): Feature
+
+    #Manufactures
+    manufacturers: [Manufacturer!]!
+    manufacturer(id: ID!): Manufacturer
 
     #Measurement Units
     measurementUnits: [MeasurementUnit!]!
@@ -46,6 +51,10 @@ type Query {
     #Permission
     permissions: [Permission!]!
     permission(id: ID!): Permission
+
+    #Product
+    products: [Product!]!
+    product(id: ID!): Product
 
     #Product Description
     productDescriptions: [ProductDescription!]!
@@ -100,6 +109,12 @@ type Mutation {
     updateClient(name: String!, displayName: String!): Client!
     deleteClient(name: String!): Client!
 
+    #Company
+    createCompany(name: String!, businessCategoryId: String, subscriptionId: String, email: String, phone: String, internalBusinessCategoryId: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
+    updateCompany(id: ID!, name: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
+    deleteCompany(id: ID!): Company!
+
+
     #Features
     createFeature(name:String!, description: String): Feature!
     updateFeature(id: ID!, name:String, description: String): Feature!
@@ -114,6 +129,12 @@ type Mutation {
     createPermission(name: String!, description: String): Permission!
     updatePermission(id: ID!, name: String, description: String): Permission!
     deletePermission(id: ID!): Permission!
+
+    #Product
+    createProduct(name: String!, description: String, summary: String, barCode: String, manufacturerId: String, brandId: String, productCategoryId: String, productSegmentId: String, measuerementUnitId: String, weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
+    updateProduct(id: ID, name: String!, description: String, summary: String, barCode: String,  weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
+    deleteProduct(id: ID!): Product!
+    
 
     #Product Category
     createProductCategory(name: String!, summary: String): ProductCategory!
@@ -194,6 +215,29 @@ type Client{
   deleted: Boolean
 }
 
+type Company{
+  id: ID!
+  name: String!
+  businessCategory: BusinessCategory
+  subscription: Subscription
+  email: String
+  phone: String
+  internalBusinessCategory: InternalBusinessCategory
+  adminLastModifiedBy: String
+  lastModifiedBy: User
+  lastSyncBy: User
+  created_at: Float
+  updated_at: Float
+  lastSyncAt: Float
+  deleted: Boolean
+  branches: [Branch]
+  companiesSubscriptions: [CompaniesSubscription]
+  companiesSyncHistories: [CompaniesSyncHistory]
+  customerCareSchedules: [CustomerCareSchedule]
+  userBranches: [UserBranch]
+  userCompanies: [UserCompany]
+}
+
 type Feature {
   id: ID! 
   name: String!
@@ -244,6 +288,30 @@ type Permission {
   deleted: Boolean
 }
 
+type Product {
+    id: ID!
+    name: String!
+    description: String
+    summary: String
+    barCode: String
+    manufacturer: Manufacturer 
+    brand: Brand
+    productCategory: ProductCategory
+    productSegment: ProductSegment
+    measuerementUnit: MeasurementUnit
+    weight: Float
+    image: String
+    isTemporary: Boolean
+    adminLastModifiedBy: String
+    lastModifiedBy: User
+    created_at: Float
+    updated_at: Float
+    last_modified: Float
+    server_created_at: Float
+    deleted: Boolean!
+}
+
+
 type ProductCategory {
     id: ID!
     name: String!
@@ -269,6 +337,17 @@ type ProductDescription {
   deleted: Boolean
 }
 
+type ProductSegment {
+  id: ID! 
+  name: String!
+  description: String
+  created_at: Float
+  updated_at: Float
+  last_modified: Float
+  server_created_at: Float
+  deleted: Boolean
+}
+
 
 
 type Role {
@@ -280,6 +359,44 @@ type Role {
     deleted: Boolean
 }
 
+type Subscription {
+    id: ID! 
+    name: String!
+    description: String
+    numberOfBranches: Float
+    created_at: Float
+    updated_at: Float
+    deleted: Boolean
+    companies: [Company!]
+}
+
+type User {
+    userId: ID! 
+    email: String!
+    password: String!
+    firstName: String!
+    otherNames: String
+    phone: String!
+    username: String
+    geneder: String
+    whatsAppPhone: String
+    status: String
+    otp: String
+    isCustomerCarePersonnel: Boolean
+    server_created_at: Float
+    last_modified: Float
+    isSupervisor: Boolean
+    adminLastModifiedBy: String
+    lastModifiedBy: String
+    country: String
+    languagesSpoken: String
+    logins: Float
+    lastLogin: Float
+    isRecruiter: Boolean
+    created_at: Float
+    updated_at: Float
+    deleted: Boolean
+}
 
 
 
