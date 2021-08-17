@@ -1205,7 +1205,7 @@ model subscriptions {
   deleted                 Boolean                   @default(false)
   created_at              Float
   updated_at              Float
-  companies               companies[]
+  companies               companies[] 
   companies_subscriptions companies_subscriptions[] @ignore
   subscriptions_features  subscriptions_features[]  @ignore
 }

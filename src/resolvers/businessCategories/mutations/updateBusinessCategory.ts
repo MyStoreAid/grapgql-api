@@ -10,16 +10,16 @@ export default async function updateBusinessCategory (parent: any, args: Busines
         existingBusinessCategory = await context.prisma.business_categories.findUnique({ where: {id: businessCategoryId } });
     } catch(error: unknown) {
         console.error(error);
-        throw new Error(`There was an error fetching business category with ID ${args.id}`);
+        throw new Error(`There was an error fetching business category with ID ${businessCategoryId}`);
     }
 
     if(!existingBusinessCategory) {
-        throw new Error(`There is no business category with ID ${args.id}`);
+        throw new Error(`There is no business category with ID ${businessCategoryId}`);
     }
 
     return await context.prisma.business_categories.update({
         where: {
-            id: args.id
+            id: businessCategoryId
         },
         data: {
             name: args.name,

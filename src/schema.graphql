@@ -39,10 +39,6 @@ type Query {
     measurementUnits: [MeasurementUnit!]!
     measurementUnit(id: ID!): MeasurementUnit
 
-    #Roles
-    roles: [Role!]!
-    role(id: ID!): Role
-
     #Permission
     permissions: [Permission!]!
     permission(id: ID!): Permission
@@ -54,6 +50,16 @@ type Query {
     #Product Category
     productCategories: [ProductCategory!]!
     productCategory(id: ID!): ProductCategory!
+
+    #Role
+    roles: [Role!]!
+    role(id: ID!): Role
+
+    #Suscription
+    subscriptions: [Subscription!]!
+    subscription(id : ID!): Subscription
+
+
 }
 
 type Mutation {
@@ -129,6 +135,11 @@ type Mutation {
     createRole(name: String!, description: String): Role!
     updateRole(id: ID!, name: String, description: String): Role!
     deleteRole(id: ID!): Role!
+
+    #Subscription
+    createSubscription(name: String!, description: String, numberOfBranches: Float, companiesId: ID): Subscription!
+    updateSubscription(id: ID!, name: String!, description: String, numberOfBranches: Float): Subscription!
+    deleteSubscription(id: ID!): Subscription!
 }
 
 type AppNotification {
@@ -184,6 +195,30 @@ type BusinessCategory {
   updated_at: Float
   deleted: Boolean
 }
+
+type Company{
+  id: ID!
+  name: String!
+  businessCategory: BusinessCategory
+  subscription: Subscription
+  email: String
+  phone: String
+  internalBusinessCategory: InternalBusinessCategory
+  adminLastModifiedBy: String
+  lastModifiedBy: User
+  lastSyncBy: User
+  created_at: Float
+  updated_at: Float
+  lastSyncAt: Float
+  deleted: Boolean
+  # branches: [Branch]
+  # companiesSubscriptions: [CompaniesSubscription]
+  # companiesSyncHistories: [CompaniesSyncHistory]
+  # customerCareSchedules: [CustomerCareSchedule]
+  # userBranches: [UserBranch]
+  # userCompanies: [UserCompany]
+}
+ 
 
 type Client{
   name: String!
@@ -279,6 +314,48 @@ type Role {
     updated_at: Float
     deleted: Boolean
 }
+
+type Subscription {
+    id: ID! 
+    name: String!
+    description: String
+    numberOfBranches: Float
+    created_at: Float
+    updated_at: Float
+    deleted: Boolean
+    companies: [Company!]
+}
+
+
+type User {
+    userId: ID! 
+    email: String!
+    password: String!
+    firstName: String!
+    otherNames: String
+    phone: String!
+    username: String
+    geneder: String
+    whatsAppPhone: String
+    status: String
+    otp: String
+    isCustomerCarePersonnel: Boolean
+    server_created_at: Float
+    last_modified: Float
+    isSupervisor: Boolean
+    adminLastModifiedBy: String
+    lastModifiedBy: String
+    country: String
+    languagesSpoken: String
+    logins: Float
+    lastLogin: Float
+    isRecruiter: Boolean
+    created_at: Float
+    updated_at: Float
+    deleted: Boolean
+}
+
+
 
 
 
