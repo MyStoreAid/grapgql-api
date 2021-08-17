@@ -1,5 +1,7 @@
+export type ManufacturerId = string;
+
 export interface Manufacturer {
-    id: String,
+    id: ManufacturerId,
     name: String,
     created_at: number,
     updated_at: number,
@@ -10,5 +12,5 @@ export interface Manufacturer {
 }
 
 export interface ManufacturerIdArgs {
-    id: String 
+    id: ManufacturerId
 }

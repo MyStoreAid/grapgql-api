@@ -1,5 +1,7 @@
+export type ClientId = string;
+
 export interface Client {
-    name: String,
+    name: ClientId,
     displayName: String,
     created_at: number,
     updated_at: number, 
@@ -8,5 +10,5 @@ export interface Client {
 }
 
 export interface ClientIdArgs {
-    name: String,
+    name: ClientId,
 }

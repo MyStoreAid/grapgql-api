@@ -1,16 +1,13 @@
 import { ProductDescriptionIdArgs, ProductDescription } from "../types";
+import ProductDescriptionModel from "../ProductDescriptionModel";
 
 export default async function productDescription (parent: any, args: ProductDescriptionIdArgs, context: any): Promise<ProductDescription> | never {
     
     let result!: ProductDescription;
-    const productDescriptionId: String = args.id;
+    const productDescriptionId: string = args.id;
 
     try {
-        result = await context.prisma.product_descriptions.findUnique({
-            where: {
-                id: productDescriptionId
-            }
-        });
+        result = await ProductDescriptionModel.findOne(context.prisma.product_descriptions, productDescriptionId);
     } catch (error: unknown) {
         new Error(`There was an error getting ProductDescription with ID ${productDescriptionId}.`);
     }

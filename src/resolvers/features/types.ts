@@ -1,5 +1,7 @@
+export type FeatureId = string;
+
 export interface Feature {
-    id: String,
+    id: FeatureId,
     name: String,
     description: String,
     created_at: number,
@@ -8,5 +10,5 @@ export interface Feature {
 }
 
 export interface FeatureIdArgs {
-    id: String 
+    id: FeatureId 
 }

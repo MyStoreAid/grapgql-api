@@ -1,5 +1,7 @@
+export type BusinessCategoryId = string;
+
 export interface BusinessCategory {
-    id: String,
+    id: BusinessCategoryId,
     name: String,
     description: String,
     created_at: number,
@@ -8,5 +10,5 @@ export interface BusinessCategory {
 }
 
 export interface BusinessCategoryIdArgs {
-    id: String 
+    id: BusinessCategoryId, 
 }

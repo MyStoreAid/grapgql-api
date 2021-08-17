@@ -1,5 +1,7 @@
+export type ProductCategoryId = string;
+
 export interface ProductCategory {
-    id: String,
+    id: ProductCategoryId,
     name: String,
     summary: String,
     parentId: String,
@@ -12,5 +14,5 @@ export interface ProductCategory {
 }
 
 export interface ProductCategoryIdArgs {
-    id: String 
+    id: ProductCategoryId
 }

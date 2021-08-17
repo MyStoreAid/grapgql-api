@@ -1,13 +1,13 @@
 import { ProductDescriptionIdArgs, ProductDescription } from '../types';
-import TimeHelper from '../../../helpers/TimeHelper';
+import ProductDescriptionModel from '../ProductDescriptionModel';
 
 export default async function deleteProductDescription (parent: any, args: ProductDescriptionIdArgs, context: any): Promise<ProductDescription> | never {
    
     let existingProductDescription!: ProductDescription;
-    const productDescriptionId: String = args.id;
+    const productDescriptionId: string = args.id;
 
     try {
-        existingProductDescription = await context.prisma.product_descriptions.findUnique({ where: {id: productDescriptionId } });
+        existingProductDescription = await ProductDescriptionModel.findOne(context.prisma.product_descriptions, productDescriptionId);
     } catch(error: unknown) {
         console.error(error);
         throw new Error(`There was an error fetching ProductDescription with ID ${productDescriptionId}`);
@@ -17,14 +17,5 @@ export default async function deleteProductDescription (parent: any, args: Produ
         throw new Error(`There is no ProductDescription with ID ${productDescriptionId}`);
     }
 
-    return await context.prisma.product_descriptions.update({
-        where: {
-            id: args.id
-        },
-        data: {
-            deleted : true,
-            last_modified: TimeHelper.currentTime,
-
-        }
-    })
+    return await ProductDescriptionModel.deleteOne(context.prisma.product_descriptions, productDescriptionId)
 }

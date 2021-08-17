@@ -1,14 +1,14 @@
 import { MeasurementUnit } from '../types';
-import TimeHelper from '../../../helpers/TimeHelper';
+import MeasurementUnitModel from '../MeasurementUnitModel';
 
 export default async function updateMeasurementUnit (parent: any, args: MeasurementUnit, context: any, info:any): Promise<MeasurementUnit> | never{
     
     let existingMeasurementUnit!: MeasurementUnit;
-    const measurementUnitId: String = args.id;
-    const currentTime: number = TimeHelper.currentTime;
+    const measurementUnitId: string = args.id;
+    
 
     try {
-        existingMeasurementUnit = await context.prisma.measurement_units.findUnique({ where: {id: measurementUnitId } });
+        existingMeasurementUnit = await MeasurementUnitModel.findOne(context.prisma.measurement_units, measurementUnitId);
     } catch(error: unknown) {
         console.error(error);
         throw new Error(`There was an error fetching MeasurementUnit with ID ${measurementUnitId}`);
@@ -18,16 +18,5 @@ export default async function updateMeasurementUnit (parent: any, args: Measurem
         throw new Error(`There is no MeasurementUnit with ID ${measurementUnitId}`);
     }
 
-    return await context.prisma.measurement_units.update({
-        where: {
-            id: measurementUnitId
-        },
-        data: {
-            name: args.name,
-            symbol: args.symbol,
-            updated_at: currentTime,
-            last_modified: currentTime,
-            server_created_at: currentTime
-        }
-    });
+    return await MeasurementUnitModel.updateOne(context.prisma.measurement_units, measurementUnitId, args);
 }

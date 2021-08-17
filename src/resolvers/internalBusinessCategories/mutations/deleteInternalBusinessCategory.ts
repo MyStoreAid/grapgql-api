@@ -1,12 +1,12 @@
 import { InternalBusinessCategory,InternalBusinessCategoryIdArgs } from "../types";
-import TimeHelper from '../../../helpers/TimeHelper';
+import InternalBusinessCategoryModel from "../InternalBusinessCategoryModel";
 
-export default async function deleteInternalBusinessCategory (parent: any, args: InternalBusinessCategory, context: any): Promise<InternalBusinessCategory> | never {
+export default async function deleteInternalBusinessCategory (parent: any, args: InternalBusinessCategoryIdArgs, context: any): Promise<InternalBusinessCategory> | never {
     let existingInternalBusinessCategory!: InternalBusinessCategory;
-    const internalBusinessCategoryId: String = args.id;
+    const internalBusinessCategoryId: string = args.id;
 
     try {
-        existingInternalBusinessCategory = await context.prisma.internal_business_categories.findUnique({ where: {id: internalBusinessCategoryId}});
+        existingInternalBusinessCategory = await InternalBusinessCategoryModel.findOne(context.prisma.internal_business_categories, internalBusinessCategoryId);
     } catch (error: unknown) {
         console.error(error);
         throw new Error(`There is an error fetching a InternalBusinessCategory with ID ${internalBusinessCategoryId}`);
@@ -17,14 +17,5 @@ export default async function deleteInternalBusinessCategory (parent: any, args:
     }
 
 
-    return await context.prisma.internal_business_categories.update({
-        where: {
-            id: args.id
-        },
-        data: {
-            deleted : true,
-            updated_at: TimeHelper.currentTime,
-
-        }
-    })
+    return await InternalBusinessCategoryModel.deleteOne(context.prisma.internal_business_categories, internalBusinessCategoryId)
 }

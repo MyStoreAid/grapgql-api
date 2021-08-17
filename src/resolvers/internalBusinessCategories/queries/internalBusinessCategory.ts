@@ -1,15 +1,12 @@
 import { InternalBusinessCategoryIdArgs, InternalBusinessCategory } from "../types";
+import InternalBusinessCategoryModel from "../InternalBusinessCategoryModel";
 
 export default async function internalBusinessCategory (parent: any, args: InternalBusinessCategoryIdArgs, context: any): Promise<InternalBusinessCategory> | never {
     let result!: InternalBusinessCategory;
-    const internalBusinessCategoryId: String = args.id;
+    const internalBusinessCategoryId: string = args.id;
 
     try {
-        result = await context.prisma.internal_business_categories.findUnique({
-            where: {
-                id: internalBusinessCategoryId
-            }
-        });
+        result = await InternalBusinessCategoryModel.findOne(context.prisma.internal_business_categories, internalBusinessCategoryId);
     } catch (error: unknown) {
         new Error(`There was an error getting InternalBusinessCategory with ID ${internalBusinessCategoryId}.`);
     }

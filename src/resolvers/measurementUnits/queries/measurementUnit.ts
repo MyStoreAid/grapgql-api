@@ -1,16 +1,13 @@
 import { MeasurementUnitIdArgs, MeasurementUnit } from "../types";
+import MeasurementUnitModel from "../MeasurementUnitModel";
 
 export default async function measurementUnit (parent: any, args: MeasurementUnitIdArgs, context: any): Promise<MeasurementUnit> {
 
     let result!: MeasurementUnit;
-    const measurementUnitId: String = args.id;
+    const measurementUnitId: string = args.id;
 
     try {
-        result = await context.prisma.measurement_units.findUnique({
-            where: {
-                id: measurementUnitId
-            }
-        });
+        result = await MeasurementUnitModel.findOne(context.prisma.measurement_units, measurementUnitId);
     } catch (error: unknown) {
         new Error(`There was an error getting MeasurementUnit with ID ${measurementUnitId}.`);
     }

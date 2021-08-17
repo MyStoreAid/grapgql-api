@@ -1,30 +1,21 @@
 import { Feature, FeatureIdArgs } from "../types";
-import TimeHelper from '../../../helpers/TimeHelper';
+import FeatureModel from "../FeatureModel";
 
 export default async function deleteFeature (parent: any, args: FeatureIdArgs, context: any): Promise<Feature> | never {
     let existingFeature!: Feature;
-    const FeatureId: String = args.id;
+    const featureId: string = args.id;
 
     try {
-        existingFeature = await context.prisma.features.findUnique({ where: {id: FeatureId}});
+        existingFeature = await FeatureModel.findOne(context.prisma.features, featureId)
     } catch (error: unknown) {
         console.error(error);
-        throw new Error(`There is an error fetching a Feature with ID ${FeatureId}`);
+        throw new Error(`There is an error fetching a Feature with ID ${featureId}`);
     }
 
     if(!existingFeature) {
-        throw new Error(`There is no Feature with ID ${FeatureId}`);
+        throw new Error(`There is no Feature with ID ${featureId}`);
     }
 
 
-    return await context.prisma.features.update({
-        where: {
-            id: args.id
-        },
-        data: {
-            deleted : true,
-            updated_at: TimeHelper.currentTime,
-
-        }
-    })
+    return await FeatureModel.deleteOne(context.prisma.features, featureId)
 }

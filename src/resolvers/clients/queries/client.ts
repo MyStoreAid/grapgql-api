@@ -1,15 +1,12 @@
 import { Client, ClientIdArgs } from "../types";
+import ClientModel from "../ClientModel";
 
 export default async function client (parent: any, args: ClientIdArgs, context: any): Promise<Client> | never {
     let result!: Client;
-    const clientId: String = args.name;
+    const clientId: string = args.name;
 
     try {
-        result = await context.prisma.clients.findUnique({
-            where: {
-                id: clientId
-            }
-        });
+        result = await ClientModel.findOne(context.prisma.clients, clientId)
     } catch (error: unknown) {
         new Error(`There was an error getting client with ID ${clientId}.`);
     }

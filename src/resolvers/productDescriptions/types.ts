@@ -1,5 +1,7 @@
+export type ProductDescriptionId = string;
+
 export interface ProductDescription {
-    id: String,
+    id: ProductDescriptionId,
     name: String,
     summary: String,
     created_at: number,
@@ -10,5 +12,5 @@ export interface ProductDescription {
 }
 
 export interface ProductDescriptionIdArgs {
-    id: String 
+    id: ProductDescriptionId
 }

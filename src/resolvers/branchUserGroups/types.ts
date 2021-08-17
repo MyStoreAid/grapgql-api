@@ -1,5 +1,6 @@
+export type BranchUserGroupId = string;
 export interface BranchUserGroup {
-    id: String,
+    id: BranchUserGroupId,
     name: String,
     description: String,
     created_at: number,
@@ -8,5 +9,5 @@ export interface BranchUserGroup {
 }
 
 export interface BranchUserGroupIdArgs {
-    id: String 
+    id: BranchUserGroupId, 
 }

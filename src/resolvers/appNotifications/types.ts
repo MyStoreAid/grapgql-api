@@ -1,5 +1,6 @@
+export type AppNotificationId = string;
 export interface AppNotification {
-    id: String,
+    id: AppNotificationId,
     title: String,
     message: String,
     actionMessage: String,
@@ -13,5 +14,5 @@ export interface AppNotification {
 }
 
 export interface AppNotificationIdArgs {
-    id: String 
+    id: AppNotificationId 
 }

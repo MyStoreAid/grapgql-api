@@ -1,14 +1,14 @@
 import { PermissionIdArgs, Permission } from '../types';
-import TimeHelper from '../../../helpers/TimeHelper';
+import PermissionModel from '../PermissionModel';
 
 export default async function deletePermission (parent: any, args: PermissionIdArgs, context: any): Promise<Permission> | never {
     
     let existingPermission!: Permission;
-    const permissionId: String = args.id;
-    const currentTime: number = TimeHelper.currentTime;
+    const permissionId: string = args.id;
+    
 
     try {
-        existingPermission = await context.prisma.permissions.findUnique({ where: {id: permissionId}});
+        existingPermission = await PermissionModel.findOne(context.prisma.permissions, permissionId);
     } catch (error: unknown) {
         console.error(error);
         throw new Error(`There is an error fetching a Permission with ID ${permissionId}`);
@@ -20,14 +20,5 @@ export default async function deletePermission (parent: any, args: PermissionIdA
 
 
 
-    return await context.prisma.permissions.update({
-        where: {
-            id: permissionId
-        },
-        data: {
-            deleted : true,
-            updated_at: currentTime,
-
-        }
-    })
+    return await PermissionModel.deleteOne(context.prisma.permissions, permissionId)
 }

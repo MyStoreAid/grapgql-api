@@ -1,5 +1,7 @@
+export type PermissionId = string;
+
 export interface Permission {
-    id: String,
+    id: PermissionId,
     name: String,
     description: String,
     created_at: number,
@@ -8,5 +10,5 @@ export interface Permission {
 }
 
 export interface PermissionIdArgs {
-    id: String 
+    id: PermissionId 
 }

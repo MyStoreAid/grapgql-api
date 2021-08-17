@@ -1,5 +1,7 @@
+export type RoleId = string;
+
 export interface Role {
-    id: String,
+    id: RoleId,
     name: String,
     description: String,
     created_at: number,
@@ -8,5 +10,5 @@ export interface Role {
 }
 
 export interface RoleIdArgs {
-    id: String 
+    id: RoleId 
 }

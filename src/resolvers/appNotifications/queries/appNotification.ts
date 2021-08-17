@@ -1,15 +1,13 @@
+import AppNotificationModel from "../AppNotificationModel";
 import { AppNotification, AppNotificationIdArgs } from "../types";
 
 export default async function appNotification (parent: any, args: AppNotificationIdArgs, context: any): Promise<AppNotification> | never {
     let result!: AppNotification;
-    const appNotificationId: String =  args.id;
+    const appNotificationId: string =  args.id;
     
     try {
-        result = await context.prisma.app_notifications.findUnique({
-            where: {
-                id: appNotificationId
-            }
-        });
+        result = await AppNotificationModel.findOne(context.prisma.app_notifications, appNotificationId )
+        
     } catch (error: unknown) {
         new Error(`There was an error getting AppNotification with ID ${appNotificationId}.`);
     }

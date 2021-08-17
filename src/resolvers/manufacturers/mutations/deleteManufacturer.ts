@@ -1,13 +1,13 @@
 import { ManufacturerIdArgs, Manufacturer } from '../types';
-import TimeHelper from '../../../helpers/TimeHelper';
+import ManufacturerModel from '../ManufacturerModel';
 
 export default async function deleteManufacturer (parent:any, args:ManufacturerIdArgs, context:any, info:any): Promise<Manufacturer> | never {
     let existingManufacturer!: Manufacturer;
-    const manufacturerId: String = args.id;
-    const currentTime: number = TimeHelper.currentTime;
+    const manufacturerId: string = args.id;
+   
 
     try {
-        existingManufacturer = await context.prisma.manufacturers.findUnique({ where: {id: manufacturerId}});
+        existingManufacturer = await ManufacturerModel.findOne(context.prisma.manufacturers, manufacturerId);
     } catch (error: unknown) {
         console.error(error);
         throw new Error(`There is an error fetching a Manufacturer with ID ${manufacturerId}`);
@@ -17,15 +17,5 @@ export default async function deleteManufacturer (parent:any, args:ManufacturerI
         throw new Error(`There is no Manufacturer with ID ${manufacturerId}`);
     }
 
-    return await context.prisma.manufacturers.update({
-        where: {
-            id: args.id
-        },
-        data: {
-            deleted : true,
-            updated_at: currentTime,
-            last_modified: currentTime, 
-
-        }
-    })
+    return await ManufacturerModel.deleteOne(context.prisma.manufacturers, manufacturerId);
 }

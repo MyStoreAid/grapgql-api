@@ -1,5 +1,7 @@
+export type MeasurementUnitId = string;
+
 export interface MeasurementUnit {
-    id: String,
+    id: MeasurementUnitId,
     name: String,
     symbol: String,
     created_at: number,
@@ -10,5 +12,5 @@ export interface MeasurementUnit {
 }
 
 export interface MeasurementUnitIdArgs {
-    id: String 
+    id: MeasurementUnitId
 }

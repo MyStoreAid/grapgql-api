@@ -1,30 +1,21 @@
 import { Client, ClientIdArgs } from "../types";
-import TimeHelper from '../../../helpers/TimeHelper';
+import ClientModel from "../ClientModel";
 
 export default async function deleteClient (parent: any, args: ClientIdArgs, context: any): Promise<Client> | never {
     let existingClient!: Client;
-    const ClientId: String = args.name;
+    const clientId: string = args.name;
 
     try {
-        existingClient = await context.prisma.clients.findUnique({ where: {name: ClientId}});
+        existingClient = await ClientModel.findOne(context.prisma.clients, clientId);
     } catch (error: unknown) {
         console.error(error);
-        throw new Error(`There is an error fetching a client with ID ${ClientId}`);
+        throw new Error(`There is an error fetching a client with ID ${clientId}`);
     }
 
     if(!existingClient) {
-        throw new Error(`There is no client with ID ${ClientId}`);
+        throw new Error(`There is no client with ID ${clientId}`);
     }
 
 
-    return await context.prisma.clients.update({
-        where: {
-            name: args.name
-        },
-        data: {
-            deleted : true,
-            updated_at: TimeHelper.currentTime,
-
-        }
-    })
+    return await ClientModel.deleteOne(context.prisma.clients, clientId)
 }

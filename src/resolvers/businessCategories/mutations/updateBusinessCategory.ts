@@ -1,31 +1,21 @@
-import TimeHelper from '../../../helpers/TimeHelper';
+import BusinessCategoryModel from '../BusinessCategoryModel';
 import { BusinessCategory} from '../types';
 
 export default async function updateBusinessCategory (parent: any, args: BusinessCategory, context: any, info: any): Promise<BusinessCategory> | never {
     let existingBusinessCategory!: BusinessCategory;
-    const businessCategoryId: String = args.id;
-    const currentTime: number = TimeHelper.currentTime;
+    const businessCategoryId: string = args.id;
+
 
     try {
-        existingBusinessCategory = await context.prisma.business_categories.findUnique({ where: {id: businessCategoryId } });
+        existingBusinessCategory = await BusinessCategoryModel.findOne(context.prisma.business_categories, businessCategoryId)
     } catch(error: unknown) {
         console.error(error);
-        throw new Error(`There was an error fetching business category with ID ${args.id}`);
+        throw new Error(`There was an error fetching business category with ID ${businessCategoryId}`);
     }
 
     if(!existingBusinessCategory) {
-        throw new Error(`There is no business category with ID ${args.id}`);
+        throw new Error(`There is no business category with ID ${businessCategoryId}`);
     }
 
-    return await context.prisma.business_categories.update({
-        where: {
-            id: args.id
-        },
-        data: {
-            name: args.name,
-            description: args.description,
-            updated_at: currentTime,
-
-        }
-    });
+    return await BusinessCategoryModel.updateOne(context.prisma.business_categories, businessCategoryId, args)
 }

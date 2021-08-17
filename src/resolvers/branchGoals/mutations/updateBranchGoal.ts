@@ -1,22 +1,22 @@
-import moment from 'moment';
+import { BranchGoal } from "../types";
+import BranchGoalModel from "../BranchGoalModel";
 
-export default async function updateBranchGoal(parent:any, args:any, context:any, info:any){
-    const { id } = await context.prisma.branch_goals.findUnique({ where: {id: args.id} });
-    const currentTime = moment().toDate().getTime();
+export default async function updateBranchGoal(parent: any, args: BranchGoal, context: any, info: any): Promise<BranchGoal> | never {
+    
+    let existingBranchGoal!: BranchGoal;
+    const branchGoalId: string = args.id;
+    
+    try {
+        existingBranchGoal = await BranchGoalModel.findOne(context.prisma.branch_goals, branchGoalId);
+    } catch(error: unknown) {
+        console.error(error);
+        throw new Error(`There was an error fetching BranchGoals with ID ${branchGoalId}`);
+    }
 
-    if(!id) throw new Error("Invalid ID");
+    if(!existingBranchGoal) {
+        throw new Error(`There is no BranchGoal with ID ${branchGoalId}`);
+    }
 
-    return await context.prisma.branch_goals.update({
-        where: {
-            id: args.id
-        },
-        data: {
-            name: args.name,
-            position: args.position,
-            active: args.active,
-            server_created_at: currentTime,
-            updated_at: currentTime,
-            last_modified: currentTime,
-        }
-    });
+    return BranchGoalModel.updateOne(context.prisma.branch_goals, branchGoalId, args);
+    
 }

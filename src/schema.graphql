@@ -58,13 +58,13 @@ type Query {
 
 type Mutation {
     #Branch User Group
-    createBranchUserGroup(name: String!, description: String!): BranchUserGroup!
+    createBranchUserGroup(name: String!, description: String): BranchUserGroup!
     updateBranchUserGroup(id: ID!, name: String, description: String): BranchUserGroup!
     deleteBranchUserGroup(id: ID!): BranchUserGroup!
 
 
     #App Notfication
-    createAppNotification(title: String!, message: String, actionMessage: String, actionPath: String, operation: String, cron: String): AppNotification!
+    createAppNotification(title: String!, message: String!, actionMessage: String, actionPath: String, operation: String, cron: String): AppNotification!
     updateAppNotification(id: ID!, title: String, message: String, actionMessage: String, actionPath: String, active: Boolean, operation: String, cron: String): AppNotification!
     deleteAppNotification(id: ID!): AppNotification!
 
@@ -81,7 +81,7 @@ type Mutation {
     deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
 
     #Business Category
-    createBusinessCategory(name: String, description: String): BusinessCategory!
+    createBusinessCategory(name: String!, description: String): BusinessCategory!
     updateBusinessCategory(id: ID!, name: String, description: String): BusinessCategory!
     deleteBusinessCategory(id: ID!): BusinessCategory!
 
@@ -96,8 +96,8 @@ type Mutation {
     deleteManufacturer(id: ID!): Manufacturer!
 
     #Client
-    createClient(name:String!): Client!
-    updateClient(name: String!, displayName: String): Client!
+    createClient(name:String!, displayName: String): Client!
+    updateClient(name: String!, displayName: String!): Client!
     deleteClient(name: String!): Client!
 
     #Features
@@ -111,7 +111,7 @@ type Mutation {
     deleteMeasurementUnit(id: ID!): MeasurementUnit!
 
     #Permissions
-    createPermission(name: String, description: String): Permission!
+    createPermission(name: String!, description: String): Permission!
     updatePermission(id: ID!, name: String, description: String): Permission!
     deletePermission(id: ID!): Permission!
 

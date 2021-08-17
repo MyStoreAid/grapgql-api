@@ -16,5 +16,7 @@ export default async function updateBrand(parent: any, args: Brand, context:any)
         throw new Error(`There is no brand with ID ${args.id}`);
     }
 
+   
+
     return BrandModel.updateOne(context.prisma.brands, brandId, args);
 }

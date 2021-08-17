@@ -1,13 +1,20 @@
-export default async function branchGoal (parent:any, args:any, context:any, info:any ) {
+import BranchGoalModel from "../BranchGoalModel";
+import { BranchGoal, BranchGoalIdArgs } from "../types";
 
-    const res = await context.prisma.branch_goals.findUnique({
-        where: {
-            id: args.id
-        }
-    });
+export default async function branchGoal (parent: any, args: BranchGoalIdArgs, context: any): Promise<BranchGoal> | never {
+    let result!: BranchGoal;
+    const branchGoalId: string =  args.id;
+    
+    try {
+        result = await BranchGoalModel.findOne(context.prisma.branch_goals, branchGoalId )
+        
+    } catch (error: unknown) {
+        new Error(`There was an error getting BranchGoal with ID ${branchGoalId}.`);
+    }
 
-    if(!res.id) throw new Error("Invalid ID");
+    if (!result) {
+        new Error(`There is no BranchGoal with ID ${branchGoalId}.`);
+    }
 
-    return res;
-
+    return result;
 }

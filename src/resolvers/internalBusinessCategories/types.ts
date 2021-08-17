@@ -1,5 +1,7 @@
+export type InternalBusinessCategoryId = string;
+
 export interface InternalBusinessCategory {
-    id: String,
+    id: InternalBusinessCategoryId,
     name: String,
     description: String,
     created_at: number,
@@ -8,5 +10,5 @@ export interface InternalBusinessCategory {
 }
 
 export interface InternalBusinessCategoryIdArgs {
-    id: String 
+    id: InternalBusinessCategoryId 
 }
