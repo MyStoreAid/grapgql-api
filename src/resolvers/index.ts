@@ -56,6 +56,10 @@ import { createProductCategory, updateProductCategory, deleteProductCategory } f
 import { productDescription, productDescriptions } from './productDescriptions/queries';
 import { createProductDescription, updateProductDescription, deleteProductDescription } from './productDescriptions/mutations';
 
+//Product Segments
+import { productSegment, productSegments  } from './productSegments/queries';
+import { createProductSegment, updateProductSegment, deleteProductSegment } from './productSegments/mutations';
+
 //Roles
 import { role, roles } from './roles/queries';
 import { createRole, updateRole, deleteRole } from './roles/mutations';
@@ -89,6 +93,10 @@ const resolvers = {
         client,
         clients,
 
+        //Company
+        company,
+        companies,
+
         //Feature
         feature,
         features,
@@ -118,6 +126,10 @@ const resolvers = {
         //Product Descriptions
         productDescription,
         productDescriptions,
+
+        //Product Segment
+        productSegment,
+        productSegments,
 
 
         //Roles
@@ -155,6 +167,11 @@ const resolvers = {
         createClient,
         updateClient,
         deleteClient,
+
+        //Company
+        createCompany,
+        updateCompany,
+        deleteCompany,
   
         
         //Feature
@@ -193,6 +210,11 @@ const resolvers = {
         createProductDescription,
         updateProductDescription,
         deleteProductDescription,
+
+        //Product Segment
+        createProductSegment,
+        updateProductSegment,
+        deleteProductSegment,
  
 
         //Roles

@@ -56,13 +56,19 @@ type Query {
     products: [Product!]!
     product(id: ID!): Product
 
+    #Product Category
+    productCategories: [ProductCategory!]!
+    productCategory(id: ID!): ProductCategory!
+
     #Product Description
     productDescriptions: [ProductDescription!]!
     productDescription(id: ID!): ProductDescription!
 
-    #Product Category
-    productCategories: [ProductCategory!]!
-    productCategory(id: ID!): ProductCategory!
+    #Product Segment
+    productSegments: [ProductSegment!]!
+    productSegment(id: ID!): ProductSegment!
+
+    
 }
 
 type Mutation {
@@ -146,10 +152,17 @@ type Mutation {
     updateProductDescription(id: ID!, name: String, summary: String): ProductDescription!
     deleteProductDescription(id: ID!): ProductDescription!
 
+    #Product Segment
+    createProductSegment(name: String!, description: String): ProductSegment!
+    updateProductSegment(id: ID!, name: String, description: String): ProductSegment!
+    deleteProductSegment(id: ID!): ProductSegment!
+
     #Role
     createRole(name: String!, description: String): Role!
     updateRole(id: ID!, name: String, description: String): Role!
     deleteRole(id: ID!): Role!
+
+    
 }
 
 type AppNotification {
