@@ -48,14 +48,17 @@ import { productCategory, productCategories } from './productCategories/queries'
 import { createProductCategory, updateProductCategory, deleteProductCategory } from './productCategories/mutations';
 
 
-//Product Descriptions
+//Product Description
 import { productDescription, productDescriptions } from './productDescriptions/queries';
 import { createProductDescription, updateProductDescription, deleteProductDescription } from './productDescriptions/mutations';
 
-//Roles
+//Role
 import { role, roles } from './roles/queries';
 import { createRole, updateRole, deleteRole } from './roles/mutations';
 
+//Subscription
+import { subscription, subscriptions } from './subscriptions/queries';
+import { createSubscription, updateSubscription, deleteSubscription } from './subscriptions/mutations';
 
 
 
@@ -119,6 +122,10 @@ const resolvers = {
         //Roles
         role,
         roles,
+
+        //Subscriptions
+        subscription,
+        subscriptions,
     },
   
     Mutation: {
@@ -195,6 +202,11 @@ const resolvers = {
         createRole,
         updateRole,
         deleteRole,
+
+        //Subscriptions
+        createSubscription,
+        updateSubscription,
+        deleteSubscription,
     }
 };
 
