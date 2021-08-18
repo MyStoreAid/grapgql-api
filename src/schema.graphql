@@ -43,6 +43,10 @@ type Query {
     permissions: [Permission!]!
     permission(id: ID!): Permission
 
+    #Product
+    products: [Product!]!
+    product(id: ID!): Product
+
     #Product Description
     productDescriptions: [ProductDescription!]!
     productDescription(id: ID!): ProductDescription!
@@ -120,6 +124,12 @@ type Mutation {
     createPermission(name: String!, description: String): Permission!
     updatePermission(id: ID!, name: String, description: String): Permission!
     deletePermission(id: ID!): Permission!
+
+    #Product
+    createProduct(name: String!, description: String, summary: String, barCode: String, manufacturerId: String, brandId: String, productCategoryId: String, productSegmentId: String, measuerementUnitId: String, weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
+    updateProduct(id: ID, name: String!, description: String, summary: String, barCode: String,  weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
+    deleteProduct(id: ID!): Product!
+    
 
     #Product Category
     createProductCategory(name: String!, summary: String): ProductCategory!
@@ -229,6 +239,29 @@ type Client{
   deleted: Boolean
 }
 
+type Company{
+  id: ID!
+  name: String!
+  businessCategory: BusinessCategory
+  subscription: Subscription
+  email: String
+  phone: String
+  internalBusinessCategory: InternalBusinessCategory
+  adminLastModifiedBy: String
+  lastModifiedBy: User
+  lastSyncBy: User
+  created_at: Float
+  updated_at: Float
+  lastSyncAt: Float
+  deleted: Boolean
+  # branches: [Branch]
+  # companiesSubscriptions: [CompaniesSubscription]
+  # companiesSyncHistories: [CompaniesSyncHistory]
+  # customerCareSchedules: [CustomerCareSchedule]
+  # userBranches: [UserBranch]
+  # userCompanies: [UserCompany]
+}
+
 type Feature {
   id: ID! 
   name: String!
@@ -279,6 +312,30 @@ type Permission {
   deleted: Boolean
 }
 
+type Product {
+    id: ID!
+    name: String!
+    description: String
+    summary: String
+    barCode: String
+    manufacturer: Manufacturer 
+    brand: Brand
+    productCategory: ProductCategory
+    productSegment: ProductSegment
+    measuerementUnit: MeasurementUnit
+    weight: Float
+    image: String
+    isTemporary: Boolean
+    adminLastModifiedBy: String
+    lastModifiedBy: User
+    created_at: Float
+    updated_at: Float
+    last_modified: Float
+    server_created_at: Float
+    deleted: Boolean!
+}
+
+
 type ProductCategory {
     id: ID!
     name: String!
@@ -297,6 +354,17 @@ type ProductDescription {
   id: ID! 
   name: String!
   summary: String
+  created_at: Float
+  updated_at: Float
+  last_modified: Float
+  server_created_at: Float
+  deleted: Boolean
+}
+
+type ProductSegment {
+  id: ID! 
+  name: String!
+  description: String
   created_at: Float
   updated_at: Float
   last_modified: Float
@@ -326,7 +394,10 @@ type Subscription {
     companies: [Company!]
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/MSA-1500_products
 type User {
     userId: ID! 
     email: String!
@@ -354,10 +425,3 @@ type User {
     updated_at: Float
     deleted: Boolean
 }
-
-
-
-
-
-
-
