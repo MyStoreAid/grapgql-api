@@ -14,7 +14,7 @@ export interface Company {
     created_at: number,
     updated_at: number,
     lastSyncAt: number,
-    deleted: boolean
+    deleted: boolean,
 
 }
 

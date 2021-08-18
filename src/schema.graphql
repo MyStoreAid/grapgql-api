@@ -197,6 +197,8 @@ type Brand {
     deleted: Boolean!
 }
 
+
+
 type BusinessCategory {
   id: ID! 
   name: String!
@@ -230,12 +232,12 @@ type Company{
   updated_at: Float
   lastSyncAt: Float
   deleted: Boolean
-  branches: [Branch]
-  companiesSubscriptions: [CompaniesSubscription]
-  companiesSyncHistories: [CompaniesSyncHistory]
-  customerCareSchedules: [CustomerCareSchedule]
-  userBranches: [UserBranch]
-  userCompanies: [UserCompany]
+  # branches: [Branch]
+  # companiesSubscriptions: [CompaniesSubscription]
+  # companiesSyncHistories: [CompaniesSyncHistory]
+  # customerCareSchedules: [CustomerCareSchedule]
+  # userBranches: [UserBranch]
+  # userCompanies: [UserCompany]
 }
 
 type Feature {
