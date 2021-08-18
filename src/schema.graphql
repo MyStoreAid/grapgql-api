@@ -220,7 +220,7 @@ type Client{
 type Company{
   id: ID!
   name: String!
-  businessCategory: BusinessCategory
+  businessCategory: BusinessCategory!
   subscription: Subscription
   email: String
   phone: String

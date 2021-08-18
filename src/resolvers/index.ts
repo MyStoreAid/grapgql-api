@@ -89,6 +89,10 @@ const resolvers = {
         client,
         clients,
 
+        //Company
+        company,
+        companies,
+
         //Feature
         feature,
         features,
@@ -155,6 +159,11 @@ const resolvers = {
         createClient,
         updateClient,
         deleteClient,
+
+        //Company
+        createCompany,
+        updateCompany,
+        deleteCompany,
   
         
         //Feature
