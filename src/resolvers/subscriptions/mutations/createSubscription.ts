@@ -1,20 +1,16 @@
-import TimeHelper from '../../../helpers/TimeHelper';
-import UuidHelper from '../../../helpers/UuidHelper';
+import SubscriptionModel from '../SubscriptionModel';
 import { Subscription } from '../types';
 
 export default async function createSubscription (parent: any, args: Subscription, context: any): Promise<Subscription> {
-    const currentTime: number = TimeHelper.currentTime;
+    const data = {
+        name: args.name,
+        description: args ? args.description : "",
+        numberOfBranches: args ? args.numberOfBranches: 0,
+        companies: args.companiesId ? { connect: { id: args.companiesId} } : undefined
+    };
 
-    return await context.prisma.subscriptions.create({
-        data: {
-            id: UuidHelper.newUuid,
-            name: args.name,
-            description: args ? args.description : "",
-            numberOfBranches: args ? args.numberOfBranches: 0,
-            created_at: currentTime,
-            updated_at: currentTime,
-            companies: args.companiesId ? { connect: { id: args.companiesId} } : undefined
+    return await SubscriptionModel.createOne(context.prisma.subscriptions, data)
             
-        }
-    });
+        
+    
 }

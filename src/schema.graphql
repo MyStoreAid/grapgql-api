@@ -147,7 +147,7 @@ type Mutation {
     deleteRole(id: ID!): Role!
 
     #Subscription
-    createSubscription(name: String!, description: String, numberOfBranches: Float, companiesId: ID): Subscription!
+    createSubscription(name: String!, description: String, numberOfBranches: Float!, companiesId: ID): Subscription!
     updateSubscription(id: ID!, name: String!, description: String, numberOfBranches: Float): Subscription!
     deleteSubscription(id: ID!): Subscription!
 }
@@ -394,10 +394,6 @@ type Subscription {
     companies: [Company!]
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/MSA-1500_products
 type User {
     userId: ID! 
     email: String!

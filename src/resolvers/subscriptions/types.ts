@@ -1,7 +1,7 @@
-import { Company } from "resolvers/companies/types";
+export type SubscriptionId = string;
 
 export interface Subscription {
-    id: String,
+    id: SubscriptionId,
     name: String,
     description: String,
     numberOfBranches: number,
@@ -12,5 +12,5 @@ export interface Subscription {
 }
 
 export interface SubscriptionIdArgs {
-    id: String 
+    id: SubscriptionId
 }
