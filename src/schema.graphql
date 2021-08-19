@@ -68,6 +68,10 @@ type Query {
     productSegments: [ProductSegment!]!
     productSegment(id: ID!): ProductSegment!
 
+    #Product Segment Entry
+    productSegmentEntries: [ProductSegmentEntry!]!
+    productSegmentEntry(id: ID!): ProductSegmentEntry!
+
     
 }
 
@@ -156,6 +160,11 @@ type Mutation {
     createProductSegment(name: String!, description: String): ProductSegment!
     updateProductSegment(id: ID!, name: String, description: String): ProductSegment!
     deleteProductSegment(id: ID!): ProductSegment!
+
+    #Product Segment Entry
+    createProductSegmentEntry(name: String!, productSegmentId: String!): ProductSegmentEntry!
+    updateProductSegmentEntry(id: ID!, name: String!): ProductSegmentEntry!
+    deleteProductSegmentEntry(id: ID!): ProductSegmentEntry!
 
     #Role
     createRole(name: String!, description: String): Role!
@@ -356,6 +365,17 @@ type ProductSegment {
   id: ID! 
   name: String!
   description: String
+  created_at: Float
+  updated_at: Float
+  last_modified: Float
+  server_created_at: Float
+  deleted: Boolean
+}
+
+type ProductSegmentEntry {
+  id: ID! 
+  name: String!
+  product_segments: ProductSegment
   created_at: Float
   updated_at: Float
   last_modified: Float
