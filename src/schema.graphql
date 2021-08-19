@@ -166,6 +166,10 @@ type Mutation {
     updateProductSegmentEntry(id: ID!, name: String!): ProductSegmentEntry!
     deleteProductSegmentEntry(id: ID!): ProductSegmentEntry!
 
+    #Product Category Product Segment
+    createProductCategoryProductSegment(productCategoryId: String, productSegmentId: String): ProductCategoryProductSegment!
+    
+
     #Role
     createRole(name: String!, description: String): Role!
     updateRole(id: ID!, name: String, description: String): Role!
@@ -380,6 +384,14 @@ type ProductSegmentEntry {
   updated_at: Float
   last_modified: Float
   server_created_at: Float
+  deleted: Boolean
+}
+
+type ProductCategoryProductSegment {
+  product_categories: ProductCategory
+  product_segments: ProductSegment
+  created_at: Float
+  updated_at: Float
   deleted: Boolean
 }
 
