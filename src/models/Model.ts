@@ -47,6 +47,19 @@ export default class Model {
         })
     }
 
+    static async findManyForeignKey(context: PrismaModelContext, params: any): Promise<any[]> {
+        const condition: { deleted?: boolean } = {};
+        if (this.softDelete) {
+            condition.deleted = false
+        }
+        
+        return context.findMany({
+            where: condition,
+            include: params,
+        } 
+        )
+    }
+
     static async findOne(context: PrismaModelContext, primaryKey: string): Promise<any> {
         const condition: {id: string, deleted?: boolean} = {
             id: primaryKey
@@ -62,12 +75,38 @@ export default class Model {
         return rows[0];
     }
 
+    static async findOneForeignKey(context: PrismaModelContext, primaryKey: string, params: any): Promise<any> {
+        const condition: {id: string, deleted?: boolean} = {
+            id: primaryKey
+        };
+        if (this.softDelete) {
+            condition.deleted = false;
+        }
+        
+        const rows = await context.findMany({
+            where: condition,
+            include: params,
+        });
+
+        return rows[0];
+    }
+
     static async createOne(context: PrismaModelContext, params: any): Promise<any> {
         const data = params;
         this._setTimestampToFields(data);
         data[this.primaryKeyName] = UuidHelper.newUuid;
 
         return context.create({ data });
+    }
+
+    static async createOneForeignKey(context: PrismaModelContext, params: any): Promise<any> {
+        const data = params.data;
+        const include = params.include;
+        console.log(include);
+        this._setTimestampToFields(data);
+        data[this.primaryKeyName] = UuidHelper.newUuid;
+
+        return context.create({ data, include });
     }
 
     static async updateOne(context: PrismaModelContext, primaryKey: String,  params: any): Promise<any> {
@@ -80,6 +119,24 @@ export default class Model {
             },
             data 
         });
+    }
+
+    static async updateOneForeignKey(context: PrismaModelContext, primaryKey: String,  params: any): Promise<any> {
+        const data = params.data;
+        const include = params.include;
+        this._setUpdateTimestampFields(data);
+        console.log("hello");
+        console.log(data);
+        console.log(include);
+
+        return context.update({
+            where: {
+                id: primaryKey
+            },
+            data,
+            include
+        });
+       
     }
 
     static async deleteOne(context: PrismaModelContext, primaryKey: string): Promise<any> {

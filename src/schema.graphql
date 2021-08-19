@@ -220,8 +220,8 @@ type Client{
 type Company{
   id: ID!
   name: String!
-  businessCategory: BusinessCategory!
-  subscription: Subscription
+  business_categories: BusinessCategory!
+  subscriptions: Subscription
   email: String
   phone: String
   internalBusinessCategory: InternalBusinessCategory
@@ -232,7 +232,7 @@ type Company{
   updated_at: Float
   lastSyncAt: Float
   deleted: Boolean
-  # branches: [Branch]
+  branches: [Branch]
   # companiesSubscriptions: [CompaniesSubscription]
   # companiesSyncHistories: [CompaniesSyncHistory]
   # customerCareSchedules: [CustomerCareSchedule]
