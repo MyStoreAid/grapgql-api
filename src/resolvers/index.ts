@@ -2,6 +2,10 @@
 import { appNotification, appNotifications } from './appNotifications/queries';
 import { createAppNotification, updateAppNotification, deleteAppNotification } from './appNotifications/mutations';
 
+//Audit
+import { audit, audits } from './audits/queries';
+import { createAudit, updateAudit, deleteAudit } from './audits/mutations';
+
 //Branch
 import { branch, branches } from './branches/queries';
 import { createBranch, updateBranch, deleteBranch } from './branches/mutations';
@@ -75,11 +79,16 @@ import { createRole, updateRole, deleteRole } from './roles/mutations';
 
 
 
+
 const resolvers = {
     Query: {
         //App Notifications
         appNotification,
         appNotifications,
+
+        //Audit
+        audit,
+        audits,
 
         //Branches
         branch,
@@ -159,6 +168,11 @@ const resolvers = {
         createAppNotification,
         updateAppNotification,
         deleteAppNotification,
+
+        //Audit
+        createAudit,
+        updateAudit,
+        deleteAudit,
 
         //Branch
         createBranch,
