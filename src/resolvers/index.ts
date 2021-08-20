@@ -34,6 +34,10 @@ import { createClient, updateClient, deleteClient } from './clients/mutations';
 import { company, companies } from './companies/queries';
 import { createCompany, updateCompany, deleteCompany } from './companies/mutations';
 
+//Customer
+import {customer, customers} from './customers/queries';
+import {createCustomer, updateCustomer, deleteCustomer} from './customers/mutations';
+
 //Feature
 import { feature, features } from './features/queries';
 import { createFeature, updateFeature, deleteFeature } from './features/mutations';
@@ -118,6 +122,10 @@ const resolvers = {
         //Company
         company,
         companies,
+
+        //Customer
+        customer,
+        customers,
 
         //Feature
         feature,
@@ -209,6 +217,11 @@ const resolvers = {
         createCompany,
         updateCompany,
         deleteCompany,
+
+        //Customer
+        createCustomer,
+        updateCustomer,
+        deleteCustomer,
   
         
         //Feature

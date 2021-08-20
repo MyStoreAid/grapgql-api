@@ -33,6 +33,9 @@ export default class Model {
         if (this.timestampFields.includes('last_modified')) {
             data.last_modified = currentTime;
         }
+        if (this.timestampFields.includes('server_created_at')) {
+            data.server_created_at = currentTime;
+        }
         data.updated_at = currentTime;
     }
 

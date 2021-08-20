@@ -24,10 +24,6 @@ type Query {
     #Branch User Group
     branchUserGroups: [BranchUserGroup!]!
     branchUserGroup(id: ID): BranchUserGroup
-
-    #Internal Business Category
-    internalBusinessCategory(id: ID!): InternalBusinessCategory
-    internalBusinessCategories: [InternalBusinessCategory!]!
     
     #Business Category
     businessCategories: [BusinessCategory!]!
@@ -45,9 +41,17 @@ type Query {
     clients: [Client!]!
     client(name: String!): Client
 
+    #Customer
+    customers: [Customer!]!
+    customer(id: ID!): Customer
+
     #Feature
     features: [Feature!]!
     feature(id: ID!): Feature
+
+    #Internal Business Category
+    internalBusinessCategory(id: ID!): InternalBusinessCategory
+    internalBusinessCategories: [InternalBusinessCategory!]!
 
     #Manufactures
     manufacturers: [Manufacturer!]!
@@ -124,12 +128,6 @@ type Mutation {
     deleteBrand(id: ID!): Brand!
 
     
-
-    #Internal Business Categories
-    createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
-    updateInternalBusinessCategory(id: ID!, name: String, description: String): InternalBusinessCategory!
-    deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
-
     #Business Category
     createBusinessCategory(name: String!, description: String): BusinessCategory!
     updateBusinessCategory(id: ID!, name: String, description: String): BusinessCategory!
@@ -140,10 +138,7 @@ type Mutation {
     updateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
     deleteBranchGoal(id: ID!): BranchGoal!
 
-    #Manufacturer
-    createManufacturer(name: String!): Manufacturer!
-    updateManufacturer(id: ID!, name: String!): Manufacturer!
-    deleteManufacturer(id: ID!): Manufacturer!
+   
 
     #Client
     createClient(name:String!, displayName: String): Client!
@@ -155,11 +150,28 @@ type Mutation {
     updateCompany(id: ID!, name: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
     deleteCompany(id: ID!): Company!
 
+    #Customer
+    createCustomer(firstName: String!, otherNames: String, phone: String!, email: String, location: String, isTemporary: Boolean, type: String, createdById: String, lastModifiedById: String, BranchesCustomerIds: [String], SalesEntryIds: [String], SaleInstallmentIds: String ): Customer!
+    updateCustomer(id: ID!, firstName: String!, otherNames: String, phone: String, email: String, location: String, isTemporary: Boolean, type: String, createdById: String, lastModifiedById: String, BranchesCustomerIds: [String], SalesEntryIds: [String], SaleInstallmentIds: String ): Customer!
+    deleteCustomer(id: ID!): Customer!
+
+ 
+
 
     #Features
     createFeature(name:String!, description: String): Feature!
     updateFeature(id: ID!, name:String, description: String): Feature!
     deleteFeature(id: ID!): Feature!
+
+    #Internal Business Categories
+    createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
+    updateInternalBusinessCategory(id: ID!, name: String, description: String): InternalBusinessCategory!
+    deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+
+    #Manufacturer
+    createManufacturer(name: String!): Manufacturer!
+    updateManufacturer(id: ID!, name: String!): Manufacturer!
+    deleteManufacturer(id: ID!): Manufacturer!
 
     #Measurement Units
     createMeasurementUnit(name: String!, symbol: String!): MeasurementUnit!
@@ -298,7 +310,7 @@ type Branch{
   users: User
   # audit_entries: AuditEntry
   # branch_product_selling_prices: BranchProductSellingPrice
-  # audits: [Audit]
+  audits: [Audit]
   # branch_purchases: BranchPurchase
   # branch_supplier_order_payment_installments: BranchSupplierOrderPaymentInstallment
   # branch_supplier_orders: [BranchSupplierOrder]
@@ -405,6 +417,29 @@ type Company{
   # userBranches: [UserBranch]
   # userCompanies: [UserCompany]
 }
+
+type Customer {
+  id: ID! 
+  firstName: String!
+  otherNames: String
+  phone: String
+  email: String
+  location: String
+  isTemporary: Boolean
+  type: String
+  users_customers_createdByTousers: User
+  users_customers_lastModifiedByTousers: User
+  # branches_customers: [BranchesCustomer]
+  # sale_entries: [SaleEntry]
+  # sale_installments: [SaleInstallment]
+  sales: [Sale]
+  created_at: Float
+  updated_at: Float
+  server_created_at: Float
+  last_modified: Float
+  deleted: Boolean
+}
+
 
 type Feature {
   id: ID! 
@@ -542,6 +577,33 @@ type Role {
     updated_at: Float
     deleted: Boolean
 }
+
+type Sale {
+    id: ID! 
+    note: String!
+    paymentStatus: String
+    discount: Float
+    salesDate: Float
+    receiptNumber: String
+    type: String
+    paymentTpe: String
+    audits: Audit
+    branches: Branch
+    users_sales_createdByTousers: User
+    customers: Customer
+    users_audits_lastModifiedByTousers: User
+    # sale_entries: [SaleEntry]
+    # sale_installments: [SaleInstallment]
+    # sale_return_histories: SaleReturnHistory
+    created_at: Float
+    updated_at: Float
+    last_modified: Float
+    server_created_at: Float
+    deleted: Boolean
+
+}
+
+
 
 type Subscription {
     id: ID! 
