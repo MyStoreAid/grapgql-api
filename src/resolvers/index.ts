@@ -2,6 +2,10 @@
 import { appNotification, appNotifications } from './appNotifications/queries';
 import { createAppNotification, updateAppNotification, deleteAppNotification } from './appNotifications/mutations';
 
+//Branch
+import { branch, branches } from './branches/queries';
+import { createBranch, updateBranch, deleteBranch } from './branches/mutations';
+
 //Branch Goals
 import { branchGoal, branchGoals } from './branchGoals/queries';
 import { createBranchGoal, updateBranchGoal, deleteBranchGoal } from './branchGoals/mutations';
@@ -73,6 +77,14 @@ import { createRole, updateRole, deleteRole } from './roles/mutations';
 
 const resolvers = {
     Query: {
+        //App Notifications
+        appNotification,
+        appNotifications,
+
+        //Branches
+        branch,
+        branches,
+        
         //Branch Goals
         branchGoal,
         branchGoals,
@@ -81,9 +93,6 @@ const resolvers = {
         branchUserGroup,
         branchUserGroups,
 
-        //App Notifications
-        appNotification,
-        appNotifications,
 
         //Brands
         brands,
@@ -146,6 +155,16 @@ const resolvers = {
     },
   
     Mutation: {
+        //App Notfications
+        createAppNotification,
+        updateAppNotification,
+        deleteAppNotification,
+
+        //Branch
+        createBranch,
+        updateBranch,
+        deleteBranch,
+
         //Branch Goals
         createBranchGoal,
         updateBranchGoal,
@@ -155,11 +174,7 @@ const resolvers = {
         createBranchUserGroup,
         updateBranchUserGroup,
         deleteBranchUserGroup,
-        //App Notfications
-        
-        createAppNotification,
-        updateAppNotification,
-        deleteAppNotification,
+
 
         //Brands
         createBrand,

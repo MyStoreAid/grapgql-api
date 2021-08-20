@@ -1,16 +1,29 @@
 type Query {
-    #Branch User Group
-    branchUserGroups: [BranchUserGroup!]!
-    branchUserGroup(id: ID): BranchUserGroup
+
+    #Appointment
+    appointments: [Appointment!]!
+    appointment(id: ID!): Appointment
     
     #App Notification
     appNotifications: [AppNotification!]!
     appNotification(id: ID!): AppNotification!
 
+    #Audit
+    audits: [Audit!]!
+    audit(id: ID!): Audit
+
 
     #Brand
     brands: [Brand!]!
     brand(id: ID!): Brand
+
+    #Branch
+    branches: [Branch!]!
+    branch(id: ID!): Branch
+
+    #Branch User Group
+    branchUserGroups: [BranchUserGroup!]!
+    branchUserGroup(id: ID): BranchUserGroup
 
     #Internal Business Category
     internalBusinessCategory(id: ID!): InternalBusinessCategory
@@ -56,13 +69,13 @@ type Query {
     products: [Product!]!
     product(id: ID!): Product
 
-    #Product Category
-    productCategories: [ProductCategory!]!
-    productCategory(id: ID!): ProductCategory!
-
     #Product Description
     productDescriptions: [ProductDescription!]!
     productDescription(id: ID!): ProductDescription!
+
+    #Product Category
+    productCategories: [ProductCategory!]!
+    productCategory(id: ID!): ProductCategory!
 
     #Product Segment
     productSegments: [ProductSegment!]!
@@ -71,21 +84,42 @@ type Query {
     #Product Segment Entry
     productSegmentEntries: [ProductSegmentEntry!]!
     productSegmentEntry(id: ID!): ProductSegmentEntry!
-
-    
 }
 
 type Mutation {
+
+    #Appointment
+    createAppointment(type: String, status: String, createdById: String, lastModifiedById: String, assignedToId: String, request: String): Appointment!
+    updateAppointment(id: ID!, type: String, status: String, lastModifiedById: String, assignedToId: String, request: String): Appointment!
+    deleteAppointment(id: ID!): Appointment!
+
+     #App Notfication
+    createAppNotification(title: String!, message: String!, actionMessage: String, actionPath: String, operation: String, cron: String): AppNotification!
+    updateAppNotification(id: ID!, title: String, message: String, actionMessage: String, actionPath: String, active: Boolean, operation: String, cron: String): AppNotification!
+    deleteAppNotification(id: ID!): AppNotification!
+
+    #Audit
+    createAudit(status: String, branchId: String,  createdById: String, isActive: Boolean, auditDate: Float, status: String, lastModifiedById: String, auditEntryIds: [String], branchProductStockIds: [String], saleIds: [String]): Audit!
+    updateAudit(id: ID!, branchId: String, status: String, createdById: String, isActive: Boolean, auditDate: Float, status: String, lastModifiedById: String, auditEntryIds: [String], branchProductStockIds: [String], saleIds: [String]): Audit!
+    deleteAudit(id: ID!): Audit!
+
+
+    #Branch
+    createBranch(name: String!, startDate: Float, address: String, location: String!, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userId: String): Branch!
+    updateBranch(id: ID, name: String!, startDate: Float, address: String, checkoutSales: Boolean, aggregateSales: Boolean, alwaysSync: Boolean, forTesting: Boolean, supplierStock: Boolean,location: String, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userId: String): Branch!
+    deleteBranch(id: ID): Branch!
+  
+
+    
     #Branch User Group
     createBranchUserGroup(name: String!, description: String): BranchUserGroup!
     updateBranchUserGroup(id: ID!, name: String, description: String): BranchUserGroup!
     deleteBranchUserGroup(id: ID!): BranchUserGroup!
 
 
-    #App Notfication
-    createAppNotification(title: String!, message: String!, actionMessage: String, actionPath: String, operation: String, cron: String): AppNotification!
-    updateAppNotification(id: ID!, title: String, message: String, actionMessage: String, actionPath: String, active: Boolean, operation: String, cron: String): AppNotification!
-    deleteAppNotification(id: ID!): AppNotification!
+   
+
+
 
     #Brand
     createBrand(name: String!): Brand!
@@ -166,16 +200,31 @@ type Mutation {
     updateProductSegmentEntry(id: ID!, name: String!): ProductSegmentEntry!
     deleteProductSegmentEntry(id: ID!): ProductSegmentEntry!
 
-    #Product Category Product Segment
-    createProductCategoryProductSegment(productCategoryId: String, productSegmentId: String): ProductCategoryProductSegment!
-    
 
     #Role
     createRole(name: String!, description: String): Role!
     updateRole(id: ID!, name: String, description: String): Role!
     deleteRole(id: ID!): Role!
+}
 
-    
+
+type GPS {
+  latitude: Float
+  longitude: Float
+}
+
+type Appointment {
+    id: ID!
+    type: String
+    status: String
+    users_appointments_createdByTousers: User 
+    created_at: Float
+    updated_at: Float
+    server_created_at: Float
+    users_appointments_lastModifiedByTousers: User
+    request: String
+    users_appointments_assignedToTousers: User
+    deleted: Boolean!
 }
 
 type AppNotification {
@@ -184,13 +233,107 @@ type AppNotification {
     message: String!
     actionMessage: String
     actionPath: String
-    active: Boolean!,
-    operation: String,
-    cron: String,
+    active: Boolean!
+    operation: String
+    cron: String
     created_at: Float
     updated_at: Float
     deleted: Boolean!
 }
+
+type Audit {
+  id: ID!
+  branches: Branch
+  users_audits_createdByTousers: User
+  isActive: Boolean
+  auditDate: Float
+  status: String
+  users_audits_lastModifiedByTousers: User
+  # audit_entries: [AuditEntry]
+  # branches_products_stocks: [BusinessProductStock]
+  # sales: [Sale]
+  last_modified: Float
+  server_created_at: Float
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean!
+}
+
+type Branch{
+  id: ID! 
+  name: String!
+  startDate: Float
+  address: String
+  location: String
+  logo: String
+  phone: String
+  whatsAppPhone: String
+  type: String
+  checkoutSales: Boolean
+  aggregateSales: Boolean
+  action: String
+  syncInterval: Float
+  alwaysSync: Boolean
+  forTesting: Boolean
+  gps: String
+  latitude: Float
+  longitude: Float
+  country: String
+  region: String
+  city: String
+  supplierStock: Boolean
+  workingDays: String
+  sourcesOfPurchases: String
+  phoneType: String
+  otherServices: String
+  locationType: String
+  storeImage: String
+  serviceType: String
+  buildingStructure:String
+  coolerBrands: String
+  coolerTypes: String
+  electricity: String
+  yearOfEstablishment: Float
+  appointments: Appointment
+  branch_user_groups: BranchUserGroup
+  business_categories: BusinessCategory
+  companies: Company
+  users: User
+  # audit_entries: AuditEntry
+  # branch_product_selling_prices: BranchProductSellingPrice
+  # audits: [Audit]
+  # branch_purchases: BranchPurchase
+  # branch_supplier_order_payment_installments: BranchSupplierOrderPaymentInstallment
+  # branch_supplier_orders: [BranchSupplierOrder]
+  # branch_supplier_products: [BranchSupplierProduct]
+  # branch_supplier_salespersons: [BranchSupplierSaleperson]                  
+  # branch_supplier_stocks: [BranchSupplierStock]
+  # branch_suppliers: [BranchSupplier]
+  # branches_customers: [BranchesCustomer]
+  # branches_products: [BranchesProduct]
+  # branches_products_stock_movements_branchesTobranches_products_stock_movements_branchFrom: [BranchesProductsStockMovement]          
+  # branches_products_stock_movements_branchesTobranches_products_stock_movements_branchTo:   [BranchesProductsStockMovements]         
+  # branches_products_stocks: [BranchesProductStock]
+  # branches_products_stocks_histories: [BranchesProductsStocksHistory]
+  # cashflows: [Cashflow]
+  # customer_care_schedules: [CustomerCareSchedule]
+  # payment_histories: [PaymentHistory]
+  # reconciliation_histories: [ReconcilationHistory]
+  # reconciliations: [Reconciliation]
+  # sale_entries: [SaleEntry]
+  # sale_installments: [SaleInstallment]
+  # sale_return_histories: [SaleReturnHistory]
+  # sales: [Sale]
+  # stock_return_histories: [StockReturnHistory]
+  created_at: Float
+  updated_at: Float
+  deleted: Boolean
+}
+
+
+
+
+
 
 type BranchGoal {
     id: ID!
@@ -246,8 +389,8 @@ type Client{
 type Company{
   id: ID!
   name: String!
-  businessCategory: BusinessCategory
-  subscription: Subscription
+  business_categories: BusinessCategory!
+  subscriptions: Subscription
   email: String
   phone: String
   internalBusinessCategory: InternalBusinessCategory
@@ -283,6 +426,10 @@ type InternalBusinessCategory {
   created_at: Float
   updated_at: Float
   deleted: Boolean
+}
+
+type Json{
+  id: ID!
 }
 
 type Manufacturer {
@@ -376,6 +523,7 @@ type ProductSegment {
   deleted: Boolean
 }
 
+
 type ProductSegmentEntry {
   id: ID! 
   name: String!
@@ -384,14 +532,6 @@ type ProductSegmentEntry {
   updated_at: Float
   last_modified: Float
   server_created_at: Float
-  deleted: Boolean
-}
-
-type ProductCategoryProductSegment {
-  product_categories: ProductCategory
-  product_segments: ProductSegment
-  created_at: Float
-  updated_at: Float
   deleted: Boolean
 }
 
