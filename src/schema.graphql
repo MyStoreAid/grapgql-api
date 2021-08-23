@@ -103,7 +103,7 @@ type Mutation {
     deleteAppNotification(id: ID!): AppNotification!
 
     #Audit
-    createAudit(status: String, branchId: String,  createdById: String, isActive: Boolean, auditDate: Float, status: String, lastModifiedById: String, auditEntryIds: [String], branchProductStockIds: [String], saleIds: [String]): Audit!
+    createAudit(status: String, branchId: String!,  createdById: String, isActive: Boolean, auditDate: Float, status: String, lastModifiedById: String, auditEntryIds: [String], branchProductStockIds: [String], saleIds: [String]): Audit!
     updateAudit(id: ID!, branchId: String, status: String, createdById: String, isActive: Boolean, auditDate: Float, status: String, lastModifiedById: String, auditEntryIds: [String], branchProductStockIds: [String], saleIds: [String]): Audit!
     deleteAudit(id: ID!): Audit!
 
@@ -119,9 +119,6 @@ type Mutation {
     createBranchUserGroup(name: String!, description: String): BranchUserGroup!
     updateBranchUserGroup(id: ID!, name: String, description: String): BranchUserGroup!
     deleteBranchUserGroup(id: ID!): BranchUserGroup!
-
-
-   
 
 
 
