@@ -8,11 +8,11 @@ export default async function company (parent: any, args: CompanyIdArgs, context
     try {
         result = await CompanyModel.findOne(context.prisma.companies, companyId)
     } catch (error: unknown) {
-        new Error(`There was an error getting business category with ID ${companyId}.`);
+        throw new Error(`There was an error getting business category with ID ${companyId}.`);
     }
 
     if (!result) {
-        new Error(`There is no business category with ID ${companyId}.`);
+        throw new Error(`There is no business category with ID ${companyId}.`);
     }
 
 
