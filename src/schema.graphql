@@ -285,7 +285,7 @@ type Company{
   updated_at: Float
   lastSyncAt: Float
   deleted: Boolean
-  branches: [Branch]
+  # branches: [Branch]
   # companiesSubscriptions: [CompaniesSubscription]
   # companiesSyncHistories: [CompaniesSyncHistory]
   # customerCareSchedules: [CustomerCareSchedule]
