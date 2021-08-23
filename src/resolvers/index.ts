@@ -1,301 +1,228 @@
-//App Notifications
+//--------------- App Notifications --------------
 import { appNotification, appNotifications } from './appNotifications/queries';
 import { createAppNotification, updateAppNotification, deleteAppNotification } from './appNotifications/mutations';
-
-//Audit
+//--------------------- Audit --------------------
 import { audit, audits } from './audits/queries';
 import { createAudit, updateAudit, deleteAudit } from './audits/mutations';
-
-//Branch
+//------------------- Branches -------------------
 import { branch, branches } from './branches/queries';
 import { createBranch, updateBranch, deleteBranch } from './branches/mutations';
-
-//Branch Goals
+//------------------- Branch Goals ---------------
 import { branchGoal, branchGoals } from './branchGoals/queries';
 import { createBranchGoal, updateBranchGoal, deleteBranchGoal } from './branchGoals/mutations';
-
-//Branch User Groups
+//---------------- Branch user Goals -------------
 import { branchUserGroup, branchUserGroups } from './branchUserGroups/queries';
 import { createBranchUserGroup, updateBranchUserGroup, deleteBranchUserGroup } from './branchUserGroups/mutations';
-
-//Brands
+//--------------------- Brands -------------------
 import { brand, brands } from './brands/queries';
 import { createBrand, updateBrand, deleteBrand } from './brands/mutations';
-
-// Business Category
+//-------------- Business Category ---------------
 import { businessCategory, businessCategories } from './businessCategories/queries';
 import { createBusinessCategory, updateBusinessCategory, deleteBusinessCategory } from './businessCategories/mutations';
-
-//Client
+//------------------ Client ----------------------
 import { client, clients } from './clients/queries';
 import { createClient, updateClient, deleteClient } from './clients/mutations';
-
-//Company
+//------------------- Company --------------------
 import { company, companies } from './companies/queries';
 import { createCompany, updateCompany, deleteCompany } from './companies/mutations';
-
-//Customer
+//------------------ Customer --------------------
 import {customer, customers} from './customers/queries';
 import {createCustomer, updateCustomer, deleteCustomer} from './customers/mutations';
-
-//Feature
+//------------------- Feature --------------------
 import { feature, features } from './features/queries';
 import { createFeature, updateFeature, deleteFeature } from './features/mutations';
-
-//Internal Business Category
+//-----------Internal Business Category ----------
 import { internalBusinessCategory, internalBusinessCategories} from './internalBusinessCategories/queries';
 import { createInternalBusinessCategory, updateInternalBusinessCategory, deleteInternalBusinessCategory } from './internalBusinessCategories/mutations';
-
-//Manufacturers
+//--------------- Manufactures --------------------
 import { manufacturer, manufacturers } from './manufacturers/queries';
 import { createManufacturer, updateManufacturer, deleteManufacturer } from './manufacturers/mutations';
-
-//Measurement Units
+//--------------- Measurement Units ---------------
 import { measurementUnit, measurementUnits } from './measurementUnits/queries';
 import { createMeasurementUnit, updateMeasurementUnit, deleteMeasurementUnit } from './measurementUnits/mutations';
-
-//Permissions
+//--------------- Permissions ---------------------
 import { permission, permissions } from './permissions/queries';
 import { createPermission, updatePermission, deletePermission } from './permissions/mutations';
-
-//Product
+//------------------ Products ---------------------
 import { product, products } from './products/queries';
 import { createProduct, updateProduct, deleteProduct } from './products/mutations';
-
-
-//Product Categories
+//--------------- Product Category ----------------
 import { productCategory, productCategories } from './productCategories/queries';
 import { createProductCategory, updateProductCategory, deleteProductCategory } from './productCategories/mutations';
-
-
-//Product Description
+//------------- Product Descriptions --------------
 import { productDescription, productDescriptions } from './productDescriptions/queries';
 import { createProductDescription, updateProductDescription, deleteProductDescription } from './productDescriptions/mutations';
-
-//Product Segments
+//--------------- Product Segment -----------------
 import { productSegment, productSegments  } from './productSegments/queries';
 import { createProductSegment, updateProductSegment, deleteProductSegment } from './productSegments/mutations';
-
-// Product Segment Entry
+//------------- Product Segment Entry -------------
 import { productSegmentEntry, productSegmentEntries } from './productSegmentEntries/queries';
 import { createProductSegmentEntry, updateProductSegmentEntry, deleteProductSegmentEntry } from './productSegmentEntries/mutations';
-
-//Roles
+//------------------- Roles -----------------------
 import { role, roles } from './roles/queries';
 import { createRole, updateRole, deleteRole } from './roles/mutations';
-
-//Subscription
+//-------------------- Subscriptions --------------
 import { subscription, subscriptions } from './subscriptions/queries';
 import { createSubscription, updateSubscription, deleteSubscription } from './subscriptions/mutations';
 
 
 
-
 const resolvers = {
     Query: {
-        //App Notifications
+        //--------------- App Notifications --------------
         appNotification,
         appNotifications,
-
-        //Audit
+        //--------------------- Audit --------------------
         audit,
         audits,
-
-        //Branches
+        //------------------- Branches -------------------
         branch,
         branches,
-        
-        //Branch Goals
+        //------------------- Branch Goals ---------------
         branchGoal,
         branchGoals,
-
-        //Branch user Goals
+        //---------------- Branch user Goals -------------
         branchUserGroup,
         branchUserGroups,
-
-
-        //Brands
+        //--------------------- Brands -------------------
         brands,
         brand,
-
-        //Business Category
+        //-------------- Business Category ---------------
         businessCategory,
         businessCategories,
-
-        //Client
+        //------------------ Client ----------------------
         client,
         clients,
-
-        //Company
+        //------------------- Company --------------------
         company,
         companies,
-
-        //Customer
+        //------------------ Customer --------------------
         customer,
         customers,
-
-        //Feature
+        //------------------- Feature --------------------
         feature,
         features,
-
-        //Internal Business Category
+        //-----------Internal Business Category ----------
         internalBusinessCategory,
         internalBusinessCategories,
-        
-        //Manufactures
+        //--------------- Manufactures --------------------
         manufacturer,
         manufacturers,
-
-        //Measurement Units
+        //--------------- Measurement Units ---------------
         measurementUnit,
         measurementUnits,
-
-        //Permissions
+        //--------------- Permissions ---------------------
         permission,
         permissions,
-
-        //Products
+        //------------------ Products ---------------------
         product,
         products,
-
-        //Product Category,
+        //--------------- Product Category ----------------
         productCategory,
         productCategories,
-
-        //Product Descriptions
+        //------------- Product Descriptions --------------
         productDescription,
         productDescriptions,
-
-        //Product Segment
+        //--------------- Product Segment -----------------
         productSegment,
         productSegments,
-
-        //Product Segment Entry
+        //------------- Product Segment Entry -------------
         productSegmentEntry,
         productSegmentEntries,
-
-
-        //Roles
+        //------------------- Roles -----------------------
         role,
         roles,
-
-        //Subscriptions
+        //-------------------- Subscriptions --------------
         subscription,
         subscriptions,
     },
   
     Mutation: {
-        //App Notfications
+        //--------------- App Notifications --------------
         createAppNotification,
         updateAppNotification,
         deleteAppNotification,
-
-        //Audit
+        //--------------------- Audit --------------------
         createAudit,
         updateAudit,
         deleteAudit,
-
-        //Branch
+        //------------------- Branches -------------------
         createBranch,
         updateBranch,
         deleteBranch,
-
-        //Branch Goals
+        //------------------- Branch Goals ---------------
         createBranchGoal,
         updateBranchGoal,
         deleteBranchGoal,
-
-        //Branch User Groups
+        //---------------- Branch user Goals -------------
         createBranchUserGroup,
         updateBranchUserGroup,
         deleteBranchUserGroup,
-
-
-        //Brands
+        //--------------------- Brands -------------------
         createBrand,
         updateBrand,
         deleteBrand,
-        
-        //Business Category
+        //-------------- Business Category ---------------
         createBusinessCategory,
         updateBusinessCategory,
         deleteBusinessCategory,
-
-        //Clients
+        //------------------ Client ----------------------
         createClient,
         updateClient,
         deleteClient,
-
-        //Company
+        //------------------- Company --------------------
         createCompany,
         updateCompany,
         deleteCompany,
-
-        //Customer
+        //------------------ Customer --------------------
         createCustomer,
         updateCustomer,
         deleteCustomer,
-  
-        
-        //Feature
+        //------------------- Feature --------------------
         createFeature,
         updateFeature,
         deleteFeature,
-
-        //Internal Business Category
+        //-----------Internal Business Category ----------
         createInternalBusinessCategory,
         updateInternalBusinessCategory,
         deleteInternalBusinessCategory,
-
-        //Manufacturers
+        //--------------- Manufactures --------------------
         createManufacturer,
         updateManufacturer,
         deleteManufacturer,
-
-        //Measurement Units
+        //--------------- Measurement Units ---------------
         createMeasurementUnit,
         updateMeasurementUnit,
         deleteMeasurementUnit,
-
-    
-        //Permissions
+        //--------------- Permissions ---------------------
         createPermission,
         updatePermission,
         deletePermission,
-
-        //Products
+        //------------------ Products ---------------------
         createProduct,
         updateProduct,
         deleteProduct,
-
-
-        //Product Category
+        //--------------- Product Category ----------------
         createProductCategory,
         updateProductCategory,
         deleteProductCategory,
-
-        //Product Description
+        //------------- Product Descriptions --------------
         createProductDescription,
         updateProductDescription,
         deleteProductDescription,
-
-        //Product Segment
+        //--------------- Product Segment -----------------
         createProductSegment,
         updateProductSegment,
         deleteProductSegment,
-
-        //Product Segment Entry
+        //------------- Product Segment Entry -------------
         createProductSegmentEntry,
         updateProductSegmentEntry,
         deleteProductSegmentEntry,
- 
-
-        //Roles
+        //------------------- Roles -----------------------
         createRole,
         updateRole,
         deleteRole,
-
-        //Subscriptions
+        //-------------------- Subscriptions --------------
         createSubscription,
         updateSubscription,
         deleteSubscription,
