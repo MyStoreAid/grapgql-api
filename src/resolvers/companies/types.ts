@@ -1,19 +1,23 @@
-import { BusinessCategory } from "resolvers/businessCategories/types";
-import { Subscription } from "resolvers/subscriptions/types";
+export type CompanyId = string;
 
 export interface Company {
-    id: String,
+    id: CompanyId,
     name: String,
-    businessCategory: BusinessCategory,
-    subscription: Subscription,
+    businessCategoryId: String,
+    subscriptionId: String,
     email: String,
     phone: String,
+    internalBusinessCategoryId: String,
+    adminLastModifiedBy: String
+    lastModifiedBy: String,
+    lastSyncBy: String,
     created_at: number,
     updated_at: number,
     lastSyncAt: number,
-    deleted: number,
+    deleted: boolean,
+
 }
 
-export interface CompanyIdArgs {
-    id: String 
+export interface CompanyIdArgs{
+    id: CompanyId
 }

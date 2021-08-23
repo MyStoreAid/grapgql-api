@@ -24,9 +24,10 @@ type Query {
     branchGoals: [BranchGoal!]!
     branchGoal(id: ID!): BranchGoal!
 
-    #Manufactures
-    manufacturers: [Manufacturer!]!
-    manufacturer(id: ID!): Manufacturer
+    #Company
+    companies: [Company!]!
+    company(id: ID!): Company!
+
     #Client
     clients: [Client!]!
     client(name: String!): Client
@@ -34,6 +35,10 @@ type Query {
     #Feature
     features: [Feature!]!
     feature(id: ID!): Feature
+
+    #Manufactures
+    manufacturers: [Manufacturer!]!
+    manufacturer(id: ID!): Manufacturer
 
     #Measurement Units
     measurementUnits: [MeasurementUnit!]!
@@ -63,7 +68,11 @@ type Query {
     subscriptions: [Subscription!]!
     subscription(id : ID!): Subscription
 
+    #Product Segment
+    productSegments: [ProductSegment!]!
+    productSegment(id: ID!): ProductSegment!
 
+    
 }
 
 type Mutation {
@@ -110,6 +119,12 @@ type Mutation {
     updateClient(name: String!, displayName: String!): Client!
     deleteClient(name: String!): Client!
 
+    #Company
+    createCompany(name: String!, businessCategoryId: String, subscriptionId: String, email: String, phone: String, internalBusinessCategoryId: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
+    updateCompany(id: ID!, name: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
+    deleteCompany(id: ID!): Company!
+
+
     #Features
     createFeature(name:String!, description: String): Feature!
     updateFeature(id: ID!, name:String, description: String): Feature!
@@ -140,6 +155,11 @@ type Mutation {
     createProductDescription(name: String!, summary: String): ProductDescription!
     updateProductDescription(id: ID!, name: String, summary: String): ProductDescription!
     deleteProductDescription(id: ID!): ProductDescription!
+
+    #Product Segment
+    createProductSegment(name: String!, description: String): ProductSegment!
+    updateProductSegment(id: ID!, name: String, description: String): ProductSegment!
+    deleteProductSegment(id: ID!): ProductSegment!
 
     #Role
     createRole(name: String!, description: String): Role!
@@ -196,6 +216,8 @@ type Brand {
     server_created_at: Float
     deleted: Boolean!
 }
+
+
 
 type BusinessCategory {
   id: ID! 
@@ -392,6 +414,34 @@ type Subscription {
     updated_at: Float
     deleted: Boolean
     companies: [Company!]
+}
+
+type User {
+    userId: ID! 
+    email: String!
+    password: String!
+    firstName: String!
+    otherNames: String
+    phone: String!
+    username: String
+    geneder: String
+    whatsAppPhone: String
+    status: String
+    otp: String
+    isCustomerCarePersonnel: Boolean
+    server_created_at: Float
+    last_modified: Float
+    isSupervisor: Boolean
+    adminLastModifiedBy: String
+    lastModifiedBy: String
+    country: String
+    languagesSpoken: String
+    logins: Float
+    lastLogin: Float
+    isRecruiter: Boolean
+    created_at: Float
+    updated_at: Float
+    deleted: Boolean
 }
 
 type User {

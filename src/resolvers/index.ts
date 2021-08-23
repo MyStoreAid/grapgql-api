@@ -22,6 +22,10 @@ import { createBusinessCategory, updateBusinessCategory, deleteBusinessCategory 
 import { client, clients } from './clients/queries';
 import { createClient, updateClient, deleteClient } from './clients/mutations';
 
+//Company
+import { company, companies } from './companies/queries';
+import { createCompany, updateCompany, deleteCompany } from './companies/mutations';
+
 //Feature
 import { feature, features } from './features/queries';
 import { createFeature, updateFeature, deleteFeature } from './features/mutations';
@@ -56,7 +60,11 @@ import { createProductCategory, updateProductCategory, deleteProductCategory } f
 import { productDescription, productDescriptions } from './productDescriptions/queries';
 import { createProductDescription, updateProductDescription, deleteProductDescription } from './productDescriptions/mutations';
 
-//Role
+//Product Segments
+import { productSegment, productSegments  } from './productSegments/queries';
+import { createProductSegment, updateProductSegment, deleteProductSegment } from './productSegments/mutations';
+
+//Roles
 import { role, roles } from './roles/queries';
 import { createRole, updateRole, deleteRole } from './roles/mutations';
 
@@ -92,6 +100,9 @@ const resolvers = {
         client,
         clients,
 
+        //Company
+        company,
+        companies,
 
         //Feature
         feature,
@@ -126,6 +137,10 @@ const resolvers = {
         //Product Descriptions
         productDescription,
         productDescriptions,
+
+        //Product Segment
+        productSegment,
+        productSegments,
 
 
         //Roles
@@ -167,6 +182,11 @@ const resolvers = {
         createClient,
         updateClient,
         deleteClient,
+
+        //Company
+        createCompany,
+        updateCompany,
+        deleteCompany,
   
         
         //Feature
@@ -210,6 +230,11 @@ const resolvers = {
         createProductDescription,
         updateProductDescription,
         deleteProductDescription,
+
+        //Product Segment
+        createProductSegment,
+        updateProductSegment,
+        deleteProductSegment,
  
 
         //Roles
