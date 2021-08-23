@@ -2,6 +2,10 @@
 import { appNotification, appNotifications } from './appNotifications/queries';
 import { createAppNotification, updateAppNotification, deleteAppNotification } from './appNotifications/mutations';
 
+//Branch
+import { branch, branches } from './branches/queries';
+import { createBranch, updateBranch, deleteBranch } from './branches/mutations';
+
 //Branch Goals
 import { branchGoal, branchGoals } from './branchGoals/queries';
 import { createBranchGoal, updateBranchGoal, deleteBranchGoal } from './branchGoals/mutations';
@@ -80,6 +84,14 @@ import { createSubscription, updateSubscription, deleteSubscription } from './su
 
 const resolvers = {
     Query: {
+        //App Notifications
+        appNotification,
+        appNotifications,
+
+        //Branches
+        branch,
+        branches,
+        
         //Branch Goals
         branchGoal,
         branchGoals,
@@ -88,9 +100,6 @@ const resolvers = {
         branchUserGroup,
         branchUserGroups,
 
-        //App Notifications
-        appNotification,
-        appNotifications,
 
         //Brands
         brands,
@@ -116,7 +125,6 @@ const resolvers = {
         internalBusinessCategory,
         internalBusinessCategories,
         
-        
         //Manufactures
         manufacturer,
         manufacturers,
@@ -137,7 +145,6 @@ const resolvers = {
         productCategory,
         productCategories,
 
-        
         //Product Descriptions
         productDescription,
         productDescriptions,
@@ -161,6 +168,16 @@ const resolvers = {
     },
   
     Mutation: {
+        //App Notfications
+        createAppNotification,
+        updateAppNotification,
+        deleteAppNotification,
+
+        //Branch
+        createBranch,
+        updateBranch,
+        deleteBranch,
+
         //Branch Goals
         createBranchGoal,
         updateBranchGoal,
@@ -170,11 +187,7 @@ const resolvers = {
         createBranchUserGroup,
         updateBranchUserGroup,
         deleteBranchUserGroup,
-        //App Notfications
-        
-        createAppNotification,
-        updateAppNotification,
-        deleteAppNotification,
+
 
         //Brands
         createBrand,

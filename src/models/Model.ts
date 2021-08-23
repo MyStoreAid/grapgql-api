@@ -102,7 +102,7 @@ export default class Model {
     static async createOneForeignKey(context: PrismaModelContext, params: any): Promise<any> {
         const data = params.data;
         const include = params.include;
-        console.log(include);
+
         this._setTimestampToFields(data);
         data[this.primaryKeyName] = UuidHelper.newUuid;
 
@@ -125,9 +125,7 @@ export default class Model {
         const data = params.data;
         const include = params.include;
         this._setUpdateTimestampFields(data);
-        console.log("hello");
-        console.log(data);
-        console.log(include);
+        
 
         return context.update({
             where: {
