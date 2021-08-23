@@ -64,6 +64,10 @@ import { createProductDescription, updateProductDescription, deleteProductDescri
 import { productSegment, productSegments  } from './productSegments/queries';
 import { createProductSegment, updateProductSegment, deleteProductSegment } from './productSegments/mutations';
 
+// Product Segment Entry
+import { productSegmentEntry, productSegmentEntries } from './productSegmentEntries/queries';
+import { createProductSegmentEntry, updateProductSegmentEntry, deleteProductSegmentEntry } from './productSegmentEntries/mutations';
+
 //Roles
 import { role, roles } from './roles/queries';
 import { createRole, updateRole, deleteRole } from './roles/mutations';
@@ -141,6 +145,10 @@ const resolvers = {
         //Product Segment
         productSegment,
         productSegments,
+
+        //Product Segment Entry
+        productSegmentEntry,
+        productSegmentEntries,
 
 
         //Roles
@@ -235,6 +243,11 @@ const resolvers = {
         createProductSegment,
         updateProductSegment,
         deleteProductSegment,
+
+        //Product Segment Entry
+        createProductSegmentEntry,
+        updateProductSegmentEntry,
+        deleteProductSegmentEntry,
  
 
         //Roles
