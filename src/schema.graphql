@@ -88,6 +88,10 @@ type Query {
     #Product Segment Entry
     productSegmentEntries: [ProductSegmentEntry!]!
     productSegmentEntry(id: ID!): ProductSegmentEntry!
+
+    #Sale
+    sales: [Sale!]!
+    sale(id: ID!): Sale
 }
 
 type Mutation {
@@ -209,11 +213,21 @@ type Mutation {
     updateProductSegmentEntry(id: ID!, name: String!): ProductSegmentEntry!
     deleteProductSegmentEntry(id: ID!): ProductSegmentEntry!
 
+    #Sale
+    createSale(note: String, paymentStatus: String, discount: Float, receiptNumber: String, type: String, paymentType: String, auditId: String, branchId: String!, createdById: String!, customerId: String!, lastModifiedById: String): Sale!
+    updateSale(id: ID!, note: String, paymentStatus: String, discount: Float, salesDate: Float, receiptNumber: String, type: String, paymentType: String, auditId: String, branchId: String, createdById: String, customerId: String, lastModifiedById: String): Sale!
+    deleteSale(id: ID!): Sale!
+
+       
+
 
     #Role
     createRole(name: String!, description: String): Role!
     updateRole(id: ID!, name: String, description: String): Role!
     deleteRole(id: ID!): Role!
+
+    #User
+    registerUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!, username: String): User!
 }
 
 
@@ -586,12 +600,12 @@ type Sale {
     salesDate: Float
     receiptNumber: String
     type: String
-    paymentTpe: String
+    paymentType: String
     audits: Audit
     branches: Branch
     users_sales_createdByTousers: User
     customers: Customer
-    users_audits_lastModifiedByTousers: User
+    users_sales_lastModifiedByTousers: User
     # sale_entries: [SaleEntry]
     # sale_installments: [SaleInstallment]
     # sale_return_histories: SaleReturnHistory
@@ -616,10 +630,12 @@ type Subscription {
     companies: [Company!]
 }
 
+
+
 type User {
     userId: ID! 
     email: String!
-    password: String!
+    # password: String!
     firstName: String!
     otherNames: String
     phone: String!
@@ -629,8 +645,6 @@ type User {
     status: String
     otp: String
     isCustomerCarePersonnel: Boolean
-    server_created_at: Float
-    last_modified: Float
     isSupervisor: Boolean
     adminLastModifiedBy: String
     lastModifiedBy: String
@@ -639,6 +653,8 @@ type User {
     logins: Float
     lastLogin: Float
     isRecruiter: Boolean
+    server_created_at: Float
+    last_modified: Float
     created_at: Float
     updated_at: Float
     deleted: Boolean

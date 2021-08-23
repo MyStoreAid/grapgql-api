@@ -80,6 +80,12 @@ import { createProductSegmentEntry, updateProductSegmentEntry, deleteProductSegm
 import { role, roles } from './roles/queries';
 import { createRole, updateRole, deleteRole } from './roles/mutations';
 
+//Sales
+import { createSale } from './sales/mutations';
+
+//User
+import { registerUser } from './users/mutations';
+
 
 
 
@@ -276,7 +282,15 @@ const resolvers = {
         createRole,
         updateRole,
         deleteRole,
-    }
+
+        //Sale
+        createSale,
+
+        //User
+        registerUser,
+    },
+
+
 };
 
 export default resolvers;
