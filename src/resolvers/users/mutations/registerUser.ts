@@ -1,15 +1,16 @@
-import { registerUser} from '../types';
+import { RegisterUserPayload, RegisterUserResponse, User} from '../types';
 import UserModel from '../UserModel';
-import TimeHelper from "../../../helpers/TimeHelper";
 
-export default async function registerUser(parent: any, args: registerUser, context: any): Promise<registerUser> | never{
-    let newUser; 
 
-    
+export default async function registerUser(parent: any, args: RegisterUserPayload, context: any): Promise<User> | never{
+    console.log(2222222222);
+    let newUser: User; 
     let formattedPhoneNumber;
     let phone = args.phone;
     let condition;
     let existingUser;
+
+    console.log("GOT IN HERE ====????");
 
     if(phone.length < 9 || args.callingCode.length < 1 ) {
         throw new Error("Invalid Phone Number / Country Code");
@@ -28,7 +29,7 @@ export default async function registerUser(parent: any, args: registerUser, cont
 
         
 
-    else if( args.email.length) {
+    else if(args.email && args.email.length) {
         condition = {
             OR: [
                 { email: args.email  }
@@ -57,7 +58,9 @@ export default async function registerUser(parent: any, args: registerUser, cont
             otp: args.otp,
             email: args.email,
             username: args.username,
-        } 
+        };
+
+        console.log(data);
         newUser = await UserModel.createOne(context.prisma.users, data);
        
 
@@ -66,11 +69,11 @@ export default async function registerUser(parent: any, args: registerUser, cont
             // Send response in json format
 
 
-            const welcomeMessage = `${newUser.firstname ? `Dear ${newUser.firstName}, ` : ''}Welcome to My Store Aid. We're excited to help manage your store effectively! For support, Call/ whatsapp 0550001188. Let's grow your business together!`;
+            // const welcomeMessage = `${newUser.firstname ? `Dear ${newUser.firstName}, ` : ''}Welcome to My Store Aid. We're excited to help manage your store effectively! For support, Call/ whatsapp 0550001188. Let's grow your business together!`;
             //Send SMS 
 
 
-            const time = TimeHelper.currentDate;
+            // const time = TimeHelper.currentDate;
             //Send mail to the admin
 
 

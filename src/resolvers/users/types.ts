@@ -1,7 +1,31 @@
 export type UserId = string;
 
 export interface User {
-    id: UserId,
+    userId: UserId,
+    phone: String,
+    email: String,
+    country: String,
+    otp: String,
+    callingCode: String,
+    username: String,
+    status: String,
+}
+
+export interface UserWithPassword extends User {
+    password: string | undefined
+}
+
+export interface LoginUserPayload {
+    username: string
+    password: string
+}
+export interface LoginResponse {
+    token: string,
+    access?: any
+}
+
+export interface RegisterUserResponse {
+    userId: UserId,
     phone: String,
     email: String,
     country: String,
@@ -10,19 +34,11 @@ export interface User {
     username: String,
 }
 
-export interface loginUser {
-    username: String
-    password: String
-}
-
-export interface registerUser {
-    id: UserId,
-    password: String,
+export interface RegisterUserPayload {
     phone: String,
-    email: String,
+    email?: String,
     country: String,
     otp: String,
     callingCode: String,
-    username: String,
+    username?: String,
 }
-
