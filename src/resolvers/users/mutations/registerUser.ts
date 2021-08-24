@@ -1,11 +1,9 @@
-import { registerUser} from '../types';
+import { RegisterUserPayload, RegisterUserResponse} from '../types';
 import UserModel from '../UserModel';
 import TimeHelper from "../../../helpers/TimeHelper";
 
-export default async function registerUser(parent: any, args: registerUser, context: any): Promise<registerUser> | never{
-    let newUser; 
-
-    
+export default async function registerUser(parent: any, args: RegisterUserPayload, context: any): Promise<RegisterUserResponse> | never{
+    let newUser: RegisterUserResponse; 
     let formattedPhoneNumber;
     let phone = args.phone;
     let condition;
@@ -66,11 +64,11 @@ export default async function registerUser(parent: any, args: registerUser, cont
             // Send response in json format
 
 
-            const welcomeMessage = `${newUser.firstname ? `Dear ${newUser.firstName}, ` : ''}Welcome to My Store Aid. We're excited to help manage your store effectively! For support, Call/ whatsapp 0550001188. Let's grow your business together!`;
+            // const welcomeMessage = `${newUser.firstname ? `Dear ${newUser.firstName}, ` : ''}Welcome to My Store Aid. We're excited to help manage your store effectively! For support, Call/ whatsapp 0550001188. Let's grow your business together!`;
             //Send SMS 
 
 
-            const time = TimeHelper.currentDate;
+            // const time = TimeHelper.currentDate;
             //Send mail to the admin
 
 

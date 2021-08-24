@@ -1,12 +1,14 @@
-export type UserId = string;
+export type UserId = String;
 
-export interface registerUser {
+export interface RegisterUserResponse {
     id: UserId,
-    password: String,
     phone: String,
     email: String,
     country: String,
     otp: String,
     callingCode: String,
     username: String,
+}
+export interface RegisterUserPayload extends RegisterUserResponse {
+    password: String,
 }
