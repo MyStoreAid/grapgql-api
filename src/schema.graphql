@@ -228,6 +228,7 @@ type Mutation {
 
     #User
     registerUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!, username: String): User!
+    loginUser(username: String, password: String): User!
 }
 
 
