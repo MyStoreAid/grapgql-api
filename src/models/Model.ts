@@ -70,6 +70,18 @@ export default class Model {
         if (this.softDelete) {
             condition.deleted = false;
         }
+
+       
+        
+        const rows = await context.findMany({
+            where: condition
+        });
+
+        return rows[0];
+    }
+
+    static async findOneWhere(context: PrismaModelContext, condition: any): Promise<any> {
+        condition.deleted = !this.softDelete
         
         const rows = await context.findMany({
             where: condition

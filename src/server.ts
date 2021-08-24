@@ -19,6 +19,5 @@ const server = new ApolloServer({
 });
 
 server.listen().then(({url}) => {
-    console.log("live reload 2500");
     console.log(url);
 });

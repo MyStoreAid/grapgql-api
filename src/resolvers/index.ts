@@ -64,7 +64,10 @@ import { createRole, updateRole, deleteRole } from './roles/mutations';
 //-------------------- Subscriptions --------------
 import { subscription, subscriptions } from './subscriptions/queries';
 import { createSubscription, updateSubscription, deleteSubscription } from './subscriptions/mutations';
-
+//----------------------- Sales -------------------
+import { createSale } from './sales/mutations';
+//----------------------- User --------------------
+import { registerUser } from './users/mutations';
 
 
 const resolvers = {
@@ -226,7 +229,13 @@ const resolvers = {
         createSubscription,
         updateSubscription,
         deleteSubscription,
-    }
+        //----------------------- Sale --------------------
+        createSale,
+        //----------------------- User --------------------
+        registerUser,
+    },
+
+
 };
 
 export default resolvers;
