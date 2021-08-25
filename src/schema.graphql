@@ -239,6 +239,7 @@ type Mutation {
     #User
     registerUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!, username: String, status: String, password: String): User
     loginUser(username: String!, password: String): LoginResponse!
+    resendOtp(userId: ID!): String!
 }
 
     
@@ -535,6 +536,7 @@ type MeasurementUnit {
     server_created_at: Float
     deleted: Boolean!
 }
+
 
 type Permission {
   id: ID! 

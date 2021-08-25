@@ -1,19 +1,5 @@
 export type UserId = string;
 
-export interface User {
-    userId: UserId,
-    phone: String,
-    email: String,
-    country: String,
-    otp: String,
-    callingCode: String,
-    username: String,
-    status: String,
-}
-
-export interface UserWithPassword extends User {
-    password: string | undefined
-}
 
 export interface LoginUserPayload {
     username: string
@@ -43,4 +29,24 @@ export interface RegisterUserPayload {
     password?: String,
     callingCode: String,
     username?: String,
+}
+
+export interface User {
+    userId: UserId,
+    firstName: String,
+    phone: String,
+    email: String,
+    country: String,
+    otp: String,
+    callingCode: String,
+    username: String,
+    status: String,
+}
+
+export interface UserWithPassword extends User {
+    password: string | undefined
+}
+
+export interface UserIdArgs {
+    userId: UserId
 }
