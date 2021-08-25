@@ -1,0 +1,19 @@
+version: 2.1
+
+workflows:
+  main:
+    jobs:
+      - test-integration
+
+jobs:
+  test-integration:
+    docker:
+      - image: cimg/node:14.13.0
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm i
+      - run:
+          name: Build code
+          command: npm run build
