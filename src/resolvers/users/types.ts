@@ -39,6 +39,8 @@ export interface RegisterUserPayload {
     email?: String,
     country: String,
     otp: String,
+    status?: String,
+    password?: String,
     callingCode: String,
     username?: String,
 }
