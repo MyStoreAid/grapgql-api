@@ -3,14 +3,11 @@ import UserModel from '../UserModel';
 
 
 export default async function registerUser(parent: any, args: RegisterUserPayload, context: any): Promise<User> | never{
-    console.log(2222222222);
     let newUser: User; 
     let formattedPhoneNumber;
     let phone = args.phone;
     let condition;
     let existingUser;
-
-    console.log("GOT IN HERE ====????");
 
     if(phone.length < 9 || args.callingCode.length < 1 ) {
         throw new Error("Invalid Phone Number / Country Code");

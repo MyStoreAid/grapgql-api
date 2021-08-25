@@ -1,7 +1,7 @@
 import { LoginUserPayload, UserWithPassword, LoginResponse} from '../types';
 import UserModel from '../UserModel';
 import { passwordIsValid, signToken } from '../helpers';
-import UserAccess from 'models/UserAccess';
+import UserAccess from '../../../models/UserAccess';
 
 export default async function loginUser(parent: any, args: LoginUserPayload, context: any): Promise<LoginResponse> | never{
     let user: UserWithPassword; 
