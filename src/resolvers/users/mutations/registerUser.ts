@@ -2,7 +2,7 @@ import { RegisterUserPayload, RegisterUserResponse, User} from '../types';
 import UserModel from '../UserModel';
 
 
-export default async function registerUser(parent: any, args: RegisterUserPayload, context: any): Promise<User> | never{
+export default async function registerUser(parent: any, args: RegisterUserPayload, context: any): Promise<RegisterUserResponse> | never{
     let newUser: User; 
     let formattedPhoneNumber;
     let phone = args.phone;
@@ -54,6 +54,8 @@ export default async function registerUser(parent: any, args: RegisterUserPayloa
             country: args.country,
             otp: args.otp,
             email: args.email,
+            status: args.status,
+            password: args.password,
             username: args.username,
         };
 

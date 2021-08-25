@@ -96,6 +96,9 @@ type Query {
     #Sale
     sales: [Sale!]!
     sale(id: ID!): Sale
+
+    #User
+    users: [User!]!
 }
 
 type Mutation {
@@ -222,9 +225,7 @@ type Mutation {
     updateSale(id: ID!, note: String, paymentStatus: String, discount: Float, salesDate: Float, receiptNumber: String, type: String, paymentType: String, auditId: String, branchId: String, createdById: String, customerId: String, lastModifiedById: String): Sale!
     deleteSale(id: ID!): Sale!
 
-       
-
-
+  
     #Role
     createRole(name: String!, description: String): Role!
     updateRole(id: ID!, name: String, description: String): Role!
@@ -236,8 +237,8 @@ type Mutation {
     updateSubscription(id: ID!, name: String!, description: String, numberOfBranches: Float): Subscription!
     deleteSubscription(id: ID!): Subscription!
     #User
-    registerUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!, username: String): User
-    loginUser(username: String, password: String): LoginResponse!
+    registerUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!, username: String, status: String, password: String): User
+    loginUser(username: String!, password: String): LoginResponse!
 }
 
     
