@@ -50,3 +50,13 @@ export interface UserWithPassword extends User {
 export interface UserIdArgs {
     userId: UserId
 }
+
+export interface UserExistsArgs {
+    username: String
+    phone: String,
+}
+
+export interface UserExistsResponse {
+    message: String,
+    valid: boolean,
+}

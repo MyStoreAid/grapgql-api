@@ -237,9 +237,10 @@ type Mutation {
     updateSubscription(id: ID!, name: String!, description: String, numberOfBranches: Float): Subscription!
     deleteSubscription(id: ID!): Subscription!
     #User
-    registerUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!, username: String, status: String, password: String): User
     loginUser(username: String!, password: String): LoginResponse!
+    registerUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!, username: String, status: String, password: String): User
     resendOtp(userId: ID!): String!
+    userExists(phone: String, username: String): UserExistsResponse!
 }
 
     
@@ -515,6 +516,11 @@ type Json{
   id: ID!
 }
 
+type LoginResponse {
+  token: String!,
+  access: [Company]
+}
+
 type Manufacturer {
     id: ID!
     name: String!
@@ -698,7 +704,8 @@ type User {
     deleted: Boolean
 }
 
-type LoginResponse {
-  token: String!,
-  access: [Company]
+type UserExistsResponse{
+  message: String
+  valid: Boolean
 }
+
