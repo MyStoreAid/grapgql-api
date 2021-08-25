@@ -1,3 +1,4 @@
+import { PrismaModelContext } from "../../types/prisma";
 import Model from "../../models/Model";
 
 export default class UserModel extends Model {
@@ -13,5 +14,17 @@ export default class UserModel extends Model {
             'server_created_at',
             'last_modified'
         ];
+    }
+
+    static async updateOne(context: PrismaModelContext, primaryKey: String,  params: any): Promise<any> {
+        const data = params;
+        this._setUpdateTimestampFields(data);
+
+        return context.update({
+            where: {
+                userId: primaryKey
+            },
+            data 
+        });
     }
 }
