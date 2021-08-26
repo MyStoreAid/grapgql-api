@@ -3,6 +3,7 @@ import UserModel from '../UserModel';
 
 
 export default async function registerUser(parent: any, args: RegisterUserPayload, context: any): Promise<RegisterUserResponse> | never{
+
     let newUser: User; 
     let formattedPhoneNumber;
     let phone = args.phone;
