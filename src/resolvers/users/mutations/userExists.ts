@@ -19,7 +19,7 @@ export default async function userExists(parent: any, args: UserExistsArgs, cont
     }
     else if(args.phone) {
         try{
-            user = await UserModel.findOneWhere(context.prisma.users, { phone: args.phone });
+            user = await UserModel.findOneWhere(context.prisma.users, { phone: newPhone });
             message = `User already exists with phone number ${user.phone}`
         }
         catch(error: unknown){

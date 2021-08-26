@@ -68,7 +68,7 @@ import { createSubscription, updateSubscription, deleteSubscription } from './su
 import { createSale } from './sales/mutations';
 //----------------------- User --------------------
 import { users } from './users/queries';
-import { registerUser, loginUser, resendOtp, userExists } from './users/mutations';
+import { registerUser, loginUser, resendOtp, userExists, refreshToken } from './users/mutations';
 
 
 
@@ -236,6 +236,7 @@ const resolvers = {
         //----------------------- Sale --------------------
         createSale,
         //----------------------- User --------------------
+        refreshToken,
         registerUser,
         resendOtp,
         loginUser,
