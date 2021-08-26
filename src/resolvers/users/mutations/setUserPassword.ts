@@ -28,6 +28,7 @@ export default async function setUserPassword(parent: any, args: SetUserPassword
         if(existingUser){
             if(args.password) {
                 let password: String = await generateHash(args.password);
+                
                 if(args.username.length > 2){
                     username = args.username;
                 }
