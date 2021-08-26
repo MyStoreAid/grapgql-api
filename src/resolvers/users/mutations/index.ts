@@ -2,7 +2,9 @@ import loginUser from "./loginUser";
 import refreshToken from "./refreshToken";
 import registerUser from "./registerUser";
 import resendOtp from "./resendOtp";
+import setUserPassword from "./setUserPassword";
 import userExists from "./userExists";
+
 
 
 export { 
@@ -10,6 +12,7 @@ export {
     refreshToken,
     registerUser,
     resendOtp,
+    setUserPassword,
     userExists,
     
 }

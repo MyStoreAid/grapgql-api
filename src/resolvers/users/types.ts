@@ -30,6 +30,11 @@ export interface RegisterUserPayload {
     callingCode: String,
     username?: String,
 }
+export interface SetUserPassword extends RegisterUserPayload {
+    userId: UserId;
+    username: String;
+
+}
 
 export interface User {
     userId: UserId,

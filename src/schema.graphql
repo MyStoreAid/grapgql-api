@@ -237,10 +237,11 @@ type Mutation {
     updateSubscription(id: ID!, name: String!, description: String, numberOfBranches: Float): Subscription!
     deleteSubscription(id: ID!): Subscription!
     #User
-    loginUser(username: String!, password: String): LoginResponse!
+    loginUser(username: String!, password: String!): LoginResponse!
     refreshToken(userId: ID!): String!
-    registerUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!, username: String, status: String, password: String): User
+    registerUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!): User
     resendOtp(userId: ID!): String!
+    setUserPassword(userId: ID!, password: String!, otp: String!, username: String!): User
     userExists(phone: String, username: String): UserExistsResponse!
 }
 
