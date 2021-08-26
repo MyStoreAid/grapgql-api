@@ -1,3 +1,4 @@
+import { generateHash } from '../helpers';
 import { SetUserPassword, RegisterUserResponse, User} from '../types';
 import UserModel from '../UserModel';
 
@@ -26,11 +27,12 @@ export default async function setUserPassword(parent: any, args: SetUserPassword
 
         if(existingUser){
             if(args.password) {
+                let password: String = await generateHash(args.password);
                 if(args.username.length > 2){
                     username = args.username;
                 }
 
-                const data: {username: String | undefined, password: String, status: String} = { username: username, password: args.password, status: "confirmed" };
+                const data: {username: String | undefined, password: String, status: String} = { username: username, password: password, status: "confirmed" };
                 newUser = await UserModel.updateOne(context.prisma.users, existingUser.userId, data);
                 return newUser;
             }

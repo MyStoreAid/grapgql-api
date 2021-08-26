@@ -26,7 +26,7 @@ export interface RegisterUserPayload {
     country: String,
     otp: String,
     status?: String,
-    password?: String,
+    password?: string,
     callingCode: String,
     username?: String,
 }
