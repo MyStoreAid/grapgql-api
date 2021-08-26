@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "npx prisma generate && nodemon src/server.ts",
-    "start": "NODE_PATH=./build node build/server.js",
+    "start": "npx prisma generate && node src/server.js",
+    "prod": "npx prisma generate && npm run build && node src/server.js",
     "build": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
