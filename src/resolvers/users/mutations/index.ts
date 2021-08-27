@@ -3,13 +3,13 @@ import refreshToken from "./refreshToken";
 import registerUser from "./registerUser";
 import resendOtp from "./resendOtp";
 import userExists from "./userExists";
+import verifyUser from "./verifyUser";
 
-
-export { 
+export {
     loginUser,
     refreshToken,
     registerUser,
     resendOtp,
     userExists,
-    
+    verifyUser,
 }

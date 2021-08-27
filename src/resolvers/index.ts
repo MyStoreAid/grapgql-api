@@ -68,9 +68,7 @@ import { createSubscription, updateSubscription, deleteSubscription } from './su
 import { createSale } from './sales/mutations';
 //----------------------- User --------------------
 import { users } from './users/queries';
-import { registerUser, loginUser, resendOtp, userExists, refreshToken } from './users/mutations';
-
-
+import { registerUser, loginUser, resendOtp, userExists, refreshToken, verifyUser } from './users/mutations';
 
 const resolvers = {
     Query: {
@@ -143,7 +141,7 @@ const resolvers = {
         //-------------------- Users --------------
         users,
     },
-  
+
     Mutation: {
         //--------------- App Notifications --------------
         createAppNotification,
@@ -241,9 +239,8 @@ const resolvers = {
         resendOtp,
         loginUser,
         userExists,
+        verifyUser,
     },
-
-
 };
 
 export default resolvers;

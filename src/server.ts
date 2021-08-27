@@ -14,9 +14,10 @@ const server = new ApolloServer({
       ),
     resolvers,
     context: ({ req }) => {
-        return { 
+        return {
             req,
-            prisma }
+            prisma
+        }
     }
 });
 

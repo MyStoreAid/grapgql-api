@@ -10,6 +10,10 @@ export interface LoginResponse {
     access?: any
 }
 
+export interface VerifyUserResponse {
+    token: string,
+}
+
 export interface RegisterUserResponse {
     userId: UserId,
     phone: String,
@@ -59,4 +63,9 @@ export interface UserExistsArgs {
 export interface UserExistsResponse {
     message: String,
     valid: boolean,
+}
+
+export interface VerifyUserPayload {
+    otp: string
+    phone: string
 }

@@ -4,7 +4,7 @@ import UserModel from '../UserModel';
 
 export default async function registerUser(parent: any, args: RegisterUserPayload, context: any): Promise<RegisterUserResponse> | never{
 
-    let newUser: User; 
+    let newUser: User;
     let formattedPhoneNumber;
     let phone = args.phone;
     let condition;
@@ -16,16 +16,16 @@ export default async function registerUser(parent: any, args: RegisterUserPayloa
 
     if (phone.length) {
         formattedPhoneNumber = `+${args.callingCode}${phone}`;
-            
+
         condition = {
             OR : [
                 { whatsAppPhone: formattedPhoneNumber  },
                 { phone: formattedPhoneNumber  },
             ]
-        } 
+        }
     }
 
-        
+
 
     else if(args.email && args.email.length) {
         condition = {
@@ -34,21 +34,22 @@ export default async function registerUser(parent: any, args: RegisterUserPayloa
             ]
         }
     }
-       
+
     try {
-        
+
         existingUser = await UserModel.findOneWhere(context.prisma.users, condition);
-        
-        
+
+
     } catch(error: unknown) {
-         
+
         throw new Error(`There was an error finding User`);
     }
-        
-    if (existingUser) { 
+
+    if (existingUser) {
          throw new Error(" User already exists")
     }
-        
+
+
     else {
         const data = {
             phone: formattedPhoneNumber,
@@ -62,7 +63,7 @@ export default async function registerUser(parent: any, args: RegisterUserPayloa
 
         console.log(data);
         newUser = await UserModel.createOne(context.prisma.users, data);
-       
+
 
         if (newUser) {
             // Delete user password
@@ -70,7 +71,7 @@ export default async function registerUser(parent: any, args: RegisterUserPayloa
 
 
             // const welcomeMessage = `${newUser.firstname ? `Dear ${newUser.firstName}, ` : ''}Welcome to My Store Aid. We're excited to help manage your store effectively! For support, Call/ whatsapp 0550001188. Let's grow your business together!`;
-            //Send SMS 
+            //Send SMS
 
 
             // const time = TimeHelper.currentDate;
@@ -78,9 +79,8 @@ export default async function registerUser(parent: any, args: RegisterUserPayloa
 
 
             //Send verification code
-                        
+
         }
     }
     return newUser;
-} 
-    
+}
