@@ -55,12 +55,11 @@ export default async function registerUser(parent: any, args: RegisterUserPayloa
             country: args.country,
             otp: args.otp,
             email: args.email,
-            status: args.status,
-            password: args.password,
-            username: args.username,
+            status: args.status ? args.status : 'unconfirmed',
+           
         };
 
-        console.log(data);
+        
         newUser = await UserModel.createOne(context.prisma.users, data);
        
 

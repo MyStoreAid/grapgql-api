@@ -26,9 +26,18 @@ export interface RegisterUserPayload {
     country: String,
     otp: String,
     status?: String,
-    password?: String,
+    password?: string,
     callingCode: String,
     username?: String,
+}
+export interface SetUserPassword extends RegisterUserPayload {
+    userId: UserId;
+    username: String;
+
+}
+
+export interface updateUserContactArgs extends UserIdArgs {
+    phone: String;
 }
 
 export interface User {
@@ -41,6 +50,7 @@ export interface User {
     callingCode: String,
     username: String,
     status: String,
+    logins: number,
 }
 
 export interface UserWithPassword extends User {
