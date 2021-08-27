@@ -23,8 +23,8 @@ export default async function loginUser(parent: any, args: LoginUserPayload, con
         if (user.password){
 
             //If user password is not already hashed
-            const hashPassword: string = await generateHash(user.password);
-            const validUser: boolean = await passwordIsValid(args.password, hashPassword );
+            
+            const validUser: boolean = await passwordIsValid(args.password, user.password );
         
             if (validUser) {
                 if (user.password) {
