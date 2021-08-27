@@ -36,6 +36,10 @@ export interface SetUserPassword extends RegisterUserPayload {
 
 }
 
+export interface updateUserContactArgs extends UserIdArgs {
+    phone: String;
+}
+
 export interface User {
     userId: UserId,
     firstName: String,
@@ -46,6 +50,7 @@ export interface User {
     callingCode: String,
     username: String,
     status: String,
+    logins: number,
 }
 
 export interface UserWithPassword extends User {

@@ -241,7 +241,9 @@ type Mutation {
     refreshToken(userId: ID!): String!
     registerUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!): User
     resendOtp(userId: ID!): String!
-    setUserPassword(userId: ID!, password: String!, otp: String!, username: String!): User
+    setUserPassword(userId: ID!, password: String!, otp: String!, username: String!): User!
+    updateUserAccessHistory(userId: ID!): User!
+    updateUserContact(userId: ID!, newPhone: String): User!
     userExists(phone: String, username: String): UserExistsResponse!
 }
 
