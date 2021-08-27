@@ -242,6 +242,7 @@ type Mutation {
     registerUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!): User
     resendOtp(userId: ID!): String!
     setUserPassword(userId: ID!, password: String!, otp: String!, username: String!): User!
+    updateUser(userId: ID!, phone: String!, email: String, firstName: String, otherNames: String, username: String, gender: String, whatsAppPhone: String): User!
     updateUserAccessHistory(userId: ID!): User!
     updateUserContact(userId: ID!, newPhone: String): User!
     userExists(phone: String, username: String): UserExistsResponse!
@@ -683,12 +684,11 @@ type Subscription {
 type User {
     userId: ID! 
     email: String!
-    # password: String!
     firstName: String!
     otherNames: String
     phone: String!
     username: String
-    geneder: String
+    gender: String
     whatsAppPhone: String
     status: String
     otp: String
