@@ -5,8 +5,7 @@ import resendOtp from "./resendOtp";
 import setUserPassword from "./setUserPassword";
 import updateUser from "./updateUser";
 import userExists from "./userExists";
-
-
+import verifyUser from "./verifyUser";
 
 export { 
     loginUser,
@@ -16,5 +15,5 @@ export {
     setUserPassword,
     updateUser,
     userExists,
-    
+    verifyUser,
 }

@@ -8,7 +8,7 @@ export default class Model {
 
     static get softDelete() {
         return true;
-    } 
+    }
 
     static get timestampFields(): string[] {
         return [
@@ -44,7 +44,7 @@ export default class Model {
         if (this.softDelete) {
             condition.deleted = false
         }
-        
+
         return context.findMany({
             where: condition
         })
@@ -55,11 +55,11 @@ export default class Model {
         if (this.softDelete) {
             condition.deleted = false
         }
-        
+
         return context.findMany({
             where: condition,
             include: params,
-        } 
+        }
         )
     }
 
@@ -71,8 +71,8 @@ export default class Model {
             condition.deleted = false;
         }
 
-       
-        
+
+
         const rows = await context.findMany({
             where: condition
         });
@@ -81,9 +81,9 @@ export default class Model {
     }
 
     static async findOneWhere(context: PrismaModelContext, condition: any): Promise<any> {
-        condition.deleted = !this.softDelete
-        
-        
+        condition.deleted = !this.softDelete;
+
+
         const rows = await context.findMany({
             where: condition
         });
@@ -98,7 +98,7 @@ export default class Model {
         if (this.softDelete) {
             condition.deleted = false;
         }
-        
+
         const rows = await context.findMany({
             where: condition,
             include: params,
@@ -133,7 +133,7 @@ export default class Model {
             where: {
                 id: primaryKey
             },
-            data 
+            data
         });
     }
 
@@ -141,7 +141,7 @@ export default class Model {
         const data = params.data;
         const include = params.include;
         this._setUpdateTimestampFields(data);
-        
+
 
         return context.update({
             where: {
@@ -150,7 +150,7 @@ export default class Model {
             data,
             include
         });
-       
+
     }
 
     static async deleteOne(context: PrismaModelContext, primaryKey: string): Promise<any> {
@@ -170,6 +170,6 @@ export default class Model {
                     id: primaryKey
                 }
             });
-        }   
+        }
     }
 }

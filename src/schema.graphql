@@ -3,7 +3,7 @@ type Query {
     #Appointment
     appointments: [Appointment!]!
     appointment(id: ID!): Appointment
-    
+
     #App Notification
     appNotifications: [AppNotification!]!
     appNotification(id: ID!): AppNotification!
@@ -24,7 +24,7 @@ type Query {
     #Branch User Group
     branchUserGroups: [BranchUserGroup!]!
     branchUserGroup(id: ID): BranchUserGroup
-    
+
     #Business Category
     businessCategories: [BusinessCategory!]!
     businessCategory(id: ID!): BusinessCategory
@@ -123,9 +123,9 @@ type Mutation {
     createBranch(name: String!, startDate: Float, address: String, location: String!, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userId: String): Branch!
     updateBranch(id: ID, name: String!, startDate: Float, address: String, checkoutSales: Boolean, aggregateSales: Boolean, alwaysSync: Boolean, forTesting: Boolean, supplierStock: Boolean,location: String, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userId: String): Branch!
     deleteBranch(id: ID): Branch!
-  
 
-    
+
+
     #Branch User Group
     createBranchUserGroup(name: String!, description: String): BranchUserGroup!
     updateBranchUserGroup(id: ID!, name: String, description: String): BranchUserGroup!
@@ -138,7 +138,7 @@ type Mutation {
     updateBrand(id: ID!, name: String!): Brand!
     deleteBrand(id: ID!): Brand!
 
-    
+
     #Business Category
     createBusinessCategory(name: String!, description: String): BusinessCategory!
     updateBusinessCategory(id: ID!, name: String, description: String): BusinessCategory!
@@ -149,7 +149,7 @@ type Mutation {
     updateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
     deleteBranchGoal(id: ID!): BranchGoal!
 
-   
+
 
     #Client
     createClient(name:String!, displayName: String): Client!
@@ -166,7 +166,7 @@ type Mutation {
     updateCustomer(id: ID!, firstName: String!, otherNames: String, phone: String, email: String, location: String, isTemporary: Boolean, type: String, createdById: String, lastModifiedById: String, BranchesCustomerIds: [String], SalesEntryIds: [String], SaleInstallmentIds: String ): Customer!
     deleteCustomer(id: ID!): Customer!
 
- 
+
 
 
     #Features
@@ -198,7 +198,7 @@ type Mutation {
     createProduct(name: String!, description: String, summary: String, barCode: String, manufacturerId: String, brandId: String, productCategoryId: String, productSegmentId: String, measuerementUnitId: String, weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
     updateProduct(id: ID, name: String!, description: String, summary: String, barCode: String,  weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
     deleteProduct(id: ID!): Product!
-    
+
 
     #Product Category
     createProductCategory(name: String!, summary: String): ProductCategory!
@@ -225,13 +225,13 @@ type Mutation {
     updateSale(id: ID!, note: String, paymentStatus: String, discount: Float, salesDate: Float, receiptNumber: String, type: String, paymentType: String, auditId: String, branchId: String, createdById: String, customerId: String, lastModifiedById: String): Sale!
     deleteSale(id: ID!): Sale!
 
-  
+
     #Role
     createRole(name: String!, description: String): Role!
     updateRole(id: ID!, name: String, description: String): Role!
     deleteRole(id: ID!): Role!
 
-    
+
     #Subscription
     createSubscription(name: String!, description: String, numberOfBranches: Float!, companiesId: ID): Subscription!
     updateSubscription(id: ID!, name: String!, description: String, numberOfBranches: Float): Subscription!
@@ -246,9 +246,10 @@ type Mutation {
     updateUserAccessHistory(userId: ID!): User!
     updateUserContact(userId: ID!, newPhone: String): User!
     userExists(phone: String, username: String): UserExistsResponse!
+    verifyUser(phone: String, otp: String): VerifyUserResponse!
 }
 
-    
+
 
 type GPS {
   latitude: Float
@@ -259,7 +260,7 @@ type Appointment {
     id: ID!
     type: String
     status: String
-    users_appointments_createdByTousers: User 
+    users_appointments_createdByTousers: User
     created_at: Float
     updated_at: Float
     server_created_at: Float
@@ -302,7 +303,7 @@ type Audit {
 }
 
 type Branch{
-  id: ID! 
+  id: ID!
   name: String!
   startDate: Float
   address: String
@@ -348,13 +349,13 @@ type Branch{
   # branch_supplier_order_payment_installments: BranchSupplierOrderPaymentInstallment
   # branch_supplier_orders: [BranchSupplierOrder]
   # branch_supplier_products: [BranchSupplierProduct]
-  # branch_supplier_salespersons: [BranchSupplierSaleperson]                  
+  # branch_supplier_salespersons: [BranchSupplierSaleperson]
   # branch_supplier_stocks: [BranchSupplierStock]
   # branch_suppliers: [BranchSupplier]
   # branches_customers: [BranchesCustomer]
   # branches_products: [BranchesProduct]
-  # branches_products_stock_movements_branchesTobranches_products_stock_movements_branchFrom: [BranchesProductsStockMovement]          
-  # branches_products_stock_movements_branchesTobranches_products_stock_movements_branchTo:   [BranchesProductsStockMovements]         
+  # branches_products_stock_movements_branchesTobranches_products_stock_movements_branchFrom: [BranchesProductsStockMovement]
+  # branches_products_stock_movements_branchesTobranches_products_stock_movements_branchTo:   [BranchesProductsStockMovements]
   # branches_products_stocks: [BranchesProductStock]
   # branches_products_stocks_histories: [BranchesProductsStocksHistory]
   # cashflows: [Cashflow]
@@ -390,7 +391,7 @@ type BranchGoal {
 }
 
 type BranchUserGroup {
-  id: ID! 
+  id: ID!
   name: String!
   description: String
   created_at: Float
@@ -411,7 +412,7 @@ type Brand {
 
 
 type BusinessCategory {
-  id: ID! 
+  id: ID!
   name: String!
   description: String
   created_at: Float
@@ -441,7 +442,7 @@ type Company{
   # userBranches: [UserBranch]
   # userCompanies: [UserCompany]
 }
- 
+
 
 type Client{
   name: String!
@@ -476,7 +477,7 @@ type Company{
 }
 
 type Customer {
-  id: ID! 
+  id: ID!
   firstName: String!
   otherNames: String
   phone: String
@@ -499,7 +500,7 @@ type Customer {
 
 
 type Feature {
-  id: ID! 
+  id: ID!
   name: String!
   description: String
   created_at: Float
@@ -509,7 +510,7 @@ type Feature {
 
 
 type InternalBusinessCategory {
-  id: ID! 
+  id: ID!
   name: String!
   description: String
   created_at: Float
@@ -524,6 +525,10 @@ type Json{
 type LoginResponse {
   token: String!,
   access: [Company]
+}
+
+type VerifyUserResponse {
+    token: String!,
 }
 
 type Manufacturer {
@@ -550,7 +555,7 @@ type MeasurementUnit {
 
 
 type Permission {
-  id: ID! 
+  id: ID!
   name: String!
   description: String
   created_at: Float
@@ -564,7 +569,7 @@ type Product {
     description: String
     summary: String
     barCode: String
-    manufacturer: Manufacturer 
+    manufacturer: Manufacturer
     brand: Brand
     productCategory: ProductCategory
     productSegment: ProductSegment
@@ -597,7 +602,7 @@ type ProductCategory {
 
 
 type ProductDescription {
-  id: ID! 
+  id: ID!
   name: String!
   summary: String
   created_at: Float
@@ -608,7 +613,7 @@ type ProductDescription {
 }
 
 type ProductSegment {
-  id: ID! 
+  id: ID!
   name: String!
   description: String
   created_at: Float
@@ -620,7 +625,7 @@ type ProductSegment {
 
 
 type ProductSegmentEntry {
-  id: ID! 
+  id: ID!
   name: String!
   product_segments: ProductSegment
   created_at: Float
@@ -633,7 +638,7 @@ type ProductSegmentEntry {
 
 
 type Role {
-    id: ID! 
+    id: ID!
     name: String!
     description: String
     created_at: Float
@@ -642,7 +647,7 @@ type Role {
 }
 
 type Sale {
-    id: ID! 
+    id: ID!
     note: String!
     paymentStatus: String
     discount: Float
@@ -669,7 +674,7 @@ type Sale {
 
 
 type Subscription {
-    id: ID! 
+    id: ID!
     name: String!
     description: String
     numberOfBranches: Float
@@ -682,7 +687,7 @@ type Subscription {
 
 
 type User {
-    userId: ID! 
+    userId: ID!
     email: String!
     firstName: String!
     otherNames: String
