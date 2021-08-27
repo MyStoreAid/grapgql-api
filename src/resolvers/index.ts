@@ -68,7 +68,6 @@ import { createSubscription, updateSubscription, deleteSubscription } from './su
 import { createSale } from './sales/mutations';
 //----------------------- User --------------------
 import { users } from './users/queries';
-
 import { loginUser, refreshToken, registerUser, resendOtp, setUserPassword, userExists, verifyUser } from './users/mutations';
 
 const resolvers = {
@@ -240,6 +239,7 @@ const resolvers = {
         resendOtp,
         setUserPassword,
         loginUser,
+        updateUser,
         userExists,
         verifyUser,
     },
