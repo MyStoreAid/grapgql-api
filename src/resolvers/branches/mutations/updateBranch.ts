@@ -55,7 +55,7 @@ export default async function updateBranch(parent: any, args: Branch, context: a
             branch_user_groups: args.branchUserGroupId ? { connect: { id: args.branchUserGroupId } } : undefined,
             business_categories: args.businessCategoryId ? { connect: { id: args.businessCategoryId } } : undefined,
             companies: args.companyId ? { connect: { id: args.companyId } } : undefined,
-            users: args.userId ? { connect : { id: args.userId} } : undefined,
+            user_branches: args.userIds ? { connect : { id: args.userIds} } : undefined,
             
 
         },
@@ -65,7 +65,7 @@ export default async function updateBranch(parent: any, args: Branch, context: a
             branch_user_groups: true,
             business_categories: true,
             companies: true,
-            users: true,
+            user_branches: true,
         }
     }
 
