@@ -1,7 +1,7 @@
-import { LoginUserPayload, UserWithPassword, LoginResponse} from '../types';
-import UserModel from '../UserModel';
-import { passwordIsValid, signToken, generateHash } from '../helpers';
-import UserAccess from '../../../models/UserAccess';
+import { LoginUserPayload, UserWithPassword, LoginResponse} from '../../types';
+import UserModel from '../../UserModel';
+import { passwordIsValid, signToken } from '../../helpers';
+import UserAccess from '../../../../models/UserAccess';
 
 export default async function loginUser(parent: any, args: LoginUserPayload, context: any): Promise<LoginResponse> | never{
     let user: UserWithPassword; 
@@ -18,8 +18,6 @@ export default async function loginUser(parent: any, args: LoginUserPayload, con
             throw new Error(`User with username ${args.username} is not confirmed`);
         }
 
-      
-        
         if (user.password){
 
             //If user password is not already hashed

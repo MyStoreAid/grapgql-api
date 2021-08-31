@@ -14,8 +14,8 @@ import { createBranchGoal, updateBranchGoal, deleteBranchGoal } from './branchGo
 import { branchUserGroup, branchUserGroups } from './branchUserGroups/queries';
 import { createBranchUserGroup, updateBranchUserGroup, deleteBranchUserGroup } from './branchUserGroups/mutations';
 //--------------------- Brands -------------------
-import { brand, brands } from './brands/queries';
-import { createBrand, updateBrand, deleteBrand } from './brands/mutations';
+import { adminBrand, adminBrands } from './brands/admin/queries';
+import { adminCreateBrand, adminUpdateBrand, adminDeleteBrand } from './brands/admin/mutations';
 //-------------- Business Category ---------------
 import { businessCategory, businessCategories } from './businessCategories/queries';
 import { createBusinessCategory, updateBusinessCategory, deleteBusinessCategory } from './businessCategories/mutations';
@@ -67,8 +67,17 @@ import { createSubscription, updateSubscription, deleteSubscription } from './su
 //----------------------- Sales -------------------
 import { createSale } from './sales/mutations';
 //----------------------- User --------------------
-import { user, users } from './users/queries';
-import { loginUser, refreshToken, registerUser, resendOtp, setUserPassword, updateUser, userExists, verifyUser } from './users/mutations';
+import { adminUser, adminUsers } from './users/admin/queries';
+import {
+    clientLoginUser,
+    clientRefreshToken, 
+    clientRegisterUser,
+    clientResendOtp,
+    clientSetUserPassword,
+    clientUpdateUser,
+    clientUserExists,
+    clientVerifyUser
+} from './users/client/mutations';
 //-------------------  User Branch -----------------
 import { findBranchUsers } from './userBranches/queries';
 
@@ -92,8 +101,8 @@ const resolvers = {
         branchUserGroup,
         branchUserGroups,
         //--------------------- Brands -------------------
-        brands,
-        brand,
+        adminBrand,
+        adminBrands,
         //-------------- Business Category ---------------
         businessCategory,
         businessCategories,
@@ -143,8 +152,8 @@ const resolvers = {
         subscription,
         subscriptions,
         //-------------------- Users ----------------------
-        user,
-        users,
+        adminUser,
+        adminUsers,
         //------------------ User Branch -------------------
         findBranchUsers,
     },
@@ -171,9 +180,9 @@ const resolvers = {
         updateBranchUserGroup,
         deleteBranchUserGroup,
         //--------------------- Brands -------------------
-        createBrand,
-        updateBrand,
-        deleteBrand,
+        adminCreateBrand,
+        adminUpdateBrand,
+        adminDeleteBrand,
         //-------------- Business Category ---------------
         createBusinessCategory,
         updateBusinessCategory,
@@ -241,14 +250,14 @@ const resolvers = {
         //----------------------- Sale --------------------
         createSale,
         //----------------------- User --------------------
-        refreshToken,
-        registerUser,
-        resendOtp,
-        setUserPassword,
-        loginUser,
-        updateUser,
-        userExists,
-        verifyUser,
+        clientRefreshToken,
+        clientRegisterUser,
+        clientResendOtp,
+        clientSetUserPassword,
+        clientLoginUser,
+        clientUpdateUser,
+        clientUserExists,
+        clientVerifyUser,
     },
 };
 

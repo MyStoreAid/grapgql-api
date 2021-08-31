@@ -1,6 +1,6 @@
-import TimeHelper from '../../../helpers/TimeHelper';
-import BrandModel from '../BrandModel';
-import {Brand, BrandIdArgs} from '../types';
+import TimeHelper from '../../../../helpers/TimeHelper';
+import BrandModel from '../../BrandModel';
+import {Brand, BrandIdArgs} from '../../types';
 
 export default async function deleteBrand (parent:any, args: BrandIdArgs, context:any): Promise<Brand> | never {
     let existingBrand!: Brand;

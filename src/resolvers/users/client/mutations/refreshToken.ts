@@ -1,7 +1,7 @@
-import { User, UserIdArgs } from "../types";
-import UserModel from "../UserModel";
+import { User, UserIdArgs } from "../../types";
+import UserModel from "../../UserModel";
 import jwt from "jsonwebtoken";
-import { signToken } from "../helpers";
+import { signToken } from "../../helpers";
 
 export default async function refreshToken(parent: any, args: UserIdArgs, context: any, info: any): Promise<String> | never {
     let user: User;

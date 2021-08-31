@@ -1,15 +1,13 @@
-import { UserIdArgs, User} from '../types';
-import UserModel from '../UserModel';
-import generateOtp from '../helpers/generateOtp';
-import SMSService from '../../../services/SMSService';
+import { UserIdArgs, User} from '../../types';
+import UserModel from '../../UserModel';
+import generateOtp from '../../helpers/generateOtp';
+import SMSService from '../../../../services/SMSService';
 
 
 
 export default async function resendOtp(parent: any, args: UserIdArgs, context: any): Promise<String> | never{
     let user: User; 
     
-    
-
     if (args.userId) {
         user = await UserModel.findOneWhere(context.prisma.users, { userId: args.userId });
         

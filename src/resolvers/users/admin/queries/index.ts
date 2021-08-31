@@ -3,6 +3,6 @@ import users from "./users";
 
 
 export {
-    user,
-    users,
+    user as adminUser,
+    users as adminUsers,
 }

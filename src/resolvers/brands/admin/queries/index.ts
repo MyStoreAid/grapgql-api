@@ -2,6 +2,6 @@ import brand from "./brand";
 import brands from "./brands";
 
 export {
-    brand,
-    brands
+    brand as adminBrand,
+    brands as adminBrands
 };

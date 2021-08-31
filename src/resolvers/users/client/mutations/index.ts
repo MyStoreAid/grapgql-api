@@ -8,12 +8,12 @@ import userExists from "./userExists";
 import verifyUser from "./verifyUser";
 
 export { 
-    loginUser,
-    refreshToken,
-    registerUser,
-    resendOtp,
-    setUserPassword,
-    updateUser,
-    userExists,
-    verifyUser,
+    loginUser as clientLoginUser,
+    refreshToken as clientRefreshToken,
+    registerUser as clientRegisterUser,
+    resendOtp as clientResendOtp,
+    setUserPassword as clientSetUserPassword,
+    updateUser as clientUpdateUser,
+    userExists as clientUserExists,
+    verifyUser as clientVerifyUser,
 }

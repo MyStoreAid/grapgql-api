@@ -1,5 +1,5 @@
-import { RegisterUserPayload, RegisterUserResponse, User} from '../types';
-import UserModel from '../UserModel';
+import { RegisterUserPayload, RegisterUserResponse, User} from '../../types';
+import UserModel from '../../UserModel';
 
 
 export default async function registerUser(parent: any, args: RegisterUserPayload, context: any): Promise<RegisterUserResponse> | never{

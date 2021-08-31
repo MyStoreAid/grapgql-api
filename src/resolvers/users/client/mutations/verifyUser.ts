@@ -1,6 +1,6 @@
-import {UserWithPassword, VerifyUserPayload, VerifyUserResponse, User} from '../types';
-import UserModel from '../UserModel';
-import { signToken } from '../helpers';
+import {UserWithPassword, VerifyUserPayload, VerifyUserResponse, User} from '../../types';
+import UserModel from '../../UserModel';
+import { signToken } from '../../helpers';
 
 export default async function verifyUser(parent: any, args: VerifyUserPayload, context: any): Promise<VerifyUserResponse> | never{
     let user: User;

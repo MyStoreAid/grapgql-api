@@ -18,8 +18,8 @@ type Query {
     branchUserGroups: [BranchUserGroup!]!
     branchUserGroup(id: ID): BranchUserGroup
 #-------------------- Brand ---------------------------
-    brands: [Brand!]!
-    brand(id: ID!): Brand
+    adminBrands: [Brand!]!
+    adminBrand(id: ID!): Brand
 #--------------- Business Category ----------------------
     businessCategories: [BusinessCategory!]!
     businessCategory(id: ID!): BusinessCategory
@@ -72,8 +72,8 @@ type Query {
     subscriptions: [Subscription!]!
     subscription(id : ID!): Subscription
 #------------- User -----------------------------------------
-    users: [User!]!
-    user(userId: ID!): User
+    adminUsers: [User!]!
+    adminUser(userId: ID!): User
 #----------- User Branch ------------------------------------
     findBranchUsers(branchId: String): [UserBranch]
 }
@@ -103,11 +103,10 @@ type Mutation {
     createBranchUserGroup(name: String!, description: String): BranchUserGroup!
     updateBranchUserGroup(id: ID!, name: String, description: String): BranchUserGroup!
     deleteBranchUserGroup(id: ID!): BranchUserGroup!
-#---------------------------------------------------------------= Brand -----------------------------------------------------------------
-    createBrand(name: String!): Brand!
-    updateBrand(id: ID!, name: String!): Brand!
-    deleteBrand(id: ID!): Brand!
-
+#---------------------------------------------------------------- Brand -----------------------------------------------------------------
+    adminCreateBrand(name: String!): Brand!
+    adminUpdateBrand(id: ID!, name: String!): Brand!
+    adminDeleteBrand(id: ID!): Brand!
 #------------------------------------------------------------- Business Category --------------------------------------------------------
     createBusinessCategory(name: String!, description: String): BusinessCategory!
     updateBusinessCategory(id: ID!, name: String, description: String): BusinessCategory!
@@ -177,16 +176,16 @@ type Mutation {
     updateSubscription(id: ID!, name: String!, description: String, numberOfBranches: Float): Subscription!
     deleteSubscription(id: ID!): Subscription!
 #------------------------------------------------------------------ User ----------------------------------------------------------------
-    loginUser(username: String!, password: String): LoginResponse!
-    refreshToken(userId: ID!): String!
-    registerUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!): User
-    resendOtp(userId: ID!): String!
-    setUserPassword(userId: ID!, password: String!, otp: String!, username: String!): User!
-    updateUser(userId: ID!, phone: String!, email: String, firstName: String, otherNames: String, username: String, gender: String, whatsAppPhone: String): User!
-    updateUserAccessHistory(userId: ID!): User!
-    updateUserContact(userId: ID!, newPhone: String): User!
-    userExists(phone: String, username: String): UserExistsResponse!
-    verifyUser(phone: String, otp: String): VerifyUserResponse!
+    clientLoginUser(username: String!, password: String): LoginResponse!
+    clientRefreshToken(userId: ID!): String!
+    clientRegisterUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!): User
+    clientResendOtp(userId: ID!): String!
+    clientSetUserPassword(userId: ID!, password: String!, otp: String!, username: String!): User!
+    clientUpdateUser(userId: ID!, phone: String!, email: String, firstName: String, otherNames: String, username: String, gender: String, whatsAppPhone: String): User!
+    clientUpdateUserAccessHistory(userId: ID!): User!
+    clientUpdateUserContact(userId: ID!, newPhone: String): User!
+    clientUserExists(phone: String, username: String): UserExistsResponse!
+    clientVerifyUser(phone: String, otp: String): VerifyUserResponse!
 }
 
 

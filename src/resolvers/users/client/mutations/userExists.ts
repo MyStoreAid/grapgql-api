@@ -1,5 +1,5 @@
-import { User, UserExistsArgs, UserExistsResponse} from '../types';
-import UserModel from '../UserModel';
+import { User, UserExistsArgs, UserExistsResponse} from '../../types';
+import UserModel from '../../UserModel';
 
 
 export default async function userExists(parent: any, args: UserExistsArgs, context: any): Promise<UserExistsResponse> | never{

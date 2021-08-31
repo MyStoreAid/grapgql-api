@@ -1,5 +1,5 @@
-import BrandModel from '../BrandModel';
-import { Brand } from "../types";
+import BrandModel from '../../BrandModel';
+import { Brand } from "../../types";
 
 export default async function updateBrand(parent: any, args: Brand, context:any): Promise<Brand> | never {
     let existingBrand!: Brand;

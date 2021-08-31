@@ -1,5 +1,5 @@
-import UserModel from "../UserModel";
-import { User, UserIdArgs } from "../types";
+import UserModel from "../../UserModel";
+import { User, UserIdArgs } from "../../types";
 
 export default async function user (parent: any, args: UserIdArgs, context: any): Promise<User> | never {
     let existingUser: User;

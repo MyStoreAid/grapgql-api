@@ -1,5 +1,5 @@
-import { User} from '../types';
-import UserModel from '../UserModel';
+import { User} from '../../types';
+import UserModel from '../../UserModel';
 
 export default async function updateUser(parent: any, args: User, context: any): Promise<User> | never {
     let existingUser: User

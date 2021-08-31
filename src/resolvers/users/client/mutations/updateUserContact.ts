@@ -1,7 +1,7 @@
 import SMSService from 'services/SMSService';
-import generateOtp from '../helpers/generateOtp';
-import { updateUserContactArgs, RegisterUserResponse} from '../types';
-import UserModel from '../UserModel';
+import generateOtp from '../../helpers/generateOtp';
+import { updateUserContactArgs, RegisterUserResponse} from '../../types';
+import UserModel from '../../UserModel';
 
 
 export default async function updateUserContact(parent: any, args: updateUserContactArgs, context: any): Promise<RegisterUserResponse> | never {

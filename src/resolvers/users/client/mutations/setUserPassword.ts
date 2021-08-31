@@ -1,6 +1,6 @@
-import { generateHash } from '../helpers';
-import { SetUserPassword, RegisterUserResponse, User} from '../types';
-import UserModel from '../UserModel';
+import { generateHash } from '../../helpers';
+import { SetUserPassword, RegisterUserResponse, User} from '../../types';
+import UserModel from '../../UserModel';
 
 
 export default async function setUserPassword(parent: any, args: SetUserPassword, context: any): Promise<RegisterUserResponse> | never {
