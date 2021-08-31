@@ -10,7 +10,12 @@ import { createBranch, updateBranch, deleteBranch } from './branches/mutations';
 //------------------- Branch Goals ---------------
 import { branchGoal, branchGoals } from './branchGoals/queries';
 import { createBranchGoal, updateBranchGoal, deleteBranchGoal } from './branchGoals/mutations';
-//---------------- Branch user Goals -------------
+//-----------------  Branch Supplier -------------
+import { createBranchSupplier } from './branchSuppliers/mutations';
+//----------  Branch Supplier Salespersons -------
+import { findBranchEmployees } from './branchSupplierSalespersons/queries';
+import { createBranchSupplierSalesperson } from './branchSupplierSalespersons/mutations';
+//---------------- Branch User Goals -------------
 import { branchUserGroup, branchUserGroups } from './branchUserGroups/queries';
 import { createBranchUserGroup, updateBranchUserGroup, deleteBranchUserGroup } from './branchUserGroups/mutations';
 //--------------------- Brands -------------------
@@ -88,6 +93,8 @@ const resolvers = {
         //------------------- Branch Goals ---------------
         branchGoal,
         branchGoals,
+        //----------- Branch Supplier Salespersons --------
+        findBranchEmployees,
         //---------------- Branch user Goals -------------
         branchUserGroup,
         branchUserGroups,
@@ -166,7 +173,11 @@ const resolvers = {
         createBranchGoal,
         updateBranchGoal,
         deleteBranchGoal,
-        //---------------- Branch user Goals -------------
+        //------------------- Branch Supplier ------------
+        createBranchSupplier,
+        //------------ Branch Supplier Salespersons ------
+        createBranchSupplierSalesperson,
+        //---------------- Branch User Goals -------------
         createBranchUserGroup,
         updateBranchUserGroup,
         deleteBranchUserGroup,

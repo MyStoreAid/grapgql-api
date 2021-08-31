@@ -2,7 +2,7 @@ import { findBranchUserArgs, UserBranch } from "../types";
 import UserBranchModel from "../UserBranchModel";
 
 
-export default async function productSegmentEntries (parent: any, args: findBranchUserArgs, context: any): Promise<UserBranch[]> {
+export default async function findBranchUsers (parent: any, args: findBranchUserArgs, context: any): Promise<UserBranch[]> {
 
     const data: {branchId: String, 
         include: {roles: boolean, branches: boolean, users: boolean}} = {
