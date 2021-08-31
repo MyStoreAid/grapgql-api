@@ -71,9 +71,11 @@ type Query {
 #------------- Subscription ---------------------------------
     subscriptions: [Subscription!]!
     subscription(id : ID!): Subscription
-#------------- User ---------------------------------------
+#------------- User -----------------------------------------
     users: [User!]!
     user(userId: ID!): User
+#----------- User Branch ------------------------------------
+    findBranchUsers(branchId: String): [UserBranch]
 }
 
 type Mutation {
@@ -90,7 +92,7 @@ type Mutation {
     updateAudit(id: ID!, branchId: String, status: String, createdById: String, isActive: Boolean, auditDate: Float, status: String, lastModifiedById: String, auditEntryIds: [String], branchProductStockIds: [String], saleIds: [String]): Audit!
     deleteAudit(id: ID!): Audit!
 #---------------------------------------------------------------- Branch ---------------------------------------------------------------
-    createBranch(name: String!, startDate: Float, address: String, location: String!, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userId: String): Branch!
+    createBranch(name: String!, startDate: Float, address: String, location: String!, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userIds: [String]): Branch!
     updateBranch(id: ID, name: String!, startDate: Float, address: String, checkoutSales: Boolean, aggregateSales: Boolean, alwaysSync: Boolean, forTesting: Boolean, supplierStock: Boolean,location: String, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userId: String): Branch!
     deleteBranch(id: ID): Branch!
 #--------------------------------------------------------------- Branch Goal ------------------------------------------------------------
@@ -649,6 +651,27 @@ type User {
     created_at: Float
     updated_at: Float
     deleted: Boolean
+}
+
+type UserBranch {
+  id: ID
+  userId: String,
+  branchId: String,
+  roleId: String,
+  companyId: String,
+  employeeTypeId: String
+  main: String,
+  status: String,
+  customerCareId: String
+  branches: Branch
+  users: User
+  roles: Role
+  companies: Company
+  created_at: Float,
+  updated_at: Float,
+  server_created_at: Float,
+  last_modified: Float,
+  deleted: Boolean
 }
 
 type UserExistsResponse{

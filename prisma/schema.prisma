@@ -371,7 +371,7 @@ model branches {
   sale_return_histories                                                                    sale_return_histories[]
   sales                                                                                    sales[]
   stock_return_histories                                                                   stock_return_histories[]
-  users_branches                                                                           users_branches[]                             @ignore
+  users_branches                                                                           users_branches[]
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -463,7 +463,7 @@ model branches_products_stock_movements {
   deleted                                                         Boolean  @default(false)
   created_at                                                      Float
   updated_at                                                      Float
-  entryDate                                                       Float   @default(1628505987)
+  entryDate                                                       Float    @default(1628505987)
   last_modified                                                   Float?
   lastModifiedBy                                                  String?  @db.Uuid
   server_created_at                                               Float?
@@ -487,7 +487,7 @@ model branches_products_stocks {
   deleted                                              Boolean                              @default(false)
   created_at                                           Float
   updated_at                                           Float
-  stockDate                                            Float                               @default(1628505987)
+  stockDate                                            Float                                @default(1628505987)
   branchProductId                                      String?                              @db.Uuid
   branchSupplierOrderId                                String?                              @db.Uuid
   createdBy                                            String?                              @db.Uuid
@@ -520,7 +520,7 @@ model branches_products_stocks_histories {
   deleted                                                        Boolean                  @default(false)
   created_at                                                     Float
   updated_at                                                     Float
-  stockDate                                                      Float                   @default(1628505987)
+  stockDate                                                      Float                    @default(1628505987)
   branchProductId                                                String?                  @db.Uuid
   createdBy                                                      String?                  @db.Uuid
   last_modified                                                  Float?
@@ -652,7 +652,7 @@ model companies {
   companies_subscriptions               companies_subscriptions[]     @ignore
   companies_sync_histories              companies_sync_histories[]
   customer_care_schedules               customer_care_schedules[]
-  users_branches                        users_branches[]              @ignore
+  users_branches                        users_branches[]
   users_companies                       users_companies[]             @ignore
 }
 
@@ -1056,7 +1056,7 @@ model roles {
   created_at        Float
   updated_at        Float
   roles_permissions roles_permissions[] @ignore
-  users_branches    users_branches[]    @ignore
+  users_branches    users_branches[]
   users_companies   users_companies[]   @ignore
 }
 
@@ -1205,7 +1205,7 @@ model subscriptions {
   deleted                 Boolean                   @default(false)
   created_at              Float
   updated_at              Float
-  companies               companies[] 
+  companies               companies[]
   companies_subscriptions companies_subscriptions[] @ignore
   subscriptions_features  subscriptions_features[]  @ignore
 }
@@ -1378,7 +1378,7 @@ model users {
   suppliers_companies                                                                                         suppliers_companies[]
   sync_changes                                                                                                sync_changes[]
   other_users                                                                                                 users[]                                      @relation("usersTousers_lastModifiedBy")
-  users_branches                                                                                              users_branches[]                             @ignore
+  users_branches                                                                                              users_branches[]
   users_companies                                                                                             users_companies[]                            @ignore
 }
 
@@ -1399,13 +1399,11 @@ model users_branches {
   deleted               Boolean   @default(false)
   server_created_at     Float?
   last_modified         Float?
-  id                    String?   @db.Uuid
+  id                    String    @id @db.Uuid
   branches              branches  @relation(fields: [branchId], references: [id])
   companies             companies @relation(fields: [companyId], references: [id])
   roles                 roles     @relation(fields: [roleId], references: [id])
   users                 users?    @relation(fields: [userId], references: [userId])
-
-  @@ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.

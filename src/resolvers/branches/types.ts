@@ -44,7 +44,7 @@ export interface Branch {
     branchUserGroupId: String,
     businessCategoryId: String,
     companyId: String,
-    userId: String,
+    userIds: String[],
     created_at: number,
     updated_at: number,
     deleted: boolean,

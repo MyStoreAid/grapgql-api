@@ -69,6 +69,9 @@ import { createSale } from './sales/mutations';
 //----------------------- User --------------------
 import { user, users } from './users/queries';
 import { loginUser, refreshToken, registerUser, resendOtp, setUserPassword, updateUser, userExists, verifyUser } from './users/mutations';
+//-------------------  User Branch -----------------
+import { findBranchUsers } from './userBranches/queries';
+
 
 
 const resolvers = {
@@ -139,9 +142,11 @@ const resolvers = {
         //-------------------- Subscriptions --------------
         subscription,
         subscriptions,
-        //-------------------- Users --------------
+        //-------------------- Users ----------------------
         user,
         users,
+        //------------------ User Branch -------------------
+        findBranchUsers,
     },
 
     Mutation: {
