@@ -14,6 +14,8 @@ type Query {
 #--------------- Branch Goal ----------------------------
     branchGoals: [BranchGoal!]!
     branchGoal(id: ID!): BranchGoal!
+#--------------- Branch Supplier Salesperson ---------------------
+    findBranchEmployees(branchId: ID!): [BranchSupplierSalesperson!]
 #--------------- Branch User Group ---------------------
     branchUserGroups: [BranchUserGroup!]!
     branchUserGroup(id: ID): BranchUserGroup
@@ -99,6 +101,10 @@ type Mutation {
     createBranchGoal(name: String!, position: Float!): BranchGoal!
     updateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
     deleteBranchGoal(id: ID!): BranchGoal!
+#--------------------------------------------------------------- Branch Supplier --------------------------------------------------------
+    createBranchSupplier(branchId: String!, deliveryDays: String!, hidden: Boolean, createdBy: String!, branchContact: String, lastModifiedBy: String, supplierId: String ): BranchSupplier!
+#------------------------------------------------------------ Branch Supplier Salesperson ------------------------------------------------
+    createBranchSupplierSalesperson(branchId: String!,  branchSupplierId: String, hidden: Boolean, createdBy: String!, employeeId: String!, employeeName: String!, employeeContact: String!): BranchSupplierSalesperson!                       
 #------------------------------------------------------------ Branch User Group ---------------------------------------------------------
     createBranchUserGroup(name: String!, description: String): BranchUserGroup!
     updateBranchUserGroup(id: ID!, name: String, description: String): BranchUserGroup!
@@ -288,7 +294,7 @@ type Branch{
   # branch_supplier_order_payment_installments: BranchSupplierOrderPaymentInstallment
   # branch_supplier_orders: [BranchSupplierOrder]
   # branch_supplier_products: [BranchSupplierProduct]
-  # branch_supplier_salespersons: [BranchSupplierSaleperson]
+  branch_supplier_salespersons: [BranchSupplierSalesperson]                  
   # branch_supplier_stocks: [BranchSupplierStock]
   # branch_suppliers: [BranchSupplier]
   # branches_customers: [BranchesCustomer]
@@ -305,17 +311,12 @@ type Branch{
   # sale_entries: [SaleEntry]
   # sale_installments: [SaleInstallment]
   # sale_return_histories: [SaleReturnHistory]
-  # sales: [Sale]
+  sales: [Sale]
   # stock_return_histories: [StockReturnHistory]
   created_at: Float
   updated_at: Float
   deleted: Boolean
 }
-
-
-
-
-
 
 type BranchGoal {
     id: ID!
@@ -328,6 +329,55 @@ type BranchGoal {
     server_created_at: Float
     deleted: Boolean!
 }
+
+type BranchSupplier {
+  id: String                                       
+  branchId: String                                       
+  deliveryDays: String                                       
+  createdBy: String                                       
+  deleted: Boolean                                     
+  created_at: Float
+  updated_at: Float
+  server_created_at: Float
+  last_modified: Float
+  dateAdded: Float
+  hidden: Boolean                                                                         
+  branchName: String                                       
+  branchContact: String                                       
+  lastModifiedBy: String  
+  supplierId: String                                  
+  branches: Branch                                                              
+  users_branch_supplier_createdByTousers: User                                        
+  users_branch_supplier_lastModifiedByTousers: User                                       
+  # branch_supplier_order_payment_installments: [BranchSupplierOrderPaymentInstallment]
+  # branch_supplier_orders: [BranchSupplierOrder]
+  # branch_supplier_products: [BranchSupplierProduct]
+  branch_supplier_salespersons: [BranchSupplierSalesperson]
+}
+
+type BranchSupplierSalesperson {
+  id: String                                       
+  branchId: String                                       
+  branchSupplierId: String                                       
+  createdBy: String                                       
+  deleted: Boolean                                     
+  created_at: Float
+  updated_at: Float
+  server_created_at: Float
+  last_modified: Float
+  hidden: Boolean                                    
+  employeeId: String                                     
+  employeeName: String                                       
+  employeeContact: String                                       
+  lastModifiedBy: String                                    
+  branches: Branch                                    
+  branch_suppliers: BranchSupplier                            
+  users_branch_supplier_salespersons_createdByTousers: User                                        
+  users_branch_supplier_salespersons_lastModifiedByTousers: User                                       
+  # branch_supplier_order_payment_installments: [BranchSupplierOrderPaymentInstallment]
+  # branch_supplier_orders: [BranchSupplierOrder]
+}
+
 
 type BranchUserGroup {
   id: ID!
@@ -347,8 +397,6 @@ type Brand {
     server_created_at: Float
     deleted: Boolean!
 }
-
-
 
 type BusinessCategory {
   id: ID!
@@ -374,11 +422,11 @@ type Company{
   updated_at: Float
   lastSyncAt: Float
   deleted: Boolean
-  # branches: [Branch]
+  branches: [Branch]
   # companiesSubscriptions: [CompaniesSubscription]
   # companiesSyncHistories: [CompaniesSyncHistory]
   # customerCareSchedules: [CustomerCareSchedule]
-  # userBranches: [UserBranch]
+  userBranches: [UserBranch]
   # userCompanies: [UserCompany]
 }
 
@@ -407,11 +455,11 @@ type Company{
   updated_at: Float
   lastSyncAt: Float
   deleted: Boolean
-  # branches: [Branch]
+  branches: [Branch]
   # companiesSubscriptions: [CompaniesSubscription]
   # companiesSyncHistories: [CompaniesSyncHistory]
   # customerCareSchedules: [CustomerCareSchedule]
-  # userBranches: [UserBranch]
+  userBranches: [UserBranch]
   # userCompanies: [UserCompany]
 }
 
