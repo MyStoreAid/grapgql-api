@@ -1,74 +1,74 @@
 //--------------- App Notifications --------------
-import { appNotification, appNotifications } from './appNotifications/queries';
-import { createAppNotification, updateAppNotification, deleteAppNotification } from './appNotifications/mutations';
+import { adminAppNotification, adminAppNotifications } from './appNotifications/admin/queries';
+import { adminCreateAppNotification, adminUpdateAppNotification, adminDeleteAppNotification } from './appNotifications/admin/mutations';
 //--------------------- Audit --------------------
-import { audit, audits } from './audits/queries';
+import { adminAudit, adminAudits } from './audits/admin/queries';
 import { createAudit, updateAudit, deleteAudit } from './audits/mutations';
 //------------------- Branches -------------------
-import { branch, branches } from './branches/queries';
-import { createBranch, updateBranch, deleteBranch } from './branches/mutations';
+import { adminBranch, adminBranches } from './branches/admin/queries';
+import { adminCreateBranch, adminUpdateBranch, adminDeleteBranch } from './branches/admin/mutations';
 //------------------- Branch Goals ---------------
-import { branchGoal, branchGoals } from './branchGoals/queries';
-import { createBranchGoal, updateBranchGoal, deleteBranchGoal } from './branchGoals/mutations';
+import { adminBranchGoal, adminBranchGoals } from './branchGoals/admin/queries';
+import { adminCreateBranchGoal, adminUpdateBranchGoal, adminDeleteBranchGoal } from './branchGoals/admin/mutations';
 //-----------------  Branch Supplier -------------
-import { createBranchSupplier } from './branchSuppliers/mutations';
+// import { createBranchSupplier } from './branchSuppliers/mutations';
 //----------  Branch Supplier Salespersons -------
-import { findBranchEmployees } from './branchSupplierSalespersons/queries';
+import { clientFindBranchEmployees } from './branchSupplierSalespersons/client/queries';
 import { createBranchSupplierSalesperson } from './branchSupplierSalespersons/mutations';
 //---------------- Branch User Goals -------------
-import { branchUserGroup, branchUserGroups } from './branchUserGroups/queries';
-import { createBranchUserGroup, updateBranchUserGroup, deleteBranchUserGroup } from './branchUserGroups/mutations';
+import { adminBranchUserGroup, adminBranchUserGroups } from './branchUserGroups/admin/queries';
+import { adminCreateBranchUserGroup, adminUpdateBranchUserGroup, adminDeleteBranchUserGroup } from './branchUserGroups/admin/mutations';
 //--------------------- Brands -------------------
 import { adminBrand, adminBrands } from './brands/admin/queries';
 import { adminCreateBrand, adminUpdateBrand, adminDeleteBrand } from './brands/admin/mutations';
 //-------------- Business Category ---------------
-import { businessCategory, businessCategories } from './businessCategories/queries';
-import { createBusinessCategory, updateBusinessCategory, deleteBusinessCategory } from './businessCategories/mutations';
+import { adminBusinessCategory, adminBusinessCategories } from './businessCategories/admin/queries';
+import { adminCreateBusinessCategory, adminUpdateBusinessCategory, adminDeleteBusinessCategory } from './businessCategories/admin/mutations';
 //------------------ Client ----------------------
 import { client, clients } from './clients/queries';
 import { createClient, updateClient, deleteClient } from './clients/mutations';
 //------------------- Company --------------------
-import { company, companies } from './companies/queries';
-import { createCompany, updateCompany, deleteCompany } from './companies/mutations';
+import { adminCompany, adminCompanies } from './companies/admin/queries';
+import { adminCreateCompany, adminUpdateCompany, adminDeleteCompany } from './companies/admin/mutations';
 //------------------ Customer --------------------
-import {customer, customers} from './customers/queries';
-import {createCustomer, updateCustomer, deleteCustomer} from './customers/mutations';
+import {adminCustomer, adminCustomers} from './customers/admin/queries';
+import {adminCreateCustomer, adminUpdateCustomer, adminDeleteCustomer} from './customers/admin/mutations';
 //------------------- Feature --------------------
-import { feature, features } from './features/queries';
-import { createFeature, updateFeature, deleteFeature } from './features/mutations';
+import { adminFeature, adminFeatures } from './features/admin/queries';
+import { adminCreateFeature, adminUpdateFeature, adminDeleteFeature } from './features/admin/mutations';
 //-----------Internal Business Category ----------
-import { internalBusinessCategory, internalBusinessCategories} from './internalBusinessCategories/queries';
-import { createInternalBusinessCategory, updateInternalBusinessCategory, deleteInternalBusinessCategory } from './internalBusinessCategories/mutations';
+import { adminInternalBusinessCategory, adminInternalBusinessCategories} from './internalBusinessCategories/admin/queries';
+import { adminCreateInternalBusinessCategory, adminUpdateInternalBusinessCategory, adminDeleteInternalBusinessCategory } from './internalBusinessCategories/admin/mutations';
 //--------------- Manufactures --------------------
-import { manufacturer, manufacturers } from './manufacturers/queries';
-import { createManufacturer, updateManufacturer, deleteManufacturer } from './manufacturers/mutations';
+import { adminManufacturer, adminManufacturers } from './manufacturers/admin/queries';
+import { adminCreateManufacturer, adminUpdateManufacturer, adminDeleteManufacturer } from './manufacturers/admin/mutations';
 //--------------- Measurement Units ---------------
-import { measurementUnit, measurementUnits } from './measurementUnits/queries';
-import { createMeasurementUnit, updateMeasurementUnit, deleteMeasurementUnit } from './measurementUnits/mutations';
+import { adminMeasurementUnit, adminMeasurementUnits } from './measurementUnits/admin/queries';
+import { adminCreateMeasurementUnit, adminUpdateMeasurementUnit, adminDeleteMeasurementUnit } from './measurementUnits/admin/mutations';
 //--------------- Permissions ---------------------
-import { permission, permissions } from './permissions/queries';
-import { createPermission, updatePermission, deletePermission } from './permissions/mutations';
+import { adminPermission, adminPermissions } from './permissions/admin/queries';
+import { adminCreatePermission, adminUpdatePermission, adminDeletePermission } from './permissions/admin/mutations';
 //------------------ Products ---------------------
-import { product, products } from './products/queries';
-import { createProduct, updateProduct, deleteProduct } from './products/mutations';
+import { adminProduct, adminProducts } from './products/admin/queries';
+import { adminCreateProduct, adminUpdateProduct, adminDeleteProduct } from './products/admin/mutations';
 //--------------- Product Category ----------------
-import { productCategory, productCategories } from './productCategories/queries';
-import { createProductCategory, updateProductCategory, deleteProductCategory } from './productCategories/mutations';
+import { adminProductCategory, adminProductCategories } from './productCategories/admin/queries';
+import { adminCreateProductCategory, adminUpdateProductCategory, adminDeleteProductCategory } from './productCategories/admin/mutations';
 //------------- Product Descriptions --------------
-import { productDescription, productDescriptions } from './productDescriptions/queries';
-import { createProductDescription, updateProductDescription, deleteProductDescription } from './productDescriptions/mutations';
+import { adminProductDescription, adminProductDescriptions } from './productDescriptions/admin/queries';
+import { adminCreateProductDescription, adminUpdateProductDescription, adminDeleteProductDescription } from './productDescriptions/admin/mutations';
 //--------------- Product Segment -----------------
-import { productSegment, productSegments  } from './productSegments/queries';
-import { createProductSegment, updateProductSegment, deleteProductSegment } from './productSegments/mutations';
+import { adminProductSegment, adminProductSegments  } from './productSegments/admin/queries';
+import { adminCreateProductSegment, adminUpdateProductSegment, adminDeleteProductSegment } from './productSegments/admin/mutations';
 //------------- Product Segment Entry -------------
-import { productSegmentEntry, productSegmentEntries } from './productSegmentEntries/queries';
-import { createProductSegmentEntry, updateProductSegmentEntry, deleteProductSegmentEntry } from './productSegmentEntries/mutations';
+import { adminProductSegmentEntry, adminProductSegmentEntries } from './productSegmentEntries/admin/queries';
+import { adminCreateProductSegmentEntry, adminUpdateProductSegmentEntry, adminDeleteProductSegmentEntry } from './productSegmentEntries/admin/mutations';
 //------------------- Roles -----------------------
-import { role, roles } from './roles/queries';
-import { createRole, updateRole, deleteRole } from './roles/mutations';
+import { adminRole, adminRoles } from './roles/admin/queries';
+import { adminCreateRole, adminUpdateRole, adminDeleteRole } from './roles/admin/mutations';
 //-------------------- Subscriptions --------------
-import { subscription, subscriptions } from './subscriptions/queries';
-import { createSubscription, updateSubscription, deleteSubscription } from './subscriptions/mutations';
+import { adminSubscription, adminSubscriptions } from './subscriptions/admin/queries';
+import { adminCreateSubscription, adminUpdateSubscription, adminDeleteSubscription } from './subscriptions/admin/mutations';
 //----------------------- Sales -------------------
 import { createSale } from './sales/mutations';
 //----------------------- User --------------------
@@ -84,180 +84,180 @@ import {
     clientVerifyUser
 } from './users/client/mutations';
 //-------------------  User Branch -----------------
-import { findBranchUsers } from './userBranches/queries';
+import { clientFindBranchUsers } from './userBranches/client/queries';
 
 
 
 const resolvers = {
     Query: {
         //--------------- App Notifications --------------
-        appNotification,
-        appNotifications,
+        adminAppNotification,
+        adminAppNotifications,
         //--------------------- Audit --------------------
-        audit,
-        audits,
+        adminAudit,
+        adminAudits,
         //------------------- Branches -------------------
-        branch,
-        branches,
+        adminBranch,
+        adminBranches,
         //------------------- Branch Goals ---------------
-        branchGoal,
-        branchGoals,
+        adminBranchGoal,
+        adminBranchGoals,
         //----------- Branch Supplier Salespersons --------
-        findBranchEmployees,
+        clientFindBranchEmployees,
         //---------------- Branch user Goals -------------
-        branchUserGroup,
-        branchUserGroups,
+        adminBranchUserGroup,
+        adminBranchUserGroups,
         //--------------------- Brands -------------------
         adminBrand,
         adminBrands,
         //-------------- Business Category ---------------
-        businessCategory,
-        businessCategories,
+        adminBusinessCategory,
+        adminBusinessCategories,
         //------------------ Client ----------------------
         client,
         clients,
         //------------------- Company --------------------
-        company,
-        companies,
+        adminCompany,
+        adminCompanies,
         //------------------ Customer --------------------
-        customer,
-        customers,
+        adminCustomer,
+        adminCustomers,
         //------------------- Feature --------------------
-        feature,
-        features,
+        adminFeature,
+        adminFeatures,
         //-----------Internal Business Category ----------
-        internalBusinessCategory,
-        internalBusinessCategories,
+        adminInternalBusinessCategory,
+        adminInternalBusinessCategories,
         //--------------- Manufactures --------------------
-        manufacturer,
-        manufacturers,
+        adminManufacturer,
+        adminManufacturers,
         //--------------- Measurement Units ---------------
-        measurementUnit,
-        measurementUnits,
+        adminMeasurementUnit,
+        adminMeasurementUnits,
         //--------------- Permissions ---------------------
-        permission,
-        permissions,
+        adminPermission,
+        adminPermissions,
         //------------------ Products ---------------------
-        product,
-        products,
+        adminProduct,
+        adminProducts,
         //--------------- Product Category ----------------
-        productCategory,
-        productCategories,
+        adminProductCategory,
+        adminProductCategories,
         //------------- Product Descriptions --------------
-        productDescription,
-        productDescriptions,
+        adminProductDescription,
+        adminProductDescriptions,
         //--------------- Product Segment -----------------
-        productSegment,
-        productSegments,
+        adminProductSegment,
+        adminProductSegments,
         //------------- Product Segment Entry -------------
-        productSegmentEntry,
-        productSegmentEntries,
+        adminProductSegmentEntry,
+        adminProductSegmentEntries,
         //------------------- Roles -----------------------
-        role,
-        roles,
+        adminRole,
+        adminRoles,
         //-------------------- Subscriptions --------------
-        subscription,
-        subscriptions,
+        adminSubscription,
+        adminSubscriptions,
         //-------------------- Users ----------------------
         adminUser,
         adminUsers,
         //------------------ User Branch -------------------
-        findBranchUsers,
+        clientFindBranchUsers,
     },
 
     Mutation: {
         //--------------- App Notifications --------------
-        createAppNotification,
-        updateAppNotification,
-        deleteAppNotification,
+        adminCreateAppNotification,
+        adminUpdateAppNotification,
+        adminDeleteAppNotification,
         //--------------------- Audit --------------------
         createAudit,
         updateAudit,
         deleteAudit,
         //------------------- Branches -------------------
-        createBranch,
-        updateBranch,
-        deleteBranch,
+        adminCreateBranch,
+        adminUpdateBranch,
+        adminDeleteBranch,
         //------------------- Branch Goals ---------------
-        createBranchGoal,
-        updateBranchGoal,
-        deleteBranchGoal,
+        adminCreateBranchGoal,
+        adminUpdateBranchGoal,
+        adminDeleteBranchGoal,
         //------------------- Branch Supplier ------------
-        createBranchSupplier,
+        // createBranchSupplier,
         //------------ Branch Supplier Salespersons ------
         createBranchSupplierSalesperson,
         //---------------- Branch User Goals -------------
-        createBranchUserGroup,
-        updateBranchUserGroup,
-        deleteBranchUserGroup,
+        adminCreateBranchUserGroup,
+        adminUpdateBranchUserGroup,
+        adminDeleteBranchUserGroup,
         //--------------------- Brands -------------------
         adminCreateBrand,
         adminUpdateBrand,
         adminDeleteBrand,
         //-------------- Business Category ---------------
-        createBusinessCategory,
-        updateBusinessCategory,
-        deleteBusinessCategory,
+        adminCreateBusinessCategory,
+        adminUpdateBusinessCategory,
+        adminDeleteBusinessCategory,
         //------------------ Client ----------------------
         createClient,
         updateClient,
         deleteClient,
         //------------------- Company --------------------
-        createCompany,
-        updateCompany,
-        deleteCompany,
+        adminCreateCompany,
+        adminUpdateCompany,
+        adminDeleteCompany,
         //------------------ Customer --------------------
-        createCustomer,
-        updateCustomer,
-        deleteCustomer,
+        adminCreateCustomer,
+        adminUpdateCustomer,
+        adminDeleteCustomer,
         //------------------- Feature --------------------
-        createFeature,
-        updateFeature,
-        deleteFeature,
+        adminCreateFeature,
+        adminUpdateFeature,
+        adminDeleteFeature,
         //-----------Internal Business Category ----------
-        createInternalBusinessCategory,
-        updateInternalBusinessCategory,
-        deleteInternalBusinessCategory,
+        adminCreateInternalBusinessCategory,
+        adminUpdateInternalBusinessCategory,
+        adminDeleteInternalBusinessCategory,
         //--------------- Manufactures --------------------
-        createManufacturer,
-        updateManufacturer,
-        deleteManufacturer,
+        adminCreateManufacturer,
+        adminUpdateManufacturer,
+        adminDeleteManufacturer,
         //--------------- Measurement Units ---------------
-        createMeasurementUnit,
-        updateMeasurementUnit,
-        deleteMeasurementUnit,
+        adminCreateMeasurementUnit,
+        adminUpdateMeasurementUnit,
+        adminDeleteMeasurementUnit,
         //--------------- Permissions ---------------------
-        createPermission,
-        updatePermission,
-        deletePermission,
+        adminCreatePermission,
+        adminUpdatePermission,
+        adminDeletePermission,
         //------------------ Products ---------------------
-        createProduct,
-        updateProduct,
-        deleteProduct,
+        adminCreateProduct,
+        adminUpdateProduct,
+        adminDeleteProduct,
         //--------------- Product Category ----------------
-        createProductCategory,
-        updateProductCategory,
-        deleteProductCategory,
+        adminCreateProductCategory,
+        adminUpdateProductCategory,
+        adminDeleteProductCategory,
         //------------- Product Descriptions --------------
-        createProductDescription,
-        updateProductDescription,
-        deleteProductDescription,
+        adminCreateProductDescription,
+        adminUpdateProductDescription,
+        adminDeleteProductDescription,
         //--------------- Product Segment -----------------
-        createProductSegment,
-        updateProductSegment,
-        deleteProductSegment,
+        adminCreateProductSegment,
+        adminUpdateProductSegment,
+        adminDeleteProductSegment,
         //------------- Product Segment Entry -------------
-        createProductSegmentEntry,
-        updateProductSegmentEntry,
-        deleteProductSegmentEntry,
+        adminCreateProductSegmentEntry,
+        adminUpdateProductSegmentEntry,
+        adminDeleteProductSegmentEntry,
         //------------------- Roles -----------------------
-        createRole,
-        updateRole,
-        deleteRole,
+        adminCreateRole,
+        adminUpdateRole,
+        adminDeleteRole,
         //-------------------- Subscriptions --------------
-        createSubscription,
-        updateSubscription,
-        deleteSubscription,
+        adminCreateSubscription,
+        adminUpdateSubscription,
+        adminDeleteSubscription,
         //----------------------- Sale --------------------
         createSale,
         //----------------------- User --------------------

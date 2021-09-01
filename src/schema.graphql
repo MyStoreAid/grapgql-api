@@ -3,184 +3,184 @@ type Query {
     appointments: [Appointment!]!
     appointment(id: ID!): Appointment   
 #----------------- App Notifications ------------------
-    appNotifications: [AppNotification!]!
-    appNotification(id: ID!): AppNotification!
+    adminAppNotifications: [AppNotification!]!
+    adminAppNotification(id: ID!): AppNotification!
 #-------------------- Audit ---------------------------
-    audits: [Audit!]!
-    audit(id: ID!): Audit
+    adminAudits: [Audit!]!
+    adminAudit(id: ID!): Audit
 #-------------------- Branch ---------------------------
-    branches: [Branch!]!
-    branch(id: ID!): Branch
+    adminBranches: [Branch!]!
+    adminBranch(id: ID!): Branch
 #--------------- Branch Goal ----------------------------
-    branchGoals: [BranchGoal!]!
-    branchGoal(id: ID!): BranchGoal!
+    adminBranchGoals: [BranchGoal!]!
+    adminBranchGoal(id: ID!): BranchGoal!
 #--------------- Branch Supplier Salesperson ---------------------
-    findBranchEmployees(branchId: ID!): [BranchSupplierSalesperson!]
+    clientFindBranchEmployees(branchId: ID!): [BranchSupplierSalesperson!]
 #--------------- Branch User Group ---------------------
-    branchUserGroups: [BranchUserGroup!]!
-    branchUserGroup(id: ID): BranchUserGroup
+    adminBranchUserGroups: [BranchUserGroup!]!
+    adminBranchUserGroup(id: ID): BranchUserGroup
 #-------------------- Brand ---------------------------
     adminBrands: [Brand!]!
     adminBrand(id: ID!): Brand
 #--------------- Business Category ----------------------
-    businessCategories: [BusinessCategory!]!
-    businessCategory(id: ID!): BusinessCategory
+    adminBusinessCategories: [BusinessCategory!]!
+    adminBusinessCategory(id: ID!): BusinessCategory
 #--------------- Client ---------------------------------
     clients: [Client!]!
     client(name: String!): Client
 #--------------- Company --------------------------------
-    companies: [Company!]!
-    company(id: ID!): Company!
+    adminCompanies: [Company!]!
+    adminCompany(id: ID!): Company!
 #--------------- Customer --------------------------------
-    customers: [Customer!]!
-    customer(id: ID!): Customer
+    adminCustomers: [Customer!]!
+    adminCustomer(id: ID!): Customer
 #--------------- Feature ---------------------------------
-    features: [Feature!]!
-    feature(id: ID!): Feature
+    adminFeatures: [Feature!]!
+    adminFeature(id: ID!): Feature
 #-------- Internal Busines Category -----------------------
-    internalBusinessCategory(id: ID!): InternalBusinessCategory
-    internalBusinessCategories: [InternalBusinessCategory!]!
+    adminInternalBusinessCategory(id: ID!): InternalBusinessCategory
+    adminInternalBusinessCategories: [InternalBusinessCategory!]!
 #------------ Manufacturer --------------------------------
-    manufacturers: [Manufacturer!]!
-    manufacturer(id: ID!): Manufacturer
+    adminManufacturers: [Manufacturer!]!
+    adminManufacturer(id: ID!): Manufacturer
 #--------- Measurement Unit -------------------------------
-    measurementUnits: [MeasurementUnit!]!
-    measurementUnit(id: ID!): MeasurementUnit
+    adminMeasurementUnits: [MeasurementUnit!]!
+    adminMeasurementUnit(id: ID!): MeasurementUnit
 #------------- Permission ---------------------------------
-    permissions: [Permission!]!
-    permission(id: ID!): Permission
+    adminPermissions: [Permission!]!
+    adminPermission(id: ID!): Permission
 #------------- Product ------------------------------------
-    products: [Product!]!
-    product(id: ID!): Product
+    adminProducts: [Product!]!
+    adminProduct(id: ID!): Product
 #--------- Product Category  -------------------------------
-    productCategories: [ProductCategory!]!
-    productCategory(id: ID!): ProductCategory!
+    adminProductCategories: [ProductCategory!]!
+    adminProductCategory(id: ID!): ProductCategory!
 #--------- Product Description  ----------------------------
-    productDescriptions: [ProductDescription!]!
-    productDescription(id: ID!): ProductDescription!
+    adminProductDescriptions: [ProductDescription!]!
+    adminProductDescription(id: ID!): ProductDescription!
 #--------- Product Segment  ---------------------------------
-    productSegments: [ProductSegment!]!
-    productSegment(id: ID!): ProductSegment!
+    adminProductSegments: [ProductSegment!]!
+    adminProductSegment(id: ID!): ProductSegment!
 #------- Product Segment Entry  -----------------------------
-    productSegmentEntries: [ProductSegmentEntry!]!
-    productSegmentEntry(id: ID!): ProductSegmentEntry!
+    adminProductSegmentEntries: [ProductSegmentEntry!]!
+    adminProductSegmentEntry(id: ID!): ProductSegmentEntry!
 #------------- Role -----------------------------------------
-    roles: [Role!]!
-    role(id: ID!): Role
+    adminRoles: [Role!]!
+    adminRole(id: ID!): Role
 #------------- Sale -----------------------------------------
     sales: [Sale!]!
     sale(id: ID!): Sale
 #------------- Subscription ---------------------------------
-    subscriptions: [Subscription!]!
-    subscription(id : ID!): Subscription
+    adminSubscriptions: [Subscription!]!
+    adminSubscription(id : ID!): Subscription
 #------------- User -----------------------------------------
     adminUsers: [User!]!
     adminUser(userId: ID!): User
 #----------- User Branch ------------------------------------
-    findBranchUsers(branchId: String): [UserBranch]
+    clientFindBranchUsers(branchId: String): [UserBranch]
 }
 
 type Mutation {
 #--------------------------------------------------------------- Appointements -----------------------------------------------------------
-    createAppointment(type: String, status: String, createdById: String, lastModifiedById: String, assignedToId: String, request: String): Appointment!
-    updateAppointment(id: ID!, type: String, status: String, lastModifiedById: String, assignedToId: String, request: String): Appointment!
-    deleteAppointment(id: ID!): Appointment!
+    adminCreateAppointment(type: String, status: String, createdById: String, lastModifiedById: String, assignedToId: String, request: String): Appointment!
+    adminUpdateAppointment(id: ID!, type: String, status: String, lastModifiedById: String, assignedToId: String, request: String): Appointment!
+    adminDeleteAppointment(id: ID!): Appointment!
 #------------------------------------------------------------- App Notifications ---------------------------------------------------------
-    createAppNotification(title: String!, message: String!, actionMessage: String, actionPath: String, operation: String, cron: String): AppNotification!
-    updateAppNotification(id: ID!, title: String, message: String, actionMessage: String, actionPath: String, active: Boolean, operation: String, cron: String): AppNotification!
-    deleteAppNotification(id: ID!): AppNotification!
+    adminCreateAppNotification(title: String!, message: String!, actionMessage: String, actionPath: String, operation: String, cron: String): AppNotification!
+    adminUpdateAppNotification(id: ID!, title: String, message: String, actionMessage: String, actionPath: String, active: Boolean, operation: String, cron: String): AppNotification!
+    adminDeleteAppNotification(id: ID!): AppNotification!
 #----------------------------------------------------------------- Audit -----------------------------------------------------------------
     createAudit(status: String, branchId: String!,  createdById: String, isActive: Boolean, auditDate: Float, status: String, lastModifiedById: String, auditEntryIds: [String], branchProductStockIds: [String], saleIds: [String]): Audit!
     updateAudit(id: ID!, branchId: String, status: String, createdById: String, isActive: Boolean, auditDate: Float, status: String, lastModifiedById: String, auditEntryIds: [String], branchProductStockIds: [String], saleIds: [String]): Audit!
     deleteAudit(id: ID!): Audit!
 #---------------------------------------------------------------- Branch ---------------------------------------------------------------
-    createBranch(name: String!, startDate: Float, address: String, location: String!, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userIds: [String]): Branch!
-    updateBranch(id: ID, name: String!, startDate: Float, address: String, checkoutSales: Boolean, aggregateSales: Boolean, alwaysSync: Boolean, forTesting: Boolean, supplierStock: Boolean,location: String, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userId: String): Branch!
-    deleteBranch(id: ID): Branch!
+    adminCreateBranch(name: String!, startDate: Float, address: String, location: String!, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userIds: [String]): Branch!
+    adminUpdateBranch(id: ID, name: String!, startDate: Float, address: String, checkoutSales: Boolean, aggregateSales: Boolean, alwaysSync: Boolean, forTesting: Boolean, supplierStock: Boolean,location: String, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userId: String): Branch!
+    adminDeleteBranch(id: ID): Branch!
 #--------------------------------------------------------------- Branch Goal ------------------------------------------------------------
-    createBranchGoal(name: String!, position: Float!): BranchGoal!
-    updateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
-    deleteBranchGoal(id: ID!): BranchGoal!
+    adminCreateBranchGoal(name: String!, position: Float!): BranchGoal!
+    adminUpdateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
+    adminDeleteBranchGoal(id: ID!): BranchGoal!
 #--------------------------------------------------------------- Branch Supplier --------------------------------------------------------
     createBranchSupplier(branchId: String!, deliveryDays: String!, hidden: Boolean, createdBy: String!, branchContact: String, lastModifiedBy: String, supplierId: String ): BranchSupplier!
 #------------------------------------------------------------ Branch Supplier Salesperson ------------------------------------------------
     createBranchSupplierSalesperson(branchId: String!,  branchSupplierId: String, hidden: Boolean, createdBy: String!, employeeId: String!, employeeName: String!, employeeContact: String!): BranchSupplierSalesperson!                       
 #------------------------------------------------------------ Branch User Group ---------------------------------------------------------
-    createBranchUserGroup(name: String!, description: String): BranchUserGroup!
-    updateBranchUserGroup(id: ID!, name: String, description: String): BranchUserGroup!
-    deleteBranchUserGroup(id: ID!): BranchUserGroup!
+    adminCreateBranchUserGroup(name: String!, description: String): BranchUserGroup!
+    adminUpdateBranchUserGroup(id: ID!, name: String, description: String): BranchUserGroup!
+    adminDeleteBranchUserGroup(id: ID!): BranchUserGroup!
 #---------------------------------------------------------------- Brand -----------------------------------------------------------------
     adminCreateBrand(name: String!): Brand!
     adminUpdateBrand(id: ID!, name: String!): Brand!
     adminDeleteBrand(id: ID!): Brand!
 #------------------------------------------------------------- Business Category --------------------------------------------------------
-    createBusinessCategory(name: String!, description: String): BusinessCategory!
-    updateBusinessCategory(id: ID!, name: String, description: String): BusinessCategory!
-    deleteBusinessCategory(id: ID!): BusinessCategory!
+    adminCreateBusinessCategory(name: String!, description: String): BusinessCategory!
+    adminUpdateBusinessCategory(id: ID!, name: String, description: String): BusinessCategory!
+    adminDeleteBusinessCategory(id: ID!): BusinessCategory!
 #---------------------------------------------------------------- Client ---------------------------------------------------------------
     createClient(name:String!, displayName: String): Client!
     updateClient(name: String!, displayName: String!): Client!
     deleteClient(name: String!): Client!
 #--------------------------------------------------------------- Company ----------------------------------------------------------------
-    createCompany(name: String!, businessCategoryId: String, subscriptionId: String, email: String, phone: String, internalBusinessCategoryId: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
-    updateCompany(id: ID!, name: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
-    deleteCompany(id: ID!): Company!
+    adminCreateCompany(name: String!, businessCategoryId: String, subscriptionId: String, email: String, phone: String, internalBusinessCategoryId: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
+    adminUpdateCompany(id: ID!, name: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
+    adminDeleteCompany(id: ID!): Company!
 #--------------------------------------------------------------- Customer ---------------------------------------------------------------
-    createCustomer(firstName: String!, otherNames: String, phone: String!, email: String, location: String, isTemporary: Boolean, type: String, createdById: String, lastModifiedById: String, BranchesCustomerIds: [String], SalesEntryIds: [String], SaleInstallmentIds: String ): Customer!
-    updateCustomer(id: ID!, firstName: String!, otherNames: String, phone: String, email: String, location: String, isTemporary: Boolean, type: String, createdById: String, lastModifiedById: String, BranchesCustomerIds: [String], SalesEntryIds: [String], SaleInstallmentIds: String ): Customer!
-    deleteCustomer(id: ID!): Customer!
+    adminCreateCustomer(firstName: String!, otherNames: String, phone: String!, email: String, location: String, isTemporary: Boolean, type: String, createdById: String, lastModifiedById: String, BranchesCustomerIds: [String], SalesEntryIds: [String], SaleInstallmentIds: String ): Customer!
+    adminUpdateCustomer(id: ID!, firstName: String!, otherNames: String, phone: String, email: String, location: String, isTemporary: Boolean, type: String, createdById: String, lastModifiedById: String, BranchesCustomerIds: [String], SalesEntryIds: [String], SaleInstallmentIds: String ): Customer!
+    adminDeleteCustomer(id: ID!): Customer!
 #---------------------------------------------------------------- Feature ---------------------------------------------------------------
-    createFeature(name:String!, description: String): Feature!
-    updateFeature(id: ID!, name:String, description: String): Feature!
-    deleteFeature(id: ID!): Feature!
+    adminCreateFeature(name:String!, description: String): Feature!
+    adminUpdateFeature(id: ID!, name:String, description: String): Feature!
+    adminDeleteFeature(id: ID!): Feature!
 #-----------------------------------------------------------Internal Busines Category ---------------------------------------------------
-    createInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
-    updateInternalBusinessCategory(id: ID!, name: String, description: String): InternalBusinessCategory!
-    deleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
+    adminCreateInternalBusinessCategory(name: String, description: String): InternalBusinessCategory!
+    adminUpdateInternalBusinessCategory(id: ID!, name: String, description: String): InternalBusinessCategory!
+    adminDeleteInternalBusinessCategory(id: ID!): InternalBusinessCategory!
 #-------------------------------------------------------------- Manufacturer ------------------------------------------------------------
-    createManufacturer(name: String!): Manufacturer!
-    updateManufacturer(id: ID!, name: String!): Manufacturer!
-    deleteManufacturer(id: ID!): Manufacturer!
+    adminCreateManufacturer(name: String!): Manufacturer!
+    adminUpdateManufacturer(id: ID!, name: String!): Manufacturer!
+    adminDeleteManufacturer(id: ID!): Manufacturer!
 #------------------------------------------------------------ Measurement Unit ----------------------------------------------------------
-    createMeasurementUnit(name: String!, symbol: String!): MeasurementUnit!
-    updateMeasurementUnit(id: ID!, name: String, symbol: String): MeasurementUnit!
-    deleteMeasurementUnit(id: ID!): MeasurementUnit!
+    adminCreateMeasurementUnit(name: String!, symbol: String!): MeasurementUnit!
+    adminUpdateMeasurementUnit(id: ID!, name: String, symbol: String): MeasurementUnit!
+    adminDeleteMeasurementUnit(id: ID!): MeasurementUnit!
 #-------------------------------------------------------------- Permission --------------------------------------------------------------
-    createPermission(name: String!, description: String): Permission!
-    updatePermission(id: ID!, name: String, description: String): Permission!
-    deletePermission(id: ID!): Permission!
+    adminCreatePermission(name: String!, description: String): Permission!
+    adminUpdatePermission(id: ID!, name: String, description: String): Permission!
+    adminDeletePermission(id: ID!): Permission!
 #--------------------------------------------------------------- Product ----------------------------------------------------------------
-    createProduct(name: String!, description: String, summary: String, barCode: String, manufacturerId: String, brandId: String, productCategoryId: String, productSegmentId: String, measuerementUnitId: String, weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
-    updateProduct(id: ID, name: String!, description: String, summary: String, barCode: String,  weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
-    deleteProduct(id: ID!): Product!
+    adminCreateProduct(name: String!, description: String, summary: String, barCode: String, manufacturerId: String, brandId: String, productCategoryId: String, productSegmentId: String, measuerementUnitId: String, weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
+    adminUpdateProduct(id: ID, name: String!, description: String, summary: String, barCode: String,  weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
+    adminDeleteProduct(id: ID!): Product!
 #------------------------------------------------------------- Product Category  --------------------------------------------------------
-    createProductCategory(name: String!, summary: String): ProductCategory!
-    updateProductCategory(id: ID!, name: String, summary: String): ProductCategory!
-    deleteProductCategory(id: ID!): ProductCategory!
+    adminCreateProductCategory(name: String!, summary: String): ProductCategory!
+    adminUpdateProductCategory(id: ID!, name: String, summary: String): ProductCategory!
+    adminDeleteProductCategory(id: ID!): ProductCategory!
 #------------------------------------------------------------- Product Description  ------------------------------------------------------
-    createProductDescription(name: String!, summary: String): ProductDescription!
-    updateProductDescription(id: ID!, name: String, summary: String): ProductDescription!
-    deleteProductDescription(id: ID!): ProductDescription!
+    adminCreateProductDescription(name: String!, summary: String): ProductDescription!
+    adminUpdateProductDescription(id: ID!, name: String, summary: String): ProductDescription!
+    adminDeleteProductDescription(id: ID!): ProductDescription!
 #------------------------------------------------------------- Product Segment  ----------------------------------------------------------
-    createProductSegment(name: String!, description: String): ProductSegment!
-    updateProductSegment(id: ID!, name: String, description: String): ProductSegment!
-    deleteProductSegment(id: ID!): ProductSegment!
+    adminCreateProductSegment(name: String!, description: String): ProductSegment!
+    adminUpdateProductSegment(id: ID!, name: String, description: String): ProductSegment!
+    adminDeleteProductSegment(id: ID!): ProductSegment!
 #----------------------------------------------------------- Product Segment Entry  ------------------------------------------------------
-    createProductSegmentEntry(name: String!, productSegmentId: String!): ProductSegmentEntry!
-    updateProductSegmentEntry(id: ID!, name: String!): ProductSegmentEntry!
-    deleteProductSegmentEntry(id: ID!): ProductSegmentEntry!
+    adminCreateProductSegmentEntry(name: String!, productSegmentId: String!): ProductSegmentEntry!
+    adminUpdateProductSegmentEntry(id: ID!, name: String!): ProductSegmentEntry!
+    adminDeleteProductSegmentEntry(id: ID!): ProductSegmentEntry!
 #------------------------------------------------------------------ Role -----------------------------------------------------------------
-    createRole(name: String!, description: String): Role!
-    updateRole(id: ID!, name: String, description: String): Role!
-    deleteRole(id: ID!): Role!
+    adminCreateRole(name: String!, description: String): Role!
+    adminUpdateRole(id: ID!, name: String, description: String): Role!
+    adminDeleteRole(id: ID!): Role!
 #------------------------------------------------------------------ Sale -----------------------------------------------------------------
     createSale(note: String, paymentStatus: String, discount: Float, receiptNumber: String, type: String, paymentType: String, auditId: String, branchId: String!, createdById: String!, customerId: String!, lastModifiedById: String): Sale!
     updateSale(id: ID!, note: String, paymentStatus: String, discount: Float, salesDate: Float, receiptNumber: String, type: String, paymentType: String, auditId: String, branchId: String, createdById: String, customerId: String, lastModifiedById: String): Sale!
     deleteSale(id: ID!): Sale!
 #--------------------------------------------------------------- Subscription ------------------------------------------------------------
-    createSubscription(name: String!, description: String, numberOfBranches: Float!, companiesId: ID): Subscription!
-    updateSubscription(id: ID!, name: String!, description: String, numberOfBranches: Float): Subscription!
-    deleteSubscription(id: ID!): Subscription!
+    adminCreateSubscription(name: String!, description: String, numberOfBranches: Float!, companiesId: ID): Subscription!
+    adminUpdateSubscription(id: ID!, name: String!, description: String, numberOfBranches: Float): Subscription!
+    adminDeleteSubscription(id: ID!): Subscription!
 #------------------------------------------------------------------ User ----------------------------------------------------------------
     clientLoginUser(username: String!, password: String): LoginResponse!
     clientRefreshToken(userId: ID!): String!
