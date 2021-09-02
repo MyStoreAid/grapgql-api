@@ -10,8 +10,8 @@ import { adminCreateBranch, adminUpdateBranch, adminDeleteBranch } from './branc
 //------------------- Branch Goals ---------------
 import { adminBranchGoal, adminBranchGoals } from './branchGoals/admin/queries';
 import { adminCreateBranchGoal, adminUpdateBranchGoal, adminDeleteBranchGoal } from './branchGoals/admin/mutations';
-//-----------------  Branch Supplier -------------
-// import { createBranchSupplier } from './branchSuppliers/mutations';
+// -----------------  Branch Supplier -------------
+import { createBranchSupplier } from './branchSuppliers/mutations';
 //----------  Branch Supplier Salespersons -------
 import { clientFindBranchEmployees } from './branchSupplierSalespersons/client/queries';
 import { createBranchSupplierSalesperson } from './branchSupplierSalespersons/mutations';
@@ -30,6 +30,7 @@ import { createClient, updateClient, deleteClient } from './clients/mutations';
 //------------------- Company --------------------
 import { adminCompany, adminCompanies } from './companies/admin/queries';
 import { adminCreateCompany, adminUpdateCompany, adminDeleteCompany } from './companies/admin/mutations';
+import { clientCreateCompany } from './companies/client/mutation';
 //------------------ Customer --------------------
 import {adminCustomer, adminCustomers} from './customers/admin/queries';
 import {adminCreateCustomer, adminUpdateCustomer, adminDeleteCustomer} from './customers/admin/mutations';
@@ -69,6 +70,8 @@ import { adminCreateRole, adminUpdateRole, adminDeleteRole } from './roles/admin
 //-------------------- Subscriptions --------------
 import { adminSubscription, adminSubscriptions } from './subscriptions/admin/queries';
 import { adminCreateSubscription, adminUpdateSubscription, adminDeleteSubscription } from './subscriptions/admin/mutations';
+//-------------------- Supplier -------------------
+import { adminCreateSupplier } from './suppliers/admin/mutations';
 //----------------------- Sales -------------------
 import { createSale } from './sales/mutations';
 //----------------------- User --------------------
@@ -183,7 +186,7 @@ const resolvers = {
         adminUpdateBranchGoal,
         adminDeleteBranchGoal,
         //------------------- Branch Supplier ------------
-        // createBranchSupplier,
+        createBranchSupplier,
         //------------ Branch Supplier Salespersons ------
         createBranchSupplierSalesperson,
         //---------------- Branch User Goals -------------
@@ -206,6 +209,7 @@ const resolvers = {
         adminCreateCompany,
         adminUpdateCompany,
         adminDeleteCompany,
+        clientCreateCompany,
         //------------------ Customer --------------------
         adminCreateCustomer,
         adminUpdateCustomer,
@@ -254,12 +258,14 @@ const resolvers = {
         adminCreateRole,
         adminUpdateRole,
         adminDeleteRole,
+        //----------------------- Sale --------------------
+        createSale,
         //-------------------- Subscriptions --------------
         adminCreateSubscription,
         adminUpdateSubscription,
         adminDeleteSubscription,
-        //----------------------- Sale --------------------
-        createSale,
+        //-------------------- Supplier -------------------
+        adminCreateSupplier,
         //----------------------- User --------------------
         clientRefreshToken,
         clientRegisterUser,

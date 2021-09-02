@@ -653,7 +653,7 @@ model companies {
   companies_sync_histories              companies_sync_histories[]
   customer_care_schedules               customer_care_schedules[]
   users_branches                        users_branches[]
-  users_companies                       users_companies[]             @ignore
+  users_companies                       users_companies[]
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -1057,7 +1057,7 @@ model roles {
   updated_at        Float
   roles_permissions roles_permissions[] @ignore
   users_branches    users_branches[]
-  users_companies   users_companies[]   @ignore
+  users_companies   users_companies[]
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -1379,7 +1379,7 @@ model users {
   sync_changes                                                                                                sync_changes[]
   other_users                                                                                                 users[]                                      @relation("usersTousers_lastModifiedBy")
   users_branches                                                                                              users_branches[]
-  users_companies                                                                                             users_companies[]                            @ignore
+  users_companies                                                                                             users_companies[]
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -1406,7 +1406,7 @@ model users_branches {
   users                 users?    @relation(fields: [userId], references: [userId])
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+
 model users_companies {
   userId                String    @db.Uuid
   companyId             String    @db.Uuid
@@ -1415,9 +1415,8 @@ model users_companies {
   excludedPermissionIds Json?     @default("[]")
   created_at            Float
   updated_at            Float
+  id                    String    @id @db.Uuid
   companies             companies @relation(fields: [companyId], references: [id])
   roles                 roles     @relation(fields: [roleId], references: [id])
   users                 users     @relation(fields: [userId], references: [userId])
-
-  @@ignore
 }

@@ -1,3 +1,5 @@
+import SubscriptionModel from "../../resolvers/subscriptions/SubscriptionModel";
+import { PrismaModelContext } from "types/prisma";
 import Model from "../../models/Model";
 
 export default class CompanyModel extends Model {
@@ -8,5 +10,9 @@ export default class CompanyModel extends Model {
             'lastSyncAt'
         ];
     }
+
+    static async defaultSubscription(subscriptionContext: PrismaModelContext) {
+        return SubscriptionModel.findOneWhere(subscriptionContext, {name: 'Bronze'});
+      }
     
 }

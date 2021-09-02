@@ -9,7 +9,7 @@ export default async function createCompany (parent: any, args: Company, context
     const data = { 
         data: {
         name: args.name,
-        business_categories: args.businessCategoryId ? { connect: { id: args.businessCategoryId} } : { create: { name: "The Lite" } },
+        business_categories: { connect: { id: args.businessCategoryId} },
         subscription: args.subscriptionId ? { connect : { id: args.subscriptionId }} : undefined,
         email: args.email,
         phone: args.phone,
@@ -24,10 +24,7 @@ export default async function createCompany (parent: any, args: Company, context
             internal_business_categories: true,
             
 
-        }
-
-        
-        
+        }   
     }
   
     return await CompanyModel.createOneForeignKey(context.prisma.companies, data);

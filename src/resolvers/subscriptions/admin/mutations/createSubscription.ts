@@ -10,7 +10,4 @@ export default async function createSubscription (parent: any, args: Subscriptio
     };
 
     return await SubscriptionModel.createOne(context.prisma.subscriptions, data)
-            
-        
-    
 }

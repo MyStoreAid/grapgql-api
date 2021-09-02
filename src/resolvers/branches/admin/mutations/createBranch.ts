@@ -10,20 +10,20 @@ export default async function createBranch (parent: any, args: Branch, context: 
     const currentTime: number = TimeHelper.currentTime;
 
     let branchUsers: [{ branchId: String, userId: String}] | any = [];
-    if (args.userIds.length > 0) {
-        // for (let id of args.userIds) {
+    if (args.branchUserIds.length > 0) {
+        // for (let id of args.branchUserIds) {
         //     branchUsers.push({ 
         //         id: UuidHelper.newUuid,
-        //         roleId: "49c2829d-e988-4ad6-8e41-568bd5c02260",
+        //         roleId: "d8cac356-8c1b-4099-adaf-66331da368da",
         //         userId: id,
-        //         companyId: "9afd12ff-202a-486f-b976-459307d0f8b2",
+        //         companyId: "a70d4b8e-fad3-4a6b-b234-fc864c87d59b",
         //         created_at: currentTime,
         //         updated_at: currentTime,
         //         server_created_at: currentTime,
         //         last_modified: currentTime,
         //     });
         // }
-        //Needs touchup
+        
     }
     const data: any = {
         data: {
@@ -60,7 +60,7 @@ export default async function createBranch (parent: any, args: Branch, context: 
             branch_user_groups: args.branchUserGroupId ? { connect: { id: args.branchUserGroupId } } : undefined,
             business_categories: args.businessCategoryId ? { connect: { id: args.businessCategoryId } } : undefined,
             companies: args.companyId ? { connect: { id: args.companyId } } : undefined,
-            users_branches: args.userIds.length > 0 ? { createMany : { data: branchUsers } } : undefined,
+            users_branches: args.branchUserIds.length > 0 ? { createMany : { data: branchUsers } } : undefined,
             
 
         },

@@ -115,6 +115,9 @@ export default class Model {
         return context.create({ data });
     }
 
+    
+
+
     static async createOneForeignKey(context: PrismaModelContext, params: any): Promise<any> {
         const data = params.data;
         const include = params.include;

@@ -6,37 +6,40 @@ export interface LoginUserPayload {
     password: string
 }
 export interface LoginResponse {
-    token: string,
+    token: string
     access?: any
 }
 
 export interface VerifyUserResponse {
-    token: string,
+    token: string
 }
 
 export interface RegisterUserResponse {
-    userId: UserId,
-    phone: String,
-    email: String,
-    country: String,
-    otp: String,
-    callingCode: String,
-    username: String,
+    userId: UserId
+    phone: String
+    email: String
+    country: String
+    otp: String
+    callingCode: String
+    username: String
 }
 
 export interface RegisterUserPayload {
-    phone: String,
-    email?: String,
-    country: String,
-    otp: String,
-    status?: String,
-    password?: string,
-    callingCode: String,
-    username?: String,
+    userId: String
+    phone: String
+    email?: String
+    country: String
+    otp: String
+    firstName?: String,
+    otherNames: String,
+    status?: String
+    password?: string
+    callingCode: String
+    username?: String
 }
 export interface SetUserPassword extends RegisterUserPayload {
-    userId: UserId;
-    username: String;
+    userId: UserId
+    username: String
 
 }
 

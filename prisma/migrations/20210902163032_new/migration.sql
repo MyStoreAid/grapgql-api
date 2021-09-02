@@ -1205,7 +1205,9 @@ CREATE TABLE "users_branches" (
     "deleted" BOOLEAN NOT NULL DEFAULT false,
     "server_created_at" DOUBLE PRECISION,
     "last_modified" DOUBLE PRECISION,
-    "id" UUID
+    "id" UUID NOT NULL,
+
+    PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -1216,7 +1218,10 @@ CREATE TABLE "users_companies" (
     "addedPermissionIds" JSONB DEFAULT E'[]',
     "excludedPermissionIds" JSONB DEFAULT E'[]',
     "created_at" DOUBLE PRECISION NOT NULL,
-    "updated_at" DOUBLE PRECISION NOT NULL
+    "updated_at" DOUBLE PRECISION NOT NULL,
+    "id" UUID NOT NULL,
+
+    PRIMARY KEY ("id")
 );
 
 -- CreateIndex
