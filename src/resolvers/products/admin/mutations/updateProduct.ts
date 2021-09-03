@@ -2,13 +2,13 @@ import { Product } from '../../types';
 import ProductModel from '../../ProductModel';
 
 
-export default async function updateProduct (parent: any, args: Product, context: any): Promise<Product> | never{
+export default async function updateProduct (parent: any, args: Product): Promise<Product> | never{
     
     let existingProduct!: Product;
     const productId: string = args.id;
 
     try {
-        existingProduct = await ProductModel.findOne(context.prisma.products, productId);
+        existingProduct = await ProductModel.findOne(productId);
     } catch(error: unknown) {
         console.error(error);
         throw new Error(`There was an error fetching Product with ID ${productId}`);
@@ -29,5 +29,5 @@ export default async function updateProduct (parent: any, args: Product, context
 
     };
     
-    return await ProductModel.updateOne(context.prisma.products, productId, data)
+    return await ProductModel.updateOne(productId, data)
 }

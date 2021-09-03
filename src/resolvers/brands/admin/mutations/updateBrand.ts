@@ -1,12 +1,12 @@
 import BrandModel from '../../BrandModel';
 import { Brand } from "../../types";
 
-export default async function updateBrand(parent: any, args: Brand, context:any): Promise<Brand> | never {
+export default async function updateBrand(parent: any, args: Brand): Promise<Brand> | never {
     let existingBrand!: Brand;
     const brandId: string = args.id;
     
     try {
-        existingBrand = await BrandModel.findOne(context.prisma.brands, brandId);
+        existingBrand = await BrandModel.findOne(brandId);
     } catch(error: unknown) {
         console.error(error);
         throw new Error(`There was an error fetching brands with ID ${args.id}`);
@@ -18,5 +18,5 @@ export default async function updateBrand(parent: any, args: Brand, context:any)
 
    
 
-    return BrandModel.updateOne(context.prisma.brands, brandId, args);
+    return BrandModel.updateOne(brandId, args);
 }

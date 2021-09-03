@@ -12,5 +12,5 @@ export default async function customers (parent: any, args: Customer, context: a
         sales: true,
     }
     
-    return await CustomerModel.findManyForeignKey(context.prisma.customers, data);
+    return await CustomerModel.findManyForeignKey(data);
 }

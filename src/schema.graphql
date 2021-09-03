@@ -104,7 +104,7 @@ type Mutation {
 #--------------------------------------------------------------- Branch Supplier --------------------------------------------------------
     createBranchSupplier(branchId: String!, deliveryDays: String!, hidden: Boolean, createdBy: String!, branchContact: String, lastModifiedBy: String, supplierId: String ): BranchSupplier!
 #------------------------------------------------------------ Branch Supplier Salesperson ------------------------------------------------
-    createBranchSupplierSalesperson(branchId: String!,  branchSupplierId: String, hidden: Boolean, createdBy: String!, employeeId: String!, employeeName: String!, employeeContact: String!): BranchSupplierSalesperson!                       
+    clientCreateBranchSupplierSalesperson(branchId: String!,  branchSupplierId: String, hidden: Boolean, createdBy: String!, employeeId: String!, employeeName: String!, employeeContact: String!): BranchSupplierSalesperson!                       
 #------------------------------------------------------------ Branch User Group ---------------------------------------------------------
     adminCreateBranchUserGroup(name: String!, description: String): BranchUserGroup!
     adminUpdateBranchUserGroup(id: ID!, name: String, description: String): BranchUserGroup!

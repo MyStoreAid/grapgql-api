@@ -2,7 +2,7 @@ import { RegisterUserPayload, RegisterUserResponse, User} from '../../types';
 import UserModel from '../../UserModel';
 
 
-export default async function registerUser(parent: any, args: RegisterUserPayload, context: any): Promise<RegisterUserResponse> | never{
+export default async function registerUser(parent: any, args: RegisterUserPayload): Promise<RegisterUserResponse> | never{
 
     let newUser: User;
     let formattedPhoneNumber;
@@ -37,7 +37,7 @@ export default async function registerUser(parent: any, args: RegisterUserPayloa
 
     try {
 
-        existingUser = await UserModel.findOneWhere(context.prisma.users, condition);
+        existingUser = await UserModel.findOneWhere(condition);
 
 
     } catch(error: unknown) {
@@ -56,14 +56,11 @@ export default async function registerUser(parent: any, args: RegisterUserPayloa
             country: args.country,
             otp: args.otp,
             email: args.email,
-            firstName: args.firstName,
-            otherNames: args.otherNames,
             status: args.status ? args.status : 'unconfirmed',
-           
         };
 
         
-        newUser = await UserModel.createOne(context.prisma.users, data);
+        newUser = await UserModel.createOne(data);
 
 
         if (newUser) {

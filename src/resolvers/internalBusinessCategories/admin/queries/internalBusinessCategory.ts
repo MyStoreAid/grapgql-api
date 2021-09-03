@@ -6,7 +6,7 @@ export default async function internalBusinessCategory (parent: any, args: Inter
     const internalBusinessCategoryId: string = args.id;
 
     try {
-        result = await InternalBusinessCategoryModel.findOne(context.prisma.internal_business_categories, internalBusinessCategoryId);
+        result = await InternalBusinessCategoryModel.findOne(internalBusinessCategoryId);
     } catch (error: unknown) {
         new Error(`There was an error getting InternalBusinessCategory with ID ${internalBusinessCategoryId}.`);
     }

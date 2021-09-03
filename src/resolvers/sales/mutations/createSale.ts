@@ -3,7 +3,7 @@ import SaleModel from '../SaleModel';
 
 
 
-export default async function createSale (parent: any, args: Sale, context: any): Promise<Sale> {
+export default async function createSale (parent: any, args: Sale): Promise<Sale> {
     const data = {
         data: {
             note: args.note,
@@ -35,5 +35,5 @@ export default async function createSale (parent: any, args: Sale, context: any)
 
     
     
-    return SaleModel.createOneForeignKey(context.prisma.sales, data);
+    return SaleModel.createOneForeignKey(data);
 }

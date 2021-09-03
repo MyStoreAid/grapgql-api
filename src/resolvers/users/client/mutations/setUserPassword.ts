@@ -3,7 +3,7 @@ import { SetUserPassword, RegisterUserResponse, User} from '../../types';
 import UserModel from '../../UserModel';
 
 
-export default async function setUserPassword(parent: any, args: SetUserPassword, context: any): Promise<RegisterUserResponse> | never {
+export default async function setUserPassword(parent: any, args: SetUserPassword): Promise<RegisterUserResponse> | never {
 
     let existingUser: User; 
     let newUser: RegisterUserResponse;
@@ -17,7 +17,7 @@ export default async function setUserPassword(parent: any, args: SetUserPassword
                     { otp: args.otp }
                 ]
             }
-            existingUser = await UserModel.findOneWhere(context.prisma.users, condition);
+            existingUser = await UserModel.findOneWhere(condition);
             
 
         }
@@ -34,7 +34,7 @@ export default async function setUserPassword(parent: any, args: SetUserPassword
                 }
 
                 const data: {username: String | undefined, password: String, status: String} = { username: username, password: password, status: "confirmed" };
-                newUser = await UserModel.updateOne(context.prisma.users, existingUser.userId, data);
+                newUser = await UserModel.updateOne(existingUser.userId, data);
                 return newUser;
             }
             throw new Error("Password Required");

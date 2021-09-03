@@ -18,22 +18,21 @@ import IpLocator from "../services/IpLocator";
 import addressInfoFromGps from "./AddressInfoFromGPS";
 import { generateHash } from "../resolvers/users/helpers";
 import UuidHelper from "./UuidHelper";
-import { PrismaModelContext } from "types/prisma";
 import { Branch, BranchId } from "resolvers/branches/types";
-import { Customer } from "resolvers/customers/types";
+import { Customer } from "../resolvers/customers/types";
 import { logger } from "../../config/logger";
 import { UserId, User, RegisterUserPayload } from "resolvers/users/types";
-import { Company, CompanyId } from "resolvers/companies/types";
-import { Role, RoleId } from "resolvers/roles/types";
-import { Subscription } from "resolvers/subscriptions/types";
-import { UserBranch } from "resolvers/userBranches/types";
-import { CashCustomerContext, CashSupplierContext, CreateBranchContext, CreateCompanyContext, CustomerCareforNewBranchContext } from "./types";
+import { Company, CompanyId } from "../resolvers/companies/types";
+import { Role, RoleId } from "../resolvers/roles/types";
+import { Subscription } from "../resolvers/subscriptions/types";
+import { UserBranch } from "../resolvers/userBranches/types";
+import UserAccessService from "../services/UserAccessService";
 
 export default class CompanyRegistrationHelper {
-    static async setCashCustomer(cashCustomerContext: CashCustomerContext, branchId: BranchId) {
+    static async setCashCustomer(branchId: BranchId) {
         let cashCustomer: Customer 
         try{
-          cashCustomer = await CustomerModel.findOneWhere(cashCustomerContext.customerContext , {AND :
+          cashCustomer = await CustomerModel.findOneWhere({AND :
             [{firstName: 'Cash'}, {otherNames: 'Customer'}]
           });
           
@@ -53,17 +52,17 @@ export default class CompanyRegistrationHelper {
               customers: true,
             }
           }
-          return await BranchCustomerModel.createOneForeignKey(cashCustomerContext.branchCustomerContext , data);
+          return await BranchCustomerModel.createOneForeignKey(data);
         } else {
           throw new Error(`There exists no Customer with name Cash Customer. `)
         }
     }
 
-    static async setCashSupplier(cashSupplierContext: CashSupplierContext, branchId: BranchId, userId: UserId) {
+    static async setCashSupplier(branchId: BranchId, userId: UserId) {
         
         let cashSupplier;
         try{
-        cashSupplier = await SupplierModel.findOneWhere(cashSupplierContext.supplierContext, { name: 'Cash Supplier' });
+        cashSupplier = await SupplierModel.findOneWhere({ name: 'Cash Supplier' });
         }
         catch(error: any){
           throw new Error(`There was an error finding Cash Supplier with name Cash Supplier. Error Message ${error}`)
@@ -71,14 +70,14 @@ export default class CompanyRegistrationHelper {
 
         if (cashSupplier) {
           
-          await BranchSupplierModel.createOneForeignKey( cashSupplierContext.branchSupplierContext , {
+          await BranchSupplierModel.createOneForeignKey({
             data: {
               branches: { connect: { id: branchId}},
               supplierId: cashSupplier.id,
               branchName: cashSupplier.name,
               branchContact: cashSupplier.phone,
               dateAdded: moment().unix(),
-              deliveryDays: SupplierModel._allDeliveryDays,
+              deliveryDays: JSON.stringify(SupplierModel._allDeliveryDays),
               users_branch_suppliers_createdByTousers: { connect: { userId: userId} }
             },
             include: {
@@ -92,9 +91,9 @@ export default class CompanyRegistrationHelper {
         }
     }
 
-    static async assignUserToCompany( userCompanyContext: PrismaModelContext, userId: UserId, companyId: CompanyId, roleId: RoleId) {
-        console.log("here")
-        await UserCompanyModel.createOneForeignKey( userCompanyContext ,{
+    static async assignUserToCompany(userId: UserId, companyId: CompanyId, roleId: RoleId) {
+        
+        await UserCompanyModel.createOneForeignKey({
           data: { 
             users: { connect: {userId: userId } }, 
             companies: { connect: { id: companyId } }, 
@@ -109,8 +108,8 @@ export default class CompanyRegistrationHelper {
         console.log("done")
     }
 
-    static async assignUserToBranch( userBranchContext: PrismaModelContext, userId: UserId, companyId: CompanyId, branchId: BranchId, roleId: RoleId, main: boolean = false): Promise<UserBranch> {
-        return UserBranchModel.createOneForeignKey( userBranchContext, { 
+    static async assignUserToBranch(userId: UserId, companyId: CompanyId, branchId: BranchId, roleId: RoleId, main: boolean = false): Promise<UserBranch> {
+        return UserBranchModel.createOneForeignKey({ 
           data: {
             users: { connect: { userId: userId } }, 
             companies: { connect: { id: companyId } }, 
@@ -126,19 +125,19 @@ export default class CompanyRegistrationHelper {
           });
     }
 
-    static async createAndUpdateCompany(createCompanyContext: CreateCompanyContext,  companyParams: any, ownerRole: Role): Promise<Company> {
+    static async createAndUpdateCompany(companyParams: any, ownerRole: Role): Promise<Company> {
         let subscription: Subscription;  
         if (!companyParams.data.subscriptions) {
-         subscription  = await CompanyModel.defaultSubscription(createCompanyContext.subscriptionContext);
+         subscription  = await CompanyModel.defaultSubscription();
          companyParams.data.subscriptions = { connect: { id: subscription.id }};
         }
 
-        const newCompany: Company = await CompanyModel.createOneForeignKey(createCompanyContext.companyContext, companyParams);
+        const newCompany: Company = await CompanyModel.createOneForeignKey(companyParams);
         // newCompany.role = ownerRole.name;
         // newCompany.permissions = ownerRole.permissions;
         if (!newCompany.subscriptionId) {
-          subscription  = await CompanyModel.defaultSubscription(createCompanyContext.subscriptionContext);
-          newCompany.subscriptionId = await CompanyModel.updateOneForeignKey(createCompanyContext.companyContext, newCompany.id, { 
+          subscription  = await CompanyModel.defaultSubscription();
+          newCompany.subscriptionId = await CompanyModel.updateOneForeignKey(newCompany.id, { 
             data: {
               subscriptions: { connect: { id: subscription.id}}
             },
@@ -152,12 +151,12 @@ export default class CompanyRegistrationHelper {
         return newCompany;
     }
 
-    static async createAndUpdateBranch( createBranchContext: CreateBranchContext, newBranchParams: any, companyId: CompanyId, ownerRole: Role): Promise<Branch> {
+    static async createAndUpdateBranch(newBranchParams: any, companyId: CompanyId, ownerRole: Role): Promise<Branch> {
         const branchParams: any = newBranchParams;
         branchParams.companyId = companyId;
         
         if (!branchParams.branchUserGroupId) {
-          const defaultBranchUserGroup = await BranchUserGroupModel.getDefault(createBranchContext.branchUserGroupContext);
+          const defaultBranchUserGroup = await BranchUserGroupModel.getDefault();
           if (defaultBranchUserGroup) {
             branchParams.data.branchUserGroupId = defaultBranchUserGroup.id;
           }
@@ -169,12 +168,12 @@ export default class CompanyRegistrationHelper {
           branchParams.data.latitude = branchParams.data.gps.lat;
         }
         branchParams.data.id = UuidHelper.newUuid;
-        const newBranch = await BranchModel.createOneForeignKey(createBranchContext.branchContext, branchParams);
+        const newBranch = await BranchModel.createOneForeignKey(branchParams);
         // newBranch.role = ownerRole.name;
         // newBranch.permissions = ownerRole.permissions;
 
         if (branchParams.data.appointmentId && branchParams.data.appointmentId.length !== 0) {
-          await AppointmentModel.updateOneForeignKey(createBranchContext.appointmentContext, branchParams.appointmentId, { 
+          await AppointmentModel.updateOneForeignKey(branchParams.appointmentId, { 
             data:{
               branches: { connect: { id: newBranch.id }  }
             },
@@ -187,17 +186,15 @@ export default class CompanyRegistrationHelper {
         return newBranch;
     }
 
-    static async assignCustomerCareForNewBranch(CustomerCareContext: CustomerCareforNewBranchContext,customerCareId: UserId, companyId: CompanyId, branchId: BranchId, callerInstance: any) {
-        const customerCareUser: User = await UserModel.findOneWhere( CustomerCareContext.userContext, {userId: customerCareId});
-        const customerCareRole: Role = await RoleModel.findOneWhere( CustomerCareContext.roleContext, {name: 'customer care'});
+    static async assignCustomerCareForNewBranch(customerCareId: UserId, companyId: CompanyId, branchId: BranchId) {
+        const customerCareUser: User = await UserModel.findOneWhere({userId: customerCareId});
+        const customerCareRole: Role = await RoleModel.findOneWhere({name: 'customer care'});
 
         if (customerCareId && customerCareUser && customerCareRole) {
-          await this.assignUserToCompany(CustomerCareContext.userCompanyContext, customerCareId, companyId, customerCareRole.id);
-          await this.assignUserToBranch(CustomerCareContext.userBranchContext, customerCareId, companyId, branchId, customerCareRole.id, true);
-          console.log("here Inside");
-          await UserAccess.deleteOne( CustomerCareContext.userAccessContext,  customerCareId)
-          console.log("after inside");
-          return callerInstance.userAccess(customerCareUser, [companyId]);
+          await this.assignUserToCompany(customerCareId, companyId, customerCareRole.id);
+          await this.assignUserToBranch(customerCareId, companyId, branchId, customerCareRole.id, true);
+          // await UserAccess.deleteOne(customerCareId)
+          return UserAccessService.getUserAccess(customerCareUser, [companyId]);
         }
     }
 
@@ -231,16 +228,16 @@ export default class CompanyRegistrationHelper {
         }
     }
 
-    static async createNewBranchOwner(userContext: PrismaModelContext, userParams: RegisterUserPayload) {
+    static async createNewBranchOwner(userParams: RegisterUserPayload) {
         if(userParams.password){
           userParams.password = await generateHash(userParams.password);
         }
         userParams.userId = UuidHelper.newUuid;
         userParams.status = 'unconfirmed';
-        return UserModel.createOne( userContext, userParams );
+        return UserModel.createOne(userParams);
     }
 
-    static async setBranchProductCategories( branchProductCategoryContext: PrismaModelContext, branchParams: Branch, branchId: BranchId) {
+    static async setBranchProductCategories(branchParams: Branch, branchId: BranchId) {
         if (branchParams.branchProductCategoryIds && branchParams.branchProductCategoryIds.length > 0) {
           const branchProductCategoryIds = branchParams.branchProductCategoryIds;
           const branchProductCategoriesParams = branchProductCategoryIds.map((pcId) => ({
@@ -249,11 +246,11 @@ export default class CompanyRegistrationHelper {
             productCategoryId: pcId,
           }));
 
-          await BranchProductCategoryModel.createMany( branchProductCategoryContext, branchProductCategoriesParams);
+          await BranchProductCategoryModel.createMany(branchProductCategoriesParams);
         }
     }
 
-    static async setBranchGoals( BranchBranchGoalContext: PrismaModelContext, branchId: BranchId, goalIds = []) {
+    static async setBranchGoals(branchId: BranchId, goalIds = []) {
         const allBranchGoalParams = [];
         for (const goalId of goalIds) {
           allBranchGoalParams.push({
@@ -262,7 +259,7 @@ export default class CompanyRegistrationHelper {
           });
         }
         if (allBranchGoalParams.length > 0) {
-          await BranchBranchGoalModel.createMany( BranchBranchGoalContext,allBranchGoalParams);
+          await BranchBranchGoalModel.createMany(allBranchGoalParams);
         }
     }
 }

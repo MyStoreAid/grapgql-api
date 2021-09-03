@@ -1,6 +1,11 @@
 import Model from "../../models/Model";
 
 export default class BranchCustomerModel extends Model {
+
+    static get table() {
+        return this.connection.branches_customers;
+    }
+
     static get timestampFields(): string[] {
         return [
             'created_at',
@@ -9,4 +14,6 @@ export default class BranchCustomerModel extends Model {
             'last_modified'
         ];
     }
+
+    
 }

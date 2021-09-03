@@ -3,12 +3,12 @@ import CompanyModel from "../../CompanyModel";
 
 
 
-export default async function deleteCompany (parent: any, args: CompanyIdArgs, context: any): Promise<Company> | never {
+export default async function deleteCompany (parent: any, args: CompanyIdArgs): Promise<Company> | never {
     let existingCompany!: Company;
     const companyId: string = args.id;
 
     try {
-        existingCompany = await CompanyModel.findOne(context.prisma.companies, companyId)
+        existingCompany = await CompanyModel.findOne(companyId)
     } catch (error: unknown) {
         console.error(error);
         throw new Error(`There is an error fetching a business category with ID ${companyId}`);
@@ -18,5 +18,5 @@ export default async function deleteCompany (parent: any, args: CompanyIdArgs, c
         throw new Error(`There is no business category with ID ${companyId}`);
     }
 
-    return await CompanyModel.updateOne(context.prisma.companies, companyId, args)
+    return await CompanyModel.deleteOne(companyId)
 }

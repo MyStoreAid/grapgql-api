@@ -1,7 +1,7 @@
 import { Branch } from "../../types";
 import BranchModel from "../../BranchModel";
 
-export default async function branches (parent: any, args: Branch, context: any): Promise<Branch[]> {
+export default async function branches (parent: any, args: Branch): Promise<Branch[]> {
 
     const data = {             
         appointments: true,
@@ -10,5 +10,5 @@ export default async function branches (parent: any, args: Branch, context: any)
         companies: true,
         users: true,}
     
-    return await BranchModel.findManyForeignKey(context.prisma.branches, data);
+    return await BranchModel.findManyForeignKey(data);
 }

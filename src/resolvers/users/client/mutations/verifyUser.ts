@@ -7,16 +7,15 @@ export default async function verifyUser(parent: any, args: VerifyUserPayload, c
     const {phone, otp} = args;
 
     try {
-        user = await UserModel.findOneWhere(context.prisma.users, {
-            phone,
-            otp
+        user = await UserModel.findOneWhere({ AND: 
+            [{ phone: phone }, {otp: otp} ]
         });
 
         if (!user) {
             throw new Error(`Wrong OTP. Please try again`);
         }
 
-        const updatedUser: UserWithPassword = await UserModel.updateOne(context.prisma.users, user.userId, {
+        const updatedUser: UserWithPassword = await UserModel.updateOne(user.userId, {
             status: 'confirmed'
         });
 

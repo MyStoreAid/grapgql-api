@@ -9,5 +9,7 @@ export default class AuditModel extends Model{
             'last_modified'
         ];
     }
-    
+    static get table() {
+        return this.connection.audits;
+    }
 }

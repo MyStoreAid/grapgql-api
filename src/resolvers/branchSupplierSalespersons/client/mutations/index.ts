@@ -3,5 +3,5 @@ import createBranchSupplierSalesperson from "./createBranchSupplierSalesperson";
 
 
 export {
-    createBranchSupplierSalesperson,
+    createBranchSupplierSalesperson as clientCreateBranchSupplierSalesperson,
 }

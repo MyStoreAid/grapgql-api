@@ -2,7 +2,7 @@ import { Customer } from '../../types';
 import CustomerModel from '../../CustomerModel';
 
 
-export default async function updateCustomer (parent: any, args: Customer, context: any): Promise<Customer> | never{
+export default async function updateCustomer (parent: any, args: Customer): Promise<Customer> | never{
     
     let existingCustomer!: Customer;
     const customerId: string = args.id;
@@ -38,7 +38,7 @@ export default async function updateCustomer (parent: any, args: Customer, conte
     
 
     try {
-        existingCustomer = await CustomerModel.findOne(context.prisma.customers, customerId);
+        existingCustomer = await CustomerModel.findOne(customerId);
     } catch(error: unknown) {
        
         throw new Error(`There was an error fetching Customer with ID ${customerId}`);
@@ -48,5 +48,5 @@ export default async function updateCustomer (parent: any, args: Customer, conte
         throw new Error(`There is no Customer with ID ${customerId}`);
     }
     
-    return await CustomerModel.updateOneForeignKey(context.prisma.customers, customerId, data);
+    return await CustomerModel.updateOneForeignKey(customerId, data);
 }

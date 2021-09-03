@@ -1,7 +1,7 @@
 import { Audit } from "../../types";
 import AuditModel from "../../AuditModel";
 
-export default async function audits (parent: any, args: Audit, context: any): Promise<Audit[]> {
+export default async function audits (parent: any, args: Audit): Promise<Audit[]> {
 
     const data = { 
         branches: true,
@@ -9,5 +9,5 @@ export default async function audits (parent: any, args: Audit, context: any): P
         users_audits_lastModifiedByTousers: true,
     }
     
-    return await AuditModel.findManyForeignKey(context.prisma.audits, data);
+    return await AuditModel.findManyForeignKey(data);
 }

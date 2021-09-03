@@ -6,7 +6,7 @@ export default async function businessCategory (parent: any, args: BusinessCateg
     const businessCategoryId: string = args.id;
 
     try {
-        result = await BusinessCategoryModel.findOne(context.prisma.business_categories, businessCategoryId)
+        result = await BusinessCategoryModel.findOne(businessCategoryId)
     } catch (error: unknown) {
         new Error(`There was an error getting business category with ID ${businessCategoryId}.`);
     }

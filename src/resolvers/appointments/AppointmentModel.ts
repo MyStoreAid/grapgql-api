@@ -9,4 +9,8 @@ export default class AppointmentModel extends Model {
             
         ];
     }
+
+    static get table() {
+        return this.connection.appointments;
+    }
 }

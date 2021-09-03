@@ -1,7 +1,7 @@
 import SupplierModel from '../../SupplierModel';
 import { Supplier } from '../../types';
 
-export default async function createSupplier (parent: any, args: Supplier, context: any): Promise<Supplier> {
+export default async function createSupplier (parent: any, args: Supplier): Promise<Supplier> {
     const data = {
         data: {
             name: args.name,
@@ -17,5 +17,5 @@ export default async function createSupplier (parent: any, args: Supplier, conte
         }
     };
 
-    return await SupplierModel.createOneForeignKey(context.prisma.suppliers, data)
+    return await SupplierModel.createOneForeignKey(data)
 }

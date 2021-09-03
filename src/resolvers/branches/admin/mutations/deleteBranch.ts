@@ -6,7 +6,7 @@ export default async function deleteBranch (parent: any, args: BranchIdArgs, con
     const branchId: string = args.id;
 
     try {
-        existingBranch = await BranchModel.findOne(context.prisma.branches, branchId)
+        existingBranch = await BranchModel.findOne(branchId)
     } catch (error: unknown) {
         console.error(error);
         throw new Error(`There is an error fetching a Branch with ID ${branchId}`);
@@ -16,5 +16,5 @@ export default async function deleteBranch (parent: any, args: BranchIdArgs, con
         throw new Error(`There is no Branch with ID ${branchId}`);
     }
 
-    return BranchModel.deleteOne(context.prisma.branches, branchId);
+    return BranchModel.deleteOne(branchId);
 }

@@ -4,7 +4,6 @@ import UserModel from '../../../../resolvers/users/UserModel';
 import { Branch } from '../../../../resolvers/branches/types';
 import RoleModel from '../../../../resolvers/roles/RoleModel';
 import { Role } from '../../../../resolvers/roles/types';
-import { CashCustomerContext, CashSupplierContext, CreateBranchContext, CreateCompanyContext, CustomerCareforNewBranchContext } from 'helpers/types';
 import CompanyRegistrationHelper from '../../../../helpers/CompanyRegistrationHelper';
 import UuidHelper from "../../../../helpers/UuidHelper";
 import TimeHelper from "../../../../helpers/TimeHelper";
@@ -12,14 +11,14 @@ import TimeHelper from "../../../../helpers/TimeHelper";
 export default async function createCompany(parent: any, args: ClientCreateCompanyArgs, context: any, info: any): Promise<Company> | never{
     const userId: String = context.userId;
     
-    const user = context.user && context.user.userId === userId ? context.user : await UserModel.findOneWhere(context.prisma.users, {userId: userId});
+    const user = context.user && context.user.userId === userId ? context.user : await UserModel.findOneWhere({userId: userId});
     let newCompany: Company;
     let newBranch: Branch;
     let ownerRole: Role; 
-    
+    console.log("here");
 
     try {
-      ownerRole = await RoleModel.findOneWhere(context.prisma.roles, {name: 'owner'}); 
+      ownerRole = await RoleModel.findOneWhere({name: 'owner'}); 
       //   ownerRole.permissions = ownerRole.permissions.map((p) => p.name);
     }
     catch(error: any){
@@ -27,11 +26,7 @@ export default async function createCompany(parent: any, args: ClientCreateCompa
     }
     ;
     if (user && ownerRole) {
-        const companyContext: CreateCompanyContext = {companyContext: context.prisma.companies, subscriptionContext: context.prisma.subscriptions};
-        const branchContext: CreateBranchContext = { appointmentContext: context.prisma.appointments, branchUserGroupContext: context.prisma.branch_user_groups, branchContext: context.prisma.branches};
-        const cashCustomerContext: CashCustomerContext = { customerContext: context.prisma.customers, branchCustomerContext: context.prisma.branches_customers};
-        const cashSupplierContext: CashSupplierContext =  { supplierContext: context.prisma.suppliers, branchSupplierContext: context.prisma.branch_suppliers };
-        const customerCareforNewBranchContext: CustomerCareforNewBranchContext = { roleContext: context.prisma.roles, userBranchContext: context.prisma.users_branches, userContext: context.prisma.users, userAccessContext: context.prisma.user_access, userCompanyContext: context.prisma.users_companies }
+      
         
         try{
             const data = { 
@@ -54,7 +49,7 @@ export default async function createCompany(parent: any, args: ClientCreateCompa
         
                 }   
             }
-            newCompany = await CompanyRegistrationHelper.createAndUpdateCompany(companyContext, data , ownerRole);
+            newCompany = await CompanyRegistrationHelper.createAndUpdateCompany(data , ownerRole);
         }
         catch(error:any){
             throw new Error(`There was an error creating Company. Error Message: ${error}`);
@@ -124,7 +119,7 @@ export default async function createCompany(parent: any, args: ClientCreateCompa
                     users_branches: true,
                 }
             }
-            newBranch = await CompanyRegistrationHelper.createAndUpdateBranch(branchContext, branchData , newCompany.id, ownerRole);
+            newBranch = await CompanyRegistrationHelper.createAndUpdateBranch(branchData , newCompany.id, ownerRole);
         }
         catch(error: any) {
             throw new Error(`There was an error creating Branch: Error Message: ${error}`)
@@ -132,13 +127,13 @@ export default async function createCompany(parent: any, args: ClientCreateCompa
         newCompany.branch = [newBranch];
     
         await Promise.all([
-            CompanyRegistrationHelper.setCashCustomer( cashCustomerContext, newBranch.id),
-            CompanyRegistrationHelper.setCashSupplier( cashSupplierContext, newBranch.id, user.userId),
-            CompanyRegistrationHelper.assignUserToCompany(context.prisma.users_companies, user.userId, newCompany.id, ownerRole.id),
-            CompanyRegistrationHelper.assignUserToBranch(context.prisma.users_branches, user.userId, newCompany.id, newBranch.id, ownerRole.id),
+            CompanyRegistrationHelper.setCashCustomer(  newBranch.id),
+            CompanyRegistrationHelper.setCashSupplier( newBranch.id, user.userId),
+            CompanyRegistrationHelper.assignUserToCompany( user.userId, newCompany.id, ownerRole.id),
+            CompanyRegistrationHelper.assignUserToBranch( user.userId, newCompany.id, newBranch.id, ownerRole.id),
         ]);
         if (Array.isArray(args.goalIds) && args.goalIds.length > 0) {
-            await CompanyRegistrationHelper.setBranchGoals( context.prisma.branches_branch_goals, newBranch.id, []);
+            await CompanyRegistrationHelper.setBranchGoals( newBranch.id, []);
         }
 
         if (user && newCompany && newBranch) {
@@ -151,7 +146,7 @@ export default async function createCompany(parent: any, args: ClientCreateCompa
             
             if (args.customerCareId && args.customerCareId.length > 10) {
                 const customerCareId = args.customerCareId;
-                await CompanyRegistrationHelper.assignCustomerCareForNewBranch( customerCareforNewBranchContext,customerCareId, newCompany.id, newBranch.id, args.callerInstance);
+                await CompanyRegistrationHelper.assignCustomerCareForNewBranch( customerCareId, newCompany.id, newBranch.id);
             }
             
             else {

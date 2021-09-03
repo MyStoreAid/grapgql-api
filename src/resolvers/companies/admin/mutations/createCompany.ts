@@ -5,7 +5,7 @@ import UuidHelper from "../../../../helpers/UuidHelper";
 
 
 
-export default async function createCompany (parent: any, args: Company, context: any): Promise<Company> {
+export default async function createCompany (parent: any, args: Company): Promise<Company> {
     const data = { 
         data: {
         name: args.name,
@@ -27,5 +27,5 @@ export default async function createCompany (parent: any, args: Company, context
         }   
     }
   
-    return await CompanyModel.createOneForeignKey(context.prisma.companies, data);
+    return await CompanyModel.createOneForeignKey(data);
 }

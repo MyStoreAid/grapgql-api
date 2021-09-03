@@ -14,7 +14,7 @@ import { adminCreateBranchGoal, adminUpdateBranchGoal, adminDeleteBranchGoal } f
 import { createBranchSupplier } from './branchSuppliers/mutations';
 //----------  Branch Supplier Salespersons -------
 import { clientFindBranchEmployees } from './branchSupplierSalespersons/client/queries';
-import { createBranchSupplierSalesperson } from './branchSupplierSalespersons/mutations';
+import { clientCreateBranchSupplierSalesperson } from './branchSupplierSalespersons/client/mutations';
 //---------------- Branch User Goals -------------
 import { adminBranchUserGroup, adminBranchUserGroups } from './branchUserGroups/admin/queries';
 import { adminCreateBranchUserGroup, adminUpdateBranchUserGroup, adminDeleteBranchUserGroup } from './branchUserGroups/admin/mutations';
@@ -188,7 +188,7 @@ const resolvers = {
         //------------------- Branch Supplier ------------
         createBranchSupplier,
         //------------ Branch Supplier Salespersons ------
-        createBranchSupplierSalesperson,
+        clientCreateBranchSupplierSalesperson,
         //---------------- Branch User Goals -------------
         adminCreateBranchUserGroup,
         adminUpdateBranchUserGroup,

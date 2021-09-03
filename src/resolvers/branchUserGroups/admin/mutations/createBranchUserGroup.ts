@@ -1,11 +1,12 @@
+import BranchUserGroupModel from '../../../../resolvers/branchUserGroups/BranchUserGroupModel';
 import TimeHelper from '../../../../helpers/TimeHelper';
 import UuidHelper from '../../../../helpers/UuidHelper';
 import { BranchUserGroup } from '../../types';
 
-export default async function createBranchUserGroup (parent: any, args: BranchUserGroup, context: any): Promise<BranchUserGroup> {
+export default async function createBranchUserGroup (parent: any, args: BranchUserGroup): Promise<BranchUserGroup> {
     const currentTime: number = TimeHelper.currentTime;
 
-    return await context.prisma.branch_user_groups.create({
+    return await BranchUserGroupModel.table.create({
         data: {
             id: UuidHelper.newUuid,
             name: args.name,

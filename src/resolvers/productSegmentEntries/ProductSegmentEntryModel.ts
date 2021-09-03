@@ -4,6 +4,11 @@ import TimeHelper from "../../helpers/TimeHelper";
 import { PrismaModelContext } from "types/prisma";
 
 export default class ProductSegmentEntryModel extends Model {
+
+    static get table() {
+        return this.connection.product_segment_entries;
+    }
+
     static get timestampFields(): string[] {
         return [
             'created_at',

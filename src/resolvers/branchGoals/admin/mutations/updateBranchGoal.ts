@@ -7,7 +7,7 @@ export default async function updateBranchGoal(parent: any, args: BranchGoal, co
     const branchGoalId: string = args.id;
     
     try {
-        existingBranchGoal = await BranchGoalModel.findOne(context.prisma.branch_goals, branchGoalId);
+        existingBranchGoal = await BranchGoalModel.findOne(branchGoalId);
     } catch(error: unknown) {
         console.error(error);
         throw new Error(`There was an error fetching BranchGoals with ID ${branchGoalId}`);
@@ -17,6 +17,6 @@ export default async function updateBranchGoal(parent: any, args: BranchGoal, co
         throw new Error(`There is no BranchGoal with ID ${branchGoalId}`);
     }
 
-    return BranchGoalModel.updateOne(context.prisma.branch_goals, branchGoalId, args);
+    return BranchGoalModel.updateOne(branchGoalId, args);
     
 }

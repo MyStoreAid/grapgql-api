@@ -3,7 +3,7 @@ import CustomerModel from '../../CustomerModel';
 
 
 
-export default async function createCustomer (parent: any, args: Customer, context: any): Promise<Customer> {
+export default async function createCustomer (parent: any, args: Customer): Promise<Customer> {
     const data = {
         data: { 
             firstName: args.firstName,
@@ -36,5 +36,5 @@ export default async function createCustomer (parent: any, args: Customer, conte
 
     
     
-    return CustomerModel.createOneForeignKey(context.prisma.customers, data);
+    return CustomerModel.createOneForeignKey( data);
 }
