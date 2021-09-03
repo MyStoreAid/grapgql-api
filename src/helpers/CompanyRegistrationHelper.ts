@@ -194,7 +194,9 @@ export default class CompanyRegistrationHelper {
         if (customerCareId && customerCareUser && customerCareRole) {
           await this.assignUserToCompany(CustomerCareContext.userCompanyContext, customerCareId, companyId, customerCareRole.id);
           await this.assignUserToBranch(CustomerCareContext.userBranchContext, customerCareId, companyId, branchId, customerCareRole.id, true);
+          console.log("here Inside");
           await UserAccess.deleteOne( CustomerCareContext.userAccessContext,  customerCareId)
+          console.log("after inside");
           return callerInstance.userAccess(customerCareUser, [companyId]);
         }
     }
