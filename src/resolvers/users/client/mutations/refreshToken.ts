@@ -10,7 +10,7 @@ export default async function refreshToken(parent: any, args: UserIdArgs, contex
     
     if (args.userId) {
         try{
-            user = await UserModel.findOneWhere(context.prisma.users, { userId: args.userId});
+            user = await UserModel.findOneWhere({ userId: args.userId});
         }
         catch(error: any){
             throw new Error(`There exists no user with User ID ${args.userId}`);

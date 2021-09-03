@@ -1,9 +1,9 @@
-import { BranchSupplierSalesperson } from '../types';
-import BranchSupplierSalespersonModel from '../BranchSupplierSalespersonModel';
+import { BranchSupplierSalesperson } from '../../types';
+import BranchSupplierSalespersonModel from '../../BranchSupplierSalespersonModel';
 
 
 
-export default async function createBranchSupplierSalesperson (parent: any, args: BranchSupplierSalesperson, context: any): Promise<BranchSupplierSalesperson> {
+export default async function createBranchSupplierSalesperson (parent: any, args: BranchSupplierSalesperson): Promise<BranchSupplierSalesperson> {
     const data = {
         data: {                                                                         
             employeeId: args.employeeId,                                     
@@ -24,5 +24,5 @@ export default async function createBranchSupplierSalesperson (parent: any, args
 
     
     
-    return BranchSupplierSalespersonModel.createOneForeignKey(context.prisma.branch_supplier_salespersons, data);
+    return BranchSupplierSalespersonModel.createOneForeignKey(data);
 }

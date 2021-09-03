@@ -11,8 +11,8 @@ export default class BranchProductCategoryModel extends Model {
         ];
     }
 
-    static async createMany(context: PrismaModelContext, params: any): Promise<any> {
+    static async createMany(params: any): Promise<any> {
         const data = params;
-        return context.createMany({ data });
+        return this.table.createMany({ data });
     }
 }

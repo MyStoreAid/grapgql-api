@@ -5,7 +5,7 @@ import TimeHelper from "../../../../helpers/TimeHelper";
 
 
 
-export default async function createBranch (parent: any, args: Branch, context: any): Promise<Branch> {
+export default async function createBranch (parent: any, args: Branch): Promise<Branch> {
     const branch: String = UuidHelper.newUuid;
     const currentTime: number = TimeHelper.currentTime;
 
@@ -76,5 +76,5 @@ export default async function createBranch (parent: any, args: Branch, context: 
 
     
     
-    return BranchModel.createOneForeignKey(context.prisma.branches, data);
+    return BranchModel.createOneForeignKey(data);
 }

@@ -9,4 +9,8 @@ export default class BrandModel extends Model {
             'last_modified'
         ];
     }
+
+    static get table() {
+        return this.connection.brands;
+    }
 }

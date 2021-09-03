@@ -13,7 +13,7 @@ export default async function createBranchSupplier (parent: any, args: BranchSup
     const branchId: string = args.branchId;
     const userId: string = args.createdBy;
     try {
-        existingBranch = await BranchModel.findOne(context.prisma.branches, branchId);
+        existingBranch = await BranchModel.findOne(branchId);
     }
     catch(error: any) {
         throw new Error(`There was an error finding Branch with Branch ID ${branchId}`)

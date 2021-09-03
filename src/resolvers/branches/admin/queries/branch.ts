@@ -1,7 +1,7 @@
 import { BranchIdArgs, Branch } from "../../types";
 import BranchModel from "../../BranchModel";
 
-export default async function branch (parent: any, args: BranchIdArgs, context: any): Promise<Branch> | never {
+export default async function branch (parent: any, args: BranchIdArgs): Promise<Branch> | never {
     
     let result!: Branch;
     const branchId: string = args.id;
@@ -14,7 +14,7 @@ export default async function branch (parent: any, args: BranchIdArgs, context: 
     }
 
     try {
-        result = await BranchModel.findOneForeignKey(context.prisma.branches, branchId, data);
+        result = await BranchModel.findOneForeignKey(branchId, data);
     } catch (error: unknown) {
         throw new Error(`There was an error getting Branch with ID ${branchId}.`);
     }

@@ -1,12 +1,12 @@
 import BranchModel from "../../BranchModel";
 import { Branch } from "../../types";
 
-export default async function updateBranch(parent: any, args: Branch, context: any): Promise<Branch> | never {
+export default async function updateBranch(parent: any, args: Branch): Promise<Branch> | never {
     let existingBranch!: Branch;
     const branchId: string = args.id;
     
     try {
-        existingBranch = await BranchModel.findOne(context.prisma.branches, branchId);
+        existingBranch = await BranchModel.findOne(branchId);
     } catch(error: unknown) {
         console.error(error);
         throw new Error(`There was an error fetching Branchs with ID ${branchId}`);
@@ -69,7 +69,7 @@ export default async function updateBranch(parent: any, args: Branch, context: a
         }
     }
 
-    return BranchModel.updateOneForeignKey(context.prisma.branches, branchId, data)
+    return BranchModel.updateOneForeignKey(branchId, data)
 
 
 }

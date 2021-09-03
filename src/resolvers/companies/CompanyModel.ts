@@ -11,8 +11,7 @@ export default class CompanyModel extends Model {
         ];
     }
 
-    static async defaultSubscription(subscriptionContext: PrismaModelContext) {
-        return SubscriptionModel.findOneWhere(subscriptionContext, {name: 'Bronze'});
-      }
-    
+    static async defaultSubscription() {
+        return SubscriptionModel.findOneWhere({name: 'Bronze'});
+    }
 }

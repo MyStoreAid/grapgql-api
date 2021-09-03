@@ -1,7 +1,6 @@
-import { PrismaModelContext } from "types/prisma";
 import Model from "./Model";
 
-export default class UserAccess extends Model {
+export default class UserAccessModel extends Model {
     static get primaryKeyName(): string {
         return 'userId';
     }
@@ -13,19 +12,19 @@ export default class UserAccess extends Model {
         ];
     }
 
-    static async deleteOne(context: PrismaModelContext, primaryKey: string): Promise<any> {
+    static async deleteOne(primaryKey: string): Promise<any> {
         if (this.softDelete) {
             const data: { deleted: boolean } = { deleted : true };
             this._setUpdateTimestampFields(data);
 
-            return context.update({
+            return this.table.update({
                 where: {
                     userId: primaryKey
                 },
                 data
             });
         } else {
-            return context.delete({
+            return this.table.delete({
                 where: {
                     userId: primaryKey
                 }

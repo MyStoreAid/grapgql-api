@@ -1,7 +1,7 @@
 import { AuditIdArgs, Audit } from "../../types";
 import AuditModel from "../../AuditModel";
 
-export default async function audit (parent: any, args: AuditIdArgs, context: any): Promise<Audit> | never {
+export default async function audit (parent: any, args: AuditIdArgs): Promise<Audit> | never {
     
     let result!: Audit;
     const auditId: string = args.id;
@@ -12,7 +12,7 @@ export default async function audit (parent: any, args: AuditIdArgs, context: an
     }
 
     try {
-        result = await AuditModel.findOneForeignKey(context.prisma.audits, auditId, data);
+        result = await AuditModel.findOneForeignKey(auditId, data);
     } catch (error: unknown) {
         throw new Error(`There was an error getting Audit with ID ${auditId}.`);
     }

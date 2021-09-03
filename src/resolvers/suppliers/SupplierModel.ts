@@ -12,8 +12,16 @@ export default class SupplierModel extends Model {
     }
 
     static get _allDeliveryDays() {
-        return "Everyday"
-        
+        return {
+            "Monday": true,
+            "Tuesday": true,
+            "Wednesday": true,
+            "Thursday": true,
+            "Friday": true,
+            "Saturday": true,
+            "Sunday": true,
+            "Everyday": true
+          };
       };
       
 }
