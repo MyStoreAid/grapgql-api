@@ -94,7 +94,7 @@ type Mutation {
     updateAudit(id: ID!, branchId: String, status: String, createdById: String, isActive: Boolean, auditDate: Float, status: String, lastModifiedById: String, auditEntryIds: [String], branchProductStockIds: [String], saleIds: [String]): Audit!
     deleteAudit(id: ID!): Audit!
 #---------------------------------------------------------------- Branch ---------------------------------------------------------------
-    adminCreateBranch(name: String!, startDate: Float, address: String, location: String!, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userIds: [String]): Branch!
+    adminCreateBranch(name: String!, startDate: Float, address: String, location: String!, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, branchUserIds: [String]): Branch!
     adminUpdateBranch(id: ID, name: String!, startDate: Float, address: String, checkoutSales: Boolean, aggregateSales: Boolean, alwaysSync: Boolean, forTesting: Boolean, supplierStock: Boolean,location: String, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userId: String): Branch!
     adminDeleteBranch(id: ID): Branch!
 #--------------------------------------------------------------- Branch Goal ------------------------------------------------------------
@@ -104,7 +104,7 @@ type Mutation {
 #--------------------------------------------------------------- Branch Supplier --------------------------------------------------------
     createBranchSupplier(branchId: String!, deliveryDays: String!, hidden: Boolean, createdBy: String!, branchContact: String, lastModifiedBy: String, supplierId: String ): BranchSupplier!
 #------------------------------------------------------------ Branch Supplier Salesperson ------------------------------------------------
-    createBranchSupplierSalesperson(branchId: String!,  branchSupplierId: String, hidden: Boolean, createdBy: String!, employeeId: String!, employeeName: String!, employeeContact: String!): BranchSupplierSalesperson!                       
+    clientCreateBranchSupplierSalesperson(branchId: String!,  branchSupplierId: String, hidden: Boolean, createdBy: String!, employeeId: String!, employeeName: String!, employeeContact: String!): BranchSupplierSalesperson!                       
 #------------------------------------------------------------ Branch User Group ---------------------------------------------------------
     adminCreateBranchUserGroup(name: String!, description: String): BranchUserGroup!
     adminUpdateBranchUserGroup(id: ID!, name: String, description: String): BranchUserGroup!
@@ -125,6 +125,7 @@ type Mutation {
     adminCreateCompany(name: String!, businessCategoryId: String, subscriptionId: String, email: String, phone: String, internalBusinessCategoryId: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
     adminUpdateCompany(id: ID!, name: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
     adminDeleteCompany(id: ID!): Company!
+    clientCreateCompany(company: CompanyArgs!, branch: BranchArgs!, customerCareId: String!): CreateClientCompanyResponse!
 #--------------------------------------------------------------- Customer ---------------------------------------------------------------
     adminCreateCustomer(firstName: String!, otherNames: String, phone: String!, email: String, location: String, isTemporary: Boolean, type: String, createdById: String, lastModifiedById: String, BranchesCustomerIds: [String], SalesEntryIds: [String], SaleInstallmentIds: String ): Customer!
     adminUpdateCustomer(id: ID!, firstName: String!, otherNames: String, phone: String, email: String, location: String, isTemporary: Boolean, type: String, createdById: String, lastModifiedById: String, BranchesCustomerIds: [String], SalesEntryIds: [String], SaleInstallmentIds: String ): Customer!
@@ -181,10 +182,12 @@ type Mutation {
     adminCreateSubscription(name: String!, description: String, numberOfBranches: Float!, companiesId: ID): Subscription!
     adminUpdateSubscription(id: ID!, name: String!, description: String, numberOfBranches: Float): Subscription!
     adminDeleteSubscription(id: ID!): Subscription!
-#------------------------------------------------------------------ User ----------------------------------------------------------------
-    clientLoginUser(username: String!, password: String): LoginResponse!
+#--------------------------------------------------------------- Supplier ----------------------------------------------------------------
+    adminCreateSupplier(name: String!, phone: String, email: String, isTemporary: String, createdBy: String, lastModifiedBy: String): Supplier!
+#------------------------------------------------------------------ User -----------------------------------------------------------------
+    clientLoginUser(username: String!, password: String!): LoginResponse!
     clientRefreshToken(userId: ID!): String!
-    clientRegisterUser(phone: String!, country: String!, otp: String, email: String, callingCode: String!): User
+    clientRegisterUser(phone: String!, country: String!, otp: String, email: String, callingCode: String! firstName:String otherNames: String username: String): User
     clientResendOtp(userId: ID!): String!
     clientSetUserPassword(userId: ID!, password: String!, otp: String!, username: String!): User!
     clientUpdateUser(userId: ID!, phone: String!, email: String, firstName: String, otherNames: String, username: String, gender: String, whatsAppPhone: String): User!
@@ -196,10 +199,6 @@ type Mutation {
 
 
 
-type GPS {
-  latitude: Float
-  longitude: Float
-}
 
 type Appointment {
     id: ID!
@@ -247,6 +246,43 @@ type Audit {
   deleted: Boolean!
 }
 
+input BranchArgs {
+    name: String!
+    startDate: Float
+    address: String
+    location: String!
+    logo: String
+    phone: String
+    whatsAppPhone: String
+    type: String!
+    checkoutSales: Boolean
+    aggregateSales: Boolean
+    action: String
+    syncInterval: Float
+    alwaysSync: Boolean
+    forTesting: Boolean
+    gps: gps
+    latitude: Float
+    longitude: Float
+    country: String
+    region: String
+    city: String
+    supplierStock: Boolean
+    workingDays: String
+    sourcesOfPurchases: String
+    phoneType: String
+    otherServices: String
+    locationType: String
+    storeImage: String
+    serviceType: String
+    buildingStructure:String
+    coolerBrands: String
+    coolerTypes: String
+    electricity: String
+    branchUserIds: [String]!
+
+}
+
 type Branch{
   id: ID!
   name: String!
@@ -263,7 +299,7 @@ type Branch{
   syncInterval: Float
   alwaysSync: Boolean
   forTesting: Boolean
-  gps: String
+  gps: GPS
   latitude: Float
   longitude: Float
   country: String
@@ -407,6 +443,17 @@ type BusinessCategory {
   deleted: Boolean
 }
 
+input CompanyArgs {
+    id: ID
+    name: String!
+    businessCategoryId: String!
+    subscriptionId: String
+    email: String
+    phone: String
+    internalBusinessCategoryId: String
+    adminLastModifiedBy: String
+}
+
 type Company{
   id: ID!
   name: String!
@@ -428,6 +475,11 @@ type Company{
   # customerCareSchedules: [CustomerCareSchedule]
   userBranches: [UserBranch]
   # userCompanies: [UserCompany]
+}
+
+type CreateClientCompanyResponse {
+    user: User
+    companies: [Company]
 }
 
 
@@ -495,6 +547,15 @@ type Feature {
   deleted: Boolean
 }
 
+input gps {
+  lat: Float
+  lon: Float
+}
+
+type GPS{
+    lat: Float
+    lon: Float
+}
 
 type InternalBusinessCategory {
   id: ID!
@@ -669,6 +730,23 @@ type Subscription {
     updated_at: Float
     deleted: Boolean
     companies: [Company!]
+}
+
+type Supplier {
+    id: ID!
+    name: String
+    phone: String
+    email: String
+    isTemporary: Boolean
+    createBy: String
+    created_at: Float
+    updated_at: Float
+    dateAdded: Float
+    server_created_at: Float
+    last_modified: Float
+    lastModifiedBy: String
+    users_suppliers_createdByTousers: User
+    users_suppliers_lastModifiedByTousers: User
 }
 
 
