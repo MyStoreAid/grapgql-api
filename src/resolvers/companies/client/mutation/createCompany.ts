@@ -1,4 +1,4 @@
-import { ClientCreateCompanyArgs, Company } from '../../types';
+import { ClientCreateCompanyArgs, ClientCreateCompanyResponse, Company } from '../../types';
 import CompanyModel from '../../CompanyModel';
 import UserModel from '../../../../resolvers/users/UserModel';
 import { Branch } from '../../../../resolvers/branches/types';
@@ -7,15 +7,16 @@ import { Role } from '../../../../resolvers/roles/types';
 import CompanyRegistrationHelper from '../../../../helpers/CompanyRegistrationHelper';
 import UuidHelper from "../../../../helpers/UuidHelper";
 import TimeHelper from "../../../../helpers/TimeHelper";
+import { User } from 'resolvers/users/types';
 
-export default async function createCompany(parent: any, args: ClientCreateCompanyArgs, context: any, info: any): Promise<Company> | never{
+export default async function createCompany(parent: any, args: ClientCreateCompanyArgs, context: any, info: any): Promise<ClientCreateCompanyResponse> | never{
     const userId: String = context.userId;
     
-    const user = context.user && context.user.userId === userId ? context.user : await UserModel.findOneWhere({userId: userId});
+    const user: User = context.user && context.user.userId === userId ? context.user : await UserModel.findOneWhere({userId: userId});
     let newCompany: Company;
     let newBranch: Branch;
     let ownerRole: Role; 
-    console.log("here");
+   
 
     try {
       ownerRole = await RoleModel.findOneWhere({name: 'owner'}); 
@@ -42,6 +43,7 @@ export default async function createCompany(parent: any, args: ClientCreateCompa
                 lastSyncBy: args.company.lastSyncBy ? { connect: { id: args.company.lastSyncBy}} : undefined},
         
                 include: {
+                   
                     business_categories: true,
                     subscriptions: true,
                     internal_business_categories: true,
@@ -137,12 +139,12 @@ export default async function createCompany(parent: any, args: ClientCreateCompa
         }
 
         if (user && newCompany && newBranch) {
-            
+           
             const result = {
-                user,
+                user: user,
                 companies: [newCompany],
             };
-           console.log("almost there");
+           
             
             if (args.customerCareId && args.customerCareId.length > 10) {
                 const customerCareId = args.customerCareId;
@@ -151,9 +153,12 @@ export default async function createCompany(parent: any, args: ClientCreateCompa
             
             else {
                 throw new Error('An error was encountered during company registration')
-            }    
+            }
+            
+            return result;
         }
-        return newCompany;
+        throw new Error('An error was encountered during company registration');
+        
     }
     throw new Error(`Could not create company `);     
 }

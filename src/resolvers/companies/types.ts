@@ -1,5 +1,5 @@
 import { Branch } from "resolvers/branches/types";
-import { UserId } from "resolvers/users/types";
+import { User, UserId } from "resolvers/users/types";
 
 export type CompanyId = string;
 
@@ -32,4 +32,9 @@ export interface ClientCreateCompanyArgs {
     goalIds?: String[],
     customerCareId: UserId,
     callerInstance: any
+}
+
+export interface ClientCreateCompanyResponse {
+    user: User
+    companies: Company[]
 }

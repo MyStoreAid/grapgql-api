@@ -7,25 +7,23 @@ import UserModel from "../resolvers/users/UserModel";
 
 export default class UserAccessService {
     static async getUserAccess(user: User, companyIds: Array<string> = []) {
-        console.log("here access");
+
         let access;
     
-        const existingAccess = await UserAccessModel.findOneWhere({userId: user.userId });
+        const existingAccess = await UserAccessModel.findOneWhere({ userId: user.userId });
         if (existingAccess && typeof existingAccess.access === 'object') {
           access = existingAccess.access;
         //   logger.info(`User ${user.userId} fetched access from cache`);
         }
         
         if (!access) {
-          console.log(companyIds);
+          
           const result: any = {};
           const generatedUserAccess = await UserModel.generateUserAccess(companyIds, user.userId);
-          console.log(generatedUserAccess);
     
-          result.companies = generatedUserAccess.rows;
-          console.log(result.companies);
-    
-          if (result.companies) {
+          result.companies = generatedUserAccess;
+         
+          if (result) {
             for (let x = 0; x < result.companies.length; x += 1) {
               const company = result.companies[x];
               company.features = company.features.map((feature: any) => feature.name.toLowerCase());
@@ -60,21 +58,22 @@ export default class UserAccessService {
           access = result;
     
           // delete existing access
-          
-          // await UserAccessModel.deleteOneWhere({userId: user.userId});
+          await UserAccessModel.updateOneWhere({
+            where:{userId: user.userId}, data: { access : null }
+          });
     
           // save access
           if (companyIds.length > 0) {
-            console.log(user);
+           
             const existing = await UserAccessModel.findOneWhere({ userId: user.userId });
-            console.log("here")
+            
             if (existing.access === null ) { 
-              existing.access = { companies: []};
+              existing.access = {companies: []} ;
             }
-            console.log(result.companies);
+
             existing.access.companies = existing.access.companies.concat(result.companies);
             
-            await UserAccessModel.updateOneWhere({data: {access: access}, where:{ userId: user.userId } })
+            await UserAccessModel.updateOneWhere({data: {access: existing.access}, where:{ userId: user.userId } })
           } else {
             await UserAccessModel.createOne({userId: user.userId, access });
           }

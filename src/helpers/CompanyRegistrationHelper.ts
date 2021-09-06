@@ -27,6 +27,7 @@ import { Role, RoleId } from "../resolvers/roles/types";
 import { Subscription } from "../resolvers/subscriptions/types";
 import { UserBranch } from "../resolvers/userBranches/types";
 import UserAccessService from "../services/UserAccessService";
+import UserAccessModel from "../models/UserAccess";
 
 export default class CompanyRegistrationHelper {
     static async setCashCustomer(branchId: BranchId) {
@@ -105,7 +106,7 @@ export default class CompanyRegistrationHelper {
             companies: true,
           }
         });
-        console.log("done")
+        
     }
 
     static async assignUserToBranch(userId: UserId, companyId: CompanyId, branchId: BranchId, roleId: RoleId, main: boolean = false): Promise<UserBranch> {
@@ -193,7 +194,9 @@ export default class CompanyRegistrationHelper {
         if (customerCareId && customerCareUser && customerCareRole) {
           await this.assignUserToCompany(customerCareId, companyId, customerCareRole.id);
           await this.assignUserToBranch(customerCareId, companyId, branchId, customerCareRole.id, true);
-          // await UserAccess.deleteOne(customerCareId)
+          await UserAccessModel.updateOneWhere({
+            where:{userId: customerCareId}, data: { access : null }
+          });
           return UserAccessService.getUserAccess(customerCareUser, [companyId]);
         }
     }

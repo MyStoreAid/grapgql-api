@@ -125,7 +125,7 @@ type Mutation {
     adminCreateCompany(name: String!, businessCategoryId: String, subscriptionId: String, email: String, phone: String, internalBusinessCategoryId: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
     adminUpdateCompany(id: ID!, name: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
     adminDeleteCompany(id: ID!): Company!
-    clientCreateCompany(company: CompanyArgs!, branch: BranchArgs!, customerCareId: String!): Company!
+    clientCreateCompany(company: CompanyArgs!, branch: BranchArgs!, customerCareId: String!): CreateClientCompanyResponse!
 #--------------------------------------------------------------- Customer ---------------------------------------------------------------
     adminCreateCustomer(firstName: String!, otherNames: String, phone: String!, email: String, location: String, isTemporary: Boolean, type: String, createdById: String, lastModifiedById: String, BranchesCustomerIds: [String], SalesEntryIds: [String], SaleInstallmentIds: String ): Customer!
     adminUpdateCustomer(id: ID!, firstName: String!, otherNames: String, phone: String, email: String, location: String, isTemporary: Boolean, type: String, createdById: String, lastModifiedById: String, BranchesCustomerIds: [String], SalesEntryIds: [String], SaleInstallmentIds: String ): Customer!
@@ -475,6 +475,11 @@ type Company{
   # customerCareSchedules: [CustomerCareSchedule]
   userBranches: [UserBranch]
   # userCompanies: [UserCompany]
+}
+
+type CreateClientCompanyResponse {
+    user: User
+    companies: [Company]
 }
 
 
