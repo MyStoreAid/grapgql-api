@@ -158,6 +158,11 @@ export default class Model {
         return this.table.create({ data, include });
     }
 
+    static async createMany(params: any): Promise<any> {
+        const data = params;
+        return this.table.createMany({ data });
+    }
+
     static async updateOne(primaryKey: String,  params: any): Promise<any> {
         const data = params;
         this._setUpdateTimestampFields(data);

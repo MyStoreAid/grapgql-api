@@ -11,8 +11,12 @@ import { adminCreateBranch, adminUpdateBranch, adminDeleteBranch } from './branc
 import { adminBranchGoal, adminBranchGoals } from './branchGoals/admin/queries';
 import { adminCreateBranchGoal, adminUpdateBranchGoal, adminDeleteBranchGoal } from './branchGoals/admin/mutations';
 import { clientBranchGoals } from './branchGoals/client/queries';
+//---------------  Branch Product ---------------
+import { clientBranchProducts } from './branchesProducts/client/queries';
+import { clientAssignBranchProduct, clientDeleteBranchProduct } from './branchesProducts/client/mutations';
 //----------  Branch Product Category ------------
 import { clientBranchProductCategories } from './branchProductCategories/client/queries';
+import { clientAssignBranchProductCategory, clientDeleteBranchProductCategory } from './branchProductCategories/client/mutations';
 // -----------------  Branch Supplier -------------
 import { createBranchSupplier } from './branchSuppliers/mutations';
 //----------  Branch Supplier Salespersons -------
@@ -114,6 +118,8 @@ const resolvers = {
         adminBranchGoal,
         adminBranchGoals,
         clientBranchGoals,
+        //---------------- Branch Category ----------------
+        clientBranchProducts,
         //----------- Branch Product Category -------------
         clientBranchProductCategories,
         //----------- Branch Supplier Salespersons --------
@@ -201,6 +207,12 @@ const resolvers = {
         adminCreateBranchGoal,
         adminUpdateBranchGoal,
         adminDeleteBranchGoal,
+        //------------------ Branch Product --------------
+        clientAssignBranchProduct,
+        clientDeleteBranchProduct,
+        //---------------- Branch Product Category -------
+        clientAssignBranchProductCategory,
+        clientDeleteBranchProductCategory,
         //------------------- Branch Supplier ------------
         createBranchSupplier,
         //------------ Branch Supplier Salespersons ------

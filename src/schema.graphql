@@ -15,6 +15,8 @@ type Query {
     adminBranchGoals: [BranchGoal!]!
     adminBranchGoal(id: ID!): BranchGoal!
     clientBranchGoals: [BranchGoal!]!
+#--------------- Branch Product -------------------------
+    clientBranchProducts(branchId: String!): [Product!]!
 #--------------- Branch Product Category ----------------
     clientBranchProductCategories(branchId: String!): [ProductCategory!]
 #--------------- Branch Supplier Salesperson ---------------------
@@ -109,8 +111,12 @@ type Mutation {
     adminCreateBranchGoal(name: String!, position: Float!): BranchGoal!
     adminUpdateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
     adminDeleteBranchGoal(id: ID!): BranchGoal!
+#------------------------------------------------------------------- Branch Product -----------------------------------------------------
+    clientAssignBranchProduct(branchId: String!, productId: String!): BranchProduct!
+    clientDeleteBranchProduct(branchId: String!, productId: String!): BranchProduct!
 #--------------------------------------------------------------- Branch Product Category ------------------------------------------------
-    clientAssingBranchProductCategory(branchId: String, productCategoryId: String!, lastModifiedBy: String): BranchProductCategory!
+    clientAssignBranchProductCategory(branchId: String, productCategoryId: String!, lastModifiedBy: String): BranchProductCategory!
+    clientDeleteBranchProductCategory(branchId: String!, productCategoryId: String!): BranchProductCategory!
 #--------------------------------------------------------------- Branch Supplier --------------------------------------------------------
     createBranchSupplier(branchId: String!, deliveryDays: String!, hidden: Boolean, createdBy: String!, branchContact: String, lastModifiedBy: String, supplierId: String ): BranchSupplier!
 #------------------------------------------------------------ Branch Supplier Salesperson ------------------------------------------------
@@ -381,6 +387,37 @@ type BranchGoal {
     deleted: Boolean!
 }
 
+type BranchProduct {
+    id: ID!
+    productId: String
+    branchId: String
+    lowestStock: Float
+    quantity: Float
+    createdBy: String
+    sellingPrice: Float
+    packs: [Float]
+    packList: Json
+    defaultPack: Json
+    hidden: Boolean
+    lastModifiedBy: String
+    created_at: Float
+    updated_at: Float
+    last_modified: Float
+    server_created_at: Float
+    branches: Branch
+    users_branches_products_createdByTousers: User
+    users_branches_products_lastModifiedByTousers: User
+    products: Product
+    # audit_entries: [AuditEntry]
+    # branch_product_selling_prices: [BranchProductSellingPrice]
+    # branch_supplier_products: [BranchSupplierProduct]
+    # branches_products_stocks: [BranchesProductsStock]
+    # branches_products_stocks_histories: [BranchesProductsStocksHistory]
+    # sale_entries: [SaleEntry]
+    # sale_return_histories: [SaleReturnHistory]
+    # stock_return_histories: [StockReturnHistory]
+}
+
 type BranchProductCategory {
     id: ID!
     productCategoryId: String
@@ -629,6 +666,10 @@ type InternalBusinessCategory {
 
 input JSON{
   id: ID!
+}
+
+type Json {
+    object: String
 }
 
 type LoginResponse {
