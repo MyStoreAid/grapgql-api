@@ -1,0 +1,12 @@
+users_branches
+users_companies
+subscriptions_features
+roles_permissions
+product_product_segment_entries 
+product_categories_product_segments
+customercare_supervisors
+companies_subscriptions
+business_categories_product_categories
+branches_product_categories
+branches_branch_goals
+app_notifications_branch_user_groups

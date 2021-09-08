@@ -1,6 +1,9 @@
-import findBranchUsers from "./findBranchUsers";
-
+import findBranchEmployees from "./findBranchEmployees";
+import findBranchPendingEmployees from "./findBranchPendingEmployees";
+import userCompanyBranches from "./userCompanyBranches";
 
 export {
-    findBranchUsers as clientFindBranchUsers,
+    findBranchEmployees as clientFindBranchEmployees,
+    findBranchPendingEmployees as clientFindBranchPendingEmployees,
+    userCompanyBranches as clientUserCompanyBranches,
 }

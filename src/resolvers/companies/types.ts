@@ -10,7 +10,7 @@ export interface Company {
     subscriptionId: String,
     email: String,
     phone: String,
-    branch: Branch[],
+    branches: Branch[],
     internalBusinessCategoryId: String,
     adminLastModifiedBy: String
     lastModifiedBy: String,

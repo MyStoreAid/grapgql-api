@@ -4,6 +4,7 @@ import { PrismaModelContext } from "types/prisma";
 export default class UserBranchModel extends Model {
 
     static get table() {
+         
         return this.connection.users_branches;
     }
 
@@ -17,14 +18,11 @@ export default class UserBranchModel extends Model {
     }
 
     static async findManyForeignKey(params: any): Promise<any[]> {
-        const condition: {branchId?: String, deleted?: boolean } = {};
+        const condition: any = params.condition;
         if (this.softDelete) {
             condition.deleted = false
         }
-        if (params.branchId) {
-            condition.branchId = params.branchId 
-        }
-        console.log(condition);
+        
         return this.table.findMany({
             where: condition,
             include: params.include,

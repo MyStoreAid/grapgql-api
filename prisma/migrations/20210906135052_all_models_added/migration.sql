@@ -17,10 +17,13 @@ CREATE TABLE "app_notifications" (
 
 -- CreateTable
 CREATE TABLE "app_notifications_branch_user_groups" (
+    "id" UUID NOT NULL,
     "branchUserGroupId" UUID NOT NULL,
     "appNotificationId" UUID NOT NULL,
     "created_at" DOUBLE PRECISION NOT NULL,
-    "updated_at" DOUBLE PRECISION NOT NULL
+    "updated_at" DOUBLE PRECISION NOT NULL,
+
+    PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -311,10 +314,13 @@ CREATE TABLE "branches" (
 
 -- CreateTable
 CREATE TABLE "branches_branch_goals" (
+    "id" UUID NOT NULL,
     "branchId" UUID NOT NULL,
     "branchGoalId" UUID NOT NULL,
     "created_at" DOUBLE PRECISION NOT NULL,
-    "updated_at" DOUBLE PRECISION NOT NULL
+    "updated_at" DOUBLE PRECISION NOT NULL,
+
+    PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -343,7 +349,9 @@ CREATE TABLE "branches_product_categories" (
     "last_modified" DOUBLE PRECISION,
     "lastModifiedBy" UUID,
     "server_created_at" DOUBLE PRECISION,
-    "id" UUID
+    "id" UUID NOT NULL,
+
+    PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -465,11 +473,14 @@ CREATE TABLE "business_categories" (
 
 -- CreateTable
 CREATE TABLE "business_categories_product_categories" (
+    "id" UUID NOT NULL,
     "businessCategoryId" UUID NOT NULL,
     "productCategoryId" UUID NOT NULL,
     "deleted" BOOLEAN NOT NULL DEFAULT false,
     "created_at" DOUBLE PRECISION NOT NULL,
-    "updated_at" DOUBLE PRECISION NOT NULL
+    "updated_at" DOUBLE PRECISION NOT NULL,
+
+    PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -558,6 +569,7 @@ CREATE TABLE "companies" (
 
 -- CreateTable
 CREATE TABLE "companies_subscriptions" (
+    "id" UUID NOT NULL,
     "companyId" UUID,
     "subscriptionId" UUID,
     "started" DATE,
@@ -566,7 +578,9 @@ CREATE TABLE "companies_subscriptions" (
     "active" BOOLEAN DEFAULT true,
     "deleted" BOOLEAN NOT NULL DEFAULT false,
     "created_at" DOUBLE PRECISION NOT NULL,
-    "updated_at" DOUBLE PRECISION NOT NULL
+    "updated_at" DOUBLE PRECISION NOT NULL,
+
+    PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -608,11 +622,14 @@ CREATE TABLE "customer_care_schedules" (
 
 -- CreateTable
 CREATE TABLE "customercare_supervisors" (
+    "id" UUID NOT NULL,
     "supervisorId" UUID NOT NULL,
     "customerCareId" UUID NOT NULL,
     "deleted" BOOLEAN NOT NULL DEFAULT false,
     "created_at" DOUBLE PRECISION NOT NULL,
-    "updated_at" DOUBLE PRECISION NOT NULL
+    "updated_at" DOUBLE PRECISION NOT NULL,
+
+    PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -807,11 +824,14 @@ CREATE TABLE "product_categories" (
 
 -- CreateTable
 CREATE TABLE "product_categories_product_segments" (
+    "id" UUID NOT NULL,
     "productCategoryId" UUID,
     "productSegmentId" UUID,
     "deleted" BOOLEAN NOT NULL DEFAULT false,
     "created_at" DOUBLE PRECISION NOT NULL,
-    "updated_at" DOUBLE PRECISION NOT NULL
+    "updated_at" DOUBLE PRECISION NOT NULL,
+
+    PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -830,13 +850,16 @@ CREATE TABLE "product_descriptions" (
 
 -- CreateTable
 CREATE TABLE "product_product_segment_entries" (
+    "id" UUID NOT NULL,
     "productId" UUID,
     "productSegmentEntryId" UUID,
     "deleted" BOOLEAN NOT NULL DEFAULT false,
     "created_at" DOUBLE PRECISION NOT NULL,
     "updated_at" DOUBLE PRECISION NOT NULL,
     "server_created_at" DOUBLE PRECISION,
-    "last_modified" DOUBLE PRECISION
+    "last_modified" DOUBLE PRECISION,
+
+    PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -953,10 +976,13 @@ CREATE TABLE "roles" (
 
 -- CreateTable
 CREATE TABLE "roles_permissions" (
+    "id" UUID NOT NULL,
     "roleId" UUID,
     "permissionId" UUID,
     "created_at" DOUBLE PRECISION NOT NULL,
-    "updated_at" DOUBLE PRECISION NOT NULL
+    "updated_at" DOUBLE PRECISION NOT NULL,
+
+    PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -1082,10 +1108,13 @@ CREATE TABLE "subscriptions" (
 
 -- CreateTable
 CREATE TABLE "subscriptions_features" (
+    "id" UUID NOT NULL,
     "featureId" UUID,
     "subscriptionId" UUID,
     "created_at" DOUBLE PRECISION NOT NULL,
-    "updated_at" DOUBLE PRECISION NOT NULL
+    "updated_at" DOUBLE PRECISION NOT NULL,
+
+    PRIMARY KEY ("id")
 );
 
 -- CreateTable

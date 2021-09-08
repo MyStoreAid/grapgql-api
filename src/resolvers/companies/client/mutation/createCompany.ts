@@ -126,7 +126,7 @@ export default async function createCompany(parent: any, args: ClientCreateCompa
         catch(error: any) {
             throw new Error(`There was an error creating Branch: Error Message: ${error}`)
         }
-        newCompany.branch = [newBranch];
+        newCompany.branches = [newBranch];
     
         await Promise.all([
             CompanyRegistrationHelper.setCashCustomer(  newBranch.id),

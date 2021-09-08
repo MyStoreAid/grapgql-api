@@ -10,10 +10,13 @@ import { adminCreateBranch, adminUpdateBranch, adminDeleteBranch } from './branc
 //------------------- Branch Goals ---------------
 import { adminBranchGoal, adminBranchGoals } from './branchGoals/admin/queries';
 import { adminCreateBranchGoal, adminUpdateBranchGoal, adminDeleteBranchGoal } from './branchGoals/admin/mutations';
+import { clientBranchGoals } from './branchGoals/client/queries';
+//----------  Branch Product Category ------------
+import { clientBranchProductCategories } from './branchProductCategories/client/queries';
 // -----------------  Branch Supplier -------------
 import { createBranchSupplier } from './branchSuppliers/mutations';
 //----------  Branch Supplier Salespersons -------
-import { clientFindBranchEmployees } from './branchSupplierSalespersons/client/queries';
+// import { clientFindBranchEmployees } from './branchSupplierSalespersons/client/queries';
 import { clientCreateBranchSupplierSalesperson } from './branchSupplierSalespersons/client/mutations';
 //---------------- Branch User Goals -------------
 import { adminBranchUserGroup, adminBranchUserGroups } from './branchUserGroups/admin/queries';
@@ -24,6 +27,7 @@ import { adminCreateBrand, adminUpdateBrand, adminDeleteBrand } from './brands/a
 //-------------- Business Category ---------------
 import { adminBusinessCategory, adminBusinessCategories } from './businessCategories/admin/queries';
 import { adminCreateBusinessCategory, adminUpdateBusinessCategory, adminDeleteBusinessCategory } from './businessCategories/admin/mutations';
+import { clientBusinessCategories } from './businessCategories/client/queries';
 //------------------ Client ----------------------
 import { client, clients } from './clients/queries';
 import { createClient, updateClient, deleteClient } from './clients/mutations';
@@ -31,6 +35,7 @@ import { createClient, updateClient, deleteClient } from './clients/mutations';
 import { adminCompany, adminCompanies } from './companies/admin/queries';
 import { adminCreateCompany, adminUpdateCompany, adminDeleteCompany } from './companies/admin/mutations';
 import { clientCreateCompany } from './companies/client/mutation';
+import { clientCompanies, clientCompanyBranches } from './companies/client/queries';
 //------------------ Customer --------------------
 import {adminCustomer, adminCustomers} from './customers/admin/queries';
 import {adminCreateCustomer, adminUpdateCustomer, adminDeleteCustomer} from './customers/admin/mutations';
@@ -67,6 +72,8 @@ import { adminCreateProductSegmentEntry, adminUpdateProductSegmentEntry, adminDe
 //------------------- Roles -----------------------
 import { adminRole, adminRoles } from './roles/admin/queries';
 import { adminCreateRole, adminUpdateRole, adminDeleteRole } from './roles/admin/mutations';
+//--------------- Role Permission -----------------------
+import { createRolePermission } from './rolesPermissions/mutations';
 //-------------------- Subscriptions --------------
 import { adminSubscription, adminSubscriptions } from './subscriptions/admin/queries';
 import { adminCreateSubscription, adminUpdateSubscription, adminDeleteSubscription } from './subscriptions/admin/mutations';
@@ -87,7 +94,8 @@ import {
     clientVerifyUser
 } from './users/client/mutations';
 //-------------------  User Branch -----------------
-import { clientFindBranchUsers } from './userBranches/client/queries';
+import { clientFindBranchEmployees, clientFindBranchPendingEmployees, clientUserCompanyBranches } from './userBranches/client/queries';
+import { clientAssignBranchEmployee, clientDeleteBranch, clientDeleteBranchEmployee } from './userBranches/client/mutations';
 
 
 
@@ -105,9 +113,12 @@ const resolvers = {
         //------------------- Branch Goals ---------------
         adminBranchGoal,
         adminBranchGoals,
+        clientBranchGoals,
+        //----------- Branch Product Category -------------
+        clientBranchProductCategories,
         //----------- Branch Supplier Salespersons --------
-        clientFindBranchEmployees,
-        //---------------- Branch user Goals -------------
+        // clientFindBranchEmployees,
+        //---------------- Branch user Groups -------------
         adminBranchUserGroup,
         adminBranchUserGroups,
         //--------------------- Brands -------------------
@@ -116,12 +127,15 @@ const resolvers = {
         //-------------- Business Category ---------------
         adminBusinessCategory,
         adminBusinessCategories,
+        clientBusinessCategories,
         //------------------ Client ----------------------
         client,
         clients,
         //------------------- Company --------------------
         adminCompany,
         adminCompanies,
+        clientCompanies,
+        clientCompanyBranches,
         //------------------ Customer --------------------
         adminCustomer,
         adminCustomers,
@@ -165,7 +179,9 @@ const resolvers = {
         adminUser,
         adminUsers,
         //------------------ User Branch -------------------
-        clientFindBranchUsers,
+        clientFindBranchEmployees,
+        clientFindBranchPendingEmployees,
+        clientUserCompanyBranches,
     },
 
     Mutation: {
@@ -258,6 +274,7 @@ const resolvers = {
         adminCreateRole,
         adminUpdateRole,
         adminDeleteRole,
+        createRolePermission,
         //----------------------- Sale --------------------
         createSale,
         //-------------------- Subscriptions --------------
@@ -275,6 +292,10 @@ const resolvers = {
         clientUpdateUser,
         clientUserExists,
         clientVerifyUser,
+        //-------------------- User Branch ------------------
+        clientAssignBranchEmployee,
+        clientDeleteBranch,
+        clientDeleteBranchEmployee,
     },
 };
 

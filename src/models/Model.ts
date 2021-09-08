@@ -85,10 +85,23 @@ export default class Model {
         });
     }
 
+    static async findManyWhereForeignKey(condition: any, include: any) {
+        
+        if (this.softDelete) {
+            condition.deleted = false;
+        }
+        return this.table.findMany({
+            where: condition,
+            include: include,
+            
+        });
+    }
+
     static async findOne(primaryKey: string): Promise<any> {
-        const condition: {id: string, deleted?: boolean} = {
-            id: primaryKey
-        };
+
+        const condition: any = {};
+        condition[this.primaryKeyName] = primaryKey;
+        
         if (this.softDelete) {
             condition.deleted = false;
         }
@@ -158,15 +171,15 @@ export default class Model {
     }
 
     static async updateOneForeignKey(primaryKey: String,  params: any): Promise<any> {
+        const condition: any = {};
+        condition[this.primaryKeyName] = primaryKey;
+
         const data = params.data;
         const include = params.include;
         this._setUpdateTimestampFields(data);
 
-
         return this.table.update({
-            where: {
-                id: primaryKey
-            },
+            where: condition,
             data,
             include
         });
@@ -184,28 +197,9 @@ export default class Model {
     }
 
     static async deleteOne(primaryKey: string): Promise<any> {
-        if (this.softDelete) {
-            const data: { deleted: boolean } = { deleted : true };
-            this._setUpdateTimestampFields(data);
+        const condition: any = {};
+        condition[this.primaryKeyName] = primaryKey
 
-            return this.table.update({
-                where: {
-                    id: primaryKey
-                },
-                data
-            });
-        } else {
-            return this.table.delete({
-                where: {
-                    id: primaryKey
-                }
-            });
-        }
-    }
-
-    static async deleteOneWhere(params: any): Promise<any> {
-        const condition: any = params
-        
         if (this.softDelete) {
             const data: { deleted: boolean } = { deleted : true };
             this._setUpdateTimestampFields(data);
@@ -216,6 +210,65 @@ export default class Model {
             });
         } else {
             return this.table.delete({
+                where: condition
+            });
+        }
+    }
+
+    static async deleteOneForeignKey(primaryKey: string, params: any): Promise<any> {
+        const condition: any = {};
+        condition[this.primaryKeyName] = primaryKey
+
+        if (this.softDelete) {
+            const data: { deleted: boolean } = { deleted : true };
+            this._setUpdateTimestampFields(data);
+
+            return this.table.update({
+                where: condition,
+                data: data,
+                include: params
+            });
+        } else {
+            return this.table.delete({
+                where: condition,
+                include: params
+            });
+        }
+    }
+
+    static async deleteOneWhere(params: any): Promise<any> {
+        const condition: any = params
+        
+        if (this.softDelete) {
+            const data: { deleted: boolean } =  { deleted : true };
+            this._setUpdateTimestampFields(data);
+
+            return this.table.update({
+                where: condition,
+                data: data
+            });
+        } else {
+            return this.table.delete({
+                where: condition
+            });
+        }
+    }
+
+    
+
+    static async deleteManyWhere(params: any): Promise<any> {
+        const condition: any = params
+        
+        if (this.softDelete) {
+            const data: { deleted: boolean } =  { deleted : true };
+            this._setUpdateTimestampFields(data);
+
+            return this.table.updateMany({
+                where: condition,
+                data: data
+            });
+        } else {
+            return this.table.deleteMany({
                 where: condition
             });
         }
