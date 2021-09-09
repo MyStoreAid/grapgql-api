@@ -1,5 +1,5 @@
 import { ManufacturerIdArgs, Manufacturer } from "../../types";
-import { Manufacturer as ManufacturerModel } from "@mystoreaid/prisma-models"; 
+import ManufacturerModel from "../../../../resolvers/manufacturers/ManufacturerModel";
 
 export default async function manufacturer (parent: any, args: ManufacturerIdArgs): Promise<Manufacturer> | never {
     let result!: Manufacturer;
