@@ -170,6 +170,7 @@ type Mutation {
     adminCreateProduct(name: String!, description: String, summary: String, barCode: String, manufacturerId: String, brandId: String, productCategoryId: String, productSegmentId: String, measuerementUnitId: String, weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
     adminUpdateProduct(id: ID, name: String!, description: String, summary: String, barCode: String,  weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
     adminDeleteProduct(id: ID!): Product!
+    clientCreateProduct(name: String!, branchId: String!, description: String, summary: String, barCode: String, manufacturerId: String, brandId: String, productCategoryId: String, productSegmentId: String, measuerementUnitId: String, weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
 #------------------------------------------------------------- Product Category  --------------------------------------------------------
     adminCreateProductCategory(name: String!, summary: String): ProductCategory!
     adminUpdateProductCategory(id: ID!, name: String, summary: String): ProductCategory!
