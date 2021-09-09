@@ -90,6 +90,21 @@
     semver "^7.3.4"
     tar "^6.1.0"
 
+"@mystoreaid/backend-helpers@^1.0.3", "@mystoreaid/backend-helpers@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@mystoreaid/backend-helpers/-/backend-helpers-1.0.5.tgz#3850be6b77104d4c90b57563515144417093adbc"
+  integrity sha512-AyM5oykJVHUK2z87NM0BoujK7RBz2f92VWQuk/i7FMxktIfTGTgLQCaWpC+WYSxwhzmRqLVVMmZQlffBb/DfaA==
+  dependencies:
+    moment "^2.29.1"
+    uuid "^8.3.2"
+
+"@mystoreaid/prisma-models@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@mystoreaid/prisma-models/-/prisma-models-1.0.8.tgz#f2cb6369df26da6ca929accd00cf45a00a4a72b1"
+  integrity sha512-dUKywWhtxsUBAGorZbU2d8S5ADfsuUIv3GoVe4xkuab319xKFh7L1f1ZwdFiQSGYvwjURLQeIkYXUObcv/NGzA==
+  dependencies:
+    "@mystoreaid/backend-helpers" "^1.0.3"
+
 "@prisma/client@^2.27.0":
   version "2.28.0"
   resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.28.0.tgz#6cd91a3c2757814a9454ea23d7e33cd2ff3952db"

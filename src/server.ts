@@ -7,12 +7,14 @@ import userGroups from './utils/userGroups';
 import AdminAuthHelper from './helpers/AdminAuthHelper';
 import ClientAuthHelper from './helpers/ClientAuthHelper';
 import { getUserId } from './utils/utils';
-import PrismaContextProvider from './services/PrismaContextProvider';
-
+// import PrismaContextProvider from './services/PrismaContextProvider';
+import { PrismaContextProvider} from '@mystoreaid/backend-helpers';
+import { Model } from '@mystoreaid/prisma-models';
 
 const prisma = new PrismaClient();
 // connection can be accessed from any where through prisma PrismaContextProvider
 PrismaContextProvider.setConnection(prisma);
+Model.setConnection(prisma);
 
 const server = new ApolloServer({
     typeDefs: fs.readFileSync(

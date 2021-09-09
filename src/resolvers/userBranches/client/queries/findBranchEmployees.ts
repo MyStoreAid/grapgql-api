@@ -1,7 +1,7 @@
 import { Permission } from "../../../../resolvers/permissions/types";
 import { Role, RoleId, RoleWithPermission } from "../../../../resolvers/roles/types";
 import RolesPermissionModel from "../../../../resolvers/rolesPermissions/RolesPermissionModel";
-import { FindBranchEmployeeArgs, Employee, UserBranch } from "../../types";
+import { FindBranchEmployeeArgs, Employee, UserBranch } from "./../../types";
 import UserBranchModel from "../../UserBranchModel";
 
 
