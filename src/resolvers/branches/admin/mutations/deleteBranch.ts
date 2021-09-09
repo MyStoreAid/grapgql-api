@@ -1,4 +1,4 @@
-import BranchModel from "../../BranchModel";
+import { Branch as BranchModel } from '@mystoreaid/prisma-models';
 import {Branch, BranchIdArgs} from '../../types';
 
 export default async function deleteBranch (parent: any, args: BranchIdArgs, context: any): Promise<Branch> | never {

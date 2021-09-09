@@ -1,4 +1,4 @@
-import UserModel from "../../UserModel";
+import { User as UserModel } from "@mystoreaid/prisma-models";
 import { User, UserIdArgs } from "../../types";
 
 export default async function user (parent: any, args: UserIdArgs): Promise<User> | never {

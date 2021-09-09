@@ -1,4 +1,4 @@
-import SupplierModel from '../../SupplierModel';
+import { Supplier as SupplierModel} from "@mystoreaid/prisma-models";
 import { Supplier } from '../../types';
 
 export default async function createSupplier (parent: any, args: Supplier): Promise<Supplier> {

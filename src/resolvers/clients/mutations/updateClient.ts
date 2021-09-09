@@ -1,6 +1,5 @@
 import { Client } from "../types";
-import ClientModel from "../ClientModel";
-
+import { Client as ClientModel} from "@mystoreaid/prisma-models";
 
 export default async function updateClient (parent: any, args: Client) : Promise<Client> | never{
     let existingClient!: Client;

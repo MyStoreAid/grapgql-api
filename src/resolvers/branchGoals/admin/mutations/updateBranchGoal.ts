@@ -1,5 +1,5 @@
 import { BranchGoal } from "../../types";
-import BranchGoalModel from "../../BranchGoalModel";
+import { BranchGoal as BranchGoalModel} from "@mystoreaid/prisma-models";
 
 export default async function updateBranchGoal(parent: any, args: BranchGoal, context: any, info: any): Promise<BranchGoal> | never {
     

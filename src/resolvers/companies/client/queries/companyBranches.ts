@@ -1,5 +1,5 @@
 import { Company, CompanyIdArgs } from "../../types";
-import CompanyModel from "../../CompanyModel";
+import { Company as CompanyModel } from "@mystoreaid/prisma-models";
 import { Branch } from "../../../../resolvers/branches/types";
 
 export default async function companyBranches (parent: any, args: CompanyIdArgs): Promise<Branch[]>  | never{

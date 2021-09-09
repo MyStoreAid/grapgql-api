@@ -1,7 +1,7 @@
 import { Branch } from "../../../../resolvers/branches/types";
 import { CompanyId } from "../../../../resolvers/companies/types";
 import { UserBranch, UserCompanyBranchArgs } from "../../../../resolvers/userBranches/types";
-import UserBranchModel from "../../../../resolvers/userBranches/UserBranchModel";
+import { UserBranch as UserBranchModel} from "@mystoreaid/prisma-models";
 import { UserId } from "../../../../resolvers/users/types";
 
 

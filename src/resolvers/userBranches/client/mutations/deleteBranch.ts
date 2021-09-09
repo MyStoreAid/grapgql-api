@@ -1,5 +1,6 @@
-import BranchModel from "../../../../resolvers/branches/BranchModel";
-import UserBranchModel from "../../../../resolvers/userBranches/UserBranchModel";
+import {
+    Branch as BranchModel,
+    UserBranch as UserBranchModel} from "@mystoreaid/prisma-models";
 import { Branch } from "../../../../resolvers/branches/types";
 import { DeleteBranchArgs, UserBranch } from "../../../../resolvers/userBranches/types";
 

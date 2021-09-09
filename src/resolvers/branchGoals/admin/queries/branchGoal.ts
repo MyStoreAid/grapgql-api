@@ -1,4 +1,4 @@
-import BranchGoalModel from "../../BranchGoalModel";
+import { BranchGoal as BranchGoalModel} from "@mystoreaid/prisma-models";
 import { BranchGoal, BranchGoalIdArgs } from "../../types";
 
 export default async function branchGoal (parent: any, args: BranchGoalIdArgs, context: any): Promise<BranchGoal> | never {

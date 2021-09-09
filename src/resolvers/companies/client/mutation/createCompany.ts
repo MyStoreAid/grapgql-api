@@ -1,8 +1,8 @@
 import { ClientCreateCompanyArgs, ClientCreateCompanyResponse, Company } from '../../types';
-import CompanyModel from '../../CompanyModel';
-import UserModel from '../../../../resolvers/users/UserModel';
+import {  
+    User  as UserModel,
+    Role as RoleModel } from "@mystoreaid/prisma-models";
 import { Branch } from '../../../../resolvers/branches/types';
-import RoleModel from '../../../../resolvers/roles/RoleModel';
 import { Role } from '../../../../resolvers/roles/types';
 import CompanyRegistrationHelper from '../../../../helpers/CompanyRegistrationHelper';
 import UuidHelper from "../../../../helpers/UuidHelper";

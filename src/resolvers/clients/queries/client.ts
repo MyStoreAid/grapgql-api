@@ -1,5 +1,5 @@
 import { Client, ClientIdArgs } from "../types";
-import ClientModel from "../ClientModel";
+import { Client as ClientModel} from "@mystoreaid/prisma-models";
 
 export default async function client (parent: any, args: ClientIdArgs): Promise<Client> | never {
     let result!: Client;

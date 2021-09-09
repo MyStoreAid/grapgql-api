@@ -1,9 +1,8 @@
 import { BranchSupplier } from '../types';
-import BranchSupplierModel from '../BranchSupplierModel';
+import { Branch as BranchModel, BranchSupplier as BranchSupplierModel, User as UserModel } from "@mystoreaid/prisma-models"
 import { Branch } from '../../../resolvers/branches/types';
-import BranchModel from '../../../resolvers/branches/BranchModel';
 import { User } from '../../../resolvers/users/types';
-import UserModel from '../../../resolvers/users/UserModel';
+
 
 
 

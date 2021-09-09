@@ -1,5 +1,5 @@
 import { UserIdArgs, User} from '../../types';
-import UserModel from '../../UserModel';
+import { User as UserModel } from "@mystoreaid/prisma-models";
 import generateOtp from '../../helpers/generateOtp';
 import SMSService from '../../../../services/SMSService';
 

@@ -1,7 +1,7 @@
 import SMSService from 'services/SMSService';
 import generateOtp from '../../helpers/generateOtp';
 import { updateUserContactArgs, RegisterUserResponse} from '../../types';
-import UserModel from '../../UserModel';
+import { User as UserModel } from "@mystoreaid/prisma-models";
 
 
 export default async function updateUserContact(parent: any, args: updateUserContactArgs): Promise<RegisterUserResponse> | never {

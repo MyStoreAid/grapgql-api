@@ -1,4 +1,4 @@
-import CompanyModel from "../../CompanyModel";
+import { Company as CompanyModel } from "@mystoreaid/prisma-models";
 import { Company } from "../../types";
 
 export default async function updateCompany(parent: any, args: Company, context: any): Promise<Company> | never {

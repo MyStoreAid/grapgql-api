@@ -1,4 +1,4 @@
-import BranchesProductModel from "../../../../resolvers/branchesProducts/BranchesProductModel";
+import { BranchesProduct as BranchesProductModel} from "@mystoreaid/prisma-models"
 import { BranchProduct, FindBranchProductsArgs } from "../../../../resolvers/branchesProducts/types";
 import { Product } from "../../../../resolvers/products/types";
 

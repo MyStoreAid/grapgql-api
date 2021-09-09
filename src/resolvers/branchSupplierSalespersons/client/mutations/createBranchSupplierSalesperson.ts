@@ -1,7 +1,5 @@
 import { BranchSupplierSalesperson } from '../../types';
-import BranchSupplierSalespersonModel from '../../BranchSupplierSalespersonModel';
-
-
+import { BranchSupplierSalesperson as BranchSupplierSalespersonModel} from "@mystoreaid/prisma-models";
 
 export default async function createBranchSupplierSalesperson (parent: any, args: BranchSupplierSalesperson): Promise<BranchSupplierSalesperson> {
     const data = {

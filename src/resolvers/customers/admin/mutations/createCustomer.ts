@@ -1,7 +1,5 @@
 import { Customer } from '../../types';
-import CustomerModel from '../../CustomerModel';
-
-
+import { Customer as CustomerModel } from "@mystoreaid/prisma-models";
 
 export default async function createCustomer (parent: any, args: Customer): Promise<Customer> {
     const data = {

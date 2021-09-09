@@ -1,4 +1,4 @@
-import SubscriptionModel from '../../SubscriptionModel';
+import {Subscription as SubscriptionModel} from "@mystoreaid/prisma-models";
 import { Subscription, SubscriptionIdArgs} from '../../types';
 
 export default async function deleteSubscription (parent: any, args: SubscriptionIdArgs): Promise<Subscription> | never {

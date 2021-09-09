@@ -1,5 +1,5 @@
 import { User, UserExistsArgs, UserExistsResponse} from '../../types';
-import UserModel from '../../UserModel';
+import { User as UserModel } from "@mystoreaid/prisma-models";
 
 
 export default async function userExists(parent: any, args: UserExistsArgs): Promise<UserExistsResponse> | never{

@@ -1,5 +1,5 @@
 import { Company, CompanyIdArgs } from "../../types";
-import CompanyModel from "../../CompanyModel";
+import { Company as CompanyModel } from "@mystoreaid/prisma-models";
 
 export default async function company (parent: any, args: CompanyIdArgs): Promise<Company> | never {
     let result! : Company;

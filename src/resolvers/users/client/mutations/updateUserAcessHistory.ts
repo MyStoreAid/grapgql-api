@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { User, UserIdArgs} from '../../types';
-import UserModel from '../../UserModel';
+import { User as UserModel } from "@mystoreaid/prisma-models";
 
 
 export default async function updateUserAccessHistory(parent: any, args: UserIdArgs): Promise<User> | never{

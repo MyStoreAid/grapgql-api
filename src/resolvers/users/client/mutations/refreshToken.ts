@@ -1,5 +1,5 @@
 import { User, UserIdArgs } from "../../types";
-import UserModel from "../../UserModel";
+import { User as UserModel } from "@mystoreaid/prisma-models";
 import jwt from "jsonwebtoken";
 import { signToken } from "../../helpers";
 

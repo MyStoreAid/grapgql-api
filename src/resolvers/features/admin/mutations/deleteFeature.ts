@@ -1,5 +1,5 @@
 import { Feature, FeatureIdArgs } from "../../types";
-import FeatureModel from "../../FeatureModel";
+import { Feature as FeatureModel } from "@mystoreaid/prisma-models";
 
 export default async function deleteFeature (parent: any, args: FeatureIdArgs): Promise<Feature> | never {
     let existingFeature!: Feature;

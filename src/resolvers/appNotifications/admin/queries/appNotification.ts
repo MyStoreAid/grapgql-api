@@ -1,4 +1,4 @@
-import AppNotificationModel from "../../AppNotificationModel";
+import {AppNotification as AppNotificationModel} from "@mystoreaid/prisma-models"
 import { AppNotification, AppNotificationIdArgs } from "../../types";
 
 export default async function appNotification (parent: any, args: AppNotificationIdArgs): Promise<AppNotification> | never {

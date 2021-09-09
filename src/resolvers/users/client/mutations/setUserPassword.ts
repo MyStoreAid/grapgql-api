@@ -1,6 +1,6 @@
 import { generateHash } from '../../helpers';
 import { SetUserPassword, RegisterUserResponse, User} from '../../types';
-import UserModel from '../../UserModel';
+import { User as UserModel } from "@mystoreaid/prisma-models";
 
 
 export default async function setUserPassword(parent: any, args: SetUserPassword): Promise<RegisterUserResponse> | never {

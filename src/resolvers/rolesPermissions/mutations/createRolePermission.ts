@@ -1,4 +1,4 @@
-import RolesPermissionModel from "../RolesPermissionModel";
+import { RolesPermission as RolesPermissionModel } from "@mystoreaid/prisma-models";
 import { RolesPermission } from "../types";
 
 export default async function createRolePermission (parent: any, args: RolesPermission): Promise<RolesPermission> {

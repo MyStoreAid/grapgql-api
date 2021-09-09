@@ -1,5 +1,4 @@
-import TimeHelper from '../../../../helpers/TimeHelper';
-import BrandModel from '../../BrandModel';
+import { Brand as BrandModel } from "@mystoreaid/prisma-models";
 import {Brand, BrandIdArgs} from '../../types';
 
 export default async function deleteBrand (parent:any, args: BrandIdArgs): Promise<Brand> | never {

@@ -1,4 +1,4 @@
-import BranchesProductModel from "../../../../resolvers/branchesProducts/BranchesProductModel";
+import { BranchesProduct as BranchesProductModel } from "@mystoreaid/prisma-models";
 import { AssignBranchProduct, BranchProduct } from "../../../../resolvers/branchesProducts/types";
 
 export default async function deleteBranchProduct(parent: any, args: AssignBranchProduct): Promise<BranchProduct> {

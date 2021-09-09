@@ -1,5 +1,5 @@
 import { PermissionIdArgs, Permission } from '../../types';
-import PermissionModel from '../../PermissionModel';
+import { Permission as PermissionModel} from "@mystoreaid/prisma-models";
 
 export default async function deletePermission (parent: any, args: PermissionIdArgs): Promise<Permission> | never {
     

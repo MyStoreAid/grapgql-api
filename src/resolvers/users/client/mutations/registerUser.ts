@@ -1,5 +1,5 @@
 import { RegisterUserPayload, RegisterUserResponse, User} from '../../types';
-import UserModel from '../../UserModel';
+import { User as UserModel } from "@mystoreaid/prisma-models";
 
 
 export default async function registerUser(parent: any, args: RegisterUserPayload): Promise<RegisterUserResponse> | never{

@@ -1,5 +1,5 @@
 import { Product } from '../../types';
-import ProductModel from '../../ProductModel';
+import { Product as ProductModel } from "@mystoreaid/prisma-models";
 
 
 export default async function createProduct (parent: any, args: Product, context: any): Promise<Product> {

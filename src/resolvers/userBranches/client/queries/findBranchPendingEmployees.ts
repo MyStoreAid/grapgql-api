@@ -1,8 +1,7 @@
 import { Permission } from "../../../../resolvers/permissions/types";
 import { Role, RoleId, RoleWithPermission } from "../../../../resolvers/roles/types";
-import RolesPermissionModel from "../../../../resolvers/rolesPermissions/RolesPermissionModel";
 import { FindBranchEmployeeArgs, Employee, UserBranch } from "../../types";
-import UserBranchModel from "../../UserBranchModel";
+import { RolesPermission as RolesPermissionModel, UserBranch as UserBranchModel} from "@mystoreaid/prisma-models";
 
 
 export default async function findBranchPendingEmployees (parent: any, args: FindBranchEmployeeArgs): Promise<Employee[]> {
