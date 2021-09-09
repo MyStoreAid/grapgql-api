@@ -1,5 +1,5 @@
 import { CustomerIdArgs, Customer } from "../../types";
-import CustomerModel from "../../CustomerModel";
+import { Customer as CustomerModel } from "@mystoreaid/prisma-models";
 
 export default async function customer (parent: any, args: CustomerIdArgs): Promise<Customer> | never {
     

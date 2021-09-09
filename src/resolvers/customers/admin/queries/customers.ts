@@ -1,5 +1,5 @@
 import { Customer } from "../../types";
-import CustomerModel from "../../CustomerModel";
+import { Customer as CustomerModel } from "@mystoreaid/prisma-models";
 
 export default async function customers (parent: any, args: Customer, context: any): Promise<Customer[]> {
 

@@ -1,5 +1,5 @@
 import { findBranchEmployeeArgs, BranchSupplierSalesperson } from "../../types";
-import BranchSupplierSalespersonModel from "../../BranchSupplierSalespersonModel";
+import { BranchSupplierSalesperson as BranchSupplierSalespersonModel} from "@mystoreaid/prisma-models";
 
 
 export default async function findBranchEmployees (parent: any, args: findBranchEmployeeArgs): Promise<BranchSupplierSalesperson[]> {

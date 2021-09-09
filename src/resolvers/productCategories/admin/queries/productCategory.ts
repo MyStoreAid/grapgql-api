@@ -1,5 +1,5 @@
 import { ProductCategoryIdArgs, ProductCategory } from "../../types";
-import ProductCategoryModel from "../../ProductCategoryModel";
+import { ProductCategory as ProductCategoryModel } from "@mystoreaid/prisma-models";
 
 export default async function productCategory (parent: any, args: ProductCategoryIdArgs): Promise<ProductCategory> | never {
 

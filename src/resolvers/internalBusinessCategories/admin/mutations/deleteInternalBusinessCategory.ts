@@ -1,5 +1,5 @@
 import { InternalBusinessCategory,InternalBusinessCategoryIdArgs } from "../../types";
-import InternalBusinessCategoryModel from "../../InternalBusinessCategoryModel";
+import { InternalBusinessCategory as InternalBusinessCategoryModel } from "@mystoreaid/prisma-models";
 
 export default async function deleteInternalBusinessCategory (parent: any, args: InternalBusinessCategoryIdArgs): Promise<InternalBusinessCategory> | never {
     let existingInternalBusinessCategory!: InternalBusinessCategory;

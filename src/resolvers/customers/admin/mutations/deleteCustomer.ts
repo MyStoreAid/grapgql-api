@@ -1,6 +1,5 @@
 import { Customer, CustomerIdArgs } from '../../types';
-import CustomerModel from '../../CustomerModel';
-
+import { Customer as CustomerModel } from "@mystoreaid/prisma-models";
 
 export default async function deleteCustomer (parent: any, args: CustomerIdArgs): Promise<Customer> | never{
     

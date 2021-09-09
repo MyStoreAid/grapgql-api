@@ -1,9 +1,6 @@
 import { Company } from '../../types';
-import CompanyModel from '../../CompanyModel';
+import { Company as CompanyModel } from "@mystoreaid/prisma-models";
 import UuidHelper from "../../../../helpers/UuidHelper";
-
-
-
 
 export default async function createCompany (parent: any, args: Company): Promise<Company> {
     const data = { 

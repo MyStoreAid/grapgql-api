@@ -1,5 +1,5 @@
 import { Branch } from "../../types";
-import BranchModel from "../../BranchModel";
+import { Branch as BranchModel } from '@mystoreaid/prisma-models';
 
 export default async function branches (parent: any, args: Branch): Promise<Branch[]> {
 

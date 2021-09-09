@@ -1,9 +1,10 @@
-import PermissionModel from "../resolvers/permissions/PermissionModel";
 import { Permission } from "../resolvers/permissions/types";
-import UserAccessModel from "../models/UserAccess";
-import BranchModel from "../resolvers/branches/BranchModel";
 import { User } from "../resolvers/users/types";
-import UserModel from "../resolvers/users/UserModel";
+import { Permission as PermissionModel,
+         UserAccess as UserAccessModel, 
+         Branch as BranchModel, 
+         User as UserModel
+         } from "@mystoreaid/prisma-models";
 
 export default class UserAccessService {
     static async getUserAccess(user: User, companyIds: Array<string> = []) {

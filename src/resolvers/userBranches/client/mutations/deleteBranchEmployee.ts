@@ -1,7 +1,5 @@
-import UserModel from "../../../../resolvers/users/UserModel";
 import { DeleteBranchEmployeeArgs, Employee, UserBranch } from "../../types";
-import UserBranchModel from "../../UserBranchModel";
-
+import { UserBranch as UserBranchModel, User as UserModel } from '@mystoreaid/prisma-models';
 
 export default async function deleteBranchEmployee (parent: any, args: DeleteBranchEmployeeArgs): Promise<Employee> | never {
 

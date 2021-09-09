@@ -1,5 +1,5 @@
 import {UserWithPassword, VerifyUserPayload, VerifyUserResponse, User} from '../../types';
-import UserModel from '../../UserModel';
+import { User as UserModel } from "@mystoreaid/prisma-models";
 import { signToken } from '../../helpers';
 
 export default async function verifyUser(parent: any, args: VerifyUserPayload, context: any): Promise<VerifyUserResponse> | never{

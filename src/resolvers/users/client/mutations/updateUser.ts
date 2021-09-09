@@ -1,5 +1,5 @@
 import { User} from '../../types';
-import UserModel from '../../UserModel';
+import { User as UserModel } from "@mystoreaid/prisma-models";
 
 export default async function updateUser(parent: any, args: User): Promise<User> | never {
     let existingUser: User

@@ -1,5 +1,7 @@
-import BranchProductCategoryModel from "../../../../resolvers/branchProductCategories/BranchProductCategoryModel";
-import { BranchProductCategory, DeleteBranchProductCategoryArgs } from "../../../../resolvers/branchProductCategories/types";
+import { BranchProductCategory as BranchProductCategoryModel } from "@mystoreaid/prisma-models";
+import { 
+    BranchProductCategory, 
+    DeleteBranchProductCategoryArgs } from "../../../../resolvers/branchProductCategories/types";
 
 export default async function deleteBranchProductCategory(parent: any, args: DeleteBranchProductCategoryArgs): Promise<BranchProductCategory> {
     const branchId: string = args.branchId;

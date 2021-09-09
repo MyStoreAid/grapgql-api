@@ -1,33 +1,32 @@
 import moment from "moment";
-import AppointmentModel from "../resolvers/appointments/AppointmentModel";
-import BranchModel from "../resolvers/branches/BranchModel";
-import BranchBranchGoalModel from "../resolvers/branchesBranchGoals/BranchBranchGoal";
-import BranchCustomerModel from "../resolvers/branchesCustomers/BranchCustomerModel";
-import BranchProductCategoryModel from "../resolvers/branchProductCategories/BranchProductCategoryModel";
-import BranchSupplierModel from "../resolvers/branchSuppliers/BranchSupplierModel";
-import BranchUserGroupModel from "../resolvers/branchUserGroups/BranchUserGroupModel";
-import CompanyModel from "../resolvers/companies/CompanyModel";
-import CustomerModel from "../resolvers/customers/CustomerModel";
-import RoleModel from "../resolvers/roles/RoleModel";
-import SupplierModel from "../resolvers/suppliers/SupplierModel";
-import UserModel from "../resolvers/users/UserModel";
-import UserAccess from "../models/UserAccess";
-import UserBranchModel from "../resolvers/userBranches/UserBranchModel";
-import UserCompanyModel from "../resolvers/userCompanies/UserCompany";
+import { Appointment as AppointmentModel, 
+        Branch as BranchModel, 
+        BranchesBranchGoal as BranchBranchGoalModel, 
+        BranchesCustomer as BranchCustomerModel, 
+        BranchProductCategory as BranchProductCategoryModel, 
+        BranchSupplier as BranchSupplierModel, 
+        BranchUserGroup as BranchUserGroupModel,
+        Company as CompanyModel,
+        Customer as CustomerModel,
+        Role as RoleModel,
+        Supplier as SupplierModel,
+        User as UserModel,
+        UserAccess as UserAccessModel,
+        UserBranch as UserBranchModel,
+        UserCompany as UserCompanyModel} from "@mystoreaid/prisma-models";
 import IpLocator from "../services/IpLocator";
 import addressInfoFromGps from "./AddressInfoFromGPS";
 import { generateHash } from "../resolvers/users/helpers";
 import UuidHelper from "./UuidHelper";
 import { Branch, BranchId } from "resolvers/branches/types";
 import { Customer } from "../resolvers/customers/types";
-import { logger } from "../../config/logger";
 import { UserId, User, RegisterUserPayload } from "resolvers/users/types";
 import { Company, CompanyId } from "../resolvers/companies/types";
 import { Role, RoleId } from "../resolvers/roles/types";
 import { Subscription } from "../resolvers/subscriptions/types";
 import { UserBranch } from "../resolvers/userBranches/types";
 import UserAccessService from "../services/UserAccessService";
-import UserAccessModel from "../models/UserAccess";
+
 
 export default class CompanyRegistrationHelper {
     static async setCashCustomer(branchId: BranchId) {

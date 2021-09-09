@@ -1,5 +1,5 @@
 import { ManufacturerIdArgs, Manufacturer } from '../../types';
-import ManufacturerModel from '../../ManufacturerModel';
+import { Manufacturer as ManufacturerModel } from "@mystoreaid/prisma-models";
 
 export default async function deleteManufacturer (parent:any, args:ManufacturerIdArgs): Promise<Manufacturer> | never {
     let existingManufacturer!: Manufacturer;

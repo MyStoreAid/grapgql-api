@@ -1,11 +1,12 @@
-import BranchModel from "../../../../resolvers/branches/BranchModel";
+import { 
+    Branch as BranchModel, 
+    UserBranch as UserBranchModel, 
+    RolesPermission as RolesPermissionModel,
+    User as UserModel } from "@mystoreaid/prisma-models";
 import { Branch } from "../../../../resolvers/branches/types";
 import { User } from "../../../../resolvers/users/types";
-import UserModel from "../../../../resolvers/users/UserModel";
 import { Role, RoleId, RoleWithPermission } from "../../../roles/types";
-import RolesPermissionModel from "../../../rolesPermissions/RolesPermissionModel";
 import { Employee, UserBranch } from "../../types";
-import UserBranchModel from "../../UserBranchModel";
 
 
 export default async function assignBranchEmployee (parent: any, args: UserBranch): Promise<Employee> | never {

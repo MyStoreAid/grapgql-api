@@ -1,7 +1,5 @@
 import { Sale } from '../types';
-import SaleModel from '../SaleModel';
-
-
+import { Sale as SaleModel } from '@mystoreaid/prisma-models';
 
 export default async function createSale (parent: any, args: Sale): Promise<Sale> {
     const data = {

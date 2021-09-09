@@ -1,5 +1,5 @@
 import { BusinessCategory, BusinessCategoryIdArgs } from "../../types";
-import BusinessCategoryModel from "../../BusinessCategoryModel";
+import { BusinessCategory as BusinessCategoryModel } from "@mystoreaid/prisma-models";
 
 export default async function businessCategory (parent: any, args: BusinessCategoryIdArgs, context: any, info: any): Promise<BusinessCategory> | never {
     let result! : BusinessCategory;

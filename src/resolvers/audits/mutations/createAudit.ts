@@ -1,7 +1,5 @@
 import { Audit } from '../types';
-import AuditModel from '../AuditModel';
-
-
+import { Audit as AuditModel } from "@mystoreaid/prisma-models";
 
 export default async function createAudit (parent: any, args: Audit): Promise<Audit> {
     const data = {

@@ -1,5 +1,5 @@
 import { Branch } from '../../types';
-import BranchModel from '../../BranchModel';
+import { Branch as BranchModel } from '@mystoreaid/prisma-models';
 import UuidHelper from "../../../../helpers/UuidHelper";
 import TimeHelper from "../../../../helpers/TimeHelper";
 

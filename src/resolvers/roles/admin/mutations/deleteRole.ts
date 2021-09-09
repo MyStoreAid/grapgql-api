@@ -1,5 +1,5 @@
 import { RoleIdArgs, Role } from '../../types';
-import RoleModel from '../../RoleModel';
+import { Role as RoleModel } from "@mystoreaid/prisma-models";
 
 export default async function deleteRole (parent: any, args: RoleIdArgs): Promise<Role> | never {
     

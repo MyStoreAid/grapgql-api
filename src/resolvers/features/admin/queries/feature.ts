@@ -1,5 +1,5 @@
 import { Feature, FeatureIdArgs } from "../../types";
-import FeatureModel from "../../FeatureModel";
+import { Feature as FeatureModel } from "@mystoreaid/prisma-models";
 
 export default async function feature (parent: any, args: FeatureIdArgs): Promise<Feature> | never  {
     let result!: Feature;

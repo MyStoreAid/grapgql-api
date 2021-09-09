@@ -1,5 +1,5 @@
 import { AuditIdArgs, Audit } from "../../types";
-import AuditModel from "../../AuditModel";
+import { Audit as AuditModel } from "@mystoreaid/prisma-models"
 
 export default async function audit (parent: any, args: AuditIdArgs): Promise<Audit> | never {
     

@@ -1,5 +1,5 @@
 import { MeasurementUnitIdArgs, MeasurementUnit } from '../../types';
-import MeasurementUnitModel from '../../MeasurementUnitModel';
+import { MeasurementUnit as MeasurementUnitModel } from '@mystoreaid/prisma-models';
 
 export default async function deleteMeasurementUnit (parent:any, args:MeasurementUnitIdArgs): Promise<MeasurementUnit> | never {
 

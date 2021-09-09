@@ -1,5 +1,5 @@
 import { PermissionIdArgs, Permission } from "../../types";
-import PermissionModel from "../../PermissionModel";
+import { Permission as PermissionModel} from "@mystoreaid/prisma-models";
 
 export default async function permission (parent: any, args: PermissionIdArgs): Promise<Permission> | never {
     let result!: Permission;

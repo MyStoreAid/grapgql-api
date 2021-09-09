@@ -1,5 +1,5 @@
 import { ProductDescriptionIdArgs, ProductDescription } from "../../types";
-import ProductDescriptionModel from "../../ProductDescriptionModel";
+import { ProductDescription as ProductDescriptionModel } from "@mystoreaid/prisma-models";
 
 export default async function productDescription (parent: any, args: ProductDescriptionIdArgs): Promise<ProductDescription> | never {
     

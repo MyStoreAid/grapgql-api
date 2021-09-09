@@ -1,5 +1,5 @@
 import { MeasurementUnit } from '../../types';
-import MeasurementUnitModel from '../../MeasurementUnitModel';
+import { MeasurementUnit as MeasurementUnitModel } from '@mystoreaid/prisma-models';
 
 export default async function createMeasurementUnit (parent: any, args: MeasurementUnit): Promise<MeasurementUnit> {
     

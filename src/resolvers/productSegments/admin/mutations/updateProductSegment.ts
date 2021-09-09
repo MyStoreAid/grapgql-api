@@ -1,6 +1,5 @@
 import { ProductSegment } from '../../types';
-import ProductSegmentModel from '../../ProductSegmentModel';
-
+import { ProductSegment as ProductSegmentModel } from "@mystoreaid/prisma-models";
 
 export default async function updateProductSegment (parent: any, args: ProductSegment): Promise<ProductSegment> | never{
     

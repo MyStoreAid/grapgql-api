@@ -1,11 +1,10 @@
-import TimeHelper from '../../../../helpers/TimeHelper';
+import { BranchUserGroup as BranchUserGroupModel} from "@mystoreaid/prisma-models";
 import { BranchUserGroup } from '../../types';
 
 export default async function updateBranchUserGroup (parent: any, args: BranchUserGroup, context: any, info: any): Promise<BranchUserGroup> | never {
     let existingBranchUserGroup!: BranchUserGroup;
-    const branchUserGroupId: String = args.id;
-    const currentTime: number = TimeHelper.currentTime;
-
+    const branchUserGroupId: string = args.id;
+    
     try {
         existingBranchUserGroup = await context.prisma.branch_user_groups.findUnique({ where: {id: branchUserGroupId } });
     } catch(error: unknown) {
@@ -17,15 +16,5 @@ export default async function updateBranchUserGroup (parent: any, args: BranchUs
         throw new Error(`There is no business category with ID ${branchUserGroupId}`);
     }
 
-    return await context.prisma.branch_user_groups.update({
-        where: {
-            id: branchUserGroupId
-        },
-        data: {
-            name: args.name,
-            description: args.description,
-            updated_at: currentTime,
-
-        }
-    });
+    return await BranchUserGroupModel.updateOne(branchUserGroupId, args);
 }

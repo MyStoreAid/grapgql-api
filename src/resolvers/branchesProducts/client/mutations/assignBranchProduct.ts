@@ -1,8 +1,6 @@
-import BranchModel from "../../../../resolvers/branches/BranchModel";
+import { BranchesProduct as BranchesProductModel, Branch as BranchModel, Product as ProductModel} from "@mystoreaid/prisma-models"
 import { Branch } from "../../../../resolvers/branches/types";
-import BranchesProductModel from "../../../../resolvers/branchesProducts/BranchesProductModel";
 import { AssignBranchProduct, BranchProduct } from "../../../../resolvers/branchesProducts/types";
-import ProductModel from "../../../../resolvers/products/ProductModel";
 import { Product } from "../../../../resolvers/products/types";
 
 export default async function assignBranchProduct(parent: any, args: AssignBranchProduct): Promise<BranchProduct> {

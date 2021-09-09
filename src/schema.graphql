@@ -734,6 +734,21 @@ type Product {
     last_modified: Float
     server_created_at: Float
     deleted: Boolean!
+    brands: Brand
+    measurement_units: MeasurementUnit
+    manufacturers: Manufacturer
+    product_descriptions: ProductDescription
+    product_categories: ProductCategory
+    product_segment: ProductSegment
+    # audit_entries: [AuditEntry]
+    branches_products: [BranchProduct!]
+    # branches_products_stock_movements: [BranchesProductsStockMovement!]
+    # branches_products_stock: [BranchesProductStock!]
+    # branches_products_stock_histories: [BranchesProductsStockHistory!]
+    # prooduct_product_segment_entries: [ProductProductSegmentEntry!]
+    # sale_entries: [SaleEntry!]
+    # sale_return_histories: [SaleReturnHistory!]
+    # stock_return_histories: [StockReturnHistory!]
 }
 
 

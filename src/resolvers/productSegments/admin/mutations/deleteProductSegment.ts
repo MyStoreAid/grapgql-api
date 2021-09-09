@@ -1,5 +1,5 @@
 import { ProductSegment, ProductSegmentIdArgs } from '../../types';
-import ProductSegmentModel from '../../ProductSegmentModel';
+import { ProductSegment as ProductSegmentModel } from "@mystoreaid/prisma-models";
 
 
 export default async function deleteProductSegment (parent: any, args: ProductSegmentIdArgs): Promise<ProductSegment> | never{

@@ -1,7 +1,7 @@
 import { LoginUserPayload, UserWithPassword, LoginResponse} from '../../types';
-import UserModel from '../../UserModel';
+import { User as UserModel } from "@mystoreaid/prisma-models";
 import { passwordIsValid, signToken } from '../../helpers';
-import UserAccess from '../../../../models/UserAccess';
+import { UserAccess } from "@mystoreaid/prisma-models"; 
 
 export default async function loginUser(parent: any, args: LoginUserPayload): Promise<LoginResponse> | never{
     let user: UserWithPassword; 

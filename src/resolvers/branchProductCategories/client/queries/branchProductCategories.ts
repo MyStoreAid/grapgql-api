@@ -1,5 +1,7 @@
-import BranchProductCategoryModel from "../../../../resolvers/branchProductCategories/BranchProductCategoryModel";
-import { BranchProductCategoriesArgs, BranchProductCategory } from "../../../../resolvers/branchProductCategories/types";
+import { BranchProductCategory as BranchProductCategoryModel } from "@mystoreaid/prisma-models";
+import { 
+    BranchProductCategoriesArgs, 
+    BranchProductCategory } from "../../../../resolvers/branchProductCategories/types";
 import { ProductCategory } from "../../../../resolvers/productCategories/types";
 
 export default async function branchProductCategories(parent: any, args: BranchProductCategoriesArgs): Promise<ProductCategory[]> {

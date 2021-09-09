@@ -1,4 +1,4 @@
-import BrandModel from '../../BrandModel';
+import { Brand as BrandModel } from "@mystoreaid/prisma-models";
 import { Brand } from "../../types";
 
 export default async function updateBrand(parent: any, args: Brand): Promise<Brand> | never {

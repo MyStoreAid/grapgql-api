@@ -1,4 +1,4 @@
-import BranchProductCategoryModel from "../../../../resolvers/branchProductCategories/BranchProductCategoryModel";
+import { BranchProductCategory as BranchProductCategoryModel } from "@mystoreaid/prisma-models";
 import { AssignBranchProductCategoryArgs, BranchProductCategory } from "../../../../resolvers/branchProductCategories/types";
 
 

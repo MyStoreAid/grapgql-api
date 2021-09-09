@@ -1,5 +1,5 @@
 import { BusinessCategory,BusinessCategoryIdArgs } from "../../types";
-import BusinessCategoryModel from "../../BusinessCategoryModel";
+import { BusinessCategory as BusinessCategoryModel } from "@mystoreaid/prisma-models";
 
 
 
