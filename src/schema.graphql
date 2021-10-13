@@ -735,6 +735,7 @@ type Product {
     last_modified: Float
     server_created_at: Float
     deleted: Boolean!
+    branch_products: [BranchProduct!]
 }
 
 
