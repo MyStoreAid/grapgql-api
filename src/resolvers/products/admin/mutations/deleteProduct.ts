@@ -1,13 +1,13 @@
 import { ProductIdArgs, Product } from '../../types';
-import ProductModel from '../../ProductModel';
+import { Product as ProductModel } from "@mystoreaid/prisma-models";
 
-export default async function deleteProduct (parent: any, args: ProductIdArgs, context: any): Promise<Product> | never {
+export default async function deleteProduct (parent: any, args: ProductIdArgs): Promise<Product> | never {
    
     let existingProduct!: Product;
     const productId: string = args.id;
 
     try {
-        existingProduct = await ProductModel.findOne(context.prisma.products, productId);
+        existingProduct = await ProductModel.findOne(productId);
     } catch(error: unknown) {
         console.error(error);
         throw new Error(`There was an error fetching Product with ID ${productId}`);
@@ -17,5 +17,5 @@ export default async function deleteProduct (parent: any, args: ProductIdArgs, c
         throw new Error(`There is no Product with ID ${productId}`);
     }
 
-    return await ProductModel.deleteOne(context.prisma.products, productId)
+    return await ProductModel.deleteOne(productId)
 }

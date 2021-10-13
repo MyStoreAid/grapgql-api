@@ -1,14 +1,14 @@
 import { LoginUserPayload, UserWithPassword, LoginResponse} from '../../types';
-import UserModel from '../../UserModel';
+import { User as UserModel } from "@mystoreaid/prisma-models";
 import { passwordIsValid, signToken } from '../../helpers';
-import UserAccess from '../../../../models/UserAccess';
+import { UserAccess } from "@mystoreaid/prisma-models"; 
 
-export default async function loginUser(parent: any, args: LoginUserPayload, context: any): Promise<LoginResponse> | never{
+export default async function loginUser(parent: any, args: LoginUserPayload): Promise<LoginResponse> | never{
     let user: UserWithPassword; 
 
     if (args.username) {
        
-        user = await UserModel.findOneWhere(context.prisma.users, {username: args.username});
+        user = await UserModel.findOneWhere({username: args.username});
     
         if (!user) {
             throw new Error(`There is no user with username ${args.username}`); 
@@ -20,7 +20,7 @@ export default async function loginUser(parent: any, args: LoginUserPayload, con
 
         if (user.password){
 
-            //If user password is not already hashed
+           
             
             const validUser: boolean = await passwordIsValid(args.password, user.password );
         
@@ -31,7 +31,7 @@ export default async function loginUser(parent: any, args: LoginUserPayload, con
                 const { userId } = user;
                 const token = signToken(user, 24 * 7, 'hours');
                 const result: {token: string, access?: any} = {token};
-                const access = await UserAccess.findOneWhere(context.prisma.user_access, { userId: userId });
+                const access = await UserAccess.findOneWhere({ userId: userId });
                 if (access) {
                     result.access = access.access;
                 }

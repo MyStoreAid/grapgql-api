@@ -1,13 +1,13 @@
 import { ProductCategoryIdArgs, ProductCategory } from '../../types';
-import ProductCategoryModel from '../../ProductCategoryModel';
+import { ProductCategory as ProductCategoryModel } from "@mystoreaid/prisma-models";
 
-export default async function deleteProductCategory (parent: any, args: ProductCategoryIdArgs, context: any): Promise<ProductCategory> | never {
+export default async function deleteProductCategory (parent: any, args: ProductCategoryIdArgs): Promise<ProductCategory> | never {
 
     let existingProductCategory!: ProductCategory;
     const productCategoryId: string = args.id;
 
     try {
-        existingProductCategory = await ProductCategoryModel.findOne(context.prisma.product_categories, productCategoryId);
+        existingProductCategory = await ProductCategoryModel.findOne(productCategoryId);
     } catch (error: unknown) {
         console.error(error);
         throw new Error(`There is an error fetching a ProductCategory with ID ${productCategoryId}`);
@@ -17,5 +17,5 @@ export default async function deleteProductCategory (parent: any, args: ProductC
         throw new Error(`There is no ProductCategory with ID ${productCategoryId}`);
     }
 
-    return await ProductCategoryModel.deleteOne(context.prisma.product_categories, productCategoryId);
+    return await ProductCategoryModel.deleteOne(productCategoryId);
 }

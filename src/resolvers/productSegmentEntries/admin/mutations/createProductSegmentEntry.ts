@@ -1,9 +1,7 @@
 import { ProductSegmentEntry } from '../../types';
-import ProductSegmentEntryModel from '../../ProductSegmentEntryModel';
+import { ProductSegmentEntry as ProductSegmentEntryModel } from "@mystoreaid/prisma-models";
 
-
-
-export default async function createProductSegmentEntry (parent: any, args: ProductSegmentEntry, context: any): Promise<ProductSegmentEntry> {
+export default async function createProductSegmentEntry (parent: any, args: ProductSegmentEntry): Promise<ProductSegmentEntry> {
     const data = {
         data: {
             name: args.name,
@@ -19,5 +17,5 @@ export default async function createProductSegmentEntry (parent: any, args: Prod
 
     
     
-    return ProductSegmentEntryModel.createOneForeignKey(context.prisma.product_segment_entries, data);
+    return ProductSegmentEntryModel.createOneForeignKey(data);
 }

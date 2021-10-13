@@ -1,14 +1,14 @@
 import { PermissionIdArgs, Permission } from '../../types';
-import PermissionModel from '../../PermissionModel';
+import { Permission as PermissionModel} from "@mystoreaid/prisma-models";
 
-export default async function deletePermission (parent: any, args: PermissionIdArgs, context: any): Promise<Permission> | never {
+export default async function deletePermission (parent: any, args: PermissionIdArgs): Promise<Permission> | never {
     
     let existingPermission!: Permission;
     const permissionId: string = args.id;
     
 
     try {
-        existingPermission = await PermissionModel.findOne(context.prisma.permissions, permissionId);
+        existingPermission = await PermissionModel.findOne(permissionId);
     } catch (error: unknown) {
         console.error(error);
         throw new Error(`There is an error fetching a Permission with ID ${permissionId}`);
@@ -20,5 +20,5 @@ export default async function deletePermission (parent: any, args: PermissionIdA
 
 
 
-    return await PermissionModel.deleteOne(context.prisma.permissions, permissionId)
+    return await PermissionModel.deleteOne(permissionId)
 }

@@ -1,11 +1,11 @@
 import { User} from '../../types';
-import UserModel from '../../UserModel';
+import { User as UserModel } from "@mystoreaid/prisma-models";
 
-export default async function updateUser(parent: any, args: User, context: any): Promise<User> | never {
+export default async function updateUser(parent: any, args: User): Promise<User> | never {
     let existingUser: User
     
     try {
-        existingUser = await UserModel.findOneWhere(context.prisma.users, { userId: args.userId});
+        existingUser = await UserModel.findOneWhere({ userId: args.userId});
     }
     catch(error: any){
         throw new Error(`There was an error finding User with User ID ${args.userId}`);
@@ -16,7 +16,7 @@ export default async function updateUser(parent: any, args: User, context: any):
     }
 
     if (existingUser) {
-        const updateUser = await UserModel.updateOne(context.prisma.users, existingUser.userId, args);
+        const updateUser = await UserModel.updateOne(existingUser.userId, args);
         return updateUser;
     }
     throw new Error(`There exists no User with User ID ${args.userId}`);

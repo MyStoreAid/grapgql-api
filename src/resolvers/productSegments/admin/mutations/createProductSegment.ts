@@ -1,7 +1,7 @@
 import { ProductSegment } from '../../types';
-import ProductSegmentModel from '../../ProductSegmentModel';
+import { ProductSegment as ProductSegmentModel } from "@mystoreaid/prisma-models";
 
-export default async function createProductSegment (parent: any, args: ProductSegment, context: any): Promise<ProductSegment> {
+export default async function createProductSegment (parent: any, args: ProductSegment): Promise<ProductSegment> {
     
-    return ProductSegmentModel.createOne(context.prisma.product_segments, args);
+    return ProductSegmentModel.createOne(args);
 }

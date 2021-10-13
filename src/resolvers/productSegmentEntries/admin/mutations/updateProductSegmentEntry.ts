@@ -1,8 +1,7 @@
 import { ProductSegmentEntry } from '../../types';
-import ProductSegmentEntryModel from '../../ProductSegmentEntryModel';
+import { ProductSegmentEntry as ProductSegmentEntryModel } from "@mystoreaid/prisma-models";
 
-
-export default async function updateProductSegmentEntry (parent: any, args: ProductSegmentEntry, context: any): Promise<ProductSegmentEntry> | never{
+export default async function updateProductSegmentEntry (parent: any, args: ProductSegmentEntry): Promise<ProductSegmentEntry> | never{
     
     let existingProductSegmentEntry!: ProductSegmentEntry;
     const productSegmentEntryId: string = args.id;
@@ -11,7 +10,7 @@ export default async function updateProductSegmentEntry (parent: any, args: Prod
     
 
     try {
-        existingProductSegmentEntry = await ProductSegmentEntryModel.findOne(context.prisma.product_segment_entries, productSegmentEntryId);
+        existingProductSegmentEntry = await ProductSegmentEntryModel.findOne(productSegmentEntryId);
     } catch(error: unknown) {
        
         throw new Error(`There was an error fetching ProductSegmentEntry with ID ${productSegmentEntryId}`);
@@ -21,5 +20,5 @@ export default async function updateProductSegmentEntry (parent: any, args: Prod
         throw new Error(`There is no ProductSegmentEntry with ID ${productSegmentEntryId}`);
     }
     
-    return await ProductSegmentEntryModel.updateOneForeignKey(context.prisma.product_segment_entries, productSegmentEntryId, data);
+    return await ProductSegmentEntryModel.updateOneForeignKey(productSegmentEntryId, data);
 }

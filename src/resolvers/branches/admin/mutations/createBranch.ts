@@ -1,30 +1,30 @@
 import { Branch } from '../../types';
-import BranchModel from '../../BranchModel';
+import { Branch as BranchModel } from '@mystoreaid/prisma-models';
 import UuidHelper from "../../../../helpers/UuidHelper";
 import TimeHelper from "../../../../helpers/TimeHelper";
 
 
 
-export default async function createBranch (parent: any, args: Branch, context: any): Promise<Branch> {
+export default async function createBranch (parent: any, args: Branch): Promise<Branch> {
     const branch: String = UuidHelper.newUuid;
     const currentTime: number = TimeHelper.currentTime;
 
     let branchUsers: [{ branchId: String, userId: String}] | any = [];
-    if (args.userIds.length > 0) {
-        // for (let id of args.userIds) {
-        //     branchUsers.push({ 
-        //         id: UuidHelper.newUuid,
-        //         roleId: "49c2829d-e988-4ad6-8e41-568bd5c02260",
-        //         userId: id,
-        //         companyId: "9afd12ff-202a-486f-b976-459307d0f8b2",
-        //         created_at: currentTime,
-        //         updated_at: currentTime,
-        //         server_created_at: currentTime,
-        //         last_modified: currentTime,
-        //     });
-        // }
-        //Needs touchup
-    }
+    // if (args.branchUserIds.length > 0) {
+    //     // for (let id of args.branchUserIds) {
+    //     //     branchUsers.push({ 
+    //     //         id: UuidHelper.newUuid,
+    //     //         roleId: "9dd50b3c-d3e7-406e-8cf5-ea431ec23ef4",
+    //     //         userId: id,
+    //     //         companyId: "bbfe474e-d2e5-4fdf-a3d5-7dbfe0dac594",
+    //     //         created_at: currentTime,
+    //     //         updated_at: currentTime,
+    //     //         server_created_at: currentTime,
+    //     //         last_modified: currentTime,
+    //     //     });
+    //     // }
+        
+    // }
     const data: any = {
         data: {
             id: branch,
@@ -60,7 +60,7 @@ export default async function createBranch (parent: any, args: Branch, context: 
             branch_user_groups: args.branchUserGroupId ? { connect: { id: args.branchUserGroupId } } : undefined,
             business_categories: args.businessCategoryId ? { connect: { id: args.businessCategoryId } } : undefined,
             companies: args.companyId ? { connect: { id: args.companyId } } : undefined,
-            users_branches: args.userIds.length > 0 ? { createMany : { data: branchUsers } } : undefined,
+            users_branches: branchUsers.length > 0 ? { createMany : { data: branchUsers } } : undefined,
             
 
         },
@@ -76,5 +76,5 @@ export default async function createBranch (parent: any, args: Branch, context: 
 
     
     
-    return BranchModel.createOneForeignKey(context.prisma.branches, data);
+    return BranchModel.createOneForeignKey(data);
 }

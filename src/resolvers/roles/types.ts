@@ -1,3 +1,5 @@
+import { Permission } from "../../resolvers/permissions/types";
+
 export type RoleId = string;
 
 export interface Role {
@@ -11,4 +13,8 @@ export interface Role {
 
 export interface RoleIdArgs {
     id: RoleId 
+}
+
+export interface RoleWithPermission extends Role {
+    rolePermissions: any[]
 }

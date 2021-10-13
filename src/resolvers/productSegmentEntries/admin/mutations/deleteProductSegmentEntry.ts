@@ -1,14 +1,13 @@
 import { ProductSegmentEntry, ProductSegmentEntryIdArgs } from '../../types';
-import ProductSegmentEntryModel from '../../ProductSegmentEntryModel';
+import { ProductSegmentEntry as ProductSegmentEntryModel } from "@mystoreaid/prisma-models";
 
-
-export default async function deleteProductSegmentEntry (parent: any, args: ProductSegmentEntryIdArgs, context: any): Promise<ProductSegmentEntry> | never{
+export default async function deleteProductSegmentEntry (parent: any, args: ProductSegmentEntryIdArgs): Promise<ProductSegmentEntry> | never{
     
     let existingProductSegmentEntry!: ProductSegmentEntry;
     const productSegmentEntryId: string = args.id;
 
     try {
-        existingProductSegmentEntry = await ProductSegmentEntryModel.findOne(context.prisma.product_segment_entries, productSegmentEntryId);
+        existingProductSegmentEntry = await ProductSegmentEntryModel.findOne(productSegmentEntryId);
     } catch(error: unknown) {
         
         throw new Error(`There was an error fetching ProductSegmentEntry with ID ${productSegmentEntryId}`);
@@ -18,5 +17,5 @@ export default async function deleteProductSegmentEntry (parent: any, args: Prod
         throw new Error(`There is no ProductSegmentEntry with ID ${productSegmentEntryId}`);
     }
     
-    return await ProductSegmentEntryModel.deleteOne(context.prisma.product_segment_entries, productSegmentEntryId)
+    return await ProductSegmentEntryModel.deleteOne(productSegmentEntryId)
 }

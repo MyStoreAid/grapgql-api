@@ -1,6 +1,6 @@
 import { Permission } from "../../types";
-import PermissionModel from "../../PermissionModel";
+import { Permission as PermissionModel} from "@mystoreaid/prisma-models";
 
-export default async function permissions (parent: any, args: Permission, context: any): Promise<Permission[]> {
-    return PermissionModel.findMany(context.prisma.permissions);
+export default async function permissions (parent: any, args: Permission): Promise<Permission[]> {
+    return PermissionModel.findMany();
 }

@@ -1,9 +1,7 @@
 import { Audit } from '../types';
-import AuditModel from '../AuditModel';
+import { Audit as AuditModel } from "@mystoreaid/prisma-models";
 
-
-
-export default async function createAudit (parent: any, args: Audit, context: any): Promise<Audit> {
+export default async function createAudit (parent: any, args: Audit): Promise<Audit> {
     const data = {
         data: {
             branches:  { connect: { id: args.branchId } } ,
@@ -25,5 +23,5 @@ export default async function createAudit (parent: any, args: Audit, context: an
 
     
     
-    return AuditModel.createOneForeignKey(context.prisma.audits, data);
+    return AuditModel.createOneForeignKey(data);
 }

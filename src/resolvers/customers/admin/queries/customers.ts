@@ -1,5 +1,5 @@
 import { Customer } from "../../types";
-import CustomerModel from "../../CustomerModel";
+import { Customer as CustomerModel } from "@mystoreaid/prisma-models";
 
 export default async function customers (parent: any, args: Customer, context: any): Promise<Customer[]> {
 
@@ -12,5 +12,5 @@ export default async function customers (parent: any, args: Customer, context: a
         sales: true,
     }
     
-    return await CustomerModel.findManyForeignKey(context.prisma.customers, data);
+    return await CustomerModel.findManyForeignKey(data);
 }

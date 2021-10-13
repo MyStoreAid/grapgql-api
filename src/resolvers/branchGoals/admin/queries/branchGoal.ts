@@ -1,13 +1,11 @@
-import BranchGoalModel from "../../BranchGoalModel";
+import { BranchGoal as BranchGoalModel} from "@mystoreaid/prisma-models";
 import { BranchGoal, BranchGoalIdArgs } from "../../types";
 
 export default async function branchGoal (parent: any, args: BranchGoalIdArgs, context: any): Promise<BranchGoal> | never {
     let result!: BranchGoal;
     const branchGoalId: string =  args.id;
-    
     try {
-        result = await BranchGoalModel.findOne(context.prisma.branch_goals, branchGoalId )
-        
+        result = await BranchGoalModel.findOne(branchGoalId);
     } catch (error: unknown) {
         new Error(`There was an error getting BranchGoal with ID ${branchGoalId}.`);
     }

@@ -1,6 +1,6 @@
 import { InternalBusinessCategory } from "../../types";
-import InternalBusinessCategoryModel from "../../InternalBusinessCategoryModel";
+import { InternalBusinessCategory as InternalBusinessCategoryModel } from "@mystoreaid/prisma-models";
 
-export default async function createInternalBusinessCategory (parent: any, args: InternalBusinessCategory, context: any): Promise<InternalBusinessCategory> {
-    return await InternalBusinessCategoryModel.createOne(context.prisma.internal_business_categories, args)   
+export default async function createInternalBusinessCategory (parent: any, args: InternalBusinessCategory): Promise<InternalBusinessCategory> {
+    return await InternalBusinessCategoryModel.createOne(args)   
 }

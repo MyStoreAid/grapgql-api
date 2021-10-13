@@ -1,5 +1,5 @@
 import { BranchGoal, BranchGoalIdArgs } from "../../types";
-import BranchGoalModel from "../../BranchGoalModel";
+import { BranchGoal as BranchGoalModel} from "@mystoreaid/prisma-models"
 
 export default async function deleteBranchGoal (parent: any, args: BranchGoalIdArgs, context: any, info: any): Promise<BranchGoal> | never {
 
@@ -7,7 +7,7 @@ export default async function deleteBranchGoal (parent: any, args: BranchGoalIdA
     const branchGoalId: string = args.id;
 
     try {
-        existingBranchGoal = await BranchGoalModel.findOne(context.prisma.branch_goals, branchGoalId)
+        existingBranchGoal = await BranchGoalModel.findOne(branchGoalId)
     } catch (error: unknown) {
         console.error(error);
         throw new Error(`There is an error fetching a BranchGoal with ID ${branchGoalId}`);
@@ -17,5 +17,5 @@ export default async function deleteBranchGoal (parent: any, args: BranchGoalIdA
         throw new Error(`There is no BranchGoal with ID ${branchGoalId}`);
     }
 
-    return BranchGoalModel.deleteOne(context.prisma.branch_goals, branchGoalId);
+    return BranchGoalModel.deleteOne(branchGoalId);
 }

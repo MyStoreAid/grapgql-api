@@ -1,4 +1,4 @@
-import CompanyModel from "../../CompanyModel";
+import { Company as CompanyModel } from "@mystoreaid/prisma-models";
 import { Company } from "../../types";
 
 export default async function updateCompany(parent: any, args: Company, context: any): Promise<Company> | never {
@@ -6,7 +6,7 @@ export default async function updateCompany(parent: any, args: Company, context:
     const companyId: string = args.id;
     
     try {
-        existingCompany = await CompanyModel.findOne(context.prisma.companies, companyId);
+        existingCompany = await CompanyModel.findOne(companyId);
     } catch(error: unknown) {
         console.error(error);
         throw new Error(`There was an error fetching Companys with ID ${companyId}`);
@@ -23,7 +23,7 @@ export default async function updateCompany(parent: any, args: Company, context:
 
     }
 
-    return CompanyModel.updateOne(context.prisma.companies, companyId, data);
+    return CompanyModel.updateOne(companyId, data);
 
 
 }

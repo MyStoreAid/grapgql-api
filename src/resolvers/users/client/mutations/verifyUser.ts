@@ -1,5 +1,5 @@
 import {UserWithPassword, VerifyUserPayload, VerifyUserResponse, User} from '../../types';
-import UserModel from '../../UserModel';
+import { User as UserModel } from "@mystoreaid/prisma-models";
 import { signToken } from '../../helpers';
 
 export default async function verifyUser(parent: any, args: VerifyUserPayload, context: any): Promise<VerifyUserResponse> | never{
@@ -7,16 +7,15 @@ export default async function verifyUser(parent: any, args: VerifyUserPayload, c
     const {phone, otp} = args;
 
     try {
-        user = await UserModel.findOneWhere(context.prisma.users, {
-            phone,
-            otp
+        user = await UserModel.findOneWhere({ AND: 
+            [{ phone: phone }, {otp: otp} ]
         });
 
         if (!user) {
             throw new Error(`Wrong OTP. Please try again`);
         }
 
-        const updatedUser: UserWithPassword = await UserModel.updateOne(context.prisma.users, user.userId, {
+        const updatedUser: UserWithPassword = await UserModel.updateOne(user.userId, {
             status: 'confirmed'
         });
 

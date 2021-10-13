@@ -1,5 +1,5 @@
 import { User, UserIdArgs } from "../../types";
-import UserModel from "../../UserModel";
+import { User as UserModel } from "@mystoreaid/prisma-models";
 import jwt from "jsonwebtoken";
 import { signToken } from "../../helpers";
 
@@ -10,7 +10,7 @@ export default async function refreshToken(parent: any, args: UserIdArgs, contex
     
     if (args.userId) {
         try{
-            user = await UserModel.findOneWhere(context.prisma.users, { userId: args.userId});
+            user = await UserModel.findOneWhere({ userId: args.userId});
         }
         catch(error: any){
             throw new Error(`There exists no user with User ID ${args.userId}`);

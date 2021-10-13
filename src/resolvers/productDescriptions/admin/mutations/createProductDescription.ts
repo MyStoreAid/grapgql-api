@@ -1,7 +1,7 @@
 import { ProductDescription } from '../../types';
-import ProductDescriptionModel from '../../ProductDescriptionModel';
+import { ProductDescription as ProductDescriptionModel } from "@mystoreaid/prisma-models";
 
-export default async function createProductDescription (parent: any, args: ProductDescription, context: any): Promise<ProductDescription> {
+export default async function createProductDescription (parent: any, args: ProductDescription): Promise<ProductDescription> {
     
-    return ProductDescriptionModel.createOne(context.prisma.product_descriptions, args);
+    return ProductDescriptionModel.createOne(args);
 }

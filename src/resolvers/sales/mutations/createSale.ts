@@ -1,9 +1,7 @@
 import { Sale } from '../types';
-import SaleModel from '../SaleModel';
+import { Sale as SaleModel } from '@mystoreaid/prisma-models';
 
-
-
-export default async function createSale (parent: any, args: Sale, context: any): Promise<Sale> {
+export default async function createSale (parent: any, args: Sale): Promise<Sale> {
     const data = {
         data: {
             note: args.note,
@@ -35,5 +33,5 @@ export default async function createSale (parent: any, args: Sale, context: any)
 
     
     
-    return SaleModel.createOneForeignKey(context.prisma.sales, data);
+    return SaleModel.createOneForeignKey(data);
 }

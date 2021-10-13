@@ -1,12 +1,12 @@
-import SubscriptionModel from "../../SubscriptionModel";
+import {Subscription as SubscriptionModel} from "@mystoreaid/prisma-models";
 import { Subscription, SubscriptionIdArgs } from "../../types";
 
-export default async function subscription (parent: any, args: SubscriptionIdArgs, context: any, info: any): Promise<Subscription> | never {
+export default async function subscription (parent: any, args: SubscriptionIdArgs): Promise<Subscription> | never {
     let result! : Subscription;
     const subscriptionId: string = args.id;
 
     try {
-        result = await SubscriptionModel.findOne(context.prisma.subscriptions, subscriptionId)
+        result = await SubscriptionModel.findOne(subscriptionId)
     } catch (error: unknown) {
         new Error(`There was an error getting business category with ID ${subscriptionId}.`);
     }

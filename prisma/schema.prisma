@@ -19,19 +19,17 @@ model app_notifications {
   deleted                              Boolean                                @default(false)
   created_at                           Float
   updated_at                           Float
-  app_notifications_branch_user_groups app_notifications_branch_user_groups[] @ignore
+  app_notifications_branch_user_groups app_notifications_branch_user_groups[]
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model app_notifications_branch_user_groups {
+  id                 String             @id @db.Uuid
   branchUserGroupId  String             @db.Uuid
   appNotificationId  String             @db.Uuid
   created_at         Float
   updated_at         Float
   app_notifications  app_notifications  @relation(fields: [appNotificationId], references: [id])
   branch_user_groups branch_user_groups @relation(fields: [branchUserGroupId], references: [id])
-
-  @@ignore
 }
 
 model appointments {
@@ -111,7 +109,7 @@ model branch_goals {
   updated_at            Float
   server_created_at     Float?
   last_modified         Float?
-  branches_branch_goals branches_branch_goals[] @ignore
+  branches_branch_goals branches_branch_goals[]
 }
 
 model branch_product_selling_prices {
@@ -290,7 +288,7 @@ model branch_user_groups {
   deleted                              Boolean                                @default(false)
   created_at                           Float
   updated_at                           Float
-  app_notifications_branch_user_groups app_notifications_branch_user_groups[] @ignore
+  app_notifications_branch_user_groups app_notifications_branch_user_groups[]
   branches                             branches[]
 }
 
@@ -353,9 +351,9 @@ model branches {
   branch_supplier_salespersons                                                             branch_supplier_salespersons[]
   branch_supplier_stocks                                                                   branch_supplier_stocks[]
   branch_suppliers                                                                         branch_suppliers[]
-  branches_branch_goals                                                                    branches_branch_goals[]                      @ignore
+  branches_branch_goals                                                                    branches_branch_goals[]
   branches_customers                                                                       branches_customers[]
-  branches_product_categories                                                              branches_product_categories[]                @ignore
+  branches_product_categories                                                              branches_product_categories[]
   branches_products                                                                        branches_products[]
   branches_products_stock_movements_branchesTobranches_products_stock_movements_branchFrom branches_products_stock_movements[]          @relation("branchesTobranches_products_stock_movements_branchFrom")
   branches_products_stock_movements_branchesTobranches_products_stock_movements_branchTo   branches_products_stock_movements[]          @relation("branchesTobranches_products_stock_movements_branchTo")
@@ -374,16 +372,14 @@ model branches {
   users_branches                                                                           users_branches[]
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model branches_branch_goals {
+  id           String       @id @db.Uuid
   branchId     String       @db.Uuid
   branchGoalId String       @db.Uuid
   created_at   Float
   updated_at   Float
   branch_goals branch_goals @relation(fields: [branchGoalId], references: [id])
   branches     branches     @relation(fields: [branchId], references: [id])
-
-  @@ignore
 }
 
 model branches_customers {
@@ -403,7 +399,6 @@ model branches_customers {
   users_branches_customers_lastModifiedByTousers users?    @relation("branches_customers_lastModifiedByTousers", fields: [lastModifiedBy], references: [userId])
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model branches_product_categories {
   productCategoryId  String?             @db.Uuid
   branchId           String?             @db.Uuid
@@ -413,12 +408,10 @@ model branches_product_categories {
   last_modified      Float?
   lastModifiedBy     String?             @db.Uuid
   server_created_at  Float?
-  id                 String?             @db.Uuid
+  id                 String              @id @db.Uuid
   branches           branches?           @relation(fields: [branchId], references: [id])
   users              users?              @relation(fields: [lastModifiedBy], references: [userId])
   product_categories product_categories? @relation(fields: [productCategoryId], references: [id])
-
-  @@ignore
 }
 
 model branches_products {
@@ -556,15 +549,13 @@ model business_categories {
   companies   companies[]
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model business_categories_product_categories {
+  id                 String  @id @db.Uuid
   businessCategoryId String  @db.Uuid
   productCategoryId  String  @db.Uuid
   deleted            Boolean @default(false)
   created_at         Float
   updated_at         Float
-
-  @@ignore
 }
 
 model cashflow_categories {
@@ -649,15 +640,15 @@ model companies {
   users_companies_lastSyncByTousers     users?                        @relation("companies_lastSyncByTousers", fields: [lastSyncBy], references: [userId])
   subscriptions                         subscriptions?                @relation(fields: [subscriptionId], references: [id])
   branches                              branches[]
-  companies_subscriptions               companies_subscriptions[]     @ignore
+  companies_subscriptions               companies_subscriptions[]
   companies_sync_histories              companies_sync_histories[]
   customer_care_schedules               customer_care_schedules[]
   users_branches                        users_branches[]
-  users_companies                       users_companies[]             @ignore
+  users_companies                       users_companies[]
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model companies_subscriptions {
+  id             String         @id @db.Uuid
   companyId      String?        @db.Uuid
   subscriptionId String?        @db.Uuid
   started        DateTime?      @db.Date
@@ -669,8 +660,6 @@ model companies_subscriptions {
   updated_at     Float
   companies      companies?     @relation(fields: [companyId], references: [id])
   subscriptions  subscriptions? @relation(fields: [subscriptionId], references: [id])
-
-  @@ignore
 }
 
 model companies_sync_histories {
@@ -711,8 +700,8 @@ model customer_care_schedules {
   users_customer_care_schedules_userIdTousers         users     @relation("customer_care_schedules_userIdTousers", fields: [userId], references: [userId])
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model customercare_supervisors {
+  id                                                   String  @id @db.Uuid
   supervisorId                                         String  @db.Uuid
   customerCareId                                       String  @db.Uuid
   deleted                                              Boolean @default(false)
@@ -720,8 +709,6 @@ model customercare_supervisors {
   updated_at                                           Float
   users_customercare_supervisors_customerCareIdTousers users   @relation("customercare_supervisors_customerCareIdTousers", fields: [customerCareId], references: [userId])
   users_customercare_supervisors_supervisorIdTousers   users   @relation("customercare_supervisors_supervisorIdTousers", fields: [supervisorId], references: [userId])
-
-  @@ignore
 }
 
 model customers {
@@ -765,7 +752,7 @@ model features {
   deleted                Boolean                  @default(false)
   created_at             Float
   updated_at             Float
-  subscriptions_features subscriptions_features[] @ignore
+  subscriptions_features subscriptions_features[]
 }
 
 model general_settings {
@@ -870,7 +857,7 @@ model permissions {
   deleted           Boolean             @default(false)
   created_at        Float
   updated_at        Float
-  roles_permissions roles_permissions[] @ignore
+  roles_permissions roles_permissions[]
 }
 
 model product_categories {
@@ -886,14 +873,14 @@ model product_categories {
   summary                             String?                               @db.VarChar(255)
   measurement_units                   measurement_units?                    @relation(fields: [measurementUnitId], references: [id])
   product_categories                  product_categories?                   @relation("product_categoriesToproduct_categories_parentId", fields: [parentId], references: [id])
-  branches_product_categories         branches_product_categories[]         @ignore
+  branches_product_categories         branches_product_categories[]
   other_product_categories            product_categories[]                  @relation("product_categoriesToproduct_categories_parentId")
-  product_categories_product_segments product_categories_product_segments[] @ignore
+  product_categories_product_segments product_categories_product_segments[]
   products                            products[]
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model product_categories_product_segments {
+  id                 String              @id @db.Uuid
   productCategoryId  String?             @db.Uuid
   productSegmentId   String?             @db.Uuid
   deleted            Boolean             @default(false)
@@ -901,8 +888,6 @@ model product_categories_product_segments {
   updated_at         Float
   product_categories product_categories? @relation(fields: [productCategoryId], references: [id])
   product_segments   product_segments?   @relation(fields: [productSegmentId], references: [id])
-
-  @@ignore
 }
 
 model product_descriptions {
@@ -918,8 +903,8 @@ model product_descriptions {
   products                      products[]
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model product_product_segment_entries {
+  id                      String                   @id @db.Uuid
   productId               String?                  @db.Uuid
   productSegmentEntryId   String?                  @db.Uuid
   deleted                 Boolean                  @default(false)
@@ -929,8 +914,6 @@ model product_product_segment_entries {
   last_modified           Float?
   products                products?                @relation(fields: [productId], references: [id])
   product_segment_entries product_segment_entries? @relation(fields: [productSegmentEntryId], references: [id])
-
-  @@ignore
 }
 
 model product_segment_entries {
@@ -943,7 +926,7 @@ model product_segment_entries {
   server_created_at               Float?
   last_modified                   Float?
   product_segments                product_segments                  @relation(fields: [productSegmentId], references: [id])
-  product_product_segment_entries product_product_segment_entries[] @ignore
+  product_product_segment_entries product_product_segment_entries[]
 }
 
 model product_segments {
@@ -955,7 +938,7 @@ model product_segments {
   updated_at                          Float
   server_created_at                   Float?
   last_modified                       Float?
-  product_categories_product_segments product_categories_product_segments[] @ignore
+  product_categories_product_segments product_categories_product_segments[]
   product_segment_entries             product_segment_entries[]
   products                            products[]
 }
@@ -994,7 +977,7 @@ model products {
   branches_products_stock_movements  branches_products_stock_movements[]
   branches_products_stocks           branches_products_stocks[]
   branches_products_stocks_histories branches_products_stocks_histories[]
-  product_product_segment_entries    product_product_segment_entries[]    @ignore
+  product_product_segment_entries    product_product_segment_entries[]
   sale_entries                       sale_entries[]
   sale_return_histories              sale_return_histories[]
   stock_return_histories             stock_return_histories[]
@@ -1055,21 +1038,19 @@ model roles {
   deleted           Boolean             @default(false)
   created_at        Float
   updated_at        Float
-  roles_permissions roles_permissions[] @ignore
+  roles_permissions roles_permissions[]
   users_branches    users_branches[]
-  users_companies   users_companies[]   @ignore
+  users_companies   users_companies[]
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model roles_permissions {
+  id           String       @id @db.Uuid
   roleId       String?      @db.Uuid
   permissionId String?      @db.Uuid
   created_at   Float
   updated_at   Float
   permissions  permissions? @relation(fields: [permissionId], references: [id])
   roles        roles?       @relation(fields: [roleId], references: [id])
-
-  @@ignore
 }
 
 model sale_entries {
@@ -1206,20 +1187,18 @@ model subscriptions {
   created_at              Float
   updated_at              Float
   companies               companies[]
-  companies_subscriptions companies_subscriptions[] @ignore
-  subscriptions_features  subscriptions_features[]  @ignore
+  companies_subscriptions companies_subscriptions[]
+  subscriptions_features  subscriptions_features[]
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model subscriptions_features {
+  id             String         @id @db.Uuid
   featureId      String?        @db.Uuid
   subscriptionId String?        @db.Uuid
   created_at     Float
   updated_at     Float
   features       features?      @relation(fields: [featureId], references: [id])
   subscriptions  subscriptions? @relation(fields: [subscriptionId], references: [id])
-
-  @@ignore
 }
 
 model suppliers {
@@ -1333,7 +1312,7 @@ model users {
   branches                                                                                                    branches[]
   branches_customers_branches_customers_createdByTousers                                                      branches_customers[]                         @relation("branches_customers_createdByTousers")
   branches_customers_branches_customers_lastModifiedByTousers                                                 branches_customers[]                         @relation("branches_customers_lastModifiedByTousers")
-  branches_product_categories                                                                                 branches_product_categories[]                @ignore
+  branches_product_categories                                                                                 branches_product_categories[]
   branches_products_branches_products_createdByTousers                                                        branches_products[]                          @relation("branches_products_createdByTousers")
   branches_products_branches_products_lastModifiedByTousers                                                   branches_products[]                          @relation("branches_products_lastModifiedByTousers")
   branches_products_stock_movements_branches_products_stock_movements_createdByTousers                        branches_products_stock_movements[]          @relation("branches_products_stock_movements_createdByTousers")
@@ -1353,8 +1332,8 @@ model users {
   customer_care_schedules_customer_care_schedules_createdByTousers                                            customer_care_schedules[]                    @relation("customer_care_schedules_createdByTousers")
   customer_care_schedules_customer_care_schedules_lastModifiedByTousers                                       customer_care_schedules[]                    @relation("customer_care_schedules_lastModifiedByTousers")
   customer_care_schedules_customer_care_schedules_userIdTousers                                               customer_care_schedules[]                    @relation("customer_care_schedules_userIdTousers")
-  customercare_supervisors_customercare_supervisors_customerCareIdTousers                                     customercare_supervisors[]                   @relation("customercare_supervisors_customerCareIdTousers") @ignore
-  customercare_supervisors_customercare_supervisors_supervisorIdTousers                                       customercare_supervisors[]                   @relation("customercare_supervisors_supervisorIdTousers") @ignore
+  customercare_supervisors_customercare_supervisors_customerCareIdTousers                                     customercare_supervisors[]                   @relation("customercare_supervisors_customerCareIdTousers")
+  customercare_supervisors_customercare_supervisors_supervisorIdTousers                                       customercare_supervisors[]                   @relation("customercare_supervisors_supervisorIdTousers")
   customers_customers_createdByTousers                                                                        customers[]                                  @relation("customers_createdByTousers")
   customers_customers_lastModifiedByTousers                                                                   customers[]                                  @relation("customers_lastModifiedByTousers")
   health_checks                                                                                               health_checks[]
@@ -1379,10 +1358,9 @@ model users {
   sync_changes                                                                                                sync_changes[]
   other_users                                                                                                 users[]                                      @relation("usersTousers_lastModifiedBy")
   users_branches                                                                                              users_branches[]
-  users_companies                                                                                             users_companies[]                            @ignore
+  users_companies                                                                                             users_companies[]
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model users_branches {
   userId                String?   @db.Uuid
   branchId              String    @db.Uuid
@@ -1406,7 +1384,6 @@ model users_branches {
   users                 users?    @relation(fields: [userId], references: [userId])
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model users_companies {
   userId                String    @db.Uuid
   companyId             String    @db.Uuid
@@ -1415,9 +1392,8 @@ model users_companies {
   excludedPermissionIds Json?     @default("[]")
   created_at            Float
   updated_at            Float
+  id                    String    @id @db.Uuid
   companies             companies @relation(fields: [companyId], references: [id])
   roles                 roles     @relation(fields: [roleId], references: [id])
   users                 users     @relation(fields: [userId], references: [userId])
-
-  @@ignore
 }

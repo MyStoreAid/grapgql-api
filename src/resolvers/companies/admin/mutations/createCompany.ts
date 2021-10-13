@@ -1,15 +1,12 @@
 import { Company } from '../../types';
-import CompanyModel from '../../CompanyModel';
+import { Company as CompanyModel } from "@mystoreaid/prisma-models";
 import UuidHelper from "../../../../helpers/UuidHelper";
 
-
-
-
-export default async function createCompany (parent: any, args: Company, context: any): Promise<Company> {
+export default async function createCompany (parent: any, args: Company): Promise<Company> {
     const data = { 
         data: {
         name: args.name,
-        business_categories: args.businessCategoryId ? { connect: { id: args.businessCategoryId} } : { create: { name: "The Lite" } },
+        business_categories: { connect: { id: args.businessCategoryId} },
         subscription: args.subscriptionId ? { connect : { id: args.subscriptionId }} : undefined,
         email: args.email,
         phone: args.phone,
@@ -24,11 +21,8 @@ export default async function createCompany (parent: any, args: Company, context
             internal_business_categories: true,
             
 
-        }
-
-        
-        
+        }   
     }
   
-    return await CompanyModel.createOneForeignKey(context.prisma.companies, data);
+    return await CompanyModel.createOneForeignKey(data);
 }

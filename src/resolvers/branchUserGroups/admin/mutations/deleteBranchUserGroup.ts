@@ -1,11 +1,9 @@
 import { BranchUserGroup,BranchUserGroupIdArgs } from "../../types";
-import TimeHelper from '../../../../helpers/TimeHelper';
-
-
+import { BranchUserGroup as BranchUserGroupModel} from "@mystoreaid/prisma-models";
 
 export default async function deleteBranchUserGroup (parent: any, args: BranchUserGroupIdArgs, context: any): Promise<BranchUserGroup> | never {
     let existingBranchUserGroup!: BranchUserGroup;
-    const branchUserGroupId: String = args.id;
+    const branchUserGroupId: string = args.id;
 
     try {
         existingBranchUserGroup = await context.prisma.branch_user_groups.findUnique({ where: {id: branchUserGroupId}});
@@ -18,14 +16,6 @@ export default async function deleteBranchUserGroup (parent: any, args: BranchUs
         throw new Error(`There is no business category with ID ${branchUserGroupId}`);
     }
 
-    return await context.prisma.branch_user_groups.update({
-        where: {
-            id: branchUserGroupId
-        },
-        data: {
-            deleted : true,
-            updated_at: TimeHelper.currentTime,
-
-        }
-    })
+    return await BranchUserGroupModel.deleteOne(branchUserGroupId);
+       
 }

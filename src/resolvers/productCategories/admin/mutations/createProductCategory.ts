@@ -1,8 +1,8 @@
 import { ProductCategory } from '../../types';
-import ProductCategoryModel from '../../ProductCategoryModel';
+import { ProductCategory as ProductCategoryModel } from "@mystoreaid/prisma-models";
 
 
-export default async function createProductCategory (parent: any, args: ProductCategory, context: any): Promise<ProductCategory> {
+export default async function createProductCategory (parent: any, args: ProductCategory): Promise<ProductCategory> {
     
-    return await ProductCategoryModel.createOne(context.prisma.product_categories, args);
+    return await ProductCategoryModel.createOne(args);
 }

@@ -1,6 +1,6 @@
 import { Role } from "../../types";
-import RoleModel from "../../RoleModel";
+import { Role as RoleModel } from "@mystoreaid/prisma-models";
 
-export default async function roles (parent: any, args: Role, context: any): Promise<Role[]> {
-    return RoleModel.findMany(context.prisma.roles);
+export default async function roles (parent: any, args: Role): Promise<Role[]> {
+    return RoleModel.findMany();
 }

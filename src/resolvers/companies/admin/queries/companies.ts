@@ -1,7 +1,7 @@
 import { Company } from "../../types";
-import CompanyModel from "../../CompanyModel";
+import { Company as CompanyModel } from "@mystoreaid/prisma-models";
 
-export default async function companies (parent: any, args: Company, context: any): Promise<Company[]> {
+export default async function companies (parent: any, args: Company): Promise<Company[]> {
    
-    return CompanyModel.findMany(context.prisma.companies);
+    return CompanyModel.findMany();
 }

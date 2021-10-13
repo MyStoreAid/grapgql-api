@@ -1,14 +1,13 @@
 import { Customer, CustomerIdArgs } from '../../types';
-import CustomerModel from '../../CustomerModel';
+import { Customer as CustomerModel } from "@mystoreaid/prisma-models";
 
-
-export default async function deleteCustomer (parent: any, args: CustomerIdArgs, context: any): Promise<Customer> | never{
+export default async function deleteCustomer (parent: any, args: CustomerIdArgs): Promise<Customer> | never{
     
     let existingCustomer!: Customer;
     const customerId: string = args.id;
 
     try {
-        existingCustomer = await CustomerModel.findOne(context.prisma.customers, customerId);
+        existingCustomer = await CustomerModel.findOne(customerId);
     } catch(error: unknown) {
         
         throw new Error(`There was an error fetching Customer with ID ${customerId}`);
@@ -18,5 +17,5 @@ export default async function deleteCustomer (parent: any, args: CustomerIdArgs,
         throw new Error(`There is no Customer with ID ${customerId}`);
     }
     
-    return await CustomerModel.deleteOne(context.prisma.customers, customerId)
+    return await CustomerModel.deleteOne(customerId)
 }

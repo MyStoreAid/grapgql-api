@@ -1,12 +1,12 @@
 import { Feature, FeatureIdArgs } from "../../types";
-import FeatureModel from "../../FeatureModel";
+import { Feature as FeatureModel } from "@mystoreaid/prisma-models";
 
-export default async function deleteFeature (parent: any, args: FeatureIdArgs, context: any): Promise<Feature> | never {
+export default async function deleteFeature (parent: any, args: FeatureIdArgs): Promise<Feature> | never {
     let existingFeature!: Feature;
     const featureId: string = args.id;
 
     try {
-        existingFeature = await FeatureModel.findOne(context.prisma.features, featureId)
+        existingFeature = await FeatureModel.findOne(featureId)
     } catch (error: unknown) {
         console.error(error);
         throw new Error(`There is an error fetching a Feature with ID ${featureId}`);
@@ -17,5 +17,5 @@ export default async function deleteFeature (parent: any, args: FeatureIdArgs, c
     }
 
 
-    return await FeatureModel.deleteOne(context.prisma.features, featureId)
+    return await FeatureModel.deleteOne(featureId)
 }

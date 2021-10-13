@@ -1,9 +1,8 @@
 import { BranchSupplier } from '../types';
-import BranchSupplierModel from '../BranchSupplierModel';
+import { Branch as BranchModel, BranchSupplier as BranchSupplierModel, User as UserModel } from "@mystoreaid/prisma-models"
 import { Branch } from '../../../resolvers/branches/types';
-import BranchModel from '../../../resolvers/branches/BranchModel';
 import { User } from '../../../resolvers/users/types';
-import UserModel from '../../../resolvers/users/UserModel';
+
 
 
 
@@ -13,14 +12,14 @@ export default async function createBranchSupplier (parent: any, args: BranchSup
     const branchId: string = args.branchId;
     const userId: string = args.createdBy;
     try {
-        existingBranch = await BranchModel.findOne(context.prisma.branches, branchId);
+        existingBranch = await BranchModel.findOne(branchId);
     }
     catch(error: any) {
         throw new Error(`There was an error finding Branch with Branch ID ${branchId}`)
     }
 
     try {
-        existingUser = await UserModel.findOneWhere(context.prisma.users, { userId: userId });
+        existingUser = await UserModel.findOneWhere({ userId: userId });
     }
     catch(error: any) {
         throw new Error(`There was an error finding User with User ID ${userId}`)
@@ -46,7 +45,7 @@ export default async function createBranchSupplier (parent: any, args: BranchSup
 
         
         
-        return BranchSupplierModel.createOneForeignKey(context.prisma.branch_suppliers, data);
+        return BranchSupplierModel.createOneForeignKey(data);
     }
 
     throw new Error(`Branch ID and createdBy ID required!`);

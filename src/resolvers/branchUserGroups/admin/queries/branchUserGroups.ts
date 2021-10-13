@@ -1,5 +1,6 @@
 import { BranchUserGroup } from "../../types";
+import { BranchUserGroup as BranchUserGroupModel} from "@mystoreaid/prisma-models";
 
 export default async function branchUserGroups (parent: any, args: BranchUserGroup, context: any): Promise<BranchUserGroup[]> {
-    return context.prisma.branch_user_groups.findMany();
+    return BranchUserGroupModel.findMany();
 }

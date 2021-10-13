@@ -1,8 +1,8 @@
 import { Audit } from '../types';
-import AuditModel from '../AuditModel';
+import { Audit as AuditModel } from "@mystoreaid/prisma-models";
 
 
-export default async function updateAudit (parent: any, args: Audit, context: any): Promise<Audit> | never{
+export default async function updateAudit (parent: any, args: Audit): Promise<Audit> | never{
     
     let existingAudit!: Audit;
     const auditId: string = args.id;
@@ -27,7 +27,7 @@ export default async function updateAudit (parent: any, args: Audit, context: an
     
 
     try {
-        existingAudit = await AuditModel.findOne(context.prisma.audits, auditId);
+        existingAudit = await AuditModel.findOne(auditId);
     } catch(error: unknown) {
        
         throw new Error(`There was an error fetching Audit with ID ${auditId}`);
@@ -37,5 +37,5 @@ export default async function updateAudit (parent: any, args: Audit, context: an
         throw new Error(`There is no Audit with ID ${auditId}`);
     }
     
-    return await AuditModel.updateOneForeignKey(context.prisma.audits, auditId, data);
+    return await AuditModel.updateOneForeignKey(auditId, data);
 }

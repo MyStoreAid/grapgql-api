@@ -14,8 +14,13 @@ type Query {
 #--------------- Branch Goal ----------------------------
     adminBranchGoals: [BranchGoal!]!
     adminBranchGoal(id: ID!): BranchGoal!
+    clientBranchGoals: [BranchGoal!]!
+#--------------- Branch Product -------------------------
+    clientBranchProducts(branchId: String!): [Product!]!
+#--------------- Branch Product Category ----------------
+    clientBranchProductCategories(branchId: String!): [ProductCategory!]
 #--------------- Branch Supplier Salesperson ---------------------
-    clientFindBranchEmployees(branchId: ID!): [BranchSupplierSalesperson!]
+    # clientFindBranchEmployees(branchId: ID!): [BranchSupplierSalesperson!]
 #--------------- Branch User Group ---------------------
     adminBranchUserGroups: [BranchUserGroup!]!
     adminBranchUserGroup(id: ID): BranchUserGroup
@@ -25,12 +30,15 @@ type Query {
 #--------------- Business Category ----------------------
     adminBusinessCategories: [BusinessCategory!]!
     adminBusinessCategory(id: ID!): BusinessCategory
+    clientBusinessCategories: [BusinessCategory!]!
 #--------------- Client ---------------------------------
     clients: [Client!]!
     client(name: String!): Client
 #--------------- Company --------------------------------
     adminCompanies: [Company!]!
     adminCompany(id: ID!): Company!
+    clientCompanies: [Company!]!
+    clientCompanyBranches(id: ID!): [Branch!]!
 #--------------- Customer --------------------------------
     adminCustomers: [Customer!]!
     adminCustomer(id: ID!): Customer
@@ -77,7 +85,9 @@ type Query {
     adminUsers: [User!]!
     adminUser(userId: ID!): User
 #----------- User Branch ------------------------------------
-    clientFindBranchUsers(branchId: String): [UserBranch]
+    clientFindBranchEmployees(branchId: String!): [Employee!]
+    clientFindBranchPendingEmployees(branchId: String!): [Employee!]
+    clientUserCompanyBranches(userId: String, companyId: String): [Branch!]
 }
 
 type Mutation {
@@ -101,6 +111,12 @@ type Mutation {
     adminCreateBranchGoal(name: String!, position: Float!): BranchGoal!
     adminUpdateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
     adminDeleteBranchGoal(id: ID!): BranchGoal!
+#------------------------------------------------------------------- Branch Product -----------------------------------------------------
+    clientAssignBranchProduct(branchId: String!, productId: String!): BranchProduct!
+    clientDeleteBranchProduct(branchId: String!, productId: String!): BranchProduct!
+#--------------------------------------------------------------- Branch Product Category ------------------------------------------------
+    clientAssignBranchProductCategory(branchId: String, productCategoryId: String!, lastModifiedBy: String): BranchProductCategory!
+    clientDeleteBranchProductCategory(branchId: String!, productCategoryId: String!): BranchProductCategory!
 #--------------------------------------------------------------- Branch Supplier --------------------------------------------------------
     createBranchSupplier(branchId: String!, deliveryDays: String!, hidden: Boolean, createdBy: String!, branchContact: String, lastModifiedBy: String, supplierId: String ): BranchSupplier!
 #------------------------------------------------------------ Branch Supplier Salesperson ------------------------------------------------
@@ -122,7 +138,7 @@ type Mutation {
     updateClient(name: String!, displayName: String!): Client!
     deleteClient(name: String!): Client!
 #--------------------------------------------------------------- Company ----------------------------------------------------------------
-    adminCreateCompany(name: String!, businessCategoryId: String, subscriptionId: String, email: String, phone: String, internalBusinessCategoryId: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
+    adminCreateCompany(name: String!, businessCategoryId: String!, subscriptionId: String, email: String, phone: String, internalBusinessCategoryId: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
     adminUpdateCompany(id: ID!, name: String, adminLastModifiedBy: String, lastSyncBy: String ): Company!
     adminDeleteCompany(id: ID!): Company!
     clientCreateCompany(company: CompanyArgs!, branch: BranchArgs!, customerCareId: String!): CreateClientCompanyResponse!
@@ -174,6 +190,7 @@ type Mutation {
     adminCreateRole(name: String!, description: String): Role!
     adminUpdateRole(id: ID!, name: String, description: String): Role!
     adminDeleteRole(id: ID!): Role!
+    createRolePermission(roleId: String!, permissionId: String!): RolePermission
 #------------------------------------------------------------------ Sale -----------------------------------------------------------------
     createSale(note: String, paymentStatus: String, discount: Float, receiptNumber: String, type: String, paymentType: String, auditId: String, branchId: String!, createdById: String!, customerId: String!, lastModifiedById: String): Sale!
     updateSale(id: ID!, note: String, paymentStatus: String, discount: Float, salesDate: Float, receiptNumber: String, type: String, paymentType: String, auditId: String, branchId: String, createdById: String, customerId: String, lastModifiedById: String): Sale!
@@ -195,6 +212,10 @@ type Mutation {
     clientUpdateUserContact(userId: ID!, newPhone: String): User!
     clientUserExists(phone: String, username: String): UserExistsResponse!
     clientVerifyUser(phone: String, otp: String): VerifyUserResponse!
+#---------------------------------------------------------------- User Branch ---------------------------------------------------------------
+    clientDeleteBranch(branchId: String!, userId: String!, companyId: String!): Branch!
+    clientDeleteBranchEmployee(branchId: String!, userId: String!): Employee!
+    clientAssignBranchEmployee(branchId: String!, userId: String!, roleId: String!, companyId: String!, main: String, status: String, customerCareId: String, employeeTypeId: String, addedPermissions: [JSON!], excludedPermissions: [JSON!]): Employee!
 }
 
 
@@ -366,6 +387,52 @@ type BranchGoal {
     deleted: Boolean!
 }
 
+type BranchProduct {
+    id: ID!
+    productId: String
+    branchId: String
+    lowestStock: Float
+    quantity: Float
+    createdBy: String
+    sellingPrice: Float
+    packs: [Float]
+    packList: Json
+    defaultPack: Json
+    hidden: Boolean
+    lastModifiedBy: String
+    created_at: Float
+    updated_at: Float
+    last_modified: Float
+    server_created_at: Float
+    branches: Branch
+    users_branches_products_createdByTousers: User
+    users_branches_products_lastModifiedByTousers: User
+    products: Product
+    # audit_entries: [AuditEntry]
+    # branch_product_selling_prices: [BranchProductSellingPrice]
+    # branch_supplier_products: [BranchSupplierProduct]
+    # branches_products_stocks: [BranchesProductsStock]
+    # branches_products_stocks_histories: [BranchesProductsStocksHistory]
+    # sale_entries: [SaleEntry]
+    # sale_return_histories: [SaleReturnHistory]
+    # stock_return_histories: [StockReturnHistory]
+}
+
+type BranchProductCategory {
+    id: ID!
+    productCategoryId: String
+    branchId: String
+    created_at: Float
+    updated_at: Float
+    last_modified: Float
+    server_created_at: Float
+    deleted: Boolean
+    lastModifiedBy: String
+    branches: Branch
+    users: User
+    product_categories: ProductCategory
+}
+
 type BranchSupplier {
   id: String                                       
   branchId: String                                       
@@ -438,6 +505,8 @@ type BusinessCategory {
   id: ID!
   name: String!
   description: String
+  companies: [Company!]
+  branches: [Branch!]
   created_at: Float
   updated_at: Float
   deleted: Boolean
@@ -547,6 +616,35 @@ type Feature {
   deleted: Boolean
 }
 
+type Employee {
+    userId: ID!
+    email: String!
+    firstName: String!
+    otherNames: String
+    phone: String!
+    username: String
+    gender: String
+    whatsAppPhone: String
+    status: String
+    otp: String
+    isCustomerCarePersonnel: Boolean
+    isSupervisor: Boolean
+    adminLastModifiedBy: String
+    lastModifiedBy: String
+    country: String
+    languagesSpoken: String
+    logins: Float
+    lastLogin: Float
+    isRecruiter: Boolean
+    server_created_at: Float
+    last_modified: Float
+    created_at: Float
+    updated_at: Float
+    deleted: Boolean
+    role: RoleWithPermission
+
+}
+
 input gps {
   lat: Float
   lon: Float
@@ -566,8 +664,12 @@ type InternalBusinessCategory {
   deleted: Boolean
 }
 
-type Json{
+input JSON{
   id: ID!
+}
+
+type Json {
+    object: String
 }
 
 type LoginResponse {
@@ -632,6 +734,21 @@ type Product {
     last_modified: Float
     server_created_at: Float
     deleted: Boolean!
+    brands: Brand
+    measurement_units: MeasurementUnit
+    manufacturers: Manufacturer
+    product_descriptions: ProductDescription
+    product_categories: ProductCategory
+    product_segment: ProductSegment
+    # audit_entries: [AuditEntry]
+    branches_products: [BranchProduct!]
+    # branches_products_stock_movements: [BranchesProductsStockMovement!]
+    # branches_products_stock: [BranchesProductStock!]
+    # branches_products_stock_histories: [BranchesProductsStockHistory!]
+    # prooduct_product_segment_entries: [ProductProductSegmentEntry!]
+    # sale_entries: [SaleEntry!]
+    # sale_return_histories: [SaleReturnHistory!]
+    # stock_return_histories: [StockReturnHistory!]
 }
 
 
@@ -683,8 +800,6 @@ type ProductSegmentEntry {
   deleted: Boolean
 }
 
-
-
 type Role {
     id: ID!
     name: String!
@@ -692,6 +807,27 @@ type Role {
     created_at: Float
     updated_at: Float
     deleted: Boolean
+}
+
+type RolePermission {
+    id: ID!
+    roleId: String!
+    permissionId: String
+    created_at: Float
+    updated_at: Float
+    roles: Role
+    permissions: Permission
+   
+}
+
+type RoleWithPermission {
+    id: ID!
+    name: String!
+    description: String
+    created_at: Float
+    updated_at: Float
+    deleted: Boolean
+    rolePermissions: [RolePermission]
 }
 
 type Sale {

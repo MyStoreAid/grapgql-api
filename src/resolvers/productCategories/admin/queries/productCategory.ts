@@ -1,13 +1,13 @@
 import { ProductCategoryIdArgs, ProductCategory } from "../../types";
-import ProductCategoryModel from "../../ProductCategoryModel";
+import { ProductCategory as ProductCategoryModel } from "@mystoreaid/prisma-models";
 
-export default async function productCategory (parent: any, args: ProductCategoryIdArgs, context: any): Promise<ProductCategory> | never {
+export default async function productCategory (parent: any, args: ProductCategoryIdArgs): Promise<ProductCategory> | never {
 
     let result!: ProductCategory;
     const productCategoryId: string = args.id;
 
     try {
-        result = await ProductCategoryModel.findOne(context.prisma.product_categories, productCategoryId);
+        result = await ProductCategoryModel.findOne(productCategoryId);
     } catch (error: unknown) {
         new Error(`There was an error getting ProductCategory with ID ${productCategoryId}.`);
     }

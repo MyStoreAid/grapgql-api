@@ -1,13 +1,13 @@
 import { MeasurementUnitIdArgs, MeasurementUnit } from "../../types";
-import MeasurementUnitModel from "../../MeasurementUnitModel";
+import { MeasurementUnit as MeasurementUnitModel } from '@mystoreaid/prisma-models';
 
-export default async function measurementUnit (parent: any, args: MeasurementUnitIdArgs, context: any): Promise<MeasurementUnit> {
+export default async function measurementUnit (parent: any, args: MeasurementUnitIdArgs): Promise<MeasurementUnit> {
 
     let result!: MeasurementUnit;
     const measurementUnitId: string = args.id;
 
     try {
-        result = await MeasurementUnitModel.findOne(context.prisma.measurement_units, measurementUnitId);
+        result = await MeasurementUnitModel.findOne(measurementUnitId);
     } catch (error: unknown) {
         new Error(`There was an error getting MeasurementUnit with ID ${measurementUnitId}.`);
     }

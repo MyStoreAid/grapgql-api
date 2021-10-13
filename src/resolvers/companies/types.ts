@@ -1,3 +1,6 @@
+import { Branch } from "resolvers/branches/types";
+import { User, UserId } from "resolvers/users/types";
+
 export type CompanyId = string;
 
 export interface Company {
@@ -7,6 +10,7 @@ export interface Company {
     subscriptionId: String,
     email: String,
     phone: String,
+    branches: Branch[],
     internalBusinessCategoryId: String,
     adminLastModifiedBy: String
     lastModifiedBy: String,
@@ -20,4 +24,17 @@ export interface Company {
 
 export interface CompanyIdArgs{
     id: CompanyId
+}
+
+export interface ClientCreateCompanyArgs {
+    company: Company,
+    branch: Branch,
+    goalIds?: String[],
+    customerCareId: UserId,
+    callerInstance: any
+}
+
+export interface ClientCreateCompanyResponse {
+    user: User
+    companies: Company[]
 }

@@ -1,8 +1,8 @@
 import { User, UserExistsArgs, UserExistsResponse} from '../../types';
-import UserModel from '../../UserModel';
+import { User as UserModel } from "@mystoreaid/prisma-models";
 
 
-export default async function userExists(parent: any, args: UserExistsArgs, context: any): Promise<UserExistsResponse> | never{
+export default async function userExists(parent: any, args: UserExistsArgs): Promise<UserExistsResponse> | never{
     let user: User; 
     let existingUser: UserExistsResponse;
     const newPhone: String | undefined = args.phone !== undefined ? `${(args.phone.trim())}` : undefined;
@@ -10,7 +10,7 @@ export default async function userExists(parent: any, args: UserExistsArgs, cont
 
     if(args.username) {
         try {
-            user = await UserModel.findOneWhere(context.prisma.users, { username: args.username });
+            user = await UserModel.findOneWhere({ username: args.username });
             message = `User already exists with username ${user.username}`;
         }
         catch(error: unknown) {
@@ -19,7 +19,7 @@ export default async function userExists(parent: any, args: UserExistsArgs, cont
     }
     else if(args.phone) {
         try{
-            user = await UserModel.findOneWhere(context.prisma.users, { phone: newPhone });
+            user = await UserModel.findOneWhere({ phone: newPhone });
             message = `User already exists with phone number ${user.phone}`
         }
         catch(error: unknown){

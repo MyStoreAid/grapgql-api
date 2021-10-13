@@ -1,7 +1,7 @@
 import { CustomerIdArgs, Customer } from "../../types";
-import CustomerModel from "../../CustomerModel";
+import { Customer as CustomerModel } from "@mystoreaid/prisma-models";
 
-export default async function customer (parent: any, args: CustomerIdArgs, context: any): Promise<Customer> | never {
+export default async function customer (parent: any, args: CustomerIdArgs): Promise<Customer> | never {
     
     let result!: Customer;
     const customerId: string = args.id;
@@ -15,7 +15,7 @@ export default async function customer (parent: any, args: CustomerIdArgs, conte
     }
 
     try {
-        result = await CustomerModel.findOneForeignKey(context.prisma.customers, customerId, data);
+        result = await CustomerModel.findOneForeignKey(customerId, data);
     } catch (error: unknown) {
         throw new Error(`There was an error getting Customer with ID ${customerId}.`);
     }

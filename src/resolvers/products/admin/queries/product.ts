@@ -1,13 +1,13 @@
 import { ProductIdArgs, Product } from "../../types";
-import ProductModel from "../../ProductModel";
+import { Product as ProductModel } from "@mystoreaid/prisma-models";
 
-export default async function product (parent: any, args: ProductIdArgs, context: any): Promise<Product> | never {
+export default async function product (parent: any, args: ProductIdArgs): Promise<Product> | never {
     
     let result!: Product;
     const productId: string = args.id;
 
     try {
-        result = await ProductModel.findOne(context.prisma.products, productId);
+        result = await ProductModel.findOne(productId);
     } catch (error: unknown) {
         new Error(`There was an error getting Product with ID ${productId}.`);
     }
