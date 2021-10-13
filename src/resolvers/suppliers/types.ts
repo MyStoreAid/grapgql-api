@@ -16,6 +16,12 @@ export interface Supplier {
     createdBy: String
 }
 
+export interface SupplierCompanyInput {
+    branchId: string
+    name: String
+    phone: String
+}
+
 export interface SupplierIdArgs{
     id: SupplierId
 }

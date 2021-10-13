@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import { User } from "../../../../resolvers/users/types";
-import { findBranchUserArgs, UserBranch } from "../../types";
-import UserBranchModel from "../../UserBranchModel";
-
-
-export default async function findBranchUsers (parent: any, args: findBranchUserArgs, context: any): Promise<User[]> {
-
-    const data: {branchId: String, 
-        include: {roles: boolean, branches: boolean, users: boolean}} = {
-        branchId: args.branchId, 
-=======
 import { Permission } from "../../../../resolvers/permissions/types";
 import { Role, RoleId, RoleWithPermission } from "../../../../resolvers/roles/types";
 import { FindBranchEmployeeArgs, Employee, UserBranch } from "./../../types";
@@ -22,7 +10,6 @@ export default async function findBranchEmployees (parent: any, args: FindBranch
     const data: {condition: any, 
         include: {roles: boolean, branches: boolean, users: boolean}} = {
         condition: { branchId: args.branchId }, 
->>>>>>> b8b6c6e5bdbdcf5425afbf72a75a4700d92f8c62
         include: {
             roles: true,
             branches: true, 
@@ -30,9 +17,6 @@ export default async function findBranchEmployees (parent: any, args: FindBranch
         }
     }
     
-<<<<<<< HEAD
-    return await UserBranchModel.findManyForeignKey(context.prisma.users_branches, data);
-=======
     try{
         userBranches =  await UserBranchModel.findManyForeignKey(data);
     }
@@ -89,5 +73,4 @@ export default async function findBranchEmployees (parent: any, args: FindBranch
     }
 
     return employees
->>>>>>> b8b6c6e5bdbdcf5425afbf72a75a4700d92f8c62
 }

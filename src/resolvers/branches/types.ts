@@ -43,7 +43,7 @@ export interface Branch {
     appointmentId: String
     branchUserGroupId: String
     businessCategoryId: String
-    companyId: String
+    companyId: string
     branchProductCategoryIds: String[]
     branchUserIds: String[]
     created_at: number
