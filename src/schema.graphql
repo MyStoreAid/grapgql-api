@@ -202,6 +202,7 @@ type Mutation {
 #--------------------------------------------------------------- Supplier ----------------------------------------------------------------
     adminCreateSupplier(name: String!, phone: String, email: String, isTemporary: String, createdBy: String, lastModifiedBy: String): Supplier!
     clientCreateSupplierCompany(name: String!, phone: String!, branchId: String!): Company!
+    clientCreateSupplierSalesperson (branchId: String!, supplierBranchId: String!, supplierCompanyId: String!, salesperson: SalespersonArgs!): User!
 #------------------------------------------------------------------ User -----------------------------------------------------------------
     clientLoginUser(username: String!, password: String!): LoginResponse!
     clientRefreshToken(userId: ID!): String!
@@ -854,6 +855,13 @@ type Sale {
     last_modified: Float
     server_created_at: Float
     deleted: Boolean
+
+}
+
+input SalespersonArgs {
+    firstName: String,
+    otherNames: String
+    phone: String!,
 
 }
 

@@ -1,5 +1,7 @@
 import createSupplierCompany from "./createSupplierCompany";
+import createSupplierSalesperson from "./createSupplierSalesperson";
 
 export { 
-    createSupplierCompany as clientCreateSupplierCompany
+    createSupplierCompany as clientCreateSupplierCompany,
+    createSupplierSalesperson as clientCreateSupplierSalesperson,
 }
