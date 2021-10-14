@@ -57,6 +57,7 @@ type Query {
 #------------- Permission ---------------------------------
     adminPermissions: [Permission!]!
     adminPermission(id: ID!): Permission
+    clientAvailablePermissions(roleId: String!, branchId: String!, employeeId: String!): AvailablePermission 
 #------------- Product ------------------------------------
     adminProducts: [Product!]!
     adminProduct(id: ID!): Product
@@ -220,9 +221,6 @@ type Mutation {
     clientAssignBranchEmployee(branchId: String!, userId: String!, roleId: String!, companyId: String!, main: String, status: String, customerCareId: String, employeeTypeId: String, addedPermissions: [JSON!], excludedPermissions: [JSON!]): Employee!
 }
 
-
-
-
 type Appointment {
     id: ID!
     type: String
@@ -267,6 +265,13 @@ type Audit {
   created_at: Float
   updated_at: Float
   deleted: Boolean!
+}
+
+type AvailablePermission {
+    rolePermissions: RolePermission
+    employeeAddedPermissions: [Permission]
+    employeeExcludedPermissions: [Permission]
+    availablePermission: Permission
 }
 
 input BranchArgs {
@@ -824,7 +829,7 @@ type RolePermission {
 }
 
 type RoleWithPermission {
-    id: ID!
+    id: ID
     name: String!
     description: String
     created_at: Float

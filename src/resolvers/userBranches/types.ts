@@ -26,8 +26,8 @@ export interface UserBranch {
     userId: string
     branchId: string
     roleId: String
-    addedPermissionIds: JSON[]
-    excludePermissionIds: JSON[]
+    addedPermissionIds: Array<Ids>
+    excludedPermissionIds: Array<Ids>
     companyId: String
     employeeTypeId: String
     main: String
@@ -41,6 +41,10 @@ export interface UserBranch {
     server_created_at: number
     last_modified: number
     deleted: boolean
+}
+
+interface Ids {
+    id: string
 }
 
 export interface UserCompanyBranchArgs{ 

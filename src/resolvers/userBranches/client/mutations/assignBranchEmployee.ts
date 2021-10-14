@@ -36,7 +36,7 @@ export default async function assignBranchEmployee (parent: any, args: UserBranc
         const data = {
             data: {
                 addedPermissionIds: args.addedPermissionIds,
-                excludedPermissions: args.excludePermissionIds,
+                excludedPermissions: args.excludedPermissionIds,
                 employeeTypeId: args.employeeTypeId,
                 customerCareId: args.customerCareId,
                 main: args.main,

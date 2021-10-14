@@ -58,6 +58,7 @@ import { adminCreateMeasurementUnit, adminUpdateMeasurementUnit, adminDeleteMeas
 //--------------- Permissions ---------------------
 import { adminPermission, adminPermissions } from './permissions/admin/queries';
 import { adminCreatePermission, adminUpdatePermission, adminDeletePermission } from './permissions/admin/mutations';
+import { clientAvailablePermissions } from './permissions/client/queries';
 //------------------ Products ---------------------
 import { adminProduct, adminProducts } from './products/admin/queries';
 import { adminCreateProduct, adminUpdateProduct, adminDeleteProduct } from './products/admin/mutations';
@@ -161,6 +162,7 @@ const resolvers = {
         //--------------- Permissions ---------------------
         adminPermission,
         adminPermissions,
+        clientAvailablePermissions,
         //------------------ Products ---------------------
         adminProduct,
         adminProducts,
