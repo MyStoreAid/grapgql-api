@@ -202,6 +202,7 @@ type Mutation {
     adminDeleteSubscription(id: ID!): Subscription!
 #--------------------------------------------------------------- Supplier ----------------------------------------------------------------
     adminCreateSupplier(name: String!, phone: String, email: String, isTemporary: String, createdBy: String, lastModifiedBy: String): Supplier!
+    clientCreateSupplierCompany(name: String!, phone: String!, branchId: String!): Company!
 #------------------------------------------------------------------ User -----------------------------------------------------------------
     clientLoginUser(username: String!, password: String!): LoginResponse!
     clientRefreshToken(userId: ID!): String!
@@ -578,6 +579,7 @@ type Company{
   lastSyncAt: Float
   deleted: Boolean
   branches: [Branch]
+  business_categories: BusinessCategory
   # companiesSubscriptions: [CompaniesSubscription]
   # companiesSyncHistories: [CompaniesSyncHistory]
   # customerCareSchedules: [CustomerCareSchedule]
