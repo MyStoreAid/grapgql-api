@@ -7,6 +7,8 @@
     "dev": "npx prisma generate && nodemon src/server.ts",
     "start": "npx prisma generate && node src/server.js",
     "prod": "npx prisma generate && npm run build && node src/server.js",
+    "migrate": "npx prisma migrate dev",
+    "studio": "npx prisma studio",
     "build": "tsc -p .",
     "set-test-env": "dotenv -e .env.test",
     "migrate-dev": "dotenv -e .env.test -- npx prisma migrate dev",

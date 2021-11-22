@@ -5,6 +5,7 @@ export interface LoginUserPayload {
     username: string
     password: string
 }
+
 export interface LoginResponse {
     token: string
     access?: any
@@ -45,6 +46,33 @@ export interface SetUserPassword extends RegisterUserPayload {
 
 export interface updateUserContactArgs extends UserIdArgs {
     phone: String;
+}
+
+export interface UpdateUserInfoPayload {
+    userId: UserId
+    userInfo: UserInfo
+    
+}
+
+interface UserInfo {
+    email: String
+    firstName: String
+    otherNames: String
+    phone: String
+    username: String
+    gender: String
+    whatsAppPhone: String
+    status: String
+    otp: String
+    isCustomerCarePersonnel: Boolean
+    isSupervisor: Boolean
+    adminLastModifiedBy: String
+    lastModifiedBy: String
+    country: String
+    languagesSpoken: String
+    logins: number
+    lastLogin: number
+    isRecruiter: Boolean
 }
 
 export interface User {
