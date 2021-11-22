@@ -1,6 +1,18 @@
+import { Brand } from "../../resolvers/brands/types";
+import { Manufacturer } from "../../resolvers/manufacturers/types";
+import { MeasurementUnit } from "../../resolvers/measurementUnits/types";
+import { ProductCategory } from "../../resolvers/productCategories/types";
+import { ProductDescription } from "../../resolvers/productDescriptions/types";
+import { ProductSegment } from "../../resolvers/productSegments/types";
+import { User } from "../../resolvers/users/types";
+
 export type ProductId = string;
 
+<<<<<<< HEAD
 export interface ClientCreateProduct extends Product {
+=======
+export interface CreateProduct extends Product {
+>>>>>>> origin/MSA-1617_brachProduct
     branchId: string
 }
 
@@ -20,6 +32,16 @@ export interface Product {
     isTemporary: boolean
     adminLastModifiedBy: String
     lastModifiedBy: String
+<<<<<<< HEAD
+=======
+    brands?: any
+    product_descriptions?: any
+    users?: any
+    manufacturers?: any
+    measurement_units?: any
+    product_categories?: any
+    product_segments?: any
+>>>>>>> origin/MSA-1617_brachProduct
     created_at: number
     updated_at: number
     last_modified: number
