@@ -9,8 +9,10 @@
     "prod": "npx prisma generate && npm run build && node src/server.js",
     "build": "tsc -p .",
     "set-test-env": "dotenv -e .env.test",
-    "test": "jest -i",
-    "migrate-dev": "npx prisma migrate dev"
+    "migrate-dev": "dotenv -e .env.test -- npx prisma migrate dev",
+    "set_test_env": "dotenv -e .env.test -- docker-compose -f docker-compose-test.yml up -d && npm run migrate-dev",
+    "test": "npm run set_test_env && dotenv -e .env.test -- jest -i",
+    "wunderflats": "nodemon src/wunderflats.ts"
   },
   "author": "salifumutaru@gmail.com",
   "license": "ISC",
@@ -22,6 +24,7 @@
     "apollo-server": "^3.0.1",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
+    "bunyan": "^1.8.15",
     "geoip-lite": "^1.4.2",
     "getenv": "^1.0.0",
     "graphql": "^15.5.1",

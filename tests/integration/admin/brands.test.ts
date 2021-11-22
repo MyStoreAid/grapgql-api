@@ -1,6 +1,16 @@
-import productCategory from "resolvers/productCategories/admin/queries/productCategory";
+import { runSeeds, emptyBrands } from "../../utils/Common";
+require('../../utils/TestInitializer');
 
-test('', () => {
-    console.log(process.env.DATABASE_URL);
-    expect(process.env.DATABASE_URL).toBe('postgresql://tester:testerpass@localhost:8002/mystoreaid_test?schema=public');
+beforeAll(async () => {
+    runSeeds();
 });
+
+afterAll(async () => {
+    emptyBrands()
+})
+
+test('Seed test db', async () => {
+    
+});
+
+
