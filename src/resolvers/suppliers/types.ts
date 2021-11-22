@@ -1,5 +1,11 @@
 export type SupplierId = string;
 
+interface SalespersonArgs {
+    firstName?: String,
+    otherNames?: String,
+    phone: String
+}
+
 export interface Supplier {
     id: SupplierId
     name: String
@@ -21,6 +27,16 @@ export interface SupplierCompanyInput {
     name: String
     phone: String
 }
+
+export interface SupplierSalespersonInput {
+    branchId: string,
+    supplierBranchId: string,
+    supplierCompanyId: string,
+    salesperson: SalespersonArgs
+
+}
+
+
 
 export interface SupplierIdArgs{
     id: SupplierId

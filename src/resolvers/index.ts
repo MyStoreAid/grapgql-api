@@ -83,7 +83,7 @@ import { adminSubscription, adminSubscriptions } from './subscriptions/admin/que
 import { adminCreateSubscription, adminUpdateSubscription, adminDeleteSubscription } from './subscriptions/admin/mutations';
 //-------------------- Supplier -------------------
 import { adminCreateSupplier } from './suppliers/admin/mutations';
-import { clientCreateSupplierCompany } from './suppliers/client/mutations';
+import { clientCreateSupplierCompany, clientCreateSupplierSalesperson } from './suppliers/client/mutations';
 //----------------------- Sales -------------------
 import { createSale } from './sales/mutations';
 //----------------------- User --------------------
@@ -297,6 +297,7 @@ const resolvers = {
         //-------------------- Supplier -------------------
         adminCreateSupplier,
         clientCreateSupplierCompany,
+        clientCreateSupplierSalesperson,
         //----------------------- User --------------------
         clientRefreshToken,
         clientRegisterUser,
