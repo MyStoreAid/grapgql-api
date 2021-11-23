@@ -30,6 +30,12 @@ export interface UserCompanyArgs {
     companyData: companyData
 }
 
+export interface UpdateUserCompanyPayload {
+    userId: string
+    companyId: string
+    companyData: companyData
+}
+
 interface companyData {
     name: string
     branchIds?: Array<Ids>

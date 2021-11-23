@@ -105,7 +105,7 @@ import { clientFindBranchEmployees, clientFindBranchPendingEmployees, clientUser
 import { clientAssignBranchEmployee, clientDeleteBranch, clientDeleteBranchEmployee } from './userBranches/client/mutations';
 //-------------------  User Company ----------------
 import { adminUserCompany } from './userCompanies/admin/queries';
-import { adminCreateUserCompany } from './userCompanies/admin/mutations';
+import { adminCreateUserCompany, adminUpdateUserCompany, adminDeleteUserCompany } from './userCompanies/admin/mutations';
 
 
 
@@ -322,7 +322,9 @@ const resolvers = {
         clientDeleteBranch,
         clientDeleteBranchEmployee,
         //-------------------- User Company -----------------
-        adminCreateUserCompany
+        adminCreateUserCompany,
+        adminUpdateUserCompany,
+        adminDeleteUserCompany
     },
 };
 

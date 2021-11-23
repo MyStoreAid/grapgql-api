@@ -583,10 +583,10 @@
     moment "^2.29.1"
     uuid "^8.3.2"
 
-"@mystoreaid/prisma-models@^1.4.5":
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/@mystoreaid/prisma-models/-/prisma-models-1.4.5.tgz#b5591253e8e8c6af07e1d55f33cd6e881f87d1b9"
-  integrity sha512-G5ynwVph+BS3dGb7xHB+2t8DhG13OQGLo8ZkoJBkinPMeGSx5GF560mQk4o6U67A78/nSIkLSTatBB8RIaAI5w==
+"@mystoreaid/prisma-models@^1.4.6":
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/@mystoreaid/prisma-models/-/prisma-models-1.4.6.tgz#28edc2451dee7deab8522c0bf0c8f1b42c23559e"
+  integrity sha512-dDO8OsrxKQPQ8E0vKad+SN7cS4paUMeeNrdSEKH9nY/drfclqvbKtoTJ0DAyN9LckR+9xTyghWzJmk/XyY+yfQ==
   dependencies:
     "@mystoreaid/backend-helpers" "^1.0.5"
 
