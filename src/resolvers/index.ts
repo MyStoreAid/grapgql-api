@@ -40,6 +40,8 @@ import { adminCompany, adminCompanies } from './companies/admin/queries';
 import { adminCreateCompany, adminUpdateCompany, adminDeleteCompany } from './companies/admin/mutations';
 import { clientCreateCompany } from './companies/client/mutation';
 import { clientCompanies, clientCompanyBranches } from './companies/client/queries';
+//------------- Customer Care Schedule------------
+import { adminSchedules } from './customerCareSchedules/admin/queries';
 //------------------ Customer --------------------
 import {adminCustomer, adminCustomers} from './customers/admin/queries';
 import {adminCreateCustomer, adminUpdateCustomer, adminDeleteCustomer} from './customers/admin/mutations';
@@ -145,6 +147,8 @@ const resolvers = {
         adminCompanies,
         clientCompanies,
         clientCompanyBranches,
+        //----------- Customer Care Schedule -------------
+        adminSchedules,
         //------------------ Customer --------------------
         adminCustomer,
         adminCustomers,
