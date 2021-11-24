@@ -54,6 +54,9 @@ type Query {
 #--------- Measurement Unit -------------------------------
     adminMeasurementUnits: [MeasurementUnit!]!
     adminMeasurementUnit(id: ID!): MeasurementUnit
+#------------- Payment History ----------------------------
+    adminPaymentHistories(userId: String, companyId: String, branchId: String): [PaymentHistory!]
+    adminPaymentHistory(userId: String!, companyId: String!, branchId: String, paymentHistoryId: String): PaymentHistory
 #------------- Permission ---------------------------------
     adminPermissions: [Permission!]!
     adminPermission(id: ID!): Permission
@@ -168,6 +171,10 @@ type Mutation {
     adminCreateMeasurementUnit(name: String!, symbol: String!): MeasurementUnit!
     adminUpdateMeasurementUnit(id: ID!, name: String, symbol: String): MeasurementUnit!
     adminDeleteMeasurementUnit(id: ID!): MeasurementUnit!
+#-------------------------------------------------------------- Payment History ---------------------------------------------------------
+    adminCreatePaymentHistory(userId: String!, companyId: String!, branchId: String, paymentHistoryInfo: PaymentHistoryArgs): PaymentHistory
+    adminUpdatePaymentHistory(userId: String!, companyId: String!, branchId: String, paymentHistoryId: String, paymentHistoryInfo: PaymentHistoryArgs): PaymentHistory
+    adminDeletePaymentHistory(userId: String!, companyId: String!, branchId: String, paymentHistoryId: String): PaymentHistory
 #-------------------------------------------------------------- Permission --------------------------------------------------------------
     adminCreatePermission(name: String!, description: String): Permission!
     adminUpdatePermission(id: ID!, name: String, description: String): Permission!
@@ -233,6 +240,8 @@ type Mutation {
     adminUpdateUserCompany(userId: String!, companyId: String!, companyData: CompanyArgs!): Company!
     adminDeleteUserCompany(userId: String!, companyId: String!): Company!
 }
+
+scalar DateTime
 
 type Appointment {
     id: ID!
@@ -776,6 +785,36 @@ type MeasurementUnit {
     last_modified: Float
     server_created_at: Float
     deleted: Boolean!
+}
+
+type PaymentHistory {
+    id: ID!
+    months: [String]
+    datePaid: DateTime
+    branchId: String 
+    amountPaid: Float   
+    receipt: String  
+    adminLastModifiedBy: String  
+    deleted: Boolean  
+    created_at: Float
+    updated_at: Float
+    paymentType: String
+    description: String
+    branches: Branch
+}
+
+input PaymentHistoryArgs {
+    months: [String]
+    branchId: String
+    datePaid: DateTime
+    amountPaid: Float   
+    receipt: String  
+    adminLastModifiedBy: String  
+    deleted: Boolean  
+    created_at: Float
+    updated_at: Float
+    paymentType: String
+    description: String
 }
 
 

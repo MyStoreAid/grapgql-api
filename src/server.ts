@@ -3,10 +3,7 @@ import path from 'path';
 import {ApolloServer} from 'apollo-server';
 import { PrismaClient } from '@prisma/client';
 import resolvers from './resolvers';
-import userGroups from './utils/userGroups';
-import AdminAuthHelper from './helpers/AdminAuthHelper';
-import ClientAuthHelper from './helpers/ClientAuthHelper';
-import { getUserId } from './utils/utils';
+import { DateTimeTypeDefinition } from "graphql-scalars"
 // import PrismaContextProvider from './services/PrismaContextProvider';
 import { PrismaContextProvider} from '@mystoreaid/backend-helpers';
 import { Model } from '@mystoreaid/prisma-models';
@@ -17,10 +14,12 @@ PrismaContextProvider.setConnection(prisma);
 Model.setConnection(prisma);
 
 const server = new ApolloServer({
-    typeDefs: fs.readFileSync(
+    typeDefs: [
+        DateTimeTypeDefinition,
+        fs.readFileSync(
         path.join(__dirname, 'schema.graphql'),
         'utf8'
-      ),
+      )],
     resolvers,
     context: ({ req }) => {
         // const queryData = req.body.query.replace('query {', '').trim();

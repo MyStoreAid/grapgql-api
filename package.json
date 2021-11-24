@@ -20,7 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "@mystoreaid/backend-helpers": "^1.0.5",
-    "@mystoreaid/prisma-models": "^1.4.6",
+    "@mystoreaid/prisma-models": "^1.4.7",
     "@prisma/client": "^2.27.0",
     "@types/uuid": "^8.3.1",
     "apollo-server": "^3.0.1",
@@ -30,6 +30,8 @@
     "geoip-lite": "^1.4.2",
     "getenv": "^1.0.0",
     "graphql": "^15.5.1",
+    "graphql-scalars": "^1.13.6",
+    "graphql-tools": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",

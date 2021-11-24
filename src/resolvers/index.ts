@@ -55,6 +55,9 @@ import { adminCreateManufacturer, adminUpdateManufacturer, adminDeleteManufactur
 //--------------- Measurement Units ---------------
 import { adminMeasurementUnit, adminMeasurementUnits } from './measurementUnits/admin/queries';
 import { adminCreateMeasurementUnit, adminUpdateMeasurementUnit, adminDeleteMeasurementUnit } from './measurementUnits/admin/mutations';
+//--------------- Payment History -----------------
+import { adminPaymentHistories, adminPaymentHistory } from './paymentHistories/admin/queries';
+import { adminCreatePaymentHistory, adminUpdatePaymentHistory, adminDeletePaymentHistory } from './paymentHistories/admin/mutations';
 //--------------- Permissions ---------------------
 import { adminPermission, adminPermissions } from './permissions/admin/queries';
 import { adminCreatePermission, adminUpdatePermission, adminDeletePermission } from './permissions/admin/mutations';
@@ -108,10 +111,15 @@ import { clientAssignBranchEmployee, clientDeleteBranch, clientDeleteBranchEmplo
 //-------------------  User Company ----------------
 import { adminUserCompany } from './userCompanies/admin/queries';
 import { adminCreateUserCompany, adminUpdateUserCompany, adminDeleteUserCompany } from './userCompanies/admin/mutations';
+//-------------------  Other Packages ---------------
+import { DateTimeResolver } from 'graphql-scalars';
+
 
 
 
 const resolvers = {
+    DateTime: DateTimeResolver,
+
     Query: {
         //--------------- App Notifications --------------
         adminAppNotification,
@@ -165,6 +173,9 @@ const resolvers = {
         //--------------- Measurement Units ---------------
         adminMeasurementUnit,
         adminMeasurementUnits,
+        //--------------- Payment Histories ---------------
+        adminPaymentHistory,
+        adminPaymentHistories,
         //--------------- Permissions ---------------------
         adminPermission,
         adminPermissions,
@@ -272,6 +283,10 @@ const resolvers = {
         adminCreateMeasurementUnit,
         adminUpdateMeasurementUnit,
         adminDeleteMeasurementUnit,
+        //--------------- Payment Histories ---------------
+        adminCreatePaymentHistory,
+        adminUpdatePaymentHistory,
+        adminDeletePaymentHistory,
         //--------------- Permissions ---------------------
         adminCreatePermission,
         adminUpdatePermission,
