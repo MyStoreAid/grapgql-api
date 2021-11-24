@@ -101,6 +101,8 @@ import {
     clientVerifyUser
 } from './users/client/mutations';
 //-------------------  User Branch -----------------
+import { adminUserCompanyBranches, adminUserBranches, adminUserBranch } from './userBranches/admin/queries';
+import { adminUpdateUserBranch } from './userBranches/admin/mutations';
 import { clientFindBranchEmployees, clientFindBranchPendingEmployees, clientUserCompanyBranches } from './userBranches/client/queries';
 import { clientAssignBranchEmployee, clientDeleteBranch, clientDeleteBranchEmployee } from './userBranches/client/mutations';
 //-------------------  User Company ----------------
@@ -192,6 +194,9 @@ const resolvers = {
         adminUser,
         adminUsers,
         //------------------ User Branch -------------------
+        adminUserCompanyBranches,
+        adminUserBranch,
+        adminUserBranches,
         clientFindBranchEmployees,
         clientFindBranchPendingEmployees,
         clientUserCompanyBranches,
@@ -318,6 +323,7 @@ const resolvers = {
         clientUserExists,
         clientVerifyUser,
         //-------------------- User Branch ------------------
+        adminUpdateUserBranch,
         clientAssignBranchEmployee,
         clientDeleteBranch,
         clientDeleteBranchEmployee,
