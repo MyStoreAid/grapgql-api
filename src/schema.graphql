@@ -228,6 +228,8 @@ type Mutation {
     clientAssignBranchEmployee(branchId: String!, userId: String!, roleId: String!, companyId: String!, main: String, status: String, customerCareId: String, employeeTypeId: String, addedPermissions: [JSON!], excludedPermissions: [JSON!]): Employee!
 #---------------------------------------------------------------- User Company --------------------------------------------------------------
     adminCreateUserCompany(userId: String!, roleId: String!, companyData: CompanyArgs!): Company!
+    adminUpdateUserCompany(userId: String!, companyId: String!, companyData: CompanyArgs!): Company!
+    adminDeleteUserCompany(userId: String!, companyId: String!): Company!
 }
 
 type Appointment {
@@ -531,7 +533,7 @@ type BusinessCategory {
 input CompanyArgs {
     id: ID
     name: String!
-    businessCategoryId: String!
+    businessCategoryId: String
     subscriptionId: String
     email: String
     phone: String
