@@ -16,6 +16,7 @@ type Query {
     adminBranchGoal(id: ID!): BranchGoal!
     clientBranchGoals: [BranchGoal!]!
 #--------------- Branch Product -------------------------
+    adminBranchProducts(userId: String, branchId: String, companyId: String): [Product!]!
     clientBranchProducts(branchId: String!): [Product!]!
 #--------------- Branch Product Category ----------------
     clientBranchProductCategories(branchId: String!): [ProductCategory!]
@@ -55,8 +56,8 @@ type Query {
     adminMeasurementUnits: [MeasurementUnit!]!
     adminMeasurementUnit(id: ID!): MeasurementUnit
 #------------- Payment History ----------------------------
+    adminPaymentHistory(userId: String, companyId: String, branchId: String, paymentHistoryId: String): PaymentHistory!
     adminPaymentHistories(userId: String, companyId: String, branchId: String): [PaymentHistory!]
-    adminPaymentHistory(userId: String!, companyId: String!, branchId: String, paymentHistoryId: String): PaymentHistory
 #------------- Permission ---------------------------------
     adminPermissions: [Permission!]!
     adminPermission(id: ID!): Permission
@@ -124,6 +125,7 @@ type Mutation {
     clientAssignBranchProduct(branchId: String!, productId: String!): BranchProduct!
     clientDeleteBranchProduct(branchId: String!, productId: String!): BranchProduct!
 #--------------------------------------------------------------- Branch Product Category ------------------------------------------------
+    adminAssignBranchProductCategory(branchId: String, companyId: String, productCategoryId: String, userId: String): BranchProductCategory!
     clientAssignBranchProductCategory(branchId: String, productCategoryId: String!, lastModifiedBy: String): BranchProductCategory!
     clientDeleteBranchProductCategory(branchId: String!, productCategoryId: String!): BranchProductCategory!
 #--------------------------------------------------------------- Branch Supplier --------------------------------------------------------

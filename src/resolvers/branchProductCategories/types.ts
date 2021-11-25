@@ -2,7 +2,17 @@ import { Branch } from "../../resolvers/branches/types";
 import { ProductCategory } from "../../resolvers/productCategories/types";
 import { User } from "../../resolvers/users/types";
 
-export type BranchProductCategoryId = string
+export type BranchProductCategoryId = string;
+
+export interface AdminAssignBranchProductCategory extends AdminBranchProductCategoriesArgs {
+    productCategoryId: string
+}
+
+export interface AdminBranchProductCategoriesArgs extends BranchProductCategoriesArgs {
+    userId: string
+    companyId: string
+}
+
 
 export interface AssignBranchProductCategoryArgs extends DeleteBranchProductCategoryArgs {
     lastModifiedBy: string
@@ -30,3 +40,4 @@ export interface BranchProductCategory {
 export interface BranchProductCategoriesArgs{
     branchId: string
 }
+
