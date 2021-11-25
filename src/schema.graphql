@@ -16,9 +16,10 @@ type Query {
     adminBranchGoal(id: ID!): BranchGoal!
     clientBranchGoals: [BranchGoal!]!
 #--------------- Branch Product -------------------------
+    adminBranchProducts(userId: String, branchId: String, companyId: String): [Product!]!
     clientBranchProducts(branchId: String!): [Product!]!
 #--------------- Branch Product Category ----------------
-    adminBranchProductCategories(userId: String, branchId: String, companyId: String): [Product!]!
+    adminBranchProductCategories(userId: String, branchId: String, companyId: String): [ProductCategory!]!
     clientBranchProductCategories(branchId: String!): [ProductCategory!]
 #--------------- Branch Supplier Salesperson ---------------------
     # clientFindBranchEmployees(branchId: ID!): [BranchSupplierSalesperson!]
@@ -122,6 +123,7 @@ type Mutation {
     adminUpdateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
     adminDeleteBranchGoal(id: ID!): BranchGoal!
 #------------------------------------------------------------------- Branch Product -----------------------------------------------------
+    adminAssignBranchProductCategory(userId: String, branchId: String, companyId: String, productId: String): BranchProduct!
     clientAssignBranchProduct(branchId: String!, productId: String!): BranchProduct!
     clientDeleteBranchProduct(branchId: String!, productId: String!): BranchProduct!
 #--------------------------------------------------------------- Branch Product Category ------------------------------------------------

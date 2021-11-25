@@ -4,6 +4,15 @@ import { User } from "../../resolvers/users/types";
 
 export type BranchProductId = string;
 
+export interface AdminFindBranchProductArgs  extends FindBranchProductsArgs {
+    companyId: string
+    userId: string
+}
+
+export interface AdminAssignBranchProduct extends AdminFindBranchProductArgs {
+    productId: string
+}
+
 export interface AssignBranchProduct extends FindBranchProductsArgs {
     productId: string
 }

@@ -20,7 +20,7 @@ export default async function branchProducts(parent: any, args: AdminAssignBranc
             }
             else {
                 const include: any = { 
-                    product_categorie: true,
+                    product_categories: true,
                     branches: true
                 }
 
