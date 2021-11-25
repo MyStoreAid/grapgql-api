@@ -39,6 +39,8 @@ type Query {
     adminCompany(id: ID!): Company!
     clientCompanies: [Company!]!
     clientCompanyBranches(id: ID!): [Branch!]!
+#---------- Customer Care Schedule -----------------------
+    adminSchedules(userId: String!, scheduleType: String!): [CustomerCareSchedule!]!
 #--------------- Customer --------------------------------
     adminCustomers: [Customer!]!
     adminCustomer(id: ID!): Customer
@@ -555,8 +557,8 @@ type Company{
   branches: [Branch]
   # companiesSubscriptions: [CompaniesSubscription]
   # companiesSyncHistories: [CompaniesSyncHistory]
-  # customerCareSchedules: [CustomerCareSchedule]
-  users_branches: [UserBranch]
+  customerCareSchedules: [CustomerCareSchedule]
+  userBranches: [UserBranch]
   # userCompanies: [UserCompany]
 }
 
@@ -594,7 +596,7 @@ type Company{
   business_categories: BusinessCategory
   # companiesSubscriptions: [CompaniesSubscription]
   # companiesSyncHistories: [CompaniesSyncHistory]
-  # customerCareSchedules: [CustomerCareSchedule]
+  customerCareSchedules: [CustomerCareSchedule]
   userBranches: [UserBranch]
   # userCompanies: [UserCompany]
 }
@@ -895,6 +897,29 @@ input SalespersonArgs {
 
 }
 
+type CustomerCareSchedule {
+    id: String
+    userId: String
+    companyId: String
+    reason: String
+    appointmentTime: Float
+    interviewerFullName: String
+    branchName: String
+    lastModifiedBy: String
+    createdBy: String
+    status: String
+    comments: String
+    branches: Branch
+    companies: Company
+    users_customer_care_schedules_createdByTousers: User
+    users_customer_care_schedules_lastModifiedByTousers: User
+    users_customer_care_schedules_userIdTousers: User
+    created_at: Float
+    updated_at: Float
+    server_created_at: Float
+    last_modified: Float
+    deleted: Boolean
+}
 
 
 type Subscription {
