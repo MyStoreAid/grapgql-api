@@ -1,5 +1,5 @@
-import branchProducts from "./branchProducts";
+import branchProductCategories from "./branchProductCategories";
 
 export { 
-    branchProducts as adminBranchProducts
+    branchProductCategories as adminBranchProductCategories
 }

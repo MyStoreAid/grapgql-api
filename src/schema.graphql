@@ -16,9 +16,9 @@ type Query {
     adminBranchGoal(id: ID!): BranchGoal!
     clientBranchGoals: [BranchGoal!]!
 #--------------- Branch Product -------------------------
-    adminBranchProducts(userId: String, branchId: String, companyId: String): [Product!]!
     clientBranchProducts(branchId: String!): [Product!]!
 #--------------- Branch Product Category ----------------
+    adminBranchProductCategories(userId: String, branchId: String, companyId: String): [Product!]!
     clientBranchProductCategories(branchId: String!): [ProductCategory!]
 #--------------- Branch Supplier Salesperson ---------------------
     # clientFindBranchEmployees(branchId: ID!): [BranchSupplierSalesperson!]

@@ -1,9 +1,9 @@
-import { AdminBranchProductCategoriesArgs, BranchProductCategory } from "../../../../resolvers/branchProductCategories/types";
-import { ProductCategory } from "../../../../resolvers/productCategories/types";
-import { UserBranch } from "../../../../resolvers/userBranches/types";
+import { AdminBranchProductCategoriesArgs, BranchProductCategory } from "../../types";
+import { ProductCategory } from "../../../productCategories/types";
+import { UserBranch } from "../../../userBranches/types";
 import { UserBranch as UserBranchModel, BranchProductCategory as BranchProductCategoryModel } from "@mystoreaid/prisma-models";
 
-export default async function branchProducts(parent: any, args: AdminBranchProductCategoriesArgs): Promise<Array<ProductCategory>> | never {
+export default async function branchProductCategories(parent: any, args: AdminBranchProductCategoriesArgs): Promise<Array<ProductCategory>> | never {
     const userId: string = args.userId;
     const companyId: string = args.companyId;
     const branchId: string = args.branchId;
