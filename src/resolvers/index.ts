@@ -15,6 +15,8 @@ import { clientBranchGoals } from './branchGoals/client/queries';
 import { clientBranchProducts } from './branchesProducts/client/queries';
 import { clientAssignBranchProduct, clientDeleteBranchProduct } from './branchesProducts/client/mutations';
 //----------  Branch Product Category ------------
+import { adminBranchProductCategories } from './branchProductCategories/admin/queries';
+import { adminAssignBranchProductCategory } from './branchProductCategories/admin/mutations';
 import { clientBranchProductCategories } from './branchProductCategories/client/queries';
 import { clientAssignBranchProductCategory, clientDeleteBranchProductCategory } from './branchProductCategories/client/mutations';
 // -----------------  Branch Supplier -------------
@@ -116,9 +118,6 @@ import { adminCreateUserCompany, adminUpdateUserCompany, adminDeleteUserCompany 
 //-------------------  Other Packages ---------------
 import { DateTimeResolver } from 'graphql-scalars';
 
-
-
-
 const resolvers = {
     DateTime: DateTimeResolver,
 
@@ -139,6 +138,7 @@ const resolvers = {
         //---------------- Branch Category ----------------
         clientBranchProducts,
         //----------- Branch Product Category -------------
+        adminBranchProductCategories,
         clientBranchProductCategories,
         //----------- Branch Supplier Salespersons --------
         // clientFindBranchEmployees,
@@ -240,6 +240,7 @@ const resolvers = {
         clientAssignBranchProduct,
         clientDeleteBranchProduct,
         //---------------- Branch Product Category -------
+        adminAssignBranchProductCategory,
         clientAssignBranchProductCategory,
         clientDeleteBranchProductCategory,
         //------------------- Branch Supplier ------------
