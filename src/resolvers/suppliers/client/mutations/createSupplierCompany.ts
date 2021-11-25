@@ -7,7 +7,6 @@ import { Branch as BranchModel,
         BranchesCustomer as BranchesCustomerModel
     } from "@mystoreaid/prisma-models";
 import { Branch } from '../../../../resolvers/branches/types';
-import { Subscription } from 'resolvers/subscriptions/types';
 import { Customer } from 'resolvers/customers/types';
 
 export default async function createSupplierCompany (parent: any, args: SupplierCompanyInput): Promise<Company> | never {

@@ -89,6 +89,7 @@ import { clientCreateSupplierCompany, clientCreateSupplierSalesperson } from './
 import { createSale } from './sales/mutations';
 //----------------------- User --------------------
 import { adminUser, adminUsers } from './users/admin/queries';
+import { adminUpdateUser, adminDeleteUser } from './users/admin/mutations';
 import {
     clientLoginUser,
     clientRefreshToken, 
@@ -301,6 +302,8 @@ const resolvers = {
         clientCreateSupplierCompany,
         clientCreateSupplierSalesperson,
         //----------------------- User --------------------
+        adminUpdateUser,
+        adminDeleteUser,
         clientRefreshToken,
         clientRegisterUser,
         clientResendOtp,

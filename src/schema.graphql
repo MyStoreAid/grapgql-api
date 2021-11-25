@@ -206,6 +206,8 @@ type Mutation {
     clientCreateSupplierCompany(name: String!, phone: String!, branchId: String!): Company!
     clientCreateSupplierSalesperson (branchId: String!, supplierBranchId: String!, supplierCompanyId: String!, salesperson: SalespersonArgs!): User!
 #------------------------------------------------------------------ User -----------------------------------------------------------------
+    adminUpdateUser(userId: String!, userInfo: UserInfo): User!
+    adminDeleteUser(userId: String): User!
     clientLoginUser(username: String!, password: String!): LoginResponse!
     clientRefreshToken(userId: ID!): String!
     clientRegisterUser(phone: String!, country: String!, otp: String, email: String, callingCode: String! firstName:String otherNames: String username: String): User
@@ -928,6 +930,27 @@ type User {
     created_at: Float
     updated_at: Float
     deleted: Boolean
+}
+
+input UserInfo {
+    email: String
+    firstName: String
+    otherNames: String
+    phone: String
+    username: String
+    gender: String
+    whatsAppPhone: String
+    status: String
+    otp: String
+    isCustomerCarePersonnel: Boolean
+    isSupervisor: Boolean
+    adminLastModifiedBy: String
+    lastModifiedBy: String
+    country: String
+    languagesSpoken: String
+    logins: Float
+    lastLogin: Float
+    isRecruiter: Boolean
 }
 
 type UserBranch {
