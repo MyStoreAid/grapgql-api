@@ -91,6 +91,8 @@ type Query {
     clientFindBranchEmployees(branchId: String!): [Employee!]
     clientFindBranchPendingEmployees(branchId: String!): [Employee!]
     clientUserCompanyBranches(userId: String, companyId: String): [Branch!]
+#----------- User Company ------------------------------------
+    adminUserCompany(companyId: String!, userId: String!): Company!
 }
 
 type Mutation {
@@ -224,6 +226,8 @@ type Mutation {
     clientDeleteBranch(branchId: String!, userId: String!, companyId: String!): Branch!
     clientDeleteBranchEmployee(branchId: String!, userId: String!): Employee!
     clientAssignBranchEmployee(branchId: String!, userId: String!, roleId: String!, companyId: String!, main: String, status: String, customerCareId: String, employeeTypeId: String, addedPermissions: [JSON!], excludedPermissions: [JSON!]): Employee!
+#---------------------------------------------------------------- User Company --------------------------------------------------------------
+    adminCreateUserCompany(userId: String!, roleId: String!, companyData: CompanyArgs!): Company!
 }
 
 type Appointment {
@@ -538,11 +542,11 @@ input CompanyArgs {
 type Company{
   id: ID!
   name: String!
-  businessCategory: BusinessCategory
+  business_categories: BusinessCategory
   subscription: Subscription
   email: String
   phone: String
-  internalBusinessCategory: InternalBusinessCategory
+  internal_business_categories: InternalBusinessCategory
   adminLastModifiedBy: String
   lastModifiedBy: User
   lastSyncBy: User
@@ -595,6 +599,20 @@ type Company{
   customerCareSchedules: [CustomerCareSchedule]
   userBranches: [UserBranch]
   # userCompanies: [UserCompany]
+}
+
+input CompanyArgs {
+    name: String
+    branchIds: [Ids!]
+    userBranchIds: [Ids!]
+    businessCategoryId: String
+    subscriptionId: String
+    email: String
+    phone: String
+    internalBusinessCategoryId: String
+    adminLastModifiedBy: String
+    lastModifiedBy: String
+    lastSyncBy: String
 }
 
 type Customer {
@@ -666,6 +684,10 @@ input gps {
 type GPS{
     lat: Float
     lon: Float
+}
+
+input Ids {
+    id: String
 }
 
 type InternalBusinessCategory {
