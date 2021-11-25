@@ -57,6 +57,9 @@ import { adminCreateManufacturer, adminUpdateManufacturer, adminDeleteManufactur
 //--------------- Measurement Units ---------------
 import { adminMeasurementUnit, adminMeasurementUnits } from './measurementUnits/admin/queries';
 import { adminCreateMeasurementUnit, adminUpdateMeasurementUnit, adminDeleteMeasurementUnit } from './measurementUnits/admin/mutations';
+//--------------- Payment History -----------------
+import { adminPaymentHistories, adminPaymentHistory } from './paymentHistories/admin/queries';
+import { adminCreatePaymentHistory, adminUpdatePaymentHistory, adminDeletePaymentHistory } from './paymentHistories/admin/mutations';
 //--------------- Permissions ---------------------
 import { adminPermission, adminPermissions } from './permissions/admin/queries';
 import { adminCreatePermission, adminUpdatePermission, adminDeletePermission } from './permissions/admin/mutations';
@@ -103,15 +106,22 @@ import {
     clientVerifyUser
 } from './users/client/mutations';
 //-------------------  User Branch -----------------
+import { adminUserCompanyBranches, adminUserBranches, adminUserBranch } from './userBranches/admin/queries';
+import { adminUpdateUserBranch } from './userBranches/admin/mutations';
 import { clientFindBranchEmployees, clientFindBranchPendingEmployees, clientUserCompanyBranches } from './userBranches/client/queries';
 import { clientAssignBranchEmployee, clientDeleteBranch, clientDeleteBranchEmployee } from './userBranches/client/mutations';
 //-------------------  User Company ----------------
 import { adminUserCompany } from './userCompanies/admin/queries';
 import { adminCreateUserCompany, adminUpdateUserCompany, adminDeleteUserCompany } from './userCompanies/admin/mutations';
+//-------------------  Other Packages ---------------
+import { DateTimeResolver } from 'graphql-scalars';
+
 
 
 
 const resolvers = {
+    DateTime: DateTimeResolver,
+
     Query: {
         //--------------- App Notifications --------------
         adminAppNotification,
@@ -167,6 +177,9 @@ const resolvers = {
         //--------------- Measurement Units ---------------
         adminMeasurementUnit,
         adminMeasurementUnits,
+        //--------------- Payment Histories ---------------
+        adminPaymentHistory,
+        adminPaymentHistories,
         //--------------- Permissions ---------------------
         adminPermission,
         adminPermissions,
@@ -196,6 +209,9 @@ const resolvers = {
         adminUser,
         adminUsers,
         //------------------ User Branch -------------------
+        adminUserCompanyBranches,
+        adminUserBranch,
+        adminUserBranches,
         clientFindBranchEmployees,
         clientFindBranchPendingEmployees,
         clientUserCompanyBranches,
@@ -271,6 +287,10 @@ const resolvers = {
         adminCreateMeasurementUnit,
         adminUpdateMeasurementUnit,
         adminDeleteMeasurementUnit,
+        //--------------- Payment Histories ---------------
+        adminCreatePaymentHistory,
+        adminUpdatePaymentHistory,
+        adminDeletePaymentHistory,
         //--------------- Permissions ---------------------
         adminCreatePermission,
         adminUpdatePermission,
@@ -322,6 +342,7 @@ const resolvers = {
         clientUserExists,
         clientVerifyUser,
         //-------------------- User Branch ------------------
+        adminUpdateUserBranch,
         clientAssignBranchEmployee,
         clientDeleteBranch,
         clientDeleteBranchEmployee,
