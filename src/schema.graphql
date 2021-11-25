@@ -123,7 +123,7 @@ type Mutation {
     adminUpdateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
     adminDeleteBranchGoal(id: ID!): BranchGoal!
 #------------------------------------------------------------------- Branch Product -----------------------------------------------------
-    adminAssignBranchProductCategory(userId: String, branchId: String, companyId: String, productId: String): BranchProduct!
+    adminAssignBranchProduct(userId: String, branchId: String, companyId: String, productId: String): BranchProduct!
     clientAssignBranchProduct(branchId: String!, productId: String!): BranchProduct!
     clientDeleteBranchProduct(branchId: String!, productId: String!): BranchProduct!
 #--------------------------------------------------------------- Branch Product Category ------------------------------------------------
