@@ -1,6 +1,10 @@
 export type UserId = string;
 
-
+export interface FindCustomerCarePersonnel {
+    userId: string
+    branchId: string
+    companyId: string
+}
 export interface LoginUserPayload {
     username: string
     password: string
@@ -51,9 +55,8 @@ export interface updateUserContactArgs extends UserIdArgs {
 export interface UpdateUserInfoPayload {
     userId: UserId
     userInfo: UserInfo
-    
 }
-
+    
 interface UserInfo {
     email: String
     firstName: String
@@ -86,6 +89,9 @@ export interface User {
     username: String,
     status: String,
     logins: number,
+    isCustomerCarePersonnel?: Boolean
+    isSupervisor?: Boolean
+    isRecruiter?: Boolean
 }
 
 export interface UserWithPassword extends User {

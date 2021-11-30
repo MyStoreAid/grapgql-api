@@ -23,8 +23,8 @@ export interface FindBranchProductsArgs {
 
 export interface BranchProduct {
     id: BranchProductId
-    productId: String
-    branchId: String
+    productId: string
+    branchId: string
     lowestStock: number
     quantity: number
     createdBy: String

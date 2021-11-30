@@ -1,3 +1,5 @@
+import { BranchProduct } from "../../resolvers/branchesProducts/types";
+
 export type BranchId = string;
 
 interface GPS {
@@ -46,6 +48,7 @@ export interface Branch {
     companyId: string
     branchProductCategoryIds: String[]
     branchUserIds: String[]
+    branches_products: Array<BranchProduct>
     created_at: number
     updated_at: number
     deleted: boolean

@@ -3,7 +3,7 @@ import path from 'path';
 import {ApolloServer} from 'apollo-server';
 import { PrismaClient } from '@prisma/client';
 import resolvers from './resolvers';
-import { DateTimeTypeDefinition } from "graphql-scalars"
+import { DateTimeTypeDefinition, JSONObjectDefinition } from "graphql-scalars"
 // import PrismaContextProvider from './services/PrismaContextProvider';
 import { PrismaContextProvider} from '@mystoreaid/backend-helpers';
 import { Model } from '@mystoreaid/prisma-models';
@@ -16,6 +16,7 @@ Model.setConnection(prisma);
 const server = new ApolloServer({
     typeDefs: [
         DateTimeTypeDefinition,
+        JSONObjectDefinition,
         fs.readFileSync(
         path.join(__dirname, 'schema.graphql'),
         'utf8'

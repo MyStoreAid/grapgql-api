@@ -3,8 +3,15 @@ import { Branch } from "../../resolvers/branches/types";
 import { RoleWithPermission, Role } from "../../resolvers/roles/types";
 import { User } from "../../resolvers/users/types";
 
-
 export type userBranchId = string;
+
+export interface AssignUserBranchArgs {
+    userId: string
+    companyId: string
+    branchId: string
+    roleId?: string
+    isCustomerCarePersonnel: boolean
+}
 
 export interface UpdateUserBranchArgs {
     userId: string
@@ -58,6 +65,10 @@ interface BranchInfoArgs {
     deleted: boolean
 }
 
+export interface CustomerCarePersonnelIdArgs {
+    customerCareId: string
+}
+
 export interface DeleteBranchArgs extends DeleteBranchEmployeeArgs {
     companyId: string
 }
@@ -83,11 +94,15 @@ interface Ids {
     id: string
 }
 
+export interface SetCustomerCarePersonnelArgs extends FindBranchEmployeeArgs{
+    userId: string
+}
+
 export interface UserBranch {
     id: userBranchId
     userId: string
     branchId: string
-    roleId: String
+    roleId: string
     addedPermissionIds: Array<Ids>
     excludedPermissionIds: Array<Ids>
     companyId: String
@@ -122,3 +137,7 @@ export interface UserIdArgs {
     userId: string
 }
 
+export interface UserRole {
+    user: User
+    role: Role
+}

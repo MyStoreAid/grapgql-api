@@ -1,5 +1,8 @@
 export type ProductSegmentEntryId = string;
 
+export interface FindProductSegmentEntryArgs extends ProductSegmentEntryIdArgs {
+    productSegmentId: string
+}
 export interface ProductSegmentEntry {
     id: ProductSegmentEntryId, 
     name: String,
@@ -11,6 +14,10 @@ export interface ProductSegmentEntry {
     server_created_at: number,
     deleted: boolean,
 
+}
+
+export interface ProductSegmentIdArgs {
+    productSegmentId: string
 }
 
 export interface ProductSegmentEntryIdArgs {
