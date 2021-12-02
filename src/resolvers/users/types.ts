@@ -1,5 +1,11 @@
 export type UserId = string;
 
+export interface ChangeUserPassword {
+    userId: UserId
+    password: string
+    newPassword: string
+}
+
 export interface FindCustomerCarePersonnel {
     userId: string
     branchId: string
@@ -13,10 +19,6 @@ export interface LoginUserPayload {
 export interface LoginResponse {
     token: string
     access?: any
-}
-
-export interface VerifyUserResponse {
-    token: string
 }
 
 export interface RegisterUserResponse {
@@ -112,7 +114,13 @@ export interface UserExistsResponse {
     valid: boolean,
 }
 
+
 export interface VerifyUserPayload {
     otp: string
     phone: string
+}
+
+
+export interface VerifyUserResponse {
+    token: string
 }

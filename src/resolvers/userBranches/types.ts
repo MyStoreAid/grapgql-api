@@ -13,6 +13,7 @@ export interface AssignUserBranchArgs {
     isCustomerCarePersonnel: boolean
 }
 
+
 export interface UpdateUserBranchArgs {
     userId: string
     companyId: string

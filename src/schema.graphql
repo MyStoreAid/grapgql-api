@@ -16,6 +16,7 @@ type Query {
     adminBranch(id: ID!): Branch
 #------------- Branch Customer --------------------------
     adminBranchCustomers(userId: String!, companyId: String!, companyId: String!): [Customer!]
+    clientBranchCustomers(userId: String!, companyId: String!, companyId: String!): [Customer!]
 #--------------- Branch Goal ----------------------------
     adminBranchGoals: [BranchGoal!]!
     adminBranchGoal(id: ID!): BranchGoal!
@@ -58,6 +59,7 @@ type Query {
     adminCustomer(id: ID!): Customer
 #------------ Employee Type ------------------------------
     adminEmployeeTypes: [EmployeeType!]!
+    clientEmployeeTypes: [EmployeeType!]!
     adminEmployeeType(id: ID!): EmployeeType
 #--------------- Feature ---------------------------------
     adminFeatures: [Feature!]!
@@ -114,6 +116,7 @@ type Query {
     adminBranchCustomerCarePersonnel(branchId: String!, userId: String!, companyId: String!): [User]
     adminUsers: [User!]!
     adminUser(userId: ID!): User
+    clientChangeUserPassword(userId: String, password: String, newPassword: String): User
 #----------- User Branch ------------------------------------
     adminCustomerCarePersonnelCompanies(customerCareId: String): [Company!]!
     adminUserBranches(userId: String!): [UserBranchResponse!]
@@ -143,6 +146,8 @@ type Mutation {
     adminCreateBranch(name: String!, startDate: Float, address: String, location: String!, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, branchUserIds: [String]): Branch!
     adminUpdateBranch(id: ID, name: String!, startDate: Float, address: String, checkoutSales: Boolean, aggregateSales: Boolean, alwaysSync: Boolean, forTesting: Boolean, supplierStock: Boolean,location: String, logo: String, whatsAppPhone: String, type: String, action: String, syncInterval: Float, gps: String, latitude: Float, longitude: Float, country: String, region: String, city: String, workingDays: String, sourcesOfPurchases: String, phoneType: String, otherServices: String, locationType: String, storeImage: String, serviceType: String, buildingStructures: String, coolerBrands: String, coolerTypes: String, electricity: String, yearOfEstablishment: Float, appointmentId: String, branchUserGroupId: String, businessCategoryId: String, companyId: String, userId: String): Branch!
     adminDeleteBranch(id: ID): Branch!
+#------------------------------------------------------------- Branch Customer ----------------------------------------------------------
+    clientCreateBranchCustomer(customerCareId: String, branchId: String): BranchCustomer!
 #--------------------------------------------------------------- Branch Goal ------------------------------------------------------------
     adminCreateBranchGoal(name: String!, position: Float!): BranchGoal!
     adminUpdateBranchGoal(id: ID!, name: String, position: Float, active: Boolean): BranchGoal!
@@ -151,6 +156,7 @@ type Mutation {
     adminAssignBranchProduct(userId: String, branchId: String, companyId: String, productId: String): BranchProduct!
     clientAssignBranchProduct(branchId: String!, productId: String!): BranchProduct!
     clientDeleteBranchProduct(branchId: String!, productId: String!): BranchProduct!
+    clientRemoveBranchProductStockHistory (branchId: String, historyIds: Ids): [BranchProductsStocksHistory]    
 #--------------------------------------------------------------- Branch Product Category ------------------------------------------------
     adminAssignBranchProductCategory(branchId: String, companyId: String, productCategoryId: String, userId: String): BranchProductCategory!
     clientAssignBranchProductCategory(branchId: String, productCategoryId: String!, lastModifiedBy: String): BranchProductCategory!
@@ -227,6 +233,8 @@ type Mutation {
     adminUpdateProduct(id: ID, name: String!, description: String, summary: String, barCode: String,  weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
     adminDeleteProduct(id: ID!): Product!
     clientCreateProduct(name: String!, branchId: String!, description: String, summary: String, barCode: String, manufacturerId: String, brandId: String, productCategoryId: String, productSegmentId: String, measuerementUnitId: String, weight: Float, image: String, adminLastModifiedBy: String, lastModifiedBy: String): Product!
+    clientCreateNewProduct(branchId: String, product: ProductArgs, branchProduct: BranchProductArgs): Product!
+    clientSwitchProduct(branchId: String, oldProductId: String!, newProductId: String!):  Notification!
 #------------------------------------------------------------- Product Category  --------------------------------------------------------
     adminCreateProductCategory(name: String!, summary: String): ProductCategory!
     adminUpdateProductCategory(id: ID!, name: String, summary: String): ProductCategory!
@@ -280,9 +288,10 @@ type Mutation {
     adminUpdateUserBranch(userId: String!, companyId: String!, branchId: String!, branchInfo: BranchInfo!): Branch
     adminRevokeEmployeeAccess(branchId: String!, userId: String!, companyId: String!): [UserBranch!]!
     adminSetMainCustomerCarePersonnel(branchId: String!, userId: String!): UserRole!
+    clientAssignBranchEmployee(branchId: String!, userId: String!, roleId: String!, companyId: String!, main: String, status: String, customerCareId: String, employeeTypeId: String, addedPermissions: [JSONObject!], excludedPermissions: [JSONObject!]): Employee!
     clientDeleteBranch(branchId: String!, userId: String!, companyId: String!): Branch!
     clientDeleteBranchEmployee(branchId: String!, userId: String!): Employee!
-    clientAssignBranchEmployee(branchId: String!, userId: String!, roleId: String!, companyId: String!, main: String, status: String, customerCareId: String, employeeTypeId: String, addedPermissions: [JSONObject!], excludedPermissions: [JSONObject!]): Employee!
+    clientUpdateBranch(branchId: String, userId: String, companyId: String, branchInfo: BranchArgs): Branch!
 #---------------------------------------------------------------- User Company --------------------------------------------------------------
     adminCreateUserCompany(userId: String!, roleId: String!, companyData: CompanyArgs!): Company!
     adminUpdateUserCompany(userId: String!, companyId: String!, companyData: CompanyArgs!): Company!
@@ -579,6 +588,20 @@ type BranchProduct {
     # sale_entries: [SaleEntry]
     # sale_return_histories: [SaleReturnHistory]
     # stock_return_histories: [StockReturnHistory]
+}
+
+input BranchProductArgs {
+    productId: String
+    branchId: String
+    lowestStock: Float
+    quantity: Float
+    createdBy: String
+    sellingPrice: Float
+    packs: [Float]
+    packList: JSONObject
+    defaultPack: JSONObject
+    hidden: Boolean
+    lastModifiedBy: String
 }
 
 type BranchProductCategory {
@@ -1008,6 +1031,17 @@ type MeasurementUnit {
     deleted: Boolean!
 }
 
+type Notification {
+  id: ID!
+  type: String
+  deleted: Boolean 
+  server_created_at: Float
+  last_modified: Float
+  created_at: Float
+  updated_at: Float
+  message: String
+}
+
 type PaymentHistory {
     id: ID!
     months: [String]
@@ -1084,6 +1118,20 @@ type Product {
     # sale_entries: [SaleEntry!]
     # sale_return_histories: [SaleReturnHistory!]
     # stock_return_histories: [StockReturnHistory!]
+}
+
+input ProductArgs {
+    name: String!
+    description: String
+    summary: String
+    barCode: String
+    weight: Float
+    image: String
+    isTemporary: Boolean
+    productCategoryId: String
+    productSegmentEntryId: String
+    productSegmentEntryIds: [String]
+    adminLastModifiedBy: String
 }
 
 
