@@ -1,12 +1,19 @@
+//------------------ Appointment -----------------
+import { adminAppointment, adminAppointments } from './appointments/admin/queries';
+import { adminCreateAppointment, adminUpdateAppointment, adminDeleteAppointment } from './appointments/admin/mutations';
 //--------------- App Notifications --------------
 import { adminAppNotification, adminAppNotifications } from './appNotifications/admin/queries';
 import { adminCreateAppNotification, adminUpdateAppNotification, adminDeleteAppNotification } from './appNotifications/admin/mutations';
 //--------------------- Audit --------------------
-import { adminAudit, adminAudits } from './audits/admin/queries';
+import { adminAudit, adminAudits, adminBranchAudits } from './audits/admin/queries';
 import { createAudit, updateAudit, deleteAudit } from './audits/mutations';
+//----------------- Audit Entries ----------------
+import { adminAuditEntries } from './auditEntries/admin/queries';
 //------------------- Branches -------------------
 import { adminBranch, adminBranches } from './branches/admin/queries';
 import { adminCreateBranch, adminUpdateBranch, adminDeleteBranch } from './branches/admin/mutations';
+//----------------- Branch Customers -------------
+import { adminBranchCustomers } from './branchCustomers/admin/queries';
 //------------------- Branch Goals ---------------
 import { adminBranchGoal, adminBranchGoals } from './branchGoals/admin/queries';
 import { adminCreateBranchGoal, adminUpdateBranchGoal, adminDeleteBranchGoal } from './branchGoals/admin/mutations';
@@ -22,7 +29,8 @@ import { adminAssignBranchProductCategory } from './branchProductCategories/admi
 import { clientBranchProductCategories } from './branchProductCategories/client/queries';
 import { clientAssignBranchProductCategory, clientDeleteBranchProductCategory } from './branchProductCategories/client/mutations';
 // -----------------  Branch Supplier -------------
-import { createBranchSupplier } from './branchSuppliers/mutations';
+import { adminBranchSuppliers } from './branchSuppliers/admin/queries';
+import { createBranchSupplier } from './branchSuppliers/client/mutations';
 //----------  Branch Supplier Salespersons -------
 // import { clientFindBranchEmployees } from './branchSupplierSalespersons/client/queries';
 import { clientCreateBranchSupplierSalesperson } from './branchSupplierSalespersons/client/mutations';
@@ -36,6 +44,12 @@ import { adminCreateBrand, adminUpdateBrand, adminDeleteBrand } from './brands/a
 import { adminBusinessCategory, adminBusinessCategories } from './businessCategories/admin/queries';
 import { adminCreateBusinessCategory, adminUpdateBusinessCategory, adminDeleteBusinessCategory } from './businessCategories/admin/mutations';
 import { clientBusinessCategories } from './businessCategories/client/queries';
+//--------------- Cashflows ----------------------
+import { adminBranchCashflows } from './cashflows/admin/queries';
+import { adminUpdateBranchCashflow } from './cashflows/admin/mutations';
+//------------ Client User Request ---------------
+import { adminClientUserRequest, adminClientUserRequests } from './clientUserRequests/admin/queries';
+import { adminCreateClientUserRequest, adminUpdateClientUserRequest, adminDeleteClientUserRequest } from './clientUserRequests/admin/mutations';
 //------------------ Client ----------------------
 import { client, clients } from './clients/queries';
 import { createClient, updateClient, deleteClient } from './clients/mutations';
@@ -49,9 +63,15 @@ import { adminSchedules } from './customerCareSchedules/admin/queries';
 //------------------ Customer --------------------
 import {adminCustomer, adminCustomers} from './customers/admin/queries';
 import {adminCreateCustomer, adminUpdateCustomer, adminDeleteCustomer} from './customers/admin/mutations';
+//----------------- Employee Type ----------------
+import { adminEmployeeType, adminEmployeeTypes } from './employeeTypes/admin/queries';
+import { adminCreateEmployeeType, adminUpdateEmployeeType, adminDeleteEmployeeType } from './employeeTypes/admin/mutations';
 //------------------- Feature --------------------
 import { adminFeature, adminFeatures } from './features/admin/queries';
 import { adminCreateFeature, adminUpdateFeature, adminDeleteFeature } from './features/admin/mutations';
+//---------------- Health Check ------------------
+import { adminHealthCheck, adminHealthChecks } from './healthChecks/admin/queries';
+import { adminCreateHealthCheck, adminUpdateHealthCheck, adminDeleteHealthCheck } from './healthChecks/admin/mutations';
 //-----------Internal Business Category ----------
 import { adminInternalBusinessCategory, adminInternalBusinessCategories} from './internalBusinessCategories/admin/queries';
 import { adminCreateInternalBusinessCategory, adminUpdateInternalBusinessCategory, adminDeleteInternalBusinessCategory } from './internalBusinessCategories/admin/mutations';
@@ -81,8 +101,10 @@ import { adminCreateProductDescription, adminUpdateProductDescription, adminDele
 import { adminProductSegment, adminProductSegments  } from './productSegments/admin/queries';
 import { adminCreateProductSegment, adminUpdateProductSegment, adminDeleteProductSegment } from './productSegments/admin/mutations';
 //------------- Product Segment Entry -------------
-import { adminProductSegmentEntry, adminProductSegmentEntries } from './productSegmentEntries/admin/queries';
+import { adminProductSegmentProductSegmentEntries, adminProductSegmentEntries, adminProductSegmentEntry } from './productSegmentEntries/admin/queries';
 import { adminCreateProductSegmentEntry, adminUpdateProductSegmentEntry, adminDeleteProductSegmentEntry } from './productSegmentEntries/admin/mutations';
+//------------------ Purchases --------------------
+import { adminPurchases } from './purchases/admin/queries';
 //------------------- Roles -----------------------
 import { adminRole, adminRoles } from './roles/admin/queries';
 import { adminCreateRole, adminUpdateRole, adminDeleteRole } from './roles/admin/mutations';
@@ -96,8 +118,10 @@ import { adminCreateSupplier } from './suppliers/admin/mutations';
 import { clientCreateSupplierCompany, clientCreateSupplierSalesperson } from './suppliers/client/mutations';
 //----------------------- Sales -------------------
 import { createSale } from './sales/mutations';
+//---------------------- Stock --------------------
+import { adminRemoveStockDuplicates } from './stocks/admin/mutations';
 //----------------------- User --------------------
-import { adminUser, adminUsers } from './users/admin/queries';
+import { adminUser, adminUsers, adminBranchCustomerCarePersonnel} from './users/admin/queries';
 import { adminUpdateUser, adminDeleteUser } from './users/admin/mutations';
 import {
     clientLoginUser,
@@ -110,29 +134,43 @@ import {
     clientVerifyUser
 } from './users/client/mutations';
 //-------------------  User Branch -----------------
-import { adminUserCompanyBranches, adminUserBranches, adminUserBranch } from './userBranches/admin/queries';
-import { adminUpdateUserBranch } from './userBranches/admin/mutations';
+import { adminUserCompanyBranches, adminUserBranches, adminUserBranch, adminCustomerCarePersonnelCompanies } from './userBranches/admin/queries';
+import { 
+    adminAssignUserBranch, 
+    adminRevokeEmployeeAccess, 
+    adminUpdateUserBranch,
+    adminSetMainCustomerCarePersonnel 
+} from './userBranches/admin/mutations';
 import { clientFindBranchEmployees, clientFindBranchPendingEmployees, clientUserCompanyBranches } from './userBranches/client/queries';
 import { clientAssignBranchEmployee, clientDeleteBranch, clientDeleteBranchEmployee } from './userBranches/client/mutations';
 //-------------------  User Company ----------------
 import { adminUserCompany } from './userCompanies/admin/queries';
 import { adminCreateUserCompany, adminUpdateUserCompany, adminDeleteUserCompany } from './userCompanies/admin/mutations';
 //-------------------  Other Packages ---------------
-import { DateTimeResolver } from 'graphql-scalars';
+import { DateTimeResolver, JSONObjectResolver } from 'graphql-scalars';
 
 const resolvers = {
     DateTime: DateTimeResolver,
+    JSONObject: JSONObjectResolver,
 
     Query: {
+        //------------------ Appointment -----------------
+        adminAppointment,
+        adminAppointments,
         //--------------- App Notifications --------------
         adminAppNotification,
         adminAppNotifications,
         //--------------------- Audit --------------------
         adminAudit,
         adminAudits,
+        adminBranchAudits,
+        //----------------- Audit Entries ----------------
+        adminAuditEntries,
         //------------------- Branches -------------------
         adminBranch,
         adminBranches,
+        //----------------- Branch Customers -------------
+        adminBranchCustomers,
         //------------------- Branch Goals ---------------
         adminBranchGoal,
         adminBranchGoals,
@@ -144,6 +182,8 @@ const resolvers = {
         //----------- Branch Product Category -------------
         adminBranchProductCategories,
         clientBranchProductCategories,
+        //---------------- Branch Supplier ----------------
+        adminBranchSuppliers,
         //----------- Branch Supplier Salespersons --------
         // clientFindBranchEmployees,
         //---------------- Branch user Groups -------------
@@ -156,6 +196,11 @@ const resolvers = {
         adminBusinessCategory,
         adminBusinessCategories,
         clientBusinessCategories,
+        //---------------- Cashflows ---------------------
+        adminBranchCashflows,
+        //----------- Client User Request ----------------
+        adminClientUserRequest,
+        adminClientUserRequests,
         //------------------ Client ----------------------
         client,
         clients,
@@ -169,9 +214,15 @@ const resolvers = {
         //------------------ Customer --------------------
         adminCustomer,
         adminCustomers,
+        //----------------- Employee Type ----------------
+        adminEmployeeType,
+        adminEmployeeTypes,
         //------------------- Feature --------------------
         adminFeature,
         adminFeatures,
+        //---------------- Health Check ------------------
+        adminHealthCheck,
+        adminHealthChecks,
         //-----------Internal Business Category ----------
         adminInternalBusinessCategory,
         adminInternalBusinessCategories,
@@ -201,8 +252,11 @@ const resolvers = {
         adminProductSegment,
         adminProductSegments,
         //------------- Product Segment Entry -------------
-        adminProductSegmentEntry,
+        adminProductSegmentProductSegmentEntries,
         adminProductSegmentEntries,
+        adminProductSegmentEntry,
+        //------------------ Purchases --------------------
+        adminPurchases,
         //------------------- Roles -----------------------
         adminRole,
         adminRoles,
@@ -210,12 +264,14 @@ const resolvers = {
         adminSubscription,
         adminSubscriptions,
         //-------------------- Users ----------------------
+        adminBranchCustomerCarePersonnel,
         adminUser,
         adminUsers,
         //------------------ User Branch -------------------
-        adminUserCompanyBranches,
+        adminCustomerCarePersonnelCompanies,
         adminUserBranch,
         adminUserBranches,
+        adminUserCompanyBranches,
         clientFindBranchEmployees,
         clientFindBranchPendingEmployees,
         clientUserCompanyBranches,
@@ -224,6 +280,10 @@ const resolvers = {
     },
 
     Mutation: {
+        //----------------- Appointments -----------------
+        adminCreateAppointment,
+        adminUpdateAppointment,
+        adminDeleteAppointment,
         //--------------- App Notifications --------------
         adminCreateAppNotification,
         adminUpdateAppNotification,
@@ -264,6 +324,12 @@ const resolvers = {
         adminCreateBusinessCategory,
         adminUpdateBusinessCategory,
         adminDeleteBusinessCategory,
+        //----------------- Cashflow ---------------------
+        adminUpdateBranchCashflow,
+        //------------ Client User Client ----------------
+        adminCreateClientUserRequest,
+        adminUpdateClientUserRequest,
+        adminDeleteClientUserRequest,
         //------------------ Client ----------------------
         createClient,
         updateClient,
@@ -277,10 +343,18 @@ const resolvers = {
         adminCreateCustomer,
         adminUpdateCustomer,
         adminDeleteCustomer,
+        //---------------- Employee Type -----------------
+        adminCreateEmployeeType,
+        adminUpdateEmployeeType,
+        adminDeleteEmployeeType,
         //------------------- Feature --------------------
         adminCreateFeature,
         adminUpdateFeature,
         adminDeleteFeature,
+        //---------------- Health Checks -----------------
+        adminCreateHealthCheck,
+        adminUpdateHealthCheck,
+        adminDeleteHealthCheck,
         //-----------Internal Business Category ----------
         adminCreateInternalBusinessCategory,
         adminUpdateInternalBusinessCategory,
@@ -328,6 +402,8 @@ const resolvers = {
         createRolePermission,
         //----------------------- Sale --------------------
         createSale,
+        //---------------------- Stock ---------------------
+        adminRemoveStockDuplicates,
         //-------------------- Subscriptions --------------
         adminCreateSubscription,
         adminUpdateSubscription,
@@ -348,6 +424,9 @@ const resolvers = {
         clientUserExists,
         clientVerifyUser,
         //-------------------- User Branch ------------------
+        adminAssignUserBranch,
+        adminRevokeEmployeeAccess,
+        adminSetMainCustomerCarePersonnel,
         adminUpdateUserBranch,
         clientAssignBranchEmployee,
         clientDeleteBranch,

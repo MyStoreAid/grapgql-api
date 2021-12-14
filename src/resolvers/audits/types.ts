@@ -18,3 +18,9 @@ export interface Audit {
   export interface AuditIdArgs{
       id: AuditId
   }
+
+  export interface FindBranchAuditsArgs {
+      userId: string
+      branchId: string
+      companyId: string
+  }

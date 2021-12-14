@@ -15,5 +15,11 @@ export interface BranchSupplier {
     branchName: String                                       
     branchContact: String                                       
     lastModifiedBy: String  
-    supplierId: String
+    supplierId: string
+}
+
+export interface FindBranchSupplierArgs {
+    userId: string
+    branchId: string
+    companyId: string
 }

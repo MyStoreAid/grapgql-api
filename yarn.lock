@@ -631,10 +631,10 @@
     moment "^2.29.1"
     uuid "^8.3.2"
 
-"@mystoreaid/prisma-models@^1.4.7":
-  version "1.4.7"
-  resolved "https://registry.npmjs.org/@mystoreaid/prisma-models/-/prisma-models-1.4.7.tgz"
-  integrity sha512-SYZJvvrHAw/6mN8xh1c9GJTwpikvWULND0j1DZty9oxTAAg/bLYl406M+ZjADqA0HxTwxQV7+llqBw/f7qRywg==
+"@mystoreaid/prisma-models@^1.5.6":
+  version "1.5.6"
+  resolved "https://registry.yarnpkg.com/@mystoreaid/prisma-models/-/prisma-models-1.5.6.tgz#e041577961084d62e91ac100c0da91a1f828589f"
+  integrity sha512-BouDNuKr87hIaH0e5RLP/vQ8IQdHTR8dk+4pP1yIf9a0x6dNb9hS37Ls6zlzU/vsArT0kZLuVUANpB9Qn6UmUg==
   dependencies:
     "@mystoreaid/backend-helpers" "^1.0.5"
 

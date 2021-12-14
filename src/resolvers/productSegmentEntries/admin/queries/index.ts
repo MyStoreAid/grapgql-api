@@ -1,7 +1,10 @@
-import productSegmentEntry from "./productSegmentEntry";
+import productSegmentProductSegmentEntries from "./productSegmentProductSegmentEntries";
 import productSegmentEntries from "./productSegmentEntries";
+import productSegmentEntry from "./productSegmentEntry";
 
 export {
-    productSegmentEntry as adminProductSegmentEntry,
+    productSegmentProductSegmentEntries as adminProductSegmentProductSegmentEntries,
     productSegmentEntries as adminProductSegmentEntries,
+    productSegmentEntry as adminProductSegmentEntry
+
 }
