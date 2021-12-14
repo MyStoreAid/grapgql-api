@@ -37,7 +37,7 @@ export default async function deleteBranch (parent: any, args: DeleteBranchArgs)
             throw new Error(`There was an error deleting Branch with ID ${branchId}`);
         }
         try {
-            await UserBranchModel.findOneWhere({branchId: deletedBranch.id});
+            await UserBranchModel.deleteOneWhere({branchId: deletedBranch.id});
         }
         catch(error:any) {
             throw new Error(`There was an error deleting User Branch ${errorMessage} ${error}`);

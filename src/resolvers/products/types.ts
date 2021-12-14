@@ -8,13 +8,44 @@ import { User } from "../../resolvers/users/types";
 
 export type ProductId = string;
 
-<<<<<<< HEAD
+export interface BranchProductArgs {
+    productId: String
+    branchId: String
+    lowestStock: number
+    quantity: number
+    createdBy: String
+    sellingPrice: number
+    packs: [number]
+    packList: JSON
+    defaultPack: JSON
+    hidden: Boolean
+    lastModifiedBy: String
+}
+
 export interface ClientCreateProduct extends Product {
-=======
-export interface CreateProduct extends Product {
->>>>>>> origin/MSA-1617_brachProduct
     branchId: string
 }
+
+export interface CreateProduct extends Product {
+    branchId: string
+}
+
+export interface NewProductArgs {
+    branchId: string
+    product: ProductArgs
+    branchProduct: BranchProductArgs
+}
+
+export interface Notification {
+    id: string
+    type: String
+    deleted: Boolean 
+    server_created_at: number
+    last_modified: number
+    created_at: number
+    updated_at: number
+    message: String
+  }
 
 export interface Product {
     id: ProductId
@@ -32,16 +63,7 @@ export interface Product {
     isTemporary: boolean
     adminLastModifiedBy: String
     lastModifiedBy: String
-<<<<<<< HEAD
-=======
-    brands?: any
-    product_descriptions?: any
-    users?: any
-    manufacturers?: any
-    measurement_units?: any
-    product_categories?: any
     product_segments?: any
->>>>>>> origin/MSA-1617_brachProduct
     created_at: number
     updated_at: number
     last_modified: number
@@ -58,4 +80,24 @@ export interface Product {
 export interface ProductIdArgs {
     id: ProductId
 
+}
+
+export interface ProductArgs {
+    name: String
+    description: String
+    summary: String
+    barCode: String
+    weight: number
+    image: String
+    isTemporary: Boolean
+    adminLastModifiedBy: String
+    productCategoryId?: string
+    productSegmentEntryId?: string
+    productSegmentEntryIds?: Array<String>
+}
+
+export interface SwitchProductArgs {
+    branchId?: string
+    oldProductId: string
+    newProductId: string
 }

@@ -14,6 +14,8 @@ import { adminBranch, adminBranches } from './branches/admin/queries';
 import { adminCreateBranch, adminUpdateBranch, adminDeleteBranch } from './branches/admin/mutations';
 //----------------- Branch Customers -------------
 import { adminBranchCustomers } from './branchCustomers/admin/queries';
+import { clientBranchCustomers } from './branchCustomers/client/query';
+import { clientCreateBranchCustomer } from './branchCustomers/client/mutations';
 //------------------- Branch Goals ---------------
 import { adminBranchGoal, adminBranchGoals } from './branchGoals/admin/queries';
 import { adminCreateBranchGoal, adminUpdateBranchGoal, adminDeleteBranchGoal } from './branchGoals/admin/mutations';
@@ -22,7 +24,7 @@ import { clientBranchGoals } from './branchGoals/client/queries';
 import { adminBranchProducts } from './branchesProducts/admin/queries';
 import { adminAssignBranchProduct } from './branchesProducts/admin/mutations';
 import { clientBranchProducts } from './branchesProducts/client/queries';
-import { clientAssignBranchProduct, clientDeleteBranchProduct } from './branchesProducts/client/mutations';
+import { clientAssignBranchProduct, clientDeleteBranchProduct, clientRemoveBranchProductStockHistory } from './branchesProducts/client/mutations';
 //----------  Branch Product Category ------------
 import { adminBranchProductCategories } from './branchProductCategories/admin/queries';
 import { adminAssignBranchProductCategory } from './branchProductCategories/admin/mutations';
@@ -66,6 +68,7 @@ import {adminCreateCustomer, adminUpdateCustomer, adminDeleteCustomer} from './c
 //----------------- Employee Type ----------------
 import { adminEmployeeType, adminEmployeeTypes } from './employeeTypes/admin/queries';
 import { adminCreateEmployeeType, adminUpdateEmployeeType, adminDeleteEmployeeType } from './employeeTypes/admin/mutations';
+import { clientEmployeeTypes } from './employeeTypes/client/queries';
 //------------------- Feature --------------------
 import { adminFeature, adminFeatures } from './features/admin/queries';
 import { adminCreateFeature, adminUpdateFeature, adminDeleteFeature } from './features/admin/mutations';
@@ -91,6 +94,7 @@ import { clientAvailablePermissions } from './permissions/client/queries';
 //------------------ Products ---------------------
 import { adminProduct, adminProducts } from './products/admin/queries';
 import { adminCreateProduct, adminUpdateProduct, adminDeleteProduct } from './products/admin/mutations';
+import { clientCreateProduct, clientCreateNewProduct, clientSwitchProduct } from './products/client/mutations';
 //--------------- Product Category ----------------
 import { adminProductCategory, adminProductCategories } from './productCategories/admin/queries';
 import { adminCreateProductCategory, adminUpdateProductCategory, adminDeleteProductCategory } from './productCategories/admin/mutations';
@@ -124,6 +128,7 @@ import { adminRemoveStockDuplicates } from './stocks/admin/mutations';
 import { adminUser, adminUsers, adminBranchCustomerCarePersonnel} from './users/admin/queries';
 import { adminUpdateUser, adminDeleteUser } from './users/admin/mutations';
 import {
+    clientChangeUserPassword,
     clientLoginUser,
     clientRefreshToken, 
     clientRegisterUser,
@@ -142,7 +147,12 @@ import {
     adminSetMainCustomerCarePersonnel 
 } from './userBranches/admin/mutations';
 import { clientFindBranchEmployees, clientFindBranchPendingEmployees, clientUserCompanyBranches } from './userBranches/client/queries';
-import { clientAssignBranchEmployee, clientDeleteBranch, clientDeleteBranchEmployee } from './userBranches/client/mutations';
+import { 
+    clientAssignBranchEmployee, 
+    clientDeleteBranch, 
+    clientDeleteBranchEmployee,
+    clientUpdateBranch 
+} from './userBranches/client/mutations';
 //-------------------  User Company ----------------
 import { adminUserCompany } from './userCompanies/admin/queries';
 import { adminCreateUserCompany, adminUpdateUserCompany, adminDeleteUserCompany } from './userCompanies/admin/mutations';
@@ -171,6 +181,7 @@ const resolvers = {
         adminBranches,
         //----------------- Branch Customers -------------
         adminBranchCustomers,
+        clientBranchCustomers,
         //------------------- Branch Goals ---------------
         adminBranchGoal,
         adminBranchGoals,
@@ -217,6 +228,7 @@ const resolvers = {
         //----------------- Employee Type ----------------
         adminEmployeeType,
         adminEmployeeTypes,
+        clientEmployeeTypes,
         //------------------- Feature --------------------
         adminFeature,
         adminFeatures,
@@ -296,6 +308,8 @@ const resolvers = {
         adminCreateBranch,
         adminUpdateBranch,
         adminDeleteBranch,
+        //----------------- Branch Customer --------------
+        clientCreateBranchCustomer,
         //------------------- Branch Goals ---------------
         adminCreateBranchGoal,
         adminUpdateBranchGoal,
@@ -304,6 +318,7 @@ const resolvers = {
         adminAssignBranchProduct,
         clientAssignBranchProduct,
         clientDeleteBranchProduct,
+        clientRemoveBranchProductStockHistory,
         //---------------- Branch Product Category -------
         adminAssignBranchProductCategory,
         clientAssignBranchProductCategory,
@@ -379,6 +394,9 @@ const resolvers = {
         adminCreateProduct,
         adminUpdateProduct,
         adminDeleteProduct,
+        clientCreateProduct,
+        clientCreateNewProduct,
+        clientSwitchProduct,
         //--------------- Product Category ----------------
         adminCreateProductCategory,
         adminUpdateProductCategory,
@@ -431,6 +449,7 @@ const resolvers = {
         clientAssignBranchEmployee,
         clientDeleteBranch,
         clientDeleteBranchEmployee,
+        clientUpdateBranch,
         //-------------------- User Company -----------------
         adminCreateUserCompany,
         adminUpdateUserCompany,

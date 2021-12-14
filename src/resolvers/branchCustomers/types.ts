@@ -21,6 +21,11 @@ export interface BranchCustomer {
     users_branches_customers_lastModifiedByTousers: User
 }
 
+export interface BranchCustomerArgs {
+    branchId: string
+    customerId: string
+}
+
 export interface FindCustomerArgs {
     userId: string
     branchId: string
